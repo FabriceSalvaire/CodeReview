@@ -1,0 +1,91 @@
+#! /usr/bin/env python
+
+#####################################################################################################
+
+from __future__ import print_function
+
+import git
+import os
+import sys
+import time
+
+#####################################################################################################
+
+if len(sys.argv) != 2:
+    print("Give a repository path")
+    sys.exit(1)
+
+repository_path = sys.argv[1]
+
+repository_path = os.path.expandvars(repository_path)
+repository_path = os.path.abspath(repository_path)
+repository_path = os.path.normpath(repository_path)
+
+print("Repository:", repository_path)
+
+#####################################################################################################
+
+repository = git.Repo(repository_path)
+
+print('*'*80)
+print('Commits')
+for commit in repository.iter_commits():
+    
+    template = """
+=================================================================================
+Commit:
+  sha: %(hexsha)s
+  Author: %(author)s
+  Author date: %(author)s
+  Parents: %(parents)s
+  Short log:
+""" 
+    
+    d = {}
+    for key in 'hexsha', 'author':
+        d[key] = getattr(commit, key)
+
+    d['committed_date'] = time.asctime(time.gmtime(commit.committed_date))
+    d['parents'] = str([x.hexsha for x in commit.parents])
+
+    print(template[:-1] % d)
+
+    print(' '*4 + commit.message.strip())
+
+    for entry in commit.tree.traverse():
+
+        template = """
+  ***********************************************************
+  Object:
+    type: %(type)s
+    path: %(path)s
+    mode: %(mode)s
+""" 
+    
+        d = {}
+        for key in 'type', 'path', 'mode':
+            d[key] = getattr(entry, key)
+
+        print(template[1:-1] % d)
+        if entry.type == 'blob':
+            print('-'*25)
+            print(entry.data_stream.read())
+
+#####################################################################################################
+
+print('*'*80)
+print('Diff:')
+
+prev_commit = repository.commit('HEAD~1')
+diff = prev_commit.diff('HEAD')
+
+for diff_type in 'A', 'D', 'R', 'M':
+    for entry in diff.iter_change_type(diff_type):
+        print(diff_type)
+        print(entry)
+
+#####################################################################################################
+#
+# End
+#
+#####################################################################################################

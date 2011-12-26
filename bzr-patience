@@ -1,0 +1,45 @@
+#! /usr/bin/env python
+# -*- Mode: Python -*-
+
+#####################################################################################################
+
+import argparse
+import difflib
+import sys
+
+#####################################################################################################
+
+from bzrlib.patiencediff import unified_diff_files, PatienceSequenceMatcher
+
+#####################################################################################################
+
+parser = argparse.ArgumentParser(description='Patience Diff.')
+
+parser.add_argument('file_a', metavar='File_a',
+                    help='')
+parser.add_argument('file_b', metavar='File_b',
+                    help='')
+
+parser.add_argument('--patience', dest='matcher',
+                    action='store_const', const='patience', default='patience',
+                    help="Use the patience difference algorithm")
+parser.add_argument('--difflib', dest='matcher',
+                    action='store_const', const='difflib', default='patience',
+                    help="Use python\'s difflib algorithm")
+
+args = parser.parse_args()
+
+#####################################################################################################
+
+algorithms = {'patience':PatienceSequenceMatcher, 'difflib':difflib.SequenceMatcher}
+
+matcher = algorithms[args.matcher]
+
+for line in unified_diff_files(args.file_a, args.file_b, sequencematcher=matcher):
+    sys.stdout.write(line)
+    
+#####################################################################################################
+#
+# End
+#
+#####################################################################################################
