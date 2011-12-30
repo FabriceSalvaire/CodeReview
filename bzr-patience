@@ -33,11 +33,54 @@ args = parser.parse_args()
 
 algorithms = {'patience':PatienceSequenceMatcher, 'difflib':difflib.SequenceMatcher}
 
-matcher = algorithms[args.matcher]
+sequence_matcher_class = algorithms[args.matcher]
 
-for line in unified_diff_files(args.file_a, args.file_b, sequencematcher=matcher):
-    sys.stdout.write(line)
-    
+file_a = open(args.file_a, 'rb').readlines()
+file_b = open(args.file_b, 'rb').readlines()
+
+# isjunk=None, a=file_a, b=file_b
+sequence_matcher = sequence_matcher_class(None, file_a, file_b)
+
+print '>>> File a'
+print ''.join(['%3u| ' %i + s for i, s in enumerate(file_a)])
+print '>>> File b'
+print ''.join(['%3u| ' %i + s for i, s in enumerate(file_b)])
+
+lines_a = []
+lines_b = []
+
+number_of_lines_of_context = 3
+for group in sequence_matcher.get_grouped_opcodes(number_of_lines_of_context):
+    print 'Group:'
+    print '\n'.join([str(x) for x in group])
+    for tag, i1, i2, j1, j2 in group:
+        if tag == 'equal':
+            for line in file_a[i1:i2]:
+                lines_a.append('=| ' + line)
+            for line in file_b[j1:j2]:
+                lines_b.append('=| ' + line)
+        elif tag == 'delete':
+            for line in file_a[i1:i2]:
+                lines_a.append('-| ' + line)
+        elif tag == 'insert':
+            for line in file_b[j1:j2]:
+                lines_b.append('+| ' + line)
+        elif tag == 'replace':
+            line_a = ''.join(file_a[i1:i2])
+            line_b = ''.join(file_b[i1:i2])
+            line_sequence_matcher = sequence_matcher_class(None, line_a, line_b)
+            line_groups = line_sequence_matcher.get_opcodes()
+            print line_groups
+            for line in file_a[i1:i2]:
+                lines_a.append('r| ' + line)
+            for line in file_b[j1:j2]:
+                lines_b.append('r| ' + line)
+
+print '>>> a'
+print ''.join(lines_a)
+print '>>> b'
+print ''.join(lines_b)
+
 #####################################################################################################
 #
 # End

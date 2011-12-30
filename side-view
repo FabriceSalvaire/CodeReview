@@ -1,0 +1,74 @@
+#! /usr/bin/env python
+# -*- python -*-
+
+#####################################################################################################
+
+import argparse
+import sys
+
+from PyQt4 import QtGui, QtCore
+
+#####################################################################################################
+
+class Application(QtGui.QApplication):
+
+    ################################################
+
+    def __init__(self, args):
+
+        super(Application, self).__init__(sys.argv)
+
+        self.main_window = QtGui.QMainWindow(None)
+        self.main_window.resize(800, 600)
+
+        self.central_widget = QtGui.QWidget(self.main_window)
+        self.horizontalLayout = QtGui.QHBoxLayout(self.central_widget)
+        self.main_window.setCentralWidget(self.central_widget)
+
+        self.splitter = QtGui.QSplitter(self.central_widget)
+        self.splitter.setOrientation(QtCore.Qt.Horizontal)
+        self.horizontalLayout.addWidget(self.splitter)
+
+        self.text_browser_1 = QtGui.QTextBrowser(self.splitter)
+        self.text_browser_2 = QtGui.QTextBrowser(self.splitter)
+
+        self.text_document_1 = QtGui.QTextDocument()
+        text_cursor_1 = QtGui.QTextCursor(self.text_document_1)
+        text_format= QtGui.QTextCharFormat()
+        text_format.setForeground(QtGui.QBrush(QtGui.QColor('red')))
+        text_block_format = QtGui.QTextBlockFormat()
+        # text_block_format.setTopMargin(0)
+        text_cursor_1.insertBlock(text_block_format, text_format)
+        text_cursor_1.insertText('Welcome!', text_format)
+        text_format.setForeground(QtGui.QBrush(QtGui.QColor('blue')))
+        text_cursor_1.insertBlock(text_block_format, text_format)
+        text_cursor_1.insertText('    Some text ...')
+
+        self.text_browser_1.setDocument(self.text_document_1)
+
+        self.main_window.show()
+
+#####################################################################################################
+#
+# Options
+#
+
+parser = argparse.ArgumentParser(description='Side Viewer.')
+
+# parser.add_argument('file_a', metavar='File_a',
+#                     help='')
+# parser.add_argument('file_b', metavar='File_b',
+#                     help='')
+
+args = parser.parse_args()
+
+#####################################################################################################
+
+application = Application(args)
+application.exec_()
+
+#####################################################################################################
+#
+# End
+#
+#####################################################################################################
