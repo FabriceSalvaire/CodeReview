@@ -8,7 +8,7 @@ import sys
 
 #####################################################################################################
 
-from Diff import DiffFile, Diff2Way
+from Diff import FileDiffBuffer, Diff2Way
 
 #####################################################################################################
 
@@ -33,8 +33,8 @@ args = parser.parse_args()
 file_a = open(args.file_a, 'rb').readlines()
 file_b = open(args.file_b, 'rb').readlines()
 
-diff_file_a = DiffFile(file_a, 'A')
-diff_file_b = DiffFile(file_b, 'B')
+diff_file_a = FileDiffBuffer(file_a, 'A')
+diff_file_b = FileDiffBuffer(file_b, 'B')
 
 diff2way = Diff2Way(diff_file_a, diff_file_b)
 

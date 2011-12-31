@@ -4,13 +4,12 @@ from bzrlib.patiencediff import unified_diff_files, PatienceSequenceMatcher
 
 #####################################################################################################
 
-class Hunk(object):
+class HunkAbc(object):
 
     ###############################################
 
-    def __init__(self, diff_file, hunk_slice):
+    def __init__(self, hunk_slice):
 
-        self.diff_file = diff_file
         self.slice = hunk_slice
         self.length = hunk_slice.stop - hunk_slice.start
 
@@ -26,16 +25,143 @@ class Hunk(object):
 
         return self.length
 
+#####################################################################################################
+
+class HunksAbc(list):
+
+    ###############################################
+
+    def __init__(self, diff_buffer):
+
+        self.diff_buffer = diff_buffer
+
+    ###############################################
+
+    def add_hunk(self, hunk_slice):
+
+        hunk = self.new_hunk(hunk_slice)
+        self.append(hunk)
+
+        return hunk
+
+#####################################################################################################
+
+class DiffBufferAbc(object):
+
+    ###############################################
+
+    def __init__(self, buffer_obj, name, hunks_class):
+
+        self.buffer = buffer_obj
+        self.name = name
+        self.hunks = hunks_class(self)
+
+    ###############################################
+
+    def __getitem__(self, hunk):
+
+        return self.buffer[hunk.slice]
+
+    ###############################################
+
+    def add_hunk(self, hunk_slice):
+
+        return self.hunks.add_hunk(hunk_slice)
+
+#####################################################################################################
+
+class LinearHunk(HunkAbc):
+
+    ###############################################
+
+    def __init__(self, text, hunk_slice):
+
+        super(LinearHunk, self).__init__(hunk_slice)
+
+        self._text = text
+
+    ###############################################
+
+    def text(self):
+
+        return self._text[self.slice]
+
+#####################################################################################################
+
+class LinearHunks(HunksAbc):
+
+    ###############################################
+
+    def new_hunk(self, hunk_slice):
+
+        return LinearHunk(self.diff_buffer, hunk_slice)
+
+#####################################################################################################
+
+class LinearDiffBuffer(DiffBufferAbc):
+
+    ###############################################
+
+    def __init__(self, text, name):
+
+        super(LinearDiffBuffer, self).__init__(text, name, LinearHunks)
+
+#####################################################################################################
+
+class LinearTwoWayHunk(object):
+
+    ###############################################
+
+    def __init__(self, slice_a, slice_b):
+
+        self.slice_a, self.slice_b = slice_a, slice_b
+
+#####################################################################################################
+
+class LinearTwoWayHunkEqual(LinearTwoWayHunk):
+
+    repr_string = 'equal'
+
+#####################################################################################################
+
+class LinearTwoWayHunkDelete(LinearTwoWayHunk):
+
+    repr_string = 'delete'
+
+#####################################################################################################
+
+class LinearTwoWayHunkInsert(LinearTwoWayHunk):
+
+    repr_string = 'insert'
+
+#####################################################################################################
+
+class LinearTwoWayHunkReplace(LinearTwoWayHunk):
+
+    repr_string = 'replace'
+        
+#####################################################################################################
+
+class Hunk(HunkAbc):
+
+    ###############################################
+
+    def __init__(self, diff_buffer, hunk_slice):
+
+        super(Hunk, self).__init__(hunk_slice)
+
+        self.diff_buffer = diff_buffer
+
     ###############################################
 
     def __repr__(self):
 
         if not self:
-            return "Hunk %s empty\n" % (self.diff_file.name)
+            return "Hunk %s empty\n" % (self.diff_buffer.name)
 
         string_template = 'Hunk %s [%u, %u]\n'
 
-        s = string_template % (self.diff_file.name,
+        s = string_template % (self.diff_buffer.name,
                                self.slice.start, self.slice.stop -1)
         s += '  '.join(self.lines())
 
@@ -51,11 +177,12 @@ class Hunk(object):
 
     def lines(self):
 
-        return self.diff_file[self]
+        for line in self.diff_buffer[self]:
+            yield line
 
 #####################################################################################################
 
-class Hunks(list):
+class Hunks(HunksAbc):
 
     ###############################################
 
@@ -63,36 +190,25 @@ class Hunks(list):
 
         return '\n'.join([str(x) for x in self])
 
+    ###############################################
+
+    def new_hunk(self, hunk_slice):
+
+        return Hunk(self.diff_buffer, hunk_slice)
+
 #####################################################################################################
 
-class DiffFile(object):
+class FileDiffBuffer(DiffBufferAbc):
 
     ###############################################
 
     def __init__(self, file_handler, name):
 
-        self.file_handler = file_handler
-        self.name = name
-        self.hunks = Hunks()
-
-    ###############################################
-
-    def __getitem__(self, hunk):
-
-        return self.file_handler[hunk.slice]
-
-    ###############################################
-
-    def add_hunk(self, hunk_slice):
-
-        hunk = Hunk(self, hunk_slice)
-        self.hunks.append(hunk)
-
-        return hunk
+        super(FileDiffBuffer, self).__init__(file_handler, name, Hunks)
 
 #####################################################################################################
 
-class Hunk2Way(object):
+class TwoWayHunk(object):
 
     ###############################################
 
@@ -112,119 +228,111 @@ class Hunk2Way(object):
 
 #####################################################################################################
 
-class Hunk2WayEqual(Hunk2Way):
+class TwoWayHunkEqual(TwoWayHunk):
 
-    repr_string = 'Equal'
-
-#####################################################################################################
-
-class Hunk2WayDelete(Hunk2Way):
-
-    repr_string = 'Delete'
+    repr_string = 'equal'
 
 #####################################################################################################
 
-class Hunk2WayInsert(Hunk2Way):
+class TwoWayHunkDelete(TwoWayHunk):
 
-    repr_string = 'Insert'
+    repr_string = 'delete'
 
 #####################################################################################################
 
-class Hunk2WayReplace(Hunk2Way):
+class TwoWayHunkInsert(TwoWayHunk):
 
-    repr_string = 'Replace'
+    repr_string = 'insert'
+
+#####################################################################################################
+
+class TwoWayHunkReplace(TwoWayHunk):
+
+    repr_string = 'replace'
 
     ###############################################
 
     def __init__(self, hunk_a, hunk_b):
 
-        super(Hunk2WayReplace, self).__init__(hunk_a, hunk_b)
+        super(TwoWayHunkReplace, self).__init__(hunk_a, hunk_b)
 
+        self.diff_buffer_a = LinearDiffBuffer(str(hunk_a), 'A')
+        self.diff_buffer_b = LinearDiffBuffer(str(hunk_b), 'B')
+        
         sequence_matcher_class = PatienceSequenceMatcher
-
-        sequence_matcher = sequence_matcher_class(None, str(hunk_a), str(hunk_b))
-
-        self.hunks = list()
-        for group in sequence_matcher.get_opcodes():
-            for tag, lower_a, upper_a, lower_b, upper_b in group:
-                hunk_a = diff_file_a.add_hunk(slice(lower_a, upper_a))
-                hunk_b = diff_file_b.add_hunk(slice(lower_b, upper_b))
-                if tag == 'equal':
-                    hunk_diff = IntraHunkEqual(hunk_a, hunk_b)
-                elif tag == 'delete':
-                    hunk_diff = IntraHunkDelete(hunk_a, hunk_b)
-                elif tag == 'insert':
-                    hunk_diff = IntraHunkInsert(hunk_a, hunk_b)
-                elif tag == 'replace':
-                    hunk_diff = IntraHunkReplace(hunk_a, hunk_b)
-                hunks.append(hunk_diff)
-
-#####################################################################################################
-
-class IntraHunk(object):
+        sequence_matcher = sequence_matcher_class(None,
+                                                  self.diff_buffer_a.buffer,
+                                                  self.diff_buffer_b.buffer)
+        
+        sequence_matcher_groups = sequence_matcher.get_opcodes()
+        
+        self.hunks = hunks = TwoWayHunks()
+        for tag, lower_a, upper_a, lower_b, upper_b in sequence_matcher_groups:
+            hunk_a = self.diff_buffer_a.add_hunk(slice(lower_a, upper_a))
+            hunk_b = self.diff_buffer_b.add_hunk(slice(lower_b, upper_b))
+            if tag == 'equal':
+                hunk_diff = LinearTwoWayHunkEqual(hunk_a, hunk_b)
+            elif tag == 'delete':
+                hunk_diff = LinearTwoWayHunkDelete(hunk_a, hunk_b)
+            elif tag == 'insert':
+                hunk_diff = LinearTwoWayHunkInsert(hunk_a, hunk_b)
+            elif tag == 'replace':
+                hunk_diff = LinearTwoWayHunkReplace(hunk_a, hunk_b)
+            hunks.append(hunk_diff)
 
     ###############################################
 
-    def __init__(self, slice_a, slice_b):
+    def __str__(self):
 
-        self.slice_a, self.slice_b = slice_a, slice_b
+        s = super(TwoWayHunkReplace, self).__str__()
 
-#####################################################################################################
+        s += str(self.hunks)
 
-class IntraHunkEqual(IntraHunk):
-
-    repr_string = 'Equal'
-
-#####################################################################################################
-
-class IntraHunkDelete(IntraHunk):
-
-    repr_string = 'Delete'
-
-#####################################################################################################
-
-class IntraHunkInsert(IntraHunk):
-
-    repr_string = 'Insert'
-
-#####################################################################################################
-
-class IntraHunkReplace(IntraHunk):
-
-    repr_string = 'Replace'
+        return s
         
+#####################################################################################################
+
+class TwoWayHunks(list):
+
+    ###############################################
+
+    def __str__(self):
+
+        return '\n'.join([str(x) for x in self])
+
 #####################################################################################################
 
 class Diff2Way(object):
 
     ###############################################
 
-    def __init__(self, diff_file_a, diff_file_b):
+    def __init__(self, diff_buffer_a, diff_buffer_b):
 
-        self.diff_file_a = diff_file_a
-        self.diff_file_b = diff_file_b
+        self.diff_buffer_a = diff_buffer_a
+        self.diff_buffer_b = diff_buffer_b
 
         sequence_matcher_class = PatienceSequenceMatcher
+        sequence_matcher = sequence_matcher_class(None,
+                                                  self.diff_buffer_a.buffer,
+                                                  self.diff_buffer_b.buffer)
+
         number_of_lines_of_context = 3
 
-        # isjunk=None, a=file_a, b=file_b
-        sequence_matcher = sequence_matcher_class(None,
-                                                  diff_file_a.file_handler,
-                                                  diff_file_b.file_handler)
+        sequence_matcher_groups = sequence_matcher.get_grouped_opcodes(number_of_lines_of_context)
 
-        self.hunks = hunks = Hunks()
-        for group in sequence_matcher.get_grouped_opcodes(number_of_lines_of_context):
+        self.hunks = hunks = TwoWayHunks()
+        for group in sequence_matcher_groups:
             for tag, lower_a, upper_a, lower_b, upper_b in group:
-                hunk_a = diff_file_a.add_hunk(slice(lower_a, upper_a))
-                hunk_b = diff_file_b.add_hunk(slice(lower_b, upper_b))
+                hunk_a = self.diff_buffer_a.add_hunk(slice(lower_a, upper_a))
+                hunk_b = self.diff_buffer_b.add_hunk(slice(lower_b, upper_b))
                 if tag == 'equal':
-                    hunk_diff = Hunk2WayEqual(hunk_a, hunk_b)
+                    hunk_diff = TwoWayHunkEqual(hunk_a, hunk_b)
                 elif tag == 'delete':
-                    hunk_diff = Hunk2WayDelete(hunk_a, hunk_b)
+                    hunk_diff = TwoWayHunkDelete(hunk_a, hunk_b)
                 elif tag == 'insert':
-                    hunk_diff = Hunk2WayInsert(hunk_a, hunk_b)
+                    hunk_diff = TwoWayHunkInsert(hunk_a, hunk_b)
                 elif tag == 'replace':
-                    hunk_diff = Hunk2WayReplace(hunk_a, hunk_b)
+                    hunk_diff = TwoWayHunkReplace(hunk_a, hunk_b)
                 hunks.append(hunk_diff)
 
 #####################################################################################################
