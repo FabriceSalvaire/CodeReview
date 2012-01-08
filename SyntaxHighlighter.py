@@ -103,12 +103,6 @@ class HighlightedLine(list):
 
         highlighted_line = HighlightedLine()
 
-        print '>', [(i, repr(x)) for i, x in enumerate(self)]
-        print '> bisect', self._accumulated_lengths
-        print '> line slice', lower_line_slice_index, upper_line_slice_index
-        print '> item index', lower_item_index, upper_item_index
-        print '>', lower_item_start, upper_item_stop
-
         if lower_item_index == upper_item_index:
             item = self[lower_item_index]
             highlighted_line.append(item[lower_item_start:upper_item_stop])
