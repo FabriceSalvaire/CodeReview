@@ -1,22 +1,20 @@
 #####################################################################################################
 
 import bisect
-
-#####################################################################################################
-
-from pygments.lexers import get_lexer_for_filename
-from pygments import lex
+import pygments
 
 #####################################################################################################
 
 class HighlightedItem(object):
+
+    # How to subclass unicode ?
 
     ###############################################
 
     def __init__(self, token, text):
 
         self.token = token
-        self.text = text
+        self.text = unicode(text)
 
     ###############################################
 
@@ -38,7 +36,7 @@ class HighlightedItem(object):
 
     ###############################################
 
-    def __str__(self):
+    def __unicode__(self):
 
         return self.text
 
@@ -52,18 +50,21 @@ class HighlightedLine(list):
 
         super(HighlightedLine, self).__init__()
 
+        # _accumulated_lengths[i-1] gives the lower index of the item i
         self._accumulated_lengths = None
 
     ###############################################
 
-    def __str__(self):
+    def __unicode__(self):
 
-        return ''.join([str(x) for x in self])
+        return u''.join([unicode(x) for x in self])
 
     ###############################################
 
     def _init_bisect(self):
 
+        # Fill _accumulated_lengths with
+        #   [len(item_0), len(item_0 + item_1), ...]
         accumulator = 0
         self._accumulated_lengths = []
         for item in self:
@@ -74,11 +75,17 @@ class HighlightedLine(list):
 
     def _bisect(self, i):
 
-        return bisect.bisect(self._accumulated_lengths, i)
+        # Return the index j where i < _accumulated_lengths[j], since _accumulated_lengths[j]
+        # corresponds to the lower index of the item j+1, thus j corresponds to the item that
+        # include the location i.
+        return bisect.bisect_right(self._accumulated_lengths, i)
 
     ###############################################
 
-    def _right_index(self, i):
+    def _item_lower_index(self, i):
+
+        """ Return the item lower index.
+        """
 
         if i:
             return self._accumulated_lengths[i -1]
@@ -89,19 +96,29 @@ class HighlightedLine(list):
 
     def get_line_slice(self, line_slice):
 
+        """ Return the line subset corresponding to the line slice given by the parameter
+        *line_slice*.
+        """
+
+        highlighted_line = HighlightedLine()
+        if line_slice.start == line_slice.stop:
+            return highlighted_line
+
         if self._accumulated_lengths is None:
             self._init_bisect()
 
-        lower_line_slice_index = line_slice.start
+        # Define line slice inclusive index
+        lower_line_index = line_slice.start
         upper_line_slice_index = line_slice.stop -1
 
-        lower_item_index = self._bisect(lower_line_slice_index)
+        # Define item slice inclusive index
+        lower_item_index = self._bisect(lower_line_index)
         upper_item_index = self._bisect(upper_line_slice_index)
 
-        lower_item_start = lower_line_slice_index - self._right_index(lower_item_index)
-        upper_item_stop = upper_line_slice_index - self._right_index(upper_item_index) +1
-
-        highlighted_line = HighlightedLine()
+        # Define lower item start index
+        lower_item_start = lower_line_index - self._item_lower_index(lower_item_index)
+        # Define upper item stop index (+1 according to slice convention)
+        upper_item_stop = upper_line_slice_index - self._item_lower_index(upper_item_index) +1
 
         if lower_item_index == upper_item_index:
             item = self[lower_item_index]
@@ -127,7 +144,7 @@ class HighlightedText(list):
     def __init__(self, lexer, text_buffer):
 
         current_line = HighlightedLine()
-        for token, text in lex(text_buffer, lexer):
+        for token, text in pygments.lex(text_buffer, lexer):
             current_line.append(HighlightedItem(token, text))
             if str(token) == 'Token.Text' and text == '\n':
                 self.append(current_line)
