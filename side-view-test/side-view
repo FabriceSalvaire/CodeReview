@@ -42,7 +42,7 @@ class Application(QtGui.QApplication):
         text_cursor_1.insertText('Welcome!', text_format)
         text_format.setForeground(QtGui.QBrush(QtGui.QColor('blue')))
         text_cursor_1.insertBlock(text_block_format, text_format)
-        text_cursor_1.insertText('    Some text ...')
+        text_cursor_1.insertText('    Some text ...\nazerty\r\ntoto')
 
         self.text_browser_1.setDocument(self.text_document_1)
 

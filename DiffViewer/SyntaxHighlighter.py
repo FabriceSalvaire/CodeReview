@@ -139,6 +139,8 @@ class HighlightedLine(list):
 
 class HighlightedText(list):
 
+    self.newlines = ('\n', '\r', '\r\n')
+
     ###############################################
 
     def __init__(self, lexer, text_buffer):
@@ -146,7 +148,8 @@ class HighlightedText(list):
         current_line = HighlightedLine()
         for token, text in pygments.lex(text_buffer, lexer):
             current_line.append(HighlightedItem(token, text))
-            if str(token) == 'Token.Text' and text == '\n':
+            # \n \r \r\n
+            if str(token) == 'Token.Text' and text in self.newlines:
                 self.append(current_line)
                 current_line = HighlightedLine()
 
