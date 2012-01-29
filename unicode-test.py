@@ -13,6 +13,10 @@ print text_unicode, len(text_unicode) # len = 21
 text = u'|'.join(u'(%u)%s' % (i, x) for i, x in enumerate(text_unicode))
 print text
 
+char = text_unicode[14]
+char_encoded = char.encode('UTF-8')
+print char, len(char), repr(char_encoded), len(char_encoded)
+
 #####################################################################################################
 #
 # End

@@ -15,38 +15,49 @@ class Slice(object):
         if stop < start:
             raise ValueError('stop < start')
 
-        self.start = start
-        self.stop = stop
-        self.step = 1
+        self._start = start
+        self._stop = stop
 
     ###############################################
 
     def __len__(self):
 
-        return self.stop - self.start
+        return self._stop - self._start
 
     ###############################################
 
     def __bool__(self):
 
-        return self.stop > self.start
+        return self._stop > self._start
+
+    ###############################################
+
+    def __call__(self):
+
+        return slice(self._start, self._stop)
 
     ###############################################
 
     def _get_lower(self):
-        return self.start
 
-    def _get_upper(self):
-        return self.stop -1
-
-    lower = property(_get_lower, None, None, 'Lower index')
-    upper = property(_get_upper, None, None, 'Upper index')
+        if bool(self):
+            return self._start
+        else:
+            return None
 
     ###############################################
 
-    def to_slice(self):
+    def _get_upper(self):
 
-        return slice(self.start, self.stop)
+        if bool(self):
+            return self._stop -1
+        else:
+            return None
+
+    ###############################################
+
+    lower = property(_get_lower, None, None, 'Lower index')
+    upper = property(_get_upper, None, None, 'Upper index')
 
 #####################################################################################################
 
@@ -102,13 +113,13 @@ class TextContent(object):
         #   [len(line_0), len(line_0 + line_1), ...]
         accumulator = 0
         self._accumulated_lengths = []
-        for line in self.line_iterators():
+        for line in self.line_iterator():
             accumulator += len(line)
             self._accumulated_lengths.append(accumulator)
 
     ###############################################
 
-    def flat_index_to_line(self, i):
+    def flat_to_line_index(self, i):
 
         # Return the index j where i < _accumulated_lengths[j], since _accumulated_lengths[j]
         # corresponds to the lower index of the line j+1, thus j corresponds to the line that

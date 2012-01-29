@@ -1,0 +1,40 @@
+# -*- python -*-
+
+# the Python virtual environment to use when running check tools
+VIRTUALENV = None
+
+# the unit test runner command or None if no unit tests should be run
+TEST_RUNNER_COMMAND = None
+
+# the list of command line arguments for the unit test runner
+TEST_RUNNER_FLAGS = []
+
+# the device on which messages are output by the test runner
+TEST_RUNNER_OUTPUT = 'stderr'
+
+# additional environment variables when running check tools
+ENV = {}
+
+# enable PyLint
+PYLINT = True
+# enable PyChecker
+PYCHECKER = False
+# enable Pep8
+PEP8 = False
+# enable PyFlakes
+PYFLAKES = False
+
+# error codes to ignore (in addition to sane defaults)
+IGNORE_CODES = ()
+
+USE_SANE_DEFAULTS = False
+# ignore the following error codes in PyLint:
+#   C0103 Naming convention
+#   C0111 Missing Docstring
+#   E1002 Use super on old-style class
+#   W0232 No __init__
+#   R0904 Too many public methods
+#   R0903 Too few public methods
+#   R0201 Method could be a function
+
+# End

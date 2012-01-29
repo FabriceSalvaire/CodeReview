@@ -139,11 +139,13 @@ class HighlightedLine(list):
 
 class HighlightedText(list):
 
-    self.newlines = ('\n', '\r', '\r\n')
+    newlines = ('\n', '\r', '\r\n')
 
     ###############################################
 
     def __init__(self, lexer, text_buffer):
+
+        super(HighlightedText, self).__init__()
 
         current_line = HighlightedLine()
         for token, text in pygments.lex(text_buffer, lexer):
