@@ -16,6 +16,12 @@ class Slice(object):
 
     ###############################################
 
+    def __repr__(self):
+
+        return self.__class__.__name__ + ' [%u, %u]' % (self._start, self._stop)
+
+    ###############################################
+
     def __len__(self):
 
         return self._stop - self._start
@@ -54,6 +60,47 @@ class Slice(object):
 
     lower = property(_get_lower, None, None, 'Lower index')
     upper = property(_get_upper, None, None, 'Upper index')
+
+    ###############################################
+
+    def _get_start(self):
+
+        return self._start
+
+    ###############################################
+
+    def _get_stop(self):
+
+        return self._stop
+
+    ###############################################
+
+    start = property(_get_start, None, None, 'Start index')
+    stop = property(_get_stop, None, None, 'Stop index')
+
+    ###############################################
+
+    def map(self, slice_):
+
+        start = slice_.start + self._start
+        stop = slice_.stop + self._start
+
+        return Slice(start, stop)
+
+    ###############################################
+
+    def __idiv__(self, scale):
+
+        self._start /= scale
+        self._stop /= scale
+
+        return self
+
+    ###############################################
+
+    def __div__(self, scale):
+
+        return self.__class__(self._start / scale, self._stop / scale)
 
 #####################################################################################################
 

@@ -4,38 +4,33 @@ import unittest
 
 ####################################################################################################
 
-from Slice import Slice
+from RawTextDocument import RawTextDocument
+from RawTextDocumentDiff import TwoWayFileDiffFactory
 
 ####################################################################################################
 
-class TestSlice(unittest.TestCase):
+class TestRawTextDocumentDiff(unittest.TestCase):
 
     ##############################################
 
     def test(self):
 
-        a_slice = Slice(0, 10)
-        self.assertEqual(len(a_slice), 10)
-        self.assertTrue(bool(a_slice))
-        self.assertEqual(a_slice.lower, 0)
-        self.assertEqual(a_slice.upper, 9)
+        with open('test_file1.txt') as f:
+            text1 = f.read()
 
-        a_slice = Slice(5, 5)
-        self.assertEqual(len(a_slice), 0)
-        self.assertFalse(bool(a_slice))
-        self.assertIsNone(a_slice.lower)
-        self.assertIsNone(a_slice.upper)
+        with open('test_file2.txt') as f:
+            text2 = f.read()
 
-        text = 'azerty'
-        a_slice = Slice(1, 2)
-        self.assertEqual(text[a_slice()], 'z')
-
-        slice1 = Slice(10, 100)
-        slice2 = Slice(1, 6)
-        a_slice = slice1.map(slice2)
-        self.assertEqual(a_slice.start, 11)
-        self.assertEqual(a_slice.stop, 16)
+        raw_text_document1 = RawTextDocument(text1)
+        raw_text_document2 = RawTextDocument(text2)
         
+        two_way_file_diff_factory = TwoWayFileDiffFactory()
+        file_diff = two_way_file_diff_factory.process(raw_text_document1, raw_text_document2)
+
+        for group in file_diff:
+            for chunk in group:
+                print chunk
+
 ####################################################################################################
 
 if __name__ == '__main__':
