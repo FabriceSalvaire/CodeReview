@@ -127,7 +127,7 @@ class TwoWayFileDiffFactory(object):
             slice1 = LineSlice(start_1, stop_1)
             slice2 = LineSlice(start_2, stop_2)
             chunk1 = file_diff.document1[slice1]
-            chunk2 = file_diff.document1[slice2]
+            chunk2 = file_diff.document2[slice2]
             if tag == 'equal':
                 chunk_diff = TwoWayLineChunkEqual(chunk1, chunk2)
             elif tag == 'delete':

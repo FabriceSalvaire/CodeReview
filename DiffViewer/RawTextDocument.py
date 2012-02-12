@@ -1,5 +1,9 @@
 ####################################################################################################
 
+import bisect
+
+####################################################################################################
+
 from Slice import FlatSlice, LineSlice
 
 #####################################################################################################
@@ -21,16 +25,24 @@ class RawTextDocumentAbc(object):
 
     ###############################################
 
-    def _slice_adaptator(self, slice_):
+    def __init__(self, text_buffer, flat_slice, line_start_locations, line_separators):
 
-        if isinstance(slice_, FlatSlice):
-            flat_slice = slice_
-        elif isinstance(slice_, LineSlice):
-            flat_slice = self.line_to_flat_slice(slice_)
-        else:
-            raise IndexError
+        self._text_buffer = text_buffer
+        self._flat_slice = flat_slice
+        self._line_start_locations = line_start_locations
+        self._line_separators = line_separators
 
-        return flat_slice
+    ###############################################
+
+    def flat_slice(self):
+
+        return FlatSlice(self._flat_slice)
+
+    ###############################################
+
+    def view(self, slice_):
+
+        raise NotImplementedError
 
     ###############################################
 
@@ -40,15 +52,93 @@ class RawTextDocumentAbc(object):
 
     ##############################################
 
-    def _split_lines(self):
+    def line_of(self, location):
 
-        if hasattr(self, '_line_start_locations'):
-            return
+        if location >= self._flat_slice.stop:
+            raise IndexError
+
+        # Return the index j where location < _line_start_locations[j]
+        return bisect.bisect_right(self._line_start_locations, location) -1
+
+    ##############################################
+
+    def line_to_flat_slice(self, line_slice):
+
+        return FlatSlice(self._line_start_locations[line_slice.start],
+                         self._line_start_locations[line_slice.stop])
+
+    ###############################################
+
+    def to_flat_slice(self, slice_):
+
+        if isinstance(slice_, FlatSlice):
+            return slice_
+        elif isinstance(slice_, LineSlice):
+            return self.line_to_flat_slice(slice_)
+        else:
+            raise IndexError
+
+    ##############################################
+
+    def flat_to_line_slice(self, flat_slice):
+
+        start_line = self.line_of(flat_slice.start)
+        stop_line = self.line_of(flat_slice.upper) +1
+
+        return LineSlice(start_line, stop_line)
+
+    ##############################################
+
+    def line_slice_iterator(self, new_line_separator=True):
+
+        if new_line_separator:
+            for start, end in pairwise(self._line_start_locations):
+                yield FlatSlice(start, end)
+        else:
+            for i, start_end in enumerate(pairwise(self._line_start_locations)):
+                start, end = start_end
+                end -= len(self._line_separators[i])
+                yield FlatSlice(start, end)
+
+    ##############################################
+
+    def line_iterator(self, new_line_separator=True):
+
+        for flat_slice in self.line_slice_iterator(new_line_separator):
+            yield self._text_buffer[flat_slice()] 
+
+    ##############################################
+
+    def lines(self, new_line_separator=True):
+
+        return list(self.line_iterator(new_line_separator))
+
+####################################################################################################
+
+class RawTextDocument(RawTextDocumentAbc):
+
+    ##############################################
+
+    def __init__(self, text_buffer):
+
+        super(RawTextDocument, self). __init__(text_buffer,
+                                               FlatSlice(0, len(text_buffer)),
+                                               *self._split_lines(text_buffer))
+
+    ##############################################
+
+    def _append_sentinel(self, line_start_locations, line_separators, stop_location):
+
+        if line_start_locations[-1] != stop_location:
+            line_start_locations.append(stop_location)
+            line_separators.append('')
+
+    ##############################################
+
+    def _split_lines(self, text_buffer):
  
-        text_buffer = unicode(self)
-   
-        line_start_locations = self._line_start_locations = [0]
-        line_separators = self._line_separators = []
+        line_start_locations = [0]
+        line_separators = []
         i = 0
         buffer_length = len(text_buffer)
         while i < buffer_length:
@@ -69,54 +159,15 @@ class RawTextDocumentAbc(object):
             else:    
                 i += 1
 
-        # Sentinel
-        if line_start_locations[-1] < buffer_length:
-            line_start_locations.append(buffer_length)
-            line_separators.append('')
+        self._append_sentinel(line_start_locations, line_separators, buffer_length)
 
-        # print buffer_length, line_start_locations, line_separators
+        return line_start_locations, line_separators
 
-    ##############################################
+    ###############################################
 
-    def line_to_flat_slice(self, flat_slice):
+    def __len__(self):
 
-        self._split_lines()
-
-        return FlatSlice(self._line_start_locations[flat_slice.start],
-                         self._line_start_locations[flat_slice.stop])
-
-    ##############################################
-
-    def line_iterator(self, new_line_separator=True):
-
-        self._split_lines()
-
-        if new_line_separator:
-            for start, end in pairwise(self._line_start_locations):
-                yield unicode(self)[start:end] 
-        else:
-            for i, start_end in enumerate(pairwise(self._line_start_locations)):
-                start, end = start_end
-                end -= len(self._line_separators[i])
-                yield unicode(self)[start:end] 
-
-    ##############################################
-
-    def lines(self, new_line_separator=True):
-
-        return list(self.line_iterator(new_line_separator))
-
-####################################################################################################
-
-class RawTextDocument(RawTextDocumentAbc):
-
-    ##############################################
-
-    def __init__(self, text_buffer):
-
-        self._text_buffer = text_buffer
-
-        self._split_lines()
+        return len(self._text_buffer)
 
     ###############################################
 
@@ -128,13 +179,29 @@ class RawTextDocument(RawTextDocumentAbc):
 
     def substring(self, slice_):
 
-        return unicode(self)[self._slice_adaptator(slice_)()]
+        return self._text_buffer[self.to_flat_slice(slice_)()]
 
     ###############################################
 
     def view(self, slice_):
 
-        return RawTextDocumentView(self, self._slice_adaptator(slice_))
+        flat_slice = self.to_flat_slice(slice_)
+        if isinstance(slice_, LineSlice):
+            line_slice = slice_
+        else:
+            line_slice = self.flat_to_line_slice(slice_)
+
+        line_start_locations = [flat_slice.start]
+        line_start_locations += self._line_start_locations[line_slice()][1:]
+        line_separators = self._line_separators[line_slice()][:-1]
+
+        self._append_sentinel(line_start_locations, line_separators, flat_slice.stop)
+
+        return RawTextDocumentView(self,
+                                   slice_,
+                                   self._text_buffer,
+                                   flat_slice,
+                                   line_start_locations, line_separators)
 
 ####################################################################################################
 
@@ -142,40 +209,57 @@ class RawTextDocumentView(RawTextDocumentAbc):
 
     ##############################################
 
-    def __init__(self, raw_text_document, flat_slice):
+    def __init__(self, raw_text_document, slice_, *args):
+
+        super(RawTextDocumentView, self).__init__(*args)
 
         self._raw_text_document = raw_text_document
-        self._flat_slice = flat_slice
+        self._slice = slice_
 
     ###############################################
 
-    def _map_slice(self, slice_):
+    def is_line_view(self):
 
-        return self._flat_slice.map(self._slice_adaptator(slice_))
+        return isinstance(self._slice, LineSlice)
+
+    ###############################################
+
+    def to_document_flat_slice(self, slice_):
+
+        return self._flat_slice.map(self.to_flat_slice(slice_))
+
+    ###############################################
+
+    def to_document_slice(self, slice_):
+
+        if type(slice_) == type(self._slice):
+            return self._slice.map(slice_)
+        else:
+            return self.to_document_flat_slice(slice_)
 
     ##############################################
 
     def __repr__(self):
 
-        return self.__class__.__name__ + ' ' + str(self._flat_slice)
+        return self.__class__.__name__ + ' ' + str(self._slice)
 
     ##############################################
 
     def __unicode__(self):
 
-        return unicode(self._raw_text_document)[self._flat_slice()]
+        return self._text_buffer[self._flat_slice()]
 
     ###############################################
 
     def substring(self, slice_):
 
-        return unicode(self._raw_text_document)[self._map_slice(slice_)()]
+        return self._text_buffer[self.to_document_flat_slice(slice_)()]
 
     ###############################################
 
     def view(self, slice_):
 
-        return RawTextDocumentView(self, self._map_slice(slice_))
+        return self._raw_text_document[self.to_document_slice(slice_)]
 
 ####################################################################################################
 #

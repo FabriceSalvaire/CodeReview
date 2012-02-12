@@ -36,6 +36,16 @@ class TestRawTextDocument(unittest.TestCase):
 
     ##############################################
 
+    def test_line_of(self):
+
+        text_buffer = "01\n34\n6"
+        raw_text_document = RawTextDocument(text_buffer)
+        self.assertEqual(raw_text_document.line_of(0), 0)
+        self.assertEqual(raw_text_document.line_of(4), 1)
+        self.assertEqual(raw_text_document.line_of(6), 2)
+
+    ##############################################
+
     def test_view(self):
 
         text_buffer = ''
@@ -46,6 +56,11 @@ class TestRawTextDocument(unittest.TestCase):
         view = raw_text_document[LineSlice(1, 3)]
         self.assertEqual(unicode(view).splitlines(), text_buffer.splitlines()[1:3])
         self.assertEqual(view.substring(FlatSlice(0,6)), 'azerty')
+
+        text_buffer = "012\n45\n78\n01"
+        raw_text_document = RawTextDocument(text_buffer)
+        view = raw_text_document[FlatSlice(5, 11)]
+        self.assertEqual(unicode(view).splitlines(), [x.strip() for x in view.lines()])
 
 ####################################################################################################
 

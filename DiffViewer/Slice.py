@@ -6,13 +6,32 @@ class Slice(object):
 
     ###############################################
 
-    def __init__(self, start, stop):
+    def __init__(self, *args):
         
+        start, stop = args[:2]
+
         if stop < start:
             raise ValueError('stop < start')
 
         self._start = start
         self._stop = stop
+
+    ###############################################
+
+    def copy(self):
+
+        return self.__class__(self._start, self._stop)
+
+    ###############################################
+
+    def __getitem__(self, i):
+
+        if i == 0:
+            return self._start
+        elif i == 1:
+            return self._stop
+        else:
+            raise IndexError
 
     ###############################################
 
@@ -85,7 +104,10 @@ class Slice(object):
         start = slice_.start + self._start
         stop = slice_.stop + self._start
 
-        return Slice(start, stop)
+        if stop > self._stop:
+            raise IndexError
+
+        return self.__class__(start, stop)
 
     ###############################################
 
