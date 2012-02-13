@@ -37,7 +37,12 @@ class Slice(object):
 
     def __repr__(self):
 
-        return self.__class__.__name__ + ' [%u, %u]' % (self._start, self._stop)
+        if bool(self):
+            string_interval = '[%u, %u]' % (self.lower, self.upper)
+        else:
+            string_interval = '[%u]' % (self.start)
+        
+        return self.__class__.__name__ + ' ' + string_interval
 
     ###############################################
 

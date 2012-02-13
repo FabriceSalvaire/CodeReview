@@ -32,6 +32,14 @@ class TestRawTextDocumentDiff(unittest.TestCase):
             for chunk in group:
                 print chunk
 
+        print '='*10
+        replace_group = file_diff[1]
+        print replace_group
+        print replace_group[1].chunk1
+        print list(replace_group[1].chunk1.line_iterator())
+        print list(replace_group[1].chunk2.line_iterator())
+        print list(replace_group[1].chunk1.line_slice_iterator())
+        
 ####################################################################################################
 
 if __name__ == '__main__':

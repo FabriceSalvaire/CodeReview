@@ -83,8 +83,11 @@ class RawTextDocumentAbc(object):
     def flat_to_line_slice(self, flat_slice):
 
         start_line = self.line_of(flat_slice.start)
-        stop_line = self.line_of(flat_slice.upper) +1
-
+        if flat_slice:
+            stop_line = self.line_of(flat_slice.upper) +1
+        else:
+            stop_line= start_line +1
+        
         return LineSlice(start_line, stop_line)
 
     ##############################################
@@ -241,7 +244,11 @@ class RawTextDocumentView(RawTextDocumentAbc):
 
     def __repr__(self):
 
-        return self.__class__.__name__ + ' ' + str(self._slice)
+        string_slice = str(self._slice)
+        if isinstance(self._slice, LineSlice):
+            string_slice += '/' + str(self._flat_slice)
+        
+        return self.__class__.__name__ + ' ' + string_slice
 
     ##############################################
 
