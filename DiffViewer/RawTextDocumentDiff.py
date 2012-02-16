@@ -1,4 +1,4 @@
-#####################################################################################################
+####################################################################################################
 
 from bzrlib.patiencediff import unified_diff_files, PatienceSequenceMatcher
 
@@ -80,9 +80,40 @@ class TwoWayLineChunkReplace(TwoWayChunk):
 
 ####################################################################################################
 
-class TwoWayGroup(list):
-    pass
+class TwoWayGroup(object):
 
+    ##############################################
+    
+    def __init__(self):
+        
+        self._chunks = []
+        self.slice1 = None
+        self.slice2 = None
+        
+    ##############################################
+    
+    def __iter__(self):
+
+        return iter(self._chunks)
+
+    ##############################################
+    
+    def __getitem__(self, slice_):
+
+        return self._chunks[slice_]
+    
+    ##############################################
+
+    def append(self, chunk):
+
+        self._chunks.append(chunk)
+        if self.slice1 is None:
+            self.slice1 = LineSlice(chunk.chunk1.slice)
+            self.slice2 = LineSlice(chunk.chunk2.slice)
+        else:
+            self.slice1 |= chunk.chunk1.slice
+            self.slice2 |= chunk.chunk2.slice
+        
 ####################################################################################################
 
 class TwoWayFileDiff(object):
@@ -111,7 +142,52 @@ class TwoWayFileDiff(object):
     def append(self, group):
 
         self._groups.append(group)
+        
+    ###############################################
 
+    def pretty_print(self):
+
+        def pretty_print_chunk(chunk, level=0):
+            print ' '*level + chunk.__class__.__name__
+            for chunk_slice in chunk.chunk1, chunk.chunk2:
+                print ' '*2*(level+1) + repr(chunk_slice)
+        
+        for group in self:
+            print '='*80
+            print '@', group.slice1, group.slice2, '@'
+            for chunk in group:
+                pretty_print_chunk(chunk, level=0)
+                if isinstance(chunk, TwoWayLineChunkReplace):
+                    for sub_chunk in chunk:
+                        pretty_print_chunk(sub_chunk, level=1)
+
+    ###############################################
+
+    def print_unidiff(self):
+
+        def pretty_print_chunk_lines(chunk, prefix):
+            print prefix + prefix.join(chunk.lines()).rstrip()
+            
+        def pretty_print_chunk(chunk, level=0):
+            if isinstance(chunk, TwoWayLineChunkEqual):
+                pretty_print_chunk_lines(chunk.chunk1, prefix=' ')
+            elif isinstance(chunk, TwoWayLineChunkDelete):
+                pretty_print_chunk_lines(chunk.chunk1, prefix='-')
+            elif isinstance(chunk, TwoWayLineChunkInsert):
+                pretty_print_chunk_lines(chunk.chunk2, prefix='+')
+            elif isinstance(chunk, TwoWayLineChunkReplace):
+                pretty_print_chunk_lines(chunk.chunk1, prefix='-')
+                pretty_print_chunk_lines(chunk.chunk2, prefix='+')
+            
+        for group in self:
+            print '='*80
+            print '@', group.slice1, group.slice2, '@'
+            for chunk in group:
+                pretty_print_chunk(chunk, level=0)
+                if isinstance(chunk, TwoWayLineChunkReplace):
+                    for sub_chunk in chunk:
+                        pretty_print_chunk(sub_chunk, level=1)
+                        
 ####################################################################################################
 
 class TwoWayFileDiffFactory(object):

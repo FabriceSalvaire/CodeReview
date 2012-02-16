@@ -36,6 +36,8 @@ class RawTextDocumentAbc(object):
 
     def flat_slice(self):
 
+        # Fixme: ?
+        
         return FlatSlice(self._flat_slice)
 
     ###############################################
@@ -217,13 +219,13 @@ class RawTextDocumentView(RawTextDocumentAbc):
         super(RawTextDocumentView, self).__init__(*args)
 
         self._raw_text_document = raw_text_document
-        self._slice = slice_
-
+        self.slice = slice_
+        
     ###############################################
 
     def is_line_view(self):
 
-        return isinstance(self._slice, LineSlice)
+        return isinstance(self.slice, LineSlice)
 
     ###############################################
 
@@ -235,8 +237,8 @@ class RawTextDocumentView(RawTextDocumentAbc):
 
     def to_document_slice(self, slice_):
 
-        if type(slice_) == type(self._slice):
-            return self._slice.map(slice_)
+        if type(slice_) == type(self.slice):
+            return self.slice.map(slice_)
         else:
             return self.to_document_flat_slice(slice_)
 
@@ -244,8 +246,8 @@ class RawTextDocumentView(RawTextDocumentAbc):
 
     def __repr__(self):
 
-        string_slice = str(self._slice)
-        if isinstance(self._slice, LineSlice):
+        string_slice = str(self.slice)
+        if isinstance(self.slice, LineSlice):
             string_slice += '/' + str(self._flat_slice)
         
         return self.__class__.__name__ + ' ' + string_slice

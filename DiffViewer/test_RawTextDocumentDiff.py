@@ -27,11 +27,9 @@ class TestRawTextDocumentDiff(unittest.TestCase):
         two_way_file_diff_factory = TwoWayFileDiffFactory()
         file_diff = two_way_file_diff_factory.process(raw_text_document1, raw_text_document2)
 
-        for group in file_diff:
-            print '-'*25
-            for chunk in group:
-                print chunk
-
+        file_diff.pretty_print()
+        file_diff.print_unidiff()
+        
         print '='*10
         replace_group = file_diff[1]
         print replace_group
