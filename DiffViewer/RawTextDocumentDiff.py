@@ -9,6 +9,10 @@ from RawTextDocument import RawTextDocument
 
 ####################################################################################################
 
+EQUAL, INSERT, DELETE, REPLACE = range(4)
+
+####################################################################################################
+
 class TwoWayChunk(object):
 
     ##############################################
@@ -26,32 +30,34 @@ class TwoWayChunk(object):
 ####################################################################################################
 
 class TwoWayChunkDelete(TwoWayChunk):
-    pass
+    chunk_type = DELETE
 
 class TwoWayChunkEqual(TwoWayChunk):
-    pass
+    chunk_type = EQUAL
 
 class TwoWayChunkInsert(TwoWayChunk):
-    pass
+    chunk_type = INSERT
 
 class TwoWayChunkReplace(TwoWayChunk):
-    pass
+    chunk_type = REPLACE
 
 ####################################################################################################
 
 class TwoWayLineChunkDelete(TwoWayChunk):
-    pass
+    chunk_type = DELETE
 
 class TwoWayLineChunkEqual(TwoWayChunk):
-    pass
+    chunk_type = EQUAL
 
 class TwoWayLineChunkInsert(TwoWayChunk):
-    pass
+    chunk_type = INSERT
 
 ####################################################################################################
 
 class TwoWayLineChunkReplace(TwoWayChunk):
 
+    chunk_type = REPLACE
+    
     ##############################################
 
     def __init__(self, chunk1, chunk2, chunks):
