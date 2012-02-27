@@ -220,7 +220,13 @@ class RawTextDocumentView(RawTextDocumentAbc):
 
         self._raw_text_document = raw_text_document
         self.slice = slice_
-        
+
+    ###############################################
+
+    def __nonzero__(self):
+
+        return bool(self.slice)
+    
     ###############################################
 
     def is_line_view(self):

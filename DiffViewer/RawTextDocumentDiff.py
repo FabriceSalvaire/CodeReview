@@ -4,12 +4,13 @@ from bzrlib.patiencediff import unified_diff_files, PatienceSequenceMatcher
 
 ####################################################################################################
 
-from Slice import FlatSlice, LineSlice
+from EnumFactory import EnumFactory
 from RawTextDocument import RawTextDocument
+from Slice import FlatSlice, LineSlice
 
 ####################################################################################################
 
-EQUAL, INSERT, DELETE, REPLACE = range(4)
+chunk_type = EnumFactory('TwoWayChunkTypes', ('equal', 'insert', 'delete', 'replace'))
 
 ####################################################################################################
 
@@ -30,33 +31,33 @@ class TwoWayChunk(object):
 ####################################################################################################
 
 class TwoWayChunkDelete(TwoWayChunk):
-    chunk_type = DELETE
+    chunk_type = chunk_type.equal
 
 class TwoWayChunkEqual(TwoWayChunk):
-    chunk_type = EQUAL
+    chunk_type = chunk_type.equal
 
 class TwoWayChunkInsert(TwoWayChunk):
-    chunk_type = INSERT
+    chunk_type = chunk_type.insert
 
 class TwoWayChunkReplace(TwoWayChunk):
-    chunk_type = REPLACE
+    chunk_type = chunk_type.replace
 
 ####################################################################################################
 
 class TwoWayLineChunkDelete(TwoWayChunk):
-    chunk_type = DELETE
+    chunk_type = chunk_type.delete
 
 class TwoWayLineChunkEqual(TwoWayChunk):
-    chunk_type = EQUAL
+    chunk_type = chunk_type.equal
 
 class TwoWayLineChunkInsert(TwoWayChunk):
-    chunk_type = INSERT
+    chunk_type = chunk_type.insert
 
 ####################################################################################################
 
 class TwoWayLineChunkReplace(TwoWayChunk):
 
-    chunk_type = REPLACE
+    chunk_type = chunk_type.replace
     
     ##############################################
 
@@ -228,9 +229,17 @@ class TwoWayFileDiffFactory(object):
 
         sub_chunks = []
         text1, text2 = [unicode(chunk).encode('utf_32-BE') for chunk in chunk1, chunk2]
+        # print len(unicode(chunk1)), len(text1)
+        # print unicode(chunk1)
+        # print [x for x in text1]
+        # print unicode(chunk2)
+        # print [x for x in text2]
         line_sequence_matcher = PatienceSequenceMatcher(None, text1, text2)
         opcodes = line_sequence_matcher.get_opcodes()
         for tag, start_1, stop_1, start_2, stop_2 in opcodes:
+            # print tag, start_1, stop_1, start_2, stop_2
+            # print str([x for x in text1[start_1:stop_1]])
+            # print str([x for x in text2[start_2:stop_2]])
             slice1 = FlatSlice(start_1, stop_1) /4 # 4-byte encoding
             slice2 = FlatSlice(start_2, stop_2) /4
             sub_chunk1 = chunk1[slice1]

@@ -18,6 +18,7 @@ char_encoded = char.encode('UTF-8')
 print char, len(char), repr(char_encoded), len(char_encoded)
 
 s = u'abcé'.encode('utf_32-BE')
+print len(s)
 print [x for x in s]
 
 #####################################################################################################

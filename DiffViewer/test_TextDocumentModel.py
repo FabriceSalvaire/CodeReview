@@ -1,14 +1,21 @@
 ####################################################################################################
 
+#
+# obj: TextView, link to pair
+# replace TextFragment
+#
+
+####################################################################################################
+
+import sys
 import unittest
 
 ####################################################################################################
 
 from RawTextDocument import RawTextDocument
-from RawTextDocumentDiff import TwoWayFileDiffFactory
+from RawTextDocumentDiff import TwoWayFileDiffFactory, chunk_type
 from Slice import FlatSlice, LineSlice
 from TextDocumentModel import TextDocumentModel, TextBlock, TextFragment
-import RawTextDocumentDiff
 
 ####################################################################################################
 
@@ -34,21 +41,23 @@ class TestTextDocumentModel(unittest.TestCase):
         current_line1 = 0
         for group in file_diff:
             if current_line1 < group.slice1.start:
-                print 'Complete: ', current_line1, group.slice1
+                # print 'Complete: ', current_line1, group.slice1
                 line_slice = LineSlice(current_line1, group.slice1.start)
-                text_block = TextBlock(line_slice, RawTextDocumentDiff.EQUAL)
+                text_block = TextBlock(line_slice, chunk_type.equal)
                 flat_slice = raw_text_document1.to_flat_slice(line_slice)
-                text_fragment = TextFragment(flat_slice)
+                chunk = raw_text_document1[flat_slice]
+                text_fragment = TextFragment(chunk)
                 text_block.append(text_fragment)
                 text_document_model.append(text_block)
             for chunk in group:
                 frame_type = chunk.chunk_type
                 text_block = TextBlock(chunk.chunk1.slice, frame_type)
-                if frame_type == RawTextDocumentDiff.REPLACE:
+                if frame_type == chunk_type.replace:
                     for sub_chunk in chunk:
                         sub_frame_type = sub_chunk.chunk_type
-                        text_fragment = TextFragment(sub_chunk.chunk1, sub_frame_type)
-                        text_block.append(text_fragment)
+                        if bool(sub_chunk.chunk1):
+                            text_fragment = TextFragment(sub_chunk.chunk1, sub_frame_type)
+                            text_block.append(text_fragment)
                 else:
                     text_fragment = TextFragment(chunk.chunk1)
                     text_block.append(text_fragment)
@@ -56,10 +65,18 @@ class TestTextDocumentModel(unittest.TestCase):
             current_line1 = group.slice1.stop
 
         for text_block in text_document_model:
+            print '='*100
             print text_block
             for text_fragment in text_block:
-                print ' '*2 + repr(text_fragment)
-            
+                margin = ' '*2
+                print margin + '-'*48
+                print margin + ('\n' + margin).join(repr(text_fragment).splitlines())
+                if bool(text_fragment):
+                    line = '#'*100
+                    print line
+                    print unicode(text_fragment).rstrip()
+                    print line
+                                
 ####################################################################################################
 
 if __name__ == '__main__':

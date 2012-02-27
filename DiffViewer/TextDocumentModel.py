@@ -1,7 +1,5 @@
 ####################################################################################################
 
-####################################################################################################
-
 class TextBlock(list):
 
     ##############################################
@@ -17,7 +15,7 @@ class TextBlock(list):
     
     def __repr__(self):
 
-        return 'Text Block ' + str(self.frame_type) + ' ' + repr(self.line_slice)
+        return 'Text Block: frame type=' + str(self.frame_type) + ', slice=' + repr(self.line_slice)
         
 ####################################################################################################
 
@@ -35,14 +33,21 @@ class TextFragment(object):
 
     def __unicode__(self):
 
-        return self.text
+        return unicode(self.text)
 
     ##############################################
     
     def __repr__(self):
 
-        return 'Text Fragment  ' + str(self.frame_type) + ' ' + str(self.token_type) \
-            + ' ' + repr(self.text)
+        return 'Text Fragment: frame type=' + str(self.frame_type) \
+            + ', token type=' + str(self.token_type) \
+            + '\n' + ' '*2 + repr(self.text)
+
+    ##############################################
+
+    def __nonzero__(self):
+
+        return bool(self.text)
     
 ####################################################################################################
 
