@@ -62,6 +62,18 @@ class TestRawTextDocument(unittest.TestCase):
         view = raw_text_document[FlatSlice(5, 11)]
         self.assertEqual(unicode(view).splitlines(), [x.strip() for x in view.lines()])
 
+    ##############################################
+
+    def test_light_view(self):
+
+        text_buffer = 'azertyuiopqsdfghjklm'
+
+        raw_text_document = RawTextDocument(text_buffer)
+        raw_text_document.light_view_mode = True
+        flat_slice = FlatSlice(5, 10)
+        view = raw_text_document[flat_slice]
+        self.assertEqual(unicode(view), text_buffer[flat_slice()])
+        
 ####################################################################################################
 
 if __name__ == '__main__':
