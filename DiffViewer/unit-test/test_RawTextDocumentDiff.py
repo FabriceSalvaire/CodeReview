@@ -15,10 +15,10 @@ class TestRawTextDocumentDiff(unittest.TestCase):
 
     def test(self):
 
-        with open('test_file1.txt') as f:
+        with open('data/test_file1.txt') as f:
             text1 = f.read()
 
-        with open('test_file2.txt') as f:
+        with open('data/test_file2.txt') as f:
             text2 = f.read()
 
         raw_text_document1 = RawTextDocument(text1)

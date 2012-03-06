@@ -65,23 +65,23 @@ class EnumConstant(object):
 
 def EnumFactory(enum_name, enum_tuple):
 
-    dict = {}
-    dict['_size'] = len(enum_tuple)
+    obj_dict = {}
+    obj_dict['_size'] = len(enum_tuple)
     for value, name in enumerate(enum_tuple):
-        dict[name] = EnumConstant(name, value)
+        obj_dict[name] = EnumConstant(name, value)
 
-    return EnumMetaClass(enum_name, (), dict)
+    return EnumMetaClass(enum_name, (), obj_dict)
 
 ####################################################################################################
 
 def ExplicitEnumFactory(enum_name, enum_dict):
 
-    dict = {}
-    dict['constants'] = enum_dict.values()
+    obj_dict = {}
+    obj_dict['constants'] = enum_dict.values()
     for name, value in enum_dict.items():
-        dict[name] = EnumConstant(name, value)
+        obj_dict[name] = EnumConstant(name, value)
 
-    return ExplicitEnumMetaClass(enum_name, (), dict)
+    return ExplicitEnumMetaClass(enum_name, (), obj_dict)
 
 ####################################################################################################
 #

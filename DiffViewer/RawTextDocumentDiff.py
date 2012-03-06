@@ -10,7 +10,8 @@ from Slice import FlatSlice, LineSlice
 
 ####################################################################################################
 
-chunk_type = EnumFactory('TwoWayChunkTypes', ('equal', 'insert', 'delete', 'replace'))
+chunk_type = EnumFactory('TwoWayChunkTypes', ('equal', 'insert', 'delete', 'replace',
+                                              'equal_block'))
 
 ####################################################################################################
 
@@ -269,7 +270,7 @@ class TwoWayFileDiffFactory(object):
             self._process_group(file_diff, opcodes)
 
         return file_diff
-
+    
 ####################################################################################################
 #
 # End
