@@ -14,7 +14,9 @@ import unittest
 
 from RawTextDocument import RawTextDocument
 from RawTextDocumentDiff import TwoWayFileDiffFactory
-from TextDocumentDiffModel import TextDocumentDiffModelFactory
+from SyntaxHighlighter import HighlightedText
+from TextDocumentModel import TextDocumentModel, TextFragment
+from TextDocumentDiffModel import TextDocumentDiffModelFactory, TextBlockDiff
 
 ####################################################################################################
 
@@ -24,10 +26,10 @@ class TestTextDocumentModel(unittest.TestCase):
 
     def test(self):
 
-        with open('data/test_file1.txt') as f:
+        with open('data/test_file1.py') as f:
             text1 = f.read()
 
-        with open('data/test_file2.txt') as f:
+        with open('data/test_file2.py') as f:
             text2 = f.read()
 
         raw_text_document1 = RawTextDocument(text1)
@@ -56,7 +58,43 @@ class TestTextDocumentModel(unittest.TestCase):
                     print line
                     print unicode(text_fragment).rstrip()
                     print line
-                                
+
+    ##############################################
+
+    def _highlight(self, raw_text_document, document_model):
+                
+        lexer = get_lexer_for_filename('data/test_file1.py', stripnl=False)
+        highlighted_text = HighlightedText(raw_text_document, lexer)
+
+        highlighted_text_iterator = iter(highlighted_text)
+        highlighted_fragment = highlighted_text_iterator.next()
+
+        highlighted_document = DocumentModel()
+        for text_block in document_model:
+            highlighted_text_block = text_block.clone()
+            highlighted_document.append(highlighted_text_block)
+            text_block_iterator = iter(text_block)
+            text_fragment = text_block_iterator.next()
+            while True:
+                # highlighted_fragment is included in text_fragment
+                #   - append intersection
+                #   - get next highlighted_fragment and loop
+                #
+                # highlighted_fragment intersect with text_fragment
+                #   - append intersection
+                #   - get next text_fragment and loop
+                #
+                # highlighted_fragment is after text_fragment
+                #   - get next text_fragment and loop
+                #
+                
+                #intersection = text_fragment.split(highlighted_fragment)
+                #if intersection:
+                #    highlighted_text_block.append(intersection)
+                #    highlighted_fragment = highlighted_text_iterator.next()
+                #    else:
+                #        break
+                        
 ####################################################################################################
 
 if __name__ == '__main__':

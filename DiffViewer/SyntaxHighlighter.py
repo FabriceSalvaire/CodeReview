@@ -17,6 +17,12 @@ class HighlightedTextFragment(object):
         self.slice = flat_slice
         self.token = token
 
+    ##############################################
+
+    def __repr__(self):
+
+        return repr(self.slice) + ' ' + str(self.token)
+        
 ####################################################################################################
 
 class HighlightedText(list):
@@ -30,7 +36,7 @@ class HighlightedText(list):
         self.raw_text_document = raw_text_document
 
         self._lex(lexer)
-        
+
     ##############################################
     
     def _lex(self, lexer):

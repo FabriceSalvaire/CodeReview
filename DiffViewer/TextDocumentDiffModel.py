@@ -9,6 +9,20 @@ from TextDocumentModel import TextDocumentModel, TextBlock, TextFragment
 class TextBlockDiff(TextBlock):
 
     ##############################################
+    
+    def __init__(self, line_slice, frame_type=None, other_side=None):
+
+        super(TextBlockDiff, self).__init__(line_slice, frame_type)
+
+        self.other_side = other_side
+
+    ##############################################
+    
+    def clone(self):
+
+        return self.__class__(self.line_slice, self.frame_type, self.other_side)
+        
+    ##############################################
 
     def link_other_side(self, other_side):
 
