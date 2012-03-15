@@ -10,6 +10,8 @@
 import sys
 import unittest
 
+from pygments.lexers import get_lexer_for_filename
+
 ####################################################################################################
 
 from RawTextDocument import RawTextDocument
@@ -39,9 +41,12 @@ class TestTextDocumentModel(unittest.TestCase):
 
         print 'Document 1:'
         self._pretty_print(document_model1)
-        print '\nDocument 2:'
-        self._pretty_print(document_model2)
-        
+        print '\nHighlighted Document 1:'
+        highlighted_document1 = self._highlight(raw_text_document1, document_model1)
+        self._pretty_print(highlighted_document1)
+        # print '\nDocument 2:'
+        # self._pretty_print(document_model2)
+                
     ##############################################
 
     def _pretty_print(self, document_model):
@@ -68,33 +73,49 @@ class TestTextDocumentModel(unittest.TestCase):
 
         highlighted_text_iterator = iter(highlighted_text)
         highlighted_fragment = highlighted_text_iterator.next()
-
-        highlighted_document = DocumentModel()
+        highlighted_slice= highlighted_fragment.slice
+        
+        highlighted_document = TextDocumentModel()
         for text_block in document_model:
             highlighted_text_block = text_block.clone()
             highlighted_document.append(highlighted_text_block)
             text_block_iterator = iter(text_block)
             text_fragment = text_block_iterator.next()
+            text_slice = text_fragment.text.flat_slice()
             while True:
-                # highlighted_fragment is included in text_fragment
-                #   - append intersection
-                #   - get next highlighted_fragment and loop
-                #
-                # highlighted_fragment intersect with text_fragment
-                #   - append intersection
-                #   - get next text_fragment and loop
-                #
-                # highlighted_fragment is after text_fragment
-                #   - get next text_fragment and loop
-                #
-                
-                #intersection = text_fragment.split(highlighted_fragment)
-                #if intersection:
-                #    highlighted_text_block.append(intersection)
-                #    highlighted_fragment = highlighted_text_iterator.next()
-                #    else:
-                #        break
-                        
+                # Fixme: add func in classes ?
+                if highlighted_slice.is_included_in(text_slice):
+                    append_intersection = True
+                    next_highlighted_fragment = True
+                    next_text_fragment = False
+                elif highlighted_slice.intersect(text_slice):
+                    append_intersection = True
+                    next_highlighted_fragment = False
+                    next_text_fragment = True
+
+                else:
+                    # highlighted_fragment is after text_fragment
+                    append_intersection = False
+                    next_highlighted_fragment = False
+                    next_text_fragment = True
+                if append_intersection:
+                    text = raw_text_document[highlighted_slice & text_slice]
+                    highlighted_text_fragment = TextFragment(text,
+                                                             frame_type=text_fragment.frame_type,
+                                                             token_type=highlighted_fragment.token)
+                    highlighted_text_block.append(highlighted_text_fragment)
+                if next_highlighted_fragment:
+                    highlighted_fragment = highlighted_text_iterator.next()
+                    highlighted_slice= highlighted_fragment.slice
+                if next_text_fragment:
+                    try:
+                        text_fragment = text_block_iterator.next()
+                        text_slice = text_fragment.text.flat_slice()
+                    except StopIteration:
+                        break
+
+        return highlighted_document
+                    
 ####################################################################################################
 
 if __name__ == '__main__':
