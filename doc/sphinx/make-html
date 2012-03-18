@@ -1,0 +1,57 @@
+#! /bin/bash
+
+#####################################################################################################
+
+TEMP=`getopt --long help,clean \
+  -n 'make-html' -- make-html "$@"`
+
+if [ $? != 0 ] ; then
+  echo "End" >&2 ;
+  exit 1 ;
+fi
+
+eval set -- "$TEMP"
+
+while true ; do
+  case "$1" in
+
+    --help)
+      cat <<EOF
+GVLab Bootstrap
+
+  --help
+  --clean
+EOF
+      exit 1 ;;
+
+    --clean)
+      echo clean option
+      clean='yes'
+      shift ;;
+
+    --)
+      shift;
+      break ;;
+
+    *)
+      echo 'Bad option' ;
+      exit 1 ;;
+  esac
+done
+
+#####################################################################################################
+
+#source $HOME/.bashrc
+#set_python27
+
+if [ "x$clean" = "xyes" ] ; then
+  make -f Makefile.sphinx clean
+fi
+
+make -f Makefile.sphinx html
+
+#####################################################################################################
+#
+# End
+#
+#####################################################################################################
