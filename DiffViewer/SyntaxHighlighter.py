@@ -5,6 +5,7 @@ import pygments
 ####################################################################################################
 
 from Slice import FlatSlice
+from TextDocumentModel import TextDocumentModel, TextBlock, TextFragment
 
 ####################################################################################################
 
@@ -47,7 +48,23 @@ class HighlightedText(list):
             flat_slice = FlatSlice(current_location, stop_position)
             self.append(HighlightedTextFragment(flat_slice, token))
             current_location = stop_position
-            
+
+####################################################################################################
+
+def highlight_text(raw_text_document, lexer):
+
+    highlighted_text = HighlightedText(raw_text_document, lexer)
+
+    document = TextDocumentModel()
+    text_block = TextBlock(raw_text_document.line_slice)
+    document.append(text_block)
+    for highlighted_fragment in highlighted_text:
+        text_fragment = TextFragment(raw_text_document.light_view(highlighted_fragment.slice),
+                                     token_type=highlighted_fragment.token)
+        text_block.append(text_fragment)
+
+    return document
+        
 ####################################################################################################
 #
 # End

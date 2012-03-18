@@ -3,3 +3,5 @@ bzr-repo
 git-repo
 TAGS
 DiffViewer/.ropeproject
+add
+doc/sphinx/build

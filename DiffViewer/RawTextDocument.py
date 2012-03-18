@@ -178,6 +178,8 @@ class RawTextDocument(RawTextDocumentAbc):
                                                FlatSlice(0, len(text_buffer)),
                                                *self._split_lines(text_buffer))
 
+        self.line_slice = self.flat_to_line_slice(self._flat_slice)
+
     ##############################################
 
     def _append_sentinel(self, line_start_locations, line_separators, stop_location):

@@ -1,0 +1,81 @@
+#! /usr/bin/env python
+# -*- python -*-
+
+####################################################################################################
+
+import argparse
+import sys
+
+from PyQt4 import QtGui, QtCore
+
+from pygments.lexers import get_lexer_for_filename
+
+####################################################################################################
+
+from DiffViewer import DiffView
+from RawTextDocument import RawTextDocument
+from SyntaxHighlighter import highlight_text
+
+####################################################################################################
+
+class Application(QtGui.QApplication):
+
+    ################################################
+
+    def __init__(self, args):
+
+        super(Application, self).__init__(sys.argv)
+
+        self.main_window = QtGui.QMainWindow(None)
+
+ 	self.diff_view = DiffView()
+        self.main_window.setCentralWidget(self.diff_view)
+
+        self._open_files(args)
+        
+        self.main_window.showMaximized()
+
+    ################################################
+
+    def _open_files(self, args):
+
+        self.texts = []
+        self.raw_text_documents = []
+        self.documents = []
+        for i, file_name in enumerate((args.file1, args.file2)):
+            with open(file_name) as f:
+                text = f.read()
+            raw_text_document = RawTextDocument(text)
+            lexer = get_lexer_for_filename(file_name, stripnl=False)
+            document = highlight_text(raw_text_document, lexer)
+            self.texts.append(text)
+            self.raw_text_documents.append(raw_text_document)
+            self.documents.append(document)
+
+        self.diff_view.set_document_models(self.documents)
+            
+####################################################################################################
+#
+# Options
+#
+
+parser = argparse.ArgumentParser(description='Diff Viewer')
+
+parser.add_argument('file1', metavar='File1',
+                    help='First file')
+
+parser.add_argument('file2', metavar='File2',
+                    help='Second File')
+
+args = parser.parse_args()
+
+####################################################################################################
+
+application = Application(args)
+application.exec_()
+
+####################################################################################################
+#
+# End
+#
+####################################################################################################
