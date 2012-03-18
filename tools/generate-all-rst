@@ -1,0 +1,43 @@
+#! /bin/bash
+
+####################################################################################################
+
+root_dir=$PWD
+api_dir=${root_dir}/doc/sphinx/source/api
+
+mkdir -p ${api_dir}-old
+mv --backup=numbered ${api_dir} ${api_dir}-old
+mkdir -p ${api_dir}/GVLab
+
+cat > ${api_dir}/index.rst <<EOF
+****************
+ Git-Python API
+****************
+
+.. toctree::
+EOF
+
+for i in DiffViewer; do
+  echo Module $i
+  ${root_dir}/tools/generate-rst --root-path=${root_dir} --module-path=${root_dir}/$i --file-per-module --dst-path=${api_dir} --module-summary-file --title=${i} > ${api_dir}/${i}.rst
+  cat >> ${api_dir}/index.rst <<EOF
+  $i
+EOF
+done
+
+cat >> ${api_dir}/index.rst <<EOF
+
+.. End
+EOF
+
+cd ${root_dir}
+
+echo
+echo Old api directory moved to
+ls -l -d -h ${api_dir}-old
+
+####################################################################################################
+#
+# End
+#
+####################################################################################################
