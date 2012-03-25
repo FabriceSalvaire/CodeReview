@@ -1,12 +1,11 @@
 ####################################################################################################
 
-from bzrlib.patiencediff import unified_diff_files, PatienceSequenceMatcher
+from bzrlib.patiencediff import PatienceSequenceMatcher
 
 ####################################################################################################
 
-from EnumFactory import EnumFactory
-from RawTextDocument import RawTextDocument
-from Slice import FlatSlice, LineSlice
+from DiffViewer.EnumFactory import EnumFactory
+from DiffViewer.Slice import FlatSlice, LineSlice
 
 ####################################################################################################
 
@@ -176,7 +175,7 @@ class TwoWayFileDiff(object):
         def pretty_print_chunk_lines(chunk, prefix):
             print prefix + prefix.join(chunk.lines()).rstrip()
             
-        def pretty_print_chunk(chunk, level=0):
+        def pretty_print_chunk(chunk):
             if isinstance(chunk, TwoWayLineChunkEqual):
                 pretty_print_chunk_lines(chunk.chunk1, prefix=' ')
             elif isinstance(chunk, TwoWayLineChunkDelete):
@@ -191,10 +190,10 @@ class TwoWayFileDiff(object):
             print '='*80
             print '@', group.slice1, group.slice2, '@'
             for chunk in group:
-                pretty_print_chunk(chunk, level=0)
+                pretty_print_chunk(chunk)
                 if isinstance(chunk, TwoWayLineChunkReplace):
                     for sub_chunk in chunk:
-                        pretty_print_chunk(sub_chunk, level=1)
+                        pretty_print_chunk(sub_chunk)
                         
 ####################################################################################################
 

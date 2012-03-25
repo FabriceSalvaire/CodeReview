@@ -12,9 +12,11 @@ from pygments.lexers import get_lexer_for_filename
 
 ####################################################################################################
 
-from DiffViewer import DiffView
-from RawTextDocument import RawTextDocument
-from SyntaxHighlighter import highlight_text
+from DiffViewer.DiffWidget import DiffView
+from DiffViewer.RawTextDocument import RawTextDocument
+from DiffViewer.RawTextDocumentDiff import TwoWayFileDiffFactory
+from DiffViewer.SyntaxHighlighter import HighlightedText, highlight_text
+from DiffViewer.TextDocumentDiffModel import TextDocumentDiffModelFactory, highlight_document
 
 ####################################################################################################
 
@@ -39,20 +41,34 @@ class Application(QtGui.QApplication):
 
     def _open_files(self, args):
 
-        self.texts = []
         self.raw_text_documents = []
-        self.documents = []
+        self.lexers = []
         for i, file_name in enumerate((args.file1, args.file2)):
             with open(file_name) as f:
                 text = f.read()
             raw_text_document = RawTextDocument(text)
-            lexer = get_lexer_for_filename(file_name, stripnl=False)
-            document = highlight_text(raw_text_document, lexer)
-            self.texts.append(text)
             self.raw_text_documents.append(raw_text_document)
-            self.documents.append(document)
-
-        self.diff_view.set_document_models(self.documents)
+            lexer = get_lexer_for_filename(file_name, stripnl=False)
+            self.lexers.append(lexer)
+            
+        if not args.show:
+            file_diff = TwoWayFileDiffFactory().process(* self.raw_text_documents)
+            self.document_models = TextDocumentDiffModelFactory().process(file_diff)
+            self.highlighted_texts = []
+            for raw_text_document, lexer in zip(self.raw_text_documents, self.lexers):
+                highlighted_text = HighlightedText(raw_text_document, lexer)
+                self.highlighted_texts.append(highlighted_text)
+            self.highlighted_documents = []
+            for document_model, highlighted_text in zip(self.document_models, self.highlighted_texts):
+                highlighted_document = highlight_document(document_model, highlighted_text)
+                self.highlighted_documents.append(highlighted_document)
+            self.diff_view.set_document_models(self.highlighted_documents)
+        else:
+            self.highlighted_documents = []
+            for raw_text_document, lexer in zip(self.raw_text_documents, self.lexers):
+                highlighted_document = highlight_text(raw_text_document, lexer)
+                self.highlighted_documents.append(highlighted_document)
+            self.diff_view.set_document_models(self.highlighted_documents)
             
 ####################################################################################################
 #
@@ -66,6 +82,8 @@ parser.add_argument('file1', metavar='File1',
 
 parser.add_argument('file2', metavar='File2',
                     help='Second File')
+
+parser.add_argument('--show', action='store_true')
 
 args = parser.parse_args()
 

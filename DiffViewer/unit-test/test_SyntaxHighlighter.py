@@ -7,8 +7,8 @@ from pygments.lexers import get_lexer_for_filename
 
 ####################################################################################################
 
-from RawTextDocument import RawTextDocument
-from SyntaxHighlighter import HighlightedText
+from DiffViewer.RawTextDocument import RawTextDocument
+from DiffViewer.SyntaxHighlighter import HighlightedText
 
 ####################################################################################################
 

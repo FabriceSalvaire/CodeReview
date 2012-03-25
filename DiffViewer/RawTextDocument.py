@@ -4,8 +4,8 @@ import bisect
 
 ####################################################################################################
 
-from Slice import FlatSlice, LineSlice
-from IteratorTools import pairwise
+from DiffViewer.Slice import FlatSlice, LineSlice
+from DiffViewer.IteratorTools import pairwise
 
 ####################################################################################################
 
@@ -68,8 +68,10 @@ class RawTextDocumentAbc(object):
 
     def light_view(self, slice_):
 
+        # Fixme: light_view is abstract in a subclass
+        
         raise NotImplementedError
-
+    
     ###############################################
 
     def __getitem__(self, slice_):
@@ -263,7 +265,6 @@ class RawTextDocument(RawTextDocumentAbc):
 ####################################################################################################
 
 class RawTextDocumentView(RawTextDocumentAbc):
-
 
     """ This class implements a view on a Text Document.
 

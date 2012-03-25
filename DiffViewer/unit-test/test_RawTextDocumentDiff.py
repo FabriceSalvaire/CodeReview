@@ -4,8 +4,8 @@ import unittest
 
 ####################################################################################################
 
-from RawTextDocument import RawTextDocument
-from RawTextDocumentDiff import TwoWayFileDiffFactory
+from DiffViewer.RawTextDocument import RawTextDocument
+from DiffViewer.RawTextDocumentDiff import TwoWayFileDiffFactory
 
 ####################################################################################################
 

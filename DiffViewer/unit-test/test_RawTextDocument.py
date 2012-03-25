@@ -4,8 +4,8 @@ import unittest
 
 ####################################################################################################
 
-from Slice import FlatSlice, LineSlice
-from RawTextDocument import RawTextDocument
+from DiffViewer.Slice import FlatSlice, LineSlice
+from DiffViewer.RawTextDocument import RawTextDocument
 
 ####################################################################################################
 

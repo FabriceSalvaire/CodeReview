@@ -1,8 +1,8 @@
 *******************
- :mod:`DiffViewer`
+ :mod:`DiffWidget`
 *******************
 
-.. automodule:: DiffViewer.DiffViewer
+.. automodule:: DiffViewer.DiffWidget
    :members:
    :show-inheritance:
 

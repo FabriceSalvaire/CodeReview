@@ -4,8 +4,8 @@ import pygments
 
 ####################################################################################################
 
-from Slice import FlatSlice
-from TextDocumentModel import TextDocumentModel, TextBlock, TextFragment
+from DiffViewer.Slice import FlatSlice
+from DiffViewer.TextDocumentModel import TextDocumentModel, TextBlock, TextFragment
 
 ####################################################################################################
 
