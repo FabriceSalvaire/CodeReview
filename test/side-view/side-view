@@ -1,14 +1,53 @@
 #! /usr/bin/env python
 # -*- python -*-
 
-#####################################################################################################
+####################################################################################################
 
 import argparse
 import sys
 
 from PyQt4 import QtGui, QtCore
 
-#####################################################################################################
+####################################################################################################
+
+class TextBrowser(QtGui.QTextBrowser):
+
+    ##############################################
+    
+    def __init__(self, parent, y_lines):
+
+        super(TextBrowser, self).__init__(parent)
+
+        self.y_lines = y_lines
+        
+        # Truncate long lines
+        self.setLineWrapMode(QtGui.QTextEdit.NoWrap)
+
+    ##############################################
+        
+    def paintEvent(self, event):
+
+        width = self.width()
+
+        y = self.verticalScrollBar().value()
+        
+        painter = QtGui.QPainter(self.viewport())
+        painter.setClipRect(event.rect())
+
+        pen = QtGui.QPen(QtCore.Qt.black)
+        pen.setWidth(1)
+        painter.setPen(pen)
+        
+        for y_line in self.y_lines:
+            y_line -= y
+            painter.drawLine(0, y_line, width, y_line)
+
+        del painter
+
+        # Paint text
+        super(TextBrowser, self).paintEvent(event) 
+
+####################################################################################################
 
 class Application(QtGui.QApplication):
 
@@ -29,26 +68,62 @@ class Application(QtGui.QApplication):
         self.splitter.setOrientation(QtCore.Qt.Horizontal)
         self.horizontalLayout.addWidget(self.splitter)
 
-        self.text_browser_1 = QtGui.QTextBrowser(self.splitter)
+        self.y_lines = []
+        
+        self.text_browser_1 = TextBrowser(self.splitter, self.y_lines)
         self.text_browser_2 = QtGui.QTextBrowser(self.splitter)
 
         self.text_document_1 = QtGui.QTextDocument()
         text_cursor_1 = QtGui.QTextCursor(self.text_document_1)
-        text_format= QtGui.QTextCharFormat()
-        text_format.setForeground(QtGui.QBrush(QtGui.QColor('red')))
-        text_block_format = QtGui.QTextBlockFormat()
-        # text_block_format.setTopMargin(0)
-        text_cursor_1.insertBlock(text_block_format, text_format)
-        text_cursor_1.insertText('Welcome!', text_format)
-        text_format.setForeground(QtGui.QBrush(QtGui.QColor('blue')))
-        text_cursor_1.insertBlock(text_block_format, text_format)
-        text_cursor_1.insertText('    Some text ...\nazerty\r\ntoto')
-
+       
         self.text_browser_1.setDocument(self.text_document_1)
 
         self.main_window.show()
+        
+        text_format = QtGui.QTextCharFormat()
+        text_block_format = QtGui.QTextBlockFormat()
+        # text_block_format.setTopMargin(0)
+        # text_block_format.setBottomMargin(0)
 
-#####################################################################################################
+        def print_bb():
+            layout = text_cursor_1.block().layout() 
+            bb = layout.boundingRect()
+            y_line = layout.position().y() # top position of the block
+            self.y_lines.append(y_line) 
+            print bb.top(), bb.bottom(), y_line
+
+        text_block_format.setBackground(QtGui.QColor(240, 240, 240))
+        text_format.setForeground(QtGui.QColor('red'))
+        text_cursor_1.insertBlock(text_block_format, text_format)
+        print_bb() # top line
+        text_cursor_1.insertText('Welcome!', text_format)
+        # text_cursor_1.block().layout().setPosition(QtCore.QPointF(.0,.0))
+        
+        text_block_format.setBackground(QtGui.QColor(220, 220, 220))
+        text_format.setForeground(QtGui.QColor('blue'))
+        text_cursor_1.insertBlock(text_block_format, text_format)
+        print_bb() # mid line
+        text_cursor_1.insertText('  Some text ...\r\nazerty\r\ntoto')
+        #print_bb()
+        
+        text_block_format.setBackground(QtGui.QColor(240, 240, 240))
+        text_format.setForeground(QtGui.QColor('black'))
+        text_cursor_1.insertBlock(text_block_format, text_format)
+        print_bb() # mid line
+        text_cursor_1.insertText('next line\n')
+        #print_bb()
+        
+        text_block_format.setBackground(QtGui.QColor(220, 220, 220))
+        text_cursor_1.insertBlock(text_block_format, text_format)
+        print_bb() # mid line
+        text_cursor_1.insertText('next line\n')
+        #print_bb()
+
+        text_block_format.setBackground(QtGui.QColor(255, 255, 255))
+        text_cursor_1.insertBlock(text_block_format, text_format)
+        print_bb() # bottom line
+        
+####################################################################################################
 #
 # Options
 #
@@ -62,13 +137,13 @@ parser = argparse.ArgumentParser(description='Side Viewer.')
 
 args = parser.parse_args()
 
-#####################################################################################################
+####################################################################################################
 
 application = Application(args)
 application.exec_()
 
-#####################################################################################################
+####################################################################################################
 #
 # End
 #
-#####################################################################################################
+####################################################################################################

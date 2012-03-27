@@ -72,11 +72,17 @@ class DiffViewerCursor(object):
 
     ##############################################
 
-    def begin_block(self, frame_type):
+    def begin_block(self, frame_type, i):
 
         self.begin_y = self.y()
         self.frame_type = frame_type
-        self.cursor.insertBlock()
+        text_block_format = QtGui.QTextBlockFormat()
+        if i & 1 == 0:
+            text_block_format.setBackground(QtGui.QColor(220, 220, 220))
+        else:
+            text_block_format.setBackground(QtGui.QColor(240, 240, 240))
+        if i > 0:
+            self.cursor.insertBlock(text_block_format)
 
     ##############################################
 
@@ -141,7 +147,7 @@ class TextBrowser(QtGui.QTextBrowser):
                 break
             text_block_style = text_block_styles[text_block.frame_type]
             # Paint the background
-            painter.fillRect(0,  y_top, width, y_bottom - y_top, text_block_style.background_colour)
+            ### painter.fillRect(0,  y_top, width, y_bottom - y_top, text_block_style.background_colour)
             # Paint horizontal lines
             painter.setPen(text_block_style.line_colour)
             painter.drawLine(0, y_top, width, y_top)
@@ -288,19 +294,20 @@ class DiffView(QtGui.QSplitter):
         for i, document_model in enumerate(document_models):
             print '\nDocument', i
             cursor = DiffViewerCursor(self.cursors[i], self.text_blocks[i])
-            for text_block in document_model:
+            for k, text_block in enumerate(document_model):
                 print '  Block', repr(text_block)
-                cursor.begin_block(text_block.frame_type)
+                cursor.begin_block(text_block.frame_type, k)
                 last_fragment_index = len(text_block) -1
-                for i, text_fragment in enumerate(text_block):
+                for j, text_fragment in enumerate(text_block):
                     # print '    Fragment', repr(text_fragment).replace('\n', '\n      ')
                     text_format = self.syntax_highlighter_style[text_fragment.token_type]
                     text = unicode(text_fragment)
-                    # if i == last_fragment_index:
-                    #     if text.endswith('\r\n'):
-                    #         text = text[:-2]
-                    #     elif text[-1] in ('\n', '\r'):
-                    #         text = text[:-1]
+                    if j == last_fragment_index:
+                        if text.endswith('\r\n'):
+                            text = text[:-2]
+                        elif text[-1] in ('\n', '\r'):
+                            text = text[:-1]
+                    print i, k, j, '[' + text + ']'
                     cursor.insert_text(text, text_format)
                 cursor.end_block()
         
