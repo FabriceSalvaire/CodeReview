@@ -21,6 +21,29 @@ def function2(x):
     b = 2
     return a * x + b
 
+print """
+Alii nullo quaerente vultus severitate adsimulata patrimonia sua in inmensum extollunt, cultorum ut
+puta feracium multiplicantes annuos fructus, quae a primo ad ultimum solem se abunde iactitant
+possidere, ignorantes profecto maiores suos, per quos ita magnitudo Romana porrigitur, non divitiis
+eluxisse sed per bella saevissima, nec opibus nec victu nec indumentorum vilitate gregariis
+militibus discrepantes opposita cuncta superasse virtute.
+"""
+
+def function3(x):
+    """ This is function 3 """
+    a = 100
+    b = 2
+    return x**2 / a + b
+
+print """
+Nec sane haec sola pernicies orientem diversis cladibus adfligebat. Namque et Isauri, quibus est
+usitatum saepe pacari saepeque inopinis excursibus cuncta miscere, ex latrociniis occultis et raris,
+alente inpunitate adulescentem in peius audaciam ad bella gravia proruperunt, diu quidem perduelles
+spiritus inrequietis motibus erigentes, hac tamen indignitate perciti vehementer, ut iactitabant,
+quod eorum capiti quidam consortes apud Iconium Pisidiae oppidum in amphitheatrali spectaculo feris
+praedatricibus obiecti sunt praeter morem.
+"""
+
 var1 = function2(10)
 var2 = function2(20)
 

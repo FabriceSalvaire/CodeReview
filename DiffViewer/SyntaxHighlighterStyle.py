@@ -24,7 +24,7 @@ class SyntaxHighlighterStyle(dict):
             # style attributes: bgcolor, bold, border, color, italic, mono, roman, sans, underline
             text_format = QtGui.QTextCharFormat()
             def to_brush(colour):
-                return QtGui.QBrush(QtGui.QColor("#" + colour))
+                return QtGui.QColor("#" + colour)
             if style_attributes['bgcolor']:
                 text_format.setBackground(to_brush(style_attributes['bgcolor']))
             if style_attributes['color']:

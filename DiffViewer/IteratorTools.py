@@ -12,6 +12,14 @@ def pairwise(iterable):
         prev = x
 
 ####################################################################################################
+
+def iter_with_last_flag(iterable):
+
+    last_index = len(iterable) -1
+    for i, x in enumerate(iterable):
+        yield x, i == last_index
+
+####################################################################################################
 #
 # End
 #

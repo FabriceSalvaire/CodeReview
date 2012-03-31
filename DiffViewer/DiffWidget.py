@@ -5,7 +5,9 @@ from PyQt4 import QtGui, QtCore
 ####################################################################################################
 
 from DiffViewer.DiffWidgetConfig import text_block_styles
+from DiffViewer.IteratorTools import pairwise, iter_with_last_flag
 from DiffViewer.RawTextDocumentDiff import chunk_type
+from DiffViewer.StringTools import suppress_trailing_newline
 from DiffViewer.SyntaxHighlighterStyle import SyntaxHighlighterStyle
 
 ####################################################################################################
@@ -22,6 +24,10 @@ def get_monospaced_font():
     print 'Monospaced Font familly is', QtGui.QFontInfo(font).family()
     
     return font
+
+####################################################################################################
+
+LEFT, RIGHT = range(2)
 
 ####################################################################################################
 
@@ -60,43 +66,47 @@ class DiffViewerCursor(object):
 
         self.cursor = cursor
         self.text_blocks = text_blocks
-
-        self.begin_y = None
-        self.frame_type = None
+        self.insert = True
         
     ##############################################
 
     def y(self):
 
+        """ Return the top position of the current block. """
+        
         return self.cursor.block().layout().position().y()
 
     ##############################################
 
-    def begin_block(self, frame_type, i):
+    def begin_block(self, side, frame_type):
 
-        self.begin_y = self.y()
-        self.frame_type = frame_type
-        text_block_format = QtGui.QTextBlockFormat()
-        if i & 1 == 0:
-            text_block_format.setBackground(QtGui.QColor(220, 220, 220))
+        if self.insert:
+            self.cursor.insertBlock()
+        self.text_blocks.add(self.y(), 0, frame_type)
+        if ((side == LEFT and frame_type == chunk_type.insert) or
+            (side == RIGHT and frame_type == chunk_type.delete)):
+            self.insert = False
         else:
-            text_block_format.setBackground(QtGui.QColor(240, 240, 240))
-        if i > 0:
-            self.cursor.insertBlock(text_block_format)
+            self.insert = True
 
     ##############################################
 
-    def insert_text(self, text, text_format):
+    def insert_text(self, text, text_format, last_text_fragment):
 
-        self.cursor.insertText(text, text_format)
+        if last_text_fragment:
+            text = suppress_trailing_newline(text)
+        if text:
+            self.cursor.insertText(text, text_format)
         
     ##############################################
 
-    def end_block(self):
+    def end(self):
 
-        end_y = self.y()
-        self.text_blocks.add(self.begin_y -1, end_y +1, self.frame_type)
-    
+        self.cursor.insertBlock()
+        self.text_blocks[-1].y_bottom = self.y()
+        for text_block0, text_block1 in pairwise(self.text_blocks):
+            text_block0.y_bottom = text_block1.y_top
+            
 ####################################################################################################
 
 class TextBrowser(QtGui.QTextBrowser):
@@ -122,7 +132,7 @@ class TextBrowser(QtGui.QTextBrowser):
         y_min = event.rect().top()
         y_max = event.rect().bottom()
 
-        print 'y, y_min, y_max:', y, y_min, y_max
+        # print 'y, y_min, y_max:', y, y_min, y_max
         
         painter = QtGui.QPainter(self.viewport())
         painter.setClipRect(event.rect())
@@ -133,21 +143,21 @@ class TextBrowser(QtGui.QTextBrowser):
         
         for text_block in self.text_blocks:
 
-            print text_block
+            # print text_block
 
             if text_block.frame_type is None or text_block.frame_type == chunk_type.equal:
                 continue
 
             # Shift text block in the viewport
-            y_top = text_block.y_top - y
-            y_bottom = text_block.y_bottom - y
+            y_top = text_block.y_top - y -1
+            y_bottom = text_block.y_bottom - y +1
             if y_bottom < y_min:
                 continue
             if y_top > y_max:
                 break
             text_block_style = text_block_styles[text_block.frame_type]
             # Paint the background
-            ### painter.fillRect(0,  y_top, width, y_bottom - y_top, text_block_style.background_colour)
+            painter.fillRect(0,  y_top, width, y_bottom - y_top, text_block_style.background_colour)
             # Paint horizontal lines
             painter.setPen(text_block_style.line_colour)
             painter.drawLine(0, y_top, width, y_top)
@@ -182,24 +192,25 @@ class SplitterHandle(QtGui.QSplitterHandle):
         width = self.width()
         height = self.height()
 
-        y_left, y_right = [browser.verticalScrollBar().value() - self.frame_width
+        y_correction = self.frame_width + 2 # Fixme: ?
+        y_left, y_right = [browser.verticalScrollBar().value() - y_correction
                            for browser in diff_view.browsers]
         
         pen = QtGui.QPen(QtCore.Qt.black)
         pen.setWidth(2)
         painter.setPen(pen)
 
-        print 'Paint Handle:'
+        # print 'Paint Handle:'
         for text_block_left, text_block_right in zip(* diff_view.text_blocks):
-            print text_block_left, text_block_right
+            # print text_block_left, text_block_right
 
             if text_block_left.frame_type is None or text_block_left.frame_type == chunk_type.equal:
                 continue
 
-            y_top_left = text_block_left.y_top - y_left
-            y_bottom_left = text_block_left.y_bottom - y_left -1
-            y_top_right = text_block_right.y_top - y_right
-            y_bottom_right = text_block_right.y_bottom - y_right + 1
+            y_top_left = text_block_left.y_top - y_left -1
+            y_bottom_left = text_block_left.y_bottom - y_left +1
+            y_top_right = text_block_right.y_top - y_right -1
+            y_bottom_right = text_block_right.y_bottom - y_right +1
             
             if y_top_left < 0 and y_bottom_right < 0:
                 continue
@@ -291,26 +302,18 @@ class DiffView(QtGui.QSplitter):
     
     def set_document_models(self, document_models):
 
-        for i, document_model in enumerate(document_models):
-            print '\nDocument', i
-            cursor = DiffViewerCursor(self.cursors[i], self.text_blocks[i])
-            for k, text_block in enumerate(document_model):
-                print '  Block', repr(text_block)
-                cursor.begin_block(text_block.frame_type, k)
-                last_fragment_index = len(text_block) -1
-                for j, text_fragment in enumerate(text_block):
-                    # print '    Fragment', repr(text_fragment).replace('\n', '\n      ')
-                    text_format = self.syntax_highlighter_style[text_fragment.token_type]
-                    text = unicode(text_fragment)
-                    if j == last_fragment_index:
-                        if text.endswith('\r\n'):
-                            text = text[:-2]
-                        elif text[-1] in ('\n', '\r'):
-                            text = text[:-1]
-                    print i, k, j, '[' + text + ']'
-                    cursor.insert_text(text, text_format)
-                cursor.end_block()
-        
+        for side, document_model in enumerate(document_models):
+            cursor = DiffViewerCursor(self.cursors[side], self.text_blocks[side])
+            for text_block in document_model:
+                cursor.begin_block(side, text_block.frame_type)
+                for text_fragment, last_text_fragment in iter_with_last_flag(text_block):
+                    text_format = QtGui.QTextCharFormat(self.syntax_highlighter_style[text_fragment.token_type])
+                    if (text_block.frame_type == chunk_type.replace and
+                        text_fragment.frame_type != chunk_type.equal):
+                        text_format.setBackground(QtGui.QColor(180, 210, 250))
+                    cursor.insert_text(unicode(text_fragment), text_format, last_text_fragment)
+            cursor.end()
+                
 ####################################################################################################
 #
 # End
