@@ -6,7 +6,7 @@
   :maxdepth: 2
   :numbered:
 
-  api/index.rst
+  api/DiffViewer.rst
 
 =========
  Indexes

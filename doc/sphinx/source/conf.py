@@ -2,7 +2,7 @@
 
 ####################################################################################################
 #
-# Git-Python documentation build configuration file, created by
+# DiffViewer documentation build configuration file, created by
 # sphinx-quickstart on Fri Apr  8 16:54:03 2011.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -14,10 +14,6 @@
 # serve to show the default.
 #
 ####################################################################################################
-
-####################################################################################################
-
-import sys, os
 
 ####################################################################################################
 
@@ -59,7 +55,7 @@ source_suffix = '.rst'
 master_doc = 'contents'
 
 # General information about the project.
-project = u'Git-Python'
+project = u'DiffViewer'
 copyright = u'2012, Fabrice Salvaire'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -129,7 +125,7 @@ autodoc_default_flags = [
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 # html_theme = 'default'
-html_theme = 'git-python'
+html_theme = 'DiffViewer'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -202,7 +198,7 @@ html_static_path = ['_static']
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'git-python-doc'
+htmlhelp_basename = 'DiffViewer-doc'
 
 ####################################################################################################
 #
@@ -218,9 +214,9 @@ latex_font_size = '10pt'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('contents', 'Git-Python.tex', u'Git-Python Documentation',
+  ('contents', 'DiffViewer.tex', u'DiffViewer Documentation',
    u'Fabrice Salvaire', 'manual'),
-  ('contents-client', 'Git-Python-client.tex', u'Git-Python Documentation',
+  ('contents-client', 'DiffViewer-client.tex', u'DiffViewer Documentation',
    u'Fabrice Salvaire', 'manual'),
 ]
 
@@ -255,7 +251,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('contents', 'git-python', u'Git-Python Documentation', [u'Fabrice Salvaire'], 1)
+    ('contents', 'DiffViewer', u'DiffViewer Documentation', [u'Fabrice Salvaire'], 1)
 ]
 
 
