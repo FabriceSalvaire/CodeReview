@@ -1,7 +1,6 @@
-side-view_ui.py
-bzr-repo
-git-repo
 TAGS
-DiffViewer/.ropeproject
-add
+build
+bzr-repo
 doc/sphinx/build
+git-repo
+side-view_ui.py

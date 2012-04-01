@@ -1,0 +1,4 @@
+include MANIFEST.in COPYING
+recursive-include DiffViewer *.py
+prune build
+prune doc/sphinx/build
