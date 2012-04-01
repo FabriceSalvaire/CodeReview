@@ -2,12 +2,10 @@
 # -*- python -*-
 
 ####################################################################################################
-#
-# Copyright (C) 2012 Fabrice Salvaire.  All Rights Reserved.
-# Contact: fabrice.salvaire@orange.fr
-#
-# This file is part of the Git-Python software.
-#
+# 
+# DiffViewer - Diff Viewer 
+# Copyright (C) Salvaire Fabrice 2012 
+# 
 ####################################################################################################
 
 ####################################################################################################

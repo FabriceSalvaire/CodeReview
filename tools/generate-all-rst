@@ -1,28 +1,41 @@
 #! /bin/bash
 
 ####################################################################################################
+# 
+# DiffViewer - Diff Viewer 
+# Copyright (C) Salvaire Fabrice 2012 
+# 
+####################################################################################################
+
+####################################################################################################
 
 root_dir=$PWD
 api_dir=${root_dir}/doc/sphinx/source/api
 
-mkdir -p ${api_dir}-old
-mv --backup=numbered ${api_dir} ${api_dir}-old
-mkdir -p ${api_dir}/GVLab
+api_old=${root_dir}/tmp/api-old
+mkdir -p ${api_old}
+mv --backup=numbered ${api_dir} ${api_old}
+mkdir -p ${api_dir}/DiffViewer
 
 cat > ${api_dir}/index.rst <<EOF
 ****************
- Git-Python API
+ DiffViewer API
 ****************
 
 .. toctree::
 EOF
 
-for i in DiffViewer; do
-  echo Module $i
-  ${root_dir}/tools/generate-rst --root-path=${root_dir} --module-path=${root_dir}/$i --file-per-module --dst-path=${api_dir} --module-summary-file --title=${i} > ${api_dir}/${i}.rst
-  cat >> ${api_dir}/index.rst <<EOF
+for i in `find DiffViewer -maxdepth 1 -type d -follow | sort`; do
+  if [ "$i" != "DiffViewer/PatienceDiff" ]; then
+    echo
+    echo Module $i
+    set -x
+    ${root_dir}/tools/generate-rst --root-path=${root_dir} --module-path=${root_dir}/$i --file-per-module --dst-path=${api_dir} --module-summary-file --title=${i} > ${api_dir}/${i}.rst
+    set +x
+    cat >> ${api_dir}/index.rst <<EOF
   $i
 EOF
+  fi
 done
 
 cat >> ${api_dir}/index.rst <<EOF
@@ -34,7 +47,7 @@ cd ${root_dir}
 
 echo
 echo Old api directory moved to
-ls -l -d -h ${api_dir}-old
+ls -l -d -h ${api_old}
 
 ####################################################################################################
 #
