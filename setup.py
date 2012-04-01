@@ -43,7 +43,7 @@ setup(name='Diff Viewer',
       requires=[
         'pyqt (>= 4.6)',
         ],
-      ext_modules=[Extension('PatienceDiff._patiencediff_c', ['PatienceDiff/_patiencediff_c.c'])],
+      ext_modules=[Extension('DiffViewer.PatienceDiff._patiencediff_c', ['DiffViewer/PatienceDiff/_patiencediff_c.c'])],
       )
 
 ####################################################################################################
