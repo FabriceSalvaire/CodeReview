@@ -2,7 +2,8 @@
  :mod:`IteratorTools`
 **********************
 
-.. automodule:: DiffViewer.IteratorTools
+
+.. automodule:: DiffViewer.Tools.IteratorTools
    :members:
    :show-inheritance:
 

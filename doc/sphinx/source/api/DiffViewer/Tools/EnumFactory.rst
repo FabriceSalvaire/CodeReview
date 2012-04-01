@@ -2,7 +2,8 @@
  :mod:`EnumFactory`
 ********************
 
-.. automodule:: DiffViewer.EnumFactory
+
+.. automodule:: DiffViewer.Tools.EnumFactory
    :members:
    :show-inheritance:
 

@@ -2,7 +2,8 @@
  :mod:`Slice`
 **************
 
-.. automodule:: DiffViewer.Slice
+
+.. automodule:: DiffViewer.Tools.Slice
    :members:
    :show-inheritance:
 

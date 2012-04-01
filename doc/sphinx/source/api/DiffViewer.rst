@@ -1,19 +1,18 @@
-============
- DiffViewer
-============
+*******************
+ :mod:`DiffViewer`
+*******************
+
 
 .. toctree::
-
-  DiffViewer/DiffWidget.rst
-  DiffViewer/EnumFactory.rst
-  DiffViewer/IteratorTools.rst
-  DiffViewer/RawTextDocument.rst
-  DiffViewer/RawTextDocumentDiff.rst
-  DiffViewer/Slice.rst
-  DiffViewer/SyntaxHighlighter.rst
-  DiffViewer/SyntaxHighlighterStyle.rst
-  DiffViewer/TextDocumentDiffModel.rst
-  DiffViewer/TextDocumentModel.rst
+  DiffViewer/RawTextDocumentDiff
+  DiffViewer/DiffWidget
+  DiffViewer/TextDocumentDiffModel
+  DiffViewer/RawTextDocument
+  DiffViewer/DiffWidgetConfig
+  DiffViewer/SyntaxHighlighter
+  DiffViewer/SyntaxHighlighterStyle
+  DiffViewer/TextDocumentModel
+  DiffViewer/PatienceDiff
+  DiffViewer/Tools
 
 .. End
-
