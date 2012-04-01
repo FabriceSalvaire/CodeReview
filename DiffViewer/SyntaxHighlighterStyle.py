@@ -34,6 +34,12 @@ class SyntaxHighlighterStyle(dict):
             if style_attributes['italic']:
                 text_format.setFontItalic(True)
             self[token] = text_format
+
+    ##############################################
+    
+    def __getitem__(self, key):
+
+        return QtGui.QTextCharFormat(super(SyntaxHighlighterStyle, self).__getitem__(key))
             
 ####################################################################################################
 # 

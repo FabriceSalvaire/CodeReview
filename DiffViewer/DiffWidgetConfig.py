@@ -1,4 +1,13 @@
 ####################################################################################################
+# 
+# DiffViewer - Diff Viewer 
+# Copyright (C) Salvaire Fabrice 2012 
+# 
+####################################################################################################
+
+""" This modules defines the colour styles used by the Diff Viewer for text blocks. """
+
+####################################################################################################
 
 from PyQt4 import QtGui
 
@@ -9,6 +18,17 @@ from DiffViewer.RawTextDocumentDiff import chunk_type
 ####################################################################################################
 
 class TextBlockStyle(object):
+
+    """ This class defines colour style for a text block.
+
+    Public attributes:
+
+      :attr:`background_colour`
+        background colour of the text block
+
+      :attr:`line_colour`
+        top and bottom line colour of the text block
+    """
 
     ##############################################
 
@@ -21,6 +41,8 @@ class TextBlockStyle(object):
 
 class TextBlockStyles(dict):
 
+    """ This class implements a dictionary of Test Block Styles indexed by the *frame_type*. """
+
     ##############################################
 
     def add(self, frame_type, background_colour, line_colour):
@@ -29,6 +51,7 @@ class TextBlockStyles(dict):
 
 ####################################################################################################
 
+#: Defines the default text block styles
 text_block_styles = TextBlockStyles()
 for style in (
     {'frame_type':chunk_type.equal,
@@ -53,6 +76,9 @@ for style in (
     
     ):
     text_block_styles.add(**style)
+
+#: Defines the background colour for intra-difference
+intra_difference_background_colour = QtGui.QColor(180, 210, 250)
 
 ####################################################################################################
 # 

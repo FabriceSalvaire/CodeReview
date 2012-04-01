@@ -2,6 +2,13 @@
 # -*- python -*-
 
 ####################################################################################################
+# 
+# DiffViewer - Diff Viewer 
+# Copyright (C) Salvaire Fabrice 2012 
+# 
+####################################################################################################
+
+####################################################################################################
 
 import argparse
 import sys
@@ -28,47 +35,71 @@ class Application(QtGui.QApplication):
 
         super(Application, self).__init__(sys.argv)
 
-        self.main_window = QtGui.QMainWindow(None)
+        self._main_window = QtGui.QMainWindow(None)
 
- 	self.diff_view = DiffView()
-        self.main_window.setCentralWidget(self.diff_view)
+        self._central_widget = QtGui.QWidget(self._main_window)
+        self._main_window.setCentralWidget(self._central_widget)
+        self._vertical_layout = QtGui.QVBoxLayout(self._central_widget)
+
+        self._diff_view = DiffView()
+        self._vertical_layout.addWidget(self._diff_view)
+ 
+        self._horizontal_layout = QtGui.QHBoxLayout()
+        self._vertical_layout.addLayout(self._horizontal_layout)
+        self._complete_checkbox = QtGui.QCheckBox(self._central_widget)
+        self._complete_checkbox.setText(QtGui.QApplication.translate("main_window", "Complete", None, QtGui.QApplication.UnicodeUTF8))
+        self._horizontal_layout.addWidget(self._complete_checkbox)
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self._horizontal_layout.addItem(spacerItem)
+        self._refresh_button = QtGui.QPushButton(self._central_widget)
+        self._refresh_button.setText(QtGui.QApplication.translate("main_window", "Refresh", None, QtGui.QApplication.UnicodeUTF8))
+        self._horizontal_layout.addWidget(self._refresh_button)
 
         self._open_files(args)
         
-        self.main_window.showMaximized()
+        self._main_window.showMaximized()
+
+        self._complete_checkbox.stateChanged.connect(self._set_document_models)
 
     ################################################
 
     def _open_files(self, args):
 
-        self.raw_text_documents = []
-        self.lexers = []
-        for i, file_name in enumerate((args.file1, args.file2)):
+        self._raw_text_documents = []
+        self._lexers = []
+        for file_name in args.file1, args.file2:
             with open(file_name) as f:
                 text = f.read()
             raw_text_document = RawTextDocument(text)
-            self.raw_text_documents.append(raw_text_document)
+            self._raw_text_documents.append(raw_text_document)
             lexer = get_lexer_for_filename(file_name, stripnl=False)
-            self.lexers.append(lexer)
+            self._lexers.append(lexer)
             
         if not args.show:
-            file_diff = TwoWayFileDiffFactory().process(* self.raw_text_documents)
-            self.document_models = TextDocumentDiffModelFactory().process(file_diff)
-            self.highlighted_texts = []
-            for raw_text_document, lexer in zip(self.raw_text_documents, self.lexers):
+            file_diff = TwoWayFileDiffFactory().process(* self._raw_text_documents)
+            self._document_models = TextDocumentDiffModelFactory().process(file_diff)
+            self._highlighted_texts = []
+            for raw_text_document, lexer in zip(self._raw_text_documents, self._lexers):
                 highlighted_text = HighlightedText(raw_text_document, lexer)
-                self.highlighted_texts.append(highlighted_text)
-            self.highlighted_documents = []
-            for document_model, highlighted_text in zip(self.document_models, self.highlighted_texts):
+                self._highlighted_texts.append(highlighted_text)
+            self._highlighted_documents = []
+            for document_model, highlighted_text in zip(self._document_models, self._highlighted_texts):
                 highlighted_document = highlight_document(document_model, highlighted_text)
-                self.highlighted_documents.append(highlighted_document)
-            self.diff_view.set_document_models(self.highlighted_documents)
+                self._highlighted_documents.append(highlighted_document)
         else:
-            self.highlighted_documents = []
-            for raw_text_document, lexer in zip(self.raw_text_documents, self.lexers):
+            self._highlighted_documents = []
+            for raw_text_document, lexer in zip(self._raw_text_documents, self._lexers):
                 highlighted_document = highlight_text(raw_text_document, lexer)
-                self.highlighted_documents.append(highlighted_document)
-            self.diff_view.set_document_models(self.highlighted_documents)
+                self._highlighted_documents.append(highlighted_document)
+
+        self._set_document_models()
+
+    ################################################
+
+    def _set_document_models(self):
+
+        complete_mode = self._complete_checkbox.checkState() == QtCore.Qt.Checked
+        self._diff_view.set_document_models(self._highlighted_documents, complete_mode)
             
 ####################################################################################################
 #

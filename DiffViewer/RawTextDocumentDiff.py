@@ -1,11 +1,11 @@
 ####################################################################################################
 
-from bzrlib.patiencediff import PatienceSequenceMatcher
+from PatienceDiff import PatienceSequenceMatcher
 
 ####################################################################################################
 
-from DiffViewer.EnumFactory import EnumFactory
-from DiffViewer.Slice import FlatSlice, LineSlice
+from DiffViewer.Tools.EnumFactory import EnumFactory
+from DiffViewer.Tools.Slice import FlatSlice, LineSlice
 
 ####################################################################################################
 

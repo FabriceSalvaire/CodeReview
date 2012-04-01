@@ -4,8 +4,8 @@ import bisect
 
 ####################################################################################################
 
-from DiffViewer.Slice import FlatSlice, LineSlice
-from DiffViewer.IteratorTools import pairwise
+from DiffViewer.Tools.Slice import FlatSlice, LineSlice
+from DiffViewer.Tools.IteratorTools import pairwise
 
 ####################################################################################################
 

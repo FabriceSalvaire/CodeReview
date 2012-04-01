@@ -4,11 +4,11 @@ from PyQt4 import QtGui, QtCore
 
 ####################################################################################################
 
-from DiffViewer.DiffWidgetConfig import text_block_styles
-from DiffViewer.IteratorTools import pairwise, iter_with_last_flag
 from DiffViewer.RawTextDocumentDiff import chunk_type
-from DiffViewer.StringTools import suppress_trailing_newline
 from DiffViewer.SyntaxHighlighterStyle import SyntaxHighlighterStyle
+from DiffViewer.Tools.IteratorTools import pairwise, iter_with_last_flag
+from DiffViewer.Tools.StringTools import suppress_trailing_newline
+import DiffViewer.DiffWidgetConfig as DiffWidgetConfig
 
 ####################################################################################################
 
@@ -49,6 +49,12 @@ class TextBlock(object):
 ####################################################################################################
         
 class TextBlocks(list):
+
+    ##############################################
+
+    def clear(self):
+
+        del self[:]
 
     ##############################################
 
@@ -155,7 +161,7 @@ class TextBrowser(QtGui.QTextBrowser):
                 continue
             if y_top > y_max:
                 break
-            text_block_style = text_block_styles[text_block.frame_type]
+            text_block_style = DiffWidgetConfig.text_block_styles[text_block.frame_type]
             # Paint the background
             painter.fillRect(0,  y_top, width, y_bottom - y_top, text_block_style.background_colour)
             # Paint horizontal lines
@@ -217,7 +223,7 @@ class SplitterHandle(QtGui.QSplitterHandle):
             if y_top_left > height and y_top_right > height:
                 break
  
-            text_block_style = text_block_styles[text_block_left.frame_type]
+            text_block_style = DiffWidgetConfig.text_block_styles[text_block_left.frame_type]
 
             painter.setPen(QtCore.Qt.NoPen)
             painter.setBrush(text_block_style.background_colour)
@@ -297,21 +303,34 @@ class DiffView(QtGui.QSplitter):
             scroll_bar2.setValue(value)
             self.ignore_scroll_bar_update_signal = False
         self.handle(1).update()
+
+    ##############################################
+    
+    def clear(self):
+
+        for i in xrange(2):
+            self.browsers[i].clear()
+            self.documents[i].clear()
+            self.text_blocks[i].clear()
+        self.update()
             
     ##############################################
     
-    def set_document_models(self, document_models):
+    def set_document_models(self, document_models, complete_mode=True):
+
+        self.clear()
 
         for side, document_model in enumerate(document_models):
             cursor = DiffViewerCursor(self.cursors[side], self.text_blocks[side])
             for text_block in document_model:
                 cursor.begin_block(side, text_block.frame_type)
-                for text_fragment, last_text_fragment in iter_with_last_flag(text_block):
-                    text_format = QtGui.QTextCharFormat(self.syntax_highlighter_style[text_fragment.token_type])
-                    if (text_block.frame_type == chunk_type.replace and
-                        text_fragment.frame_type != chunk_type.equal):
-                        text_format.setBackground(QtGui.QColor(180, 210, 250))
-                    cursor.insert_text(unicode(text_fragment), text_format, last_text_fragment)
+                if text_block.frame_type != chunk_type.equal_block or complete_mode:
+                    for text_fragment, last_text_fragment in iter_with_last_flag(text_block):
+                        text_format = self.syntax_highlighter_style[text_fragment.token_type]
+                        if (text_block.frame_type == chunk_type.replace and
+                            text_fragment.frame_type != chunk_type.equal):
+                            text_format.setBackground(DiffWidgetConfig.intra_difference_background_colour)
+                        cursor.insert_text(unicode(text_fragment), text_format, last_text_fragment)
             cursor.end()
                 
 ####################################################################################################

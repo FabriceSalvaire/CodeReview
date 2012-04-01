@@ -1,8 +1,8 @@
 ####################################################################################################
 
 from DiffViewer.RawTextDocumentDiff import chunk_type
-from DiffViewer.Slice import LineSlice
 from DiffViewer.TextDocumentModel import TextDocumentModel, TextBlock, TextFragment
+from DiffViewer.Tools.Slice import LineSlice
 
 ####################################################################################################
 

@@ -1,10 +1,44 @@
 ####################################################################################################
+# 
+# DiffViewer - Diff Viewer 
+# Copyright (C) Salvaire Fabrice 2012 
+# 
+####################################################################################################
+
+""" This module provides an implementation for enumerate.
+
+The enum factory :func:`EnumFactory` builds a enumerate from a list of names and assigns to these
+constants a value from 0 to ``N-1``, where ``N`` is the number of constants::
+
+  enum1 = EnumFactory('Enum1', ('cst1', 'cst2'))
+   
+then we can get a constant's value with::
+     
+  enum1.cst1
+
+and the number of constants using::
+
+  len(enum1)
+
+The enum factory :func:`ExplicitEnumFactory` permits to specify the values of the constants::
+        
+  enum2 = ExplicitEnumFactory('Enum2', {'cst1':1, 'cst2':3})
+
+We can test if a value is in the enum using::
+
+  constant_value in enum2
+
+"""
+
+####################################################################################################
 
 __all__ = ['EnumFactory', 'ExplicitEnumFactory']
 
 ####################################################################################################
 
 class ReadOnlyMetaClass(type):
+
+    """ This meta class implements a class where the attributes are read only. """
 
     ###############################################
 
@@ -16,6 +50,8 @@ class ReadOnlyMetaClass(type):
 
 class EnumMetaClass(ReadOnlyMetaClass):
 
+    """ This meta class implements the function :func:`len`. """
+
     ###############################################
 
     def __len__(self):
@@ -25,6 +61,8 @@ class EnumMetaClass(ReadOnlyMetaClass):
 ####################################################################################################
 
 class ExplicitEnumMetaClass(ReadOnlyMetaClass):
+
+    """ This meta class implements the operator ``in``. """
 
     ###############################################
 
@@ -65,6 +103,10 @@ class EnumConstant(object):
 
 def EnumFactory(enum_name, enum_tuple):
 
+    """ Return an :class:`EnumMetaClass` instance, where *cls_name* is the class name and
+    *constant_names* is an iterable of constant's names.
+    """
+
     obj_dict = {}
     obj_dict['_size'] = len(enum_tuple)
     for value, name in enumerate(enum_tuple):
@@ -75,6 +117,10 @@ def EnumFactory(enum_name, enum_tuple):
 ####################################################################################################
 
 def ExplicitEnumFactory(enum_name, enum_dict):
+
+    """ Return an :class:`ExplicitEnumMetaClass` instance, where *cls_name* is the class name and
+    *constant_dict* is a dict of constant's names and their values.
+    """
 
     obj_dict = {}
     obj_dict['constants'] = enum_dict.values()
