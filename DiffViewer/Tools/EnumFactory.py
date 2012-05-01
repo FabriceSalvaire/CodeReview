@@ -12,11 +12,15 @@ constants a value from 0 to ``N-1``, where ``N`` is the number of constants::
 
   enum1 = EnumFactory('Enum1', ('cst1', 'cst2'))
    
-then we can get a constant's value with::
+then we can get a constant's value using an integer context like::
      
-  enum1.cst1
+  int(enum1.cst1)
 
-and the number of constants using::
+and the constant's name using::
+
+  repr(enum1.cst2)
+
+The number of constants could be retrieved with::
 
   len(enum1)
 
@@ -32,7 +36,7 @@ We can test if a value is in the enum using::
 
 ####################################################################################################
 
-__all__ = ['EnumFactory', 'ExplicitEnumFactory']
+# __all__ = ['EnumFactory', 'ExplicitEnumFactory']
 
 ####################################################################################################
 
@@ -74,6 +78,8 @@ class ExplicitEnumMetaClass(ReadOnlyMetaClass):
 
 class EnumConstant(object):
 
+    """ Define an Enum Constant """
+
     ##############################################
     
     def __init__(self, name, value):
@@ -103,7 +109,7 @@ class EnumConstant(object):
 
 def EnumFactory(enum_name, enum_tuple):
 
-    """ Return an :class:`EnumMetaClass` instance, where *cls_name* is the class name and
+    """ Return an :class:`EnumMetaClass` instance, where *enum_name* is the class name and
     *constant_names* is an iterable of constant's names.
     """
 
@@ -118,7 +124,7 @@ def EnumFactory(enum_name, enum_tuple):
 
 def ExplicitEnumFactory(enum_name, enum_dict):
 
-    """ Return an :class:`ExplicitEnumMetaClass` instance, where *cls_name* is the class name and
+    """ Return an :class:`ExplicitEnumMetaClass` instance, where *enum_name* is the class name and
     *constant_dict* is a dict of constant's names and their values.
     """
 

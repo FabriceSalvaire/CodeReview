@@ -1,6 +1,23 @@
 ####################################################################################################
+# 
+# DiffViewer - Diff Viewer 
+# Copyright (C) Salvaire Fabrice 2012 
+# 
+####################################################################################################
 
-from PatienceDiff import PatienceSequenceMatcher
+""" This module provides an API to compute and store the difference between two text documents.
+
+The difference is computed in therms of line difference, thus documents are split to a set of
+contiguous lines called *chunks*.  There is three types of line difference: a removed chunk, an
+inserted chunk and a replaced chunk.  A difference is located in the document using a number of
+lines of context, that is an equal chunk type.  Differences are represented by a list of contiguous
+chunks, any combination of removed, inserted and replaced chunk, and is delimited by two equal
+chunks to define the context.
+""" 
+
+####################################################################################################
+
+from DiffViewer.PatienceDiff import PatienceSequenceMatcher
 
 ####################################################################################################
 
@@ -9,12 +26,15 @@ from DiffViewer.Tools.Slice import FlatSlice, LineSlice
 
 ####################################################################################################
 
+#: Defines the type of chunks
 chunk_type = EnumFactory('TwoWayChunkTypes', ('equal', 'insert', 'delete', 'replace',
                                               'equal_block'))
 
 ####################################################################################################
 
 class TwoWayChunk(object):
+
+    """ This class implements a two way chunk """
 
     ##############################################
 
@@ -57,6 +77,8 @@ class TwoWayLineChunkInsert(TwoWayChunk):
 
 class TwoWayLineChunkReplace(TwoWayChunk):
 
+    """ This class implements the specific case of replace chunk type. """
+
     chunk_type = chunk_type.replace
     
     ##############################################
@@ -77,17 +99,23 @@ class TwoWayLineChunkReplace(TwoWayChunk):
 
     def __iter__(self):
 
+        """ Return an iterator over the sub-chunks. """
+
         return iter(self._chunks)
 
     ##############################################
 
     def __getitem__(self, slice_):
 
+        """ Provide an array interface to the chunks. """
+
         return self._chunks[slice_]
 
 ####################################################################################################
 
 class TwoWayGroup(object):
+
+    """ This class implements a group of contiguous line changes between two files. """
 
     ##############################################
     
@@ -101,17 +129,23 @@ class TwoWayGroup(object):
     
     def __iter__(self):
 
+        """ Return an iterator over the chunks. """
+
         return iter(self._chunks)
 
     ##############################################
     
     def __getitem__(self, slice_):
 
+        """ Provide an array interface to the chunks. """
+
         return self._chunks[slice_]
     
     ##############################################
 
     def append(self, chunk):
+
+        """ Append a chunk. """
 
         self._chunks.append(chunk)
         if self.slice1 is None:
@@ -125,6 +159,8 @@ class TwoWayGroup(object):
 
 class TwoWayFileDiff(object):
 
+    """ This class stores the difference between two files. """
+
     ##############################################
 
     def __init__(self, document1, document2):
@@ -136,11 +172,15 @@ class TwoWayFileDiff(object):
 
     def __iter__(self):
 
+        """ Return an iterator over the groups. """ 
+
         return iter(self._groups)
 
     ##############################################
 
     def __getitem__(self, slice_):
+
+        """ Provides an array interface. """
 
         return self._groups[slice_]
 
@@ -148,11 +188,15 @@ class TwoWayFileDiff(object):
 
     def append(self, group):
 
+        """ Append a group. """
+
         self._groups.append(group)
         
     ###############################################
 
     def pretty_print(self):
+
+        """ Pretty-print the file differences. """
 
         def pretty_print_chunk(chunk, level=0):
             print ' '*level + chunk.__class__.__name__
@@ -171,6 +215,8 @@ class TwoWayFileDiff(object):
     ###############################################
 
     def print_unidiff(self):
+
+        """ Pretty-print the file differences using unidiff format. """
 
         def pretty_print_chunk_lines(chunk, prefix):
             print prefix + prefix.join(chunk.lines()).rstrip()
@@ -199,11 +245,32 @@ class TwoWayFileDiff(object):
 
 class TwoWayFileDiffFactory(object):
 
+    """ This class implements a factory to compute file differences. """ 
+
+    ###############################################
+
+    def process(self, document1, document2, number_of_lines_of_context=3):
+
+        """ Compute the difference between two :class:`RawTextDocument` documents and return a
+        :class:`TwoWayFileDiff` instance.  The parameter *number_of_lines_of_context* provides the
+        number of lines of context for the diff algorithm.
+        """
+
+        file_diff = TwoWayFileDiff(document1, document2)
+
+        sequence_matcher = PatienceSequenceMatcher(None, document1.lines(), document2.lines())
+        sequence_matcher_groups = sequence_matcher.get_grouped_opcodes(number_of_lines_of_context)
+
+        for opcodes in sequence_matcher_groups:
+            self._process_group(file_diff, opcodes)
+
+        return file_diff
+
     ###############################################
 
     def _process_group(self, file_diff, opcodes):
 
-        """ Process a group of contiguous line changes. """
+        """ Process a group of contiguous line changes and append the group to the file diff. """
 
         group = TwoWayGroup()
         for tag, start_1, stop_1, start_2, stop_2 in opcodes:
@@ -227,19 +294,17 @@ class TwoWayFileDiffFactory(object):
 
     def _process_replace_chunk(self, chunk1, chunk2):
 
+        """ Process a replace chunk type and return the sub-chunks.
+
+        The text is encoded in UTF-32 before to be passed to the diff algorithm in order to have
+        fixed character boundaries.
+        """
+
         sub_chunks = []
         text1, text2 = [unicode(chunk).encode('utf_32-BE') for chunk in chunk1, chunk2]
-        # print len(unicode(chunk1)), len(text1)
-        # print unicode(chunk1)
-        # print [x for x in text1]
-        # print unicode(chunk2)
-        # print [x for x in text2]
         line_sequence_matcher = PatienceSequenceMatcher(None, text1, text2)
         opcodes = line_sequence_matcher.get_opcodes()
         for tag, start_1, stop_1, start_2, stop_2 in opcodes:
-            # print tag, start_1, stop_1, start_2, stop_2
-            # print str([x for x in text1[start_1:stop_1]])
-            # print str([x for x in text2[start_2:stop_2]])
             slice1 = FlatSlice(start_1, stop_1) /4 # 4-byte encoding
             slice2 = FlatSlice(start_2, stop_2) /4
             sub_chunk1 = chunk1[slice1]
@@ -255,20 +320,6 @@ class TwoWayFileDiffFactory(object):
             sub_chunks.append(sub_chunk_diff)
 
         return sub_chunks
-  
-    ###############################################
-
-    def process(self, document1, document2, number_of_lines_of_context=3):
-
-        file_diff = TwoWayFileDiff(document1, document2)
-
-        sequence_matcher = PatienceSequenceMatcher(None, document1.lines(), document2.lines())
-        sequence_matcher_groups = sequence_matcher.get_grouped_opcodes(number_of_lines_of_context)
-
-        for opcodes in sequence_matcher_groups:
-            self._process_group(file_diff, opcodes)
-
-        return file_diff
     
 ####################################################################################################
 #

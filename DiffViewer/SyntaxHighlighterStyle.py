@@ -1,23 +1,31 @@
 ####################################################################################################
 # 
-# - 
-# Copyright (C) 2012 
+# DiffViewer - Diff Viewer 
+# Copyright (C) Salvaire Fabrice 2012 
 # 
 ####################################################################################################
 
+""" This module defines the style for the syntax highlighting. """
+
 ####################################################################################################
 
+from PyQt4 import QtGui
 from pygments.styles import get_style_by_name
-
-from PyQt4 import QtGui, QtCore
 
 ####################################################################################################
 
 class SyntaxHighlighterStyle(dict):
 
+    """ This class defines a QTextCharFormat for each type of tokens defined by Pygments.
+
+    This class has a dictionnary interface.
+    """
+
     ##############################################
     
     def __init__(self, style='default'):
+
+        """ The parameter *style* select the Pygments style. """
 
         pygments_style = get_style_by_name(style)
         for token, style_attributes in pygments_style.list_styles():
@@ -38,6 +46,8 @@ class SyntaxHighlighterStyle(dict):
     ##############################################
     
     def __getitem__(self, key):
+
+        """ Return a copy of the QTextCharFormat for the corresponding key. """
 
         return QtGui.QTextCharFormat(super(SyntaxHighlighterStyle, self).__getitem__(key))
             

@@ -1,6 +1,27 @@
 ####################################################################################################
+# 
+# DiffViewer - Diff Viewer 
+# Copyright (C) Salvaire Fabrice 2012 
+# 
+####################################################################################################
+
+""" This module implemenents interval arithmeticsfor flat slice and line slice . """
+
+####################################################################################################
 
 class Slice(object):
+
+    """ This class defines a slice.
+
+    A slice is built from an iterable that provide the start and stop value like for a
+    standard Python slice.
+
+    Some examples to build a slice::
+
+      slice1 = Slice(1, 2)
+      slice2 = Slice((1, 2))
+      slice3 = Slice(slice2)
+    """
 
     # How to subclass slice ?
 
@@ -22,6 +43,8 @@ class Slice(object):
     
     def _check_arguments(self, args):
 
+        """ Check the arguments provided to the constructor. """
+
         size = len(args)
         if size == 1:
             array = args[0]
@@ -36,11 +59,15 @@ class Slice(object):
 
     def copy(self):
 
+        """ Return a copy of the slice. """
+
         return self.__class__(self._start, self._stop)
 
     ###############################################
 
     def __getitem__(self, i):
+
+        """ Provide an array interface to the slice. """
 
         if i == 0:
             return self._start
@@ -53,10 +80,12 @@ class Slice(object):
 
     def __repr__(self):
 
+        """ Pretty-print a slice. """
+
         if bool(self):
             string_interval = '[%u, %u]' % (self.lower, self.upper)
         else:
-            string_interval = '[%u]' % (self.start)
+            string_interval = '[]@%u' % (self.start)
         
         return self.__class__.__name__ + ' ' + string_interval
 
@@ -64,11 +93,15 @@ class Slice(object):
 
     def __len__(self):
         
+        """ Return the length of the slice. """
+
         return self._stop - self._start
 
     ###############################################
 
     def __nonzero__(self):
+
+        """ Test is the slice is not the empty. """
 
         # None > None = False
 
@@ -78,11 +111,15 @@ class Slice(object):
 
     def __call__(self):
 
+        """ Return a standard Python slice. """
+
         return slice(self._start, self._stop)
 
     ###############################################
 
     def _get_lower(self):
+
+        """ Return the lower boundary. """
 
         if bool(self):
             return self._start
@@ -92,6 +129,8 @@ class Slice(object):
     ###############################################
 
     def _get_upper(self):
+
+        """ Return the upper boundary. """
 
         if bool(self):
             return self._stop -1
@@ -107,11 +146,15 @@ class Slice(object):
 
     def _get_start(self):
 
+        """ Return the start boundary. """
+
         return self._start
 
     ###############################################
 
     def _get_stop(self):
+
+        """ Return the stop boundary. """
 
         return self._stop
 
@@ -122,10 +165,15 @@ class Slice(object):
 
     ###############################################
 
-    def map(self, slice_):
+    def map(self, sub_slice):
 
-        start = slice_.start + self._start
-        stop = slice_.stop + self._start
+        """ Map a sub-slice in the slice domain.
+
+        Return a new slice shifted of start.
+        """
+
+        start = sub_slice.start + self._start
+        stop = sub_slice.stop + self._start
 
         if stop > self._stop:
             raise IndexError
@@ -136,6 +184,8 @@ class Slice(object):
 
     def __idiv__(self, scale):
 
+        """ Divided start and stop by *scale*. """
+
         self._start /= scale
         self._stop /= scale
 
@@ -145,12 +195,16 @@ class Slice(object):
 
     def __div__(self, scale):
 
+        """ Return a new slice with start and stop divided by *scale*. """
+
         return self.__class__(self._start / scale, self._stop / scale)
 
     ###############################################
 
     @staticmethod
     def _intersection(i1, i2):
+
+        """ Compute the intersection of two slices. """
 
         if i1.intersect(i2):
             return (max((i1._start, i2._start)),
@@ -160,15 +214,13 @@ class Slice(object):
 
     def __and__(i1, i2):
 
-        """ Return the intersection of i1 and i2
-        """
+        """ Return the intersection of i1 and i2. """
 
         return i1.__class__(*i1._intersection(i1, i2))
 
     def __iand__(self, i2):
 
-        """ Update the interval with its intersection with i2
-        """
+        """ Update the interval with its intersection with i2. """
 
         self._start, self._stop = self._intersection(self, i2)
         return self
@@ -177,8 +229,7 @@ class Slice(object):
 
     def intersect(i1, i2):
 
-        """ Does the interval intersect with i2?
-        """
+        """ Test if the interval intersects with i2 ?. """
 
         return ((i1._start < i2._stop and i2._start < i1._stop) or
                 (i2._start < i1._stop and i1._start < i2._stop))
@@ -188,20 +239,20 @@ class Slice(object):
     @staticmethod
     def _union(i1, i2):
 
+        """ Compute the union of two slices. """
+
         return (min((i1._start, i2._start)),
                 max((i1._stop, i2._stop)))
 
     def __or__(i1, i2):
 
-        """ Return the union of i1 and i2
-        """
+        """ Return the union of i1 and i2. """
 
         return i1.__class__(*i1._union(i1, i2))
 
     def __ior__(self, i2):
 
-        """ Update the interval with its union with i2
-        """
+        """ Update the interval with its union with i2. """
 
         self._start, self._stop = self._union(self, i2)
         return self
@@ -210,17 +261,18 @@ class Slice(object):
 
     def is_included_in(i1, i2):
 
-        """ Is the interval included in i1?
-        """
+        """ Test if the interval is included in i2 ? """
         
         return i2._start <= i1._start and i1._stop <= i2._stop
     
 ####################################################################################################
 
 class FlatSlice(Slice):
+    """ This class defines a flat slice. """
     pass
 
 class LineSlice(Slice):
+    """ This class defines a line slice. """
     pass
 
 ####################################################################################################

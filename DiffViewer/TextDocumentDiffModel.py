@@ -1,4 +1,19 @@
 ####################################################################################################
+# 
+# DiffViewer - Diff Viewer 
+# Copyright (C) Salvaire Fabrice 2012 
+# 
+####################################################################################################
+
+""" This module provides a document model for the Diff Viewer.
+
+A document is made of text blocks that are made of text fragments.  A text block corresponds to a
+chunck of lines and is decorated by a frame type corresponding to the type of chunck.  A text
+fragment is a piece of text and is decorated by a frame type and a token type used for the syntax
+highlighting.  The frame type is used for replace chunck type to show the intra-line difference.
+"""
+
+####################################################################################################
 
 from DiffViewer.RawTextDocumentDiff import chunk_type
 from DiffViewer.TextDocumentModel import TextDocumentModel, TextBlock, TextFragment
@@ -7,6 +22,8 @@ from DiffViewer.Tools.Slice import LineSlice
 ####################################################################################################
 
 class TextBlockDiff(TextBlock):
+
+    """ This class implements a text block with a link to the other side. """
 
     ##############################################
     
@@ -18,13 +35,17 @@ class TextBlockDiff(TextBlock):
 
     ##############################################
     
-    def clone(self):
+    def copy(self):
+
+        """ Return a copy of self. """
 
         return self.__class__(self.line_slice, self.frame_type, self.other_side)
         
     ##############################################
 
     def link_other_side(self, other_side):
+
+        """ Link to the other side. """
 
         self.other_side = other_side
         
@@ -125,7 +146,7 @@ def highlight_document(document_model, highlighted_text):
     
     highlighted_document = TextDocumentModel()
     for text_block in document_model:
-        highlighted_text_block = text_block.clone()
+        highlighted_text_block = text_block.copy()
         highlighted_document.append(highlighted_text_block)
         text_block_iterator = iter(text_block)
         text_fragment = text_block_iterator.next()

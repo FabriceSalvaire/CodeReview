@@ -1,4 +1,22 @@
 ####################################################################################################
+# 
+# DiffViewer - Diff Viewer 
+# Copyright (C) Salvaire Fabrice 2012 
+# 
+####################################################################################################
+
+""" This modules provides facility to syntax highlight a text document. """
+
+####################################################################################################
+#
+#                                              Audit
+#
+# - 02/04/2012 Fabrice
+#   Check design: purpose of HighlightedText ?
+#
+####################################################################################################
+
+####################################################################################################
 
 import pygments
 
@@ -11,9 +29,14 @@ from DiffViewer.TextDocumentModel import TextDocumentModel, TextBlock, TextFragm
 
 class HighlightedTextFragment(object):
 
+    """ This class implements a highlighted text fragment. """
+
     ##############################################
 
     def __init__(self, flat_slice, token):
+
+        """ The parameter *token* specifies the Pygments token type.
+        """
 
         self.slice = flat_slice
         self.token = token
@@ -27,6 +50,8 @@ class HighlightedTextFragment(object):
 ####################################################################################################
 
 class HighlightedText(list):
+
+    """ This class implements an highlighted text. """
 
     ##############################################
 
@@ -52,6 +77,14 @@ class HighlightedText(list):
 ####################################################################################################
 
 def highlight_text(raw_text_document, lexer):
+
+    """ Highlight a text.
+
+    The parameter *raw_text_document* is a :class:`DiffViewer.RawTextDocument` instance and the
+    parameter *lexer* is Pygments lexer instance.
+
+    Return a :class:`HighlightedText` instance.
+    """
 
     highlighted_text = HighlightedText(raw_text_document, lexer)
 
