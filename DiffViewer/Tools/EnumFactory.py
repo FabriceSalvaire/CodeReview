@@ -7,28 +7,41 @@
 
 """ This module provides an implementation for enumerate.
 
-The enum factory :func:`EnumFactory` builds a enumerate from a list of names and assigns to these
-constants a value from 0 to ``N-1``, where ``N`` is the number of constants::
+The enumerate factory :func:`EnumFactory` builds a enumerate from a list of names and assigns to
+these constants a value from 0 to N-1, where N is the number of constants.  For example::
 
-  enum1 = EnumFactory('Enum1', ('cst1', 'cst2'))
-   
-then we can get a constant's value using an integer context like::
+  enum = EnumFactory('Enum1', ('cst1', 'cst2'))
+  
+builds a enumerate with *cst1* set to 0 and *cst2* set to 1.
+
+We can get a constant's value using an integer context like::
      
-  int(enum1.cst1)
+  int(enum.cst1)
 
 and the constant's name using::
 
-  repr(enum1.cst2)
+  repr(enum.cst1)
+
+We can test that two constants are equal using::
+
+  enum1.cst == enum2.cst
+
+or with something that understands the *int* protocol::
+
+  enum1.cst == obj
+  # equivalent to
+  int(enum1.cst) == int(obj)
 
 The number of constants could be retrieved with::
 
-  len(enum1)
+  len(enum)
 
-The enum factory :func:`ExplicitEnumFactory` permits to specify the values of the constants::
+The enumerate factory :func:`ExplicitEnumFactory` is a variant that permits to specify the values of
+the constants::
         
-  enum2 = ExplicitEnumFactory('Enum2', {'cst1':1, 'cst2':3})
+  enum = ExplicitEnumFactory('Enum2', {'cst1':1, 'cst2':3})
 
-We can test if a value is in the enum using::
+We can test if a value is in the enumerate using::
 
   constant_value in enum2
 
@@ -42,7 +55,7 @@ We can test if a value is in the enum using::
 
 class ReadOnlyMetaClass(type):
 
-    """ This meta class implements a class where the attributes are read only. """
+    """ This meta class implements a class where attributes are read only. """
 
     ###############################################
 
@@ -54,7 +67,7 @@ class ReadOnlyMetaClass(type):
 
 class EnumMetaClass(ReadOnlyMetaClass):
 
-    """ This meta class implements the function :func:`len`. """
+    """ This meta class implements the :func:`len` protocol. """
 
     ###############################################
 
@@ -110,7 +123,7 @@ class EnumConstant(object):
 def EnumFactory(enum_name, enum_tuple):
 
     """ Return an :class:`EnumMetaClass` instance, where *enum_name* is the class name and
-    *constant_names* is an iterable of constant's names.
+    *enum_tuple* is an iterable of constant's names.
     """
 
     obj_dict = {}
@@ -125,7 +138,7 @@ def EnumFactory(enum_name, enum_tuple):
 def ExplicitEnumFactory(enum_name, enum_dict):
 
     """ Return an :class:`ExplicitEnumMetaClass` instance, where *enum_name* is the class name and
-    *constant_dict* is a dict of constant's names and their values.
+    *enum_dict* is a dict of constant's names and their values.
     """
 
     obj_dict = {}

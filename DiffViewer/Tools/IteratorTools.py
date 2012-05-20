@@ -11,8 +11,8 @@
 
 def pairwise(iterable):
 
-    """ Return a generator which generate a pair wise list from an iterable.
-    s -> (s[0],s[1]), (s[1],s[2]), ... (s[N-1], s[N])
+    """ Return a generator which generate a pair wise list from an iterable: s -> (s[0],s[1]),
+    (s[1],s[2]), ... (s[N-1], s[N]).
     """
 
     prev = iterable[0]
@@ -24,7 +24,7 @@ def pairwise(iterable):
 
 def iter_with_last_flag(iterable):
     
-    """ Iterate over an iterable and yield a 2-tuple containing the current item and a boolean
+    """ Iterate over an iterable and yield a 2-tuple containing the current item and a Boolean
     indicating if it is the last item.
     """
 

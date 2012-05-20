@@ -9,10 +9,11 @@
 
 ####################################################################################################
 
-def suppress_trailing_newline(text):
+def remove_trailing_newline(text):
 
-    """ Return *text* with the last trailing newline ('\\\\r\\\\n', '\\\\r', '\\\\n') removed
-    (:func:`string.rstrip` removes all the trailing newlines).
+    """ Return the string *text* with only the last trailing newline ('\\\\r\\\\n', '\\\\r',
+    '\\\\n') removed.  By contrast the standard function :func:`string.rstrip`removes all the
+    trailing newlines.
     """
     
     if text.endswith('\r\n'):

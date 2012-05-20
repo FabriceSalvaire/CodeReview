@@ -5,22 +5,49 @@
 # 
 ####################################################################################################
 
-""" This module implemenents interval arithmeticsfor flat slice and line slice . """
+""" This module implements interval arithmetic for flat slice and line slice. """
 
 ####################################################################################################
 
 class Slice(object):
 
-    """ This class defines a slice.
+    """ This class implements a generic slice.
 
-    A slice is built from an iterable that provide the start and stop value like for a
-    standard Python slice.
-
-    Some examples to build a slice::
+    A slice is built from an iterable that provide the start and stop value like for a standard
+    Python slice.  This class implements an array interface (:func:`__getitem__` method) so as to
+    pass a :class:`Slice` instance to the constructor.  Some examples to build a slice::
 
       slice1 = Slice(1, 2)
       slice2 = Slice((1, 2))
       slice3 = Slice(slice2)
+
+    The interval limits of the slice can be accessed using the *start*, *stop*, *lower* and *upper*
+    read-only attributes, *upper* is equal to *stop* -1.
+
+    To cast a slice instance to a standard Python slice use the call::
+
+      slice()
+
+    To get the length of the slice defined by stop - start use the :func:`len` function.
+
+    A slice is not empty if it verifies the predicate stop > start, this predicate can be tested
+    using a Boolean evaluation.
+
+    A slice can be scaled by a factor using::
+
+      slice / 2
+      slice /= 2
+
+    The union and the intersection of slices can be computed using::
+     
+      # union
+      slice1 |= slice2
+      slice = slice1 | slice2
+
+      # intersection
+      slice1 &= slice2
+      slice = slice1 & slice2
+
     """
 
     # How to subclass slice ?
@@ -59,6 +86,8 @@ class Slice(object):
 
     def copy(self):
 
+        # Clone ?
+
         """ Return a copy of the slice. """
 
         return self.__class__(self._start, self._stop)
@@ -93,7 +122,7 @@ class Slice(object):
 
     def __len__(self):
         
-        """ Return the length of the slice. """
+        """ Return the length of the slice defined by stop - start. """
 
         return self._stop - self._start
 
@@ -112,7 +141,7 @@ class Slice(object):
     def __call__(self):
 
         """ Return a standard Python slice. """
-
+ 
         return slice(self._start, self._stop)
 
     ###############################################
@@ -169,7 +198,7 @@ class Slice(object):
 
         """ Map a sub-slice in the slice domain.
 
-        Return a new slice shifted of start.
+        Return a new slice shifted by start.
         """
 
         start = sub_slice.start + self._start
@@ -184,7 +213,7 @@ class Slice(object):
 
     def __idiv__(self, scale):
 
-        """ Divided start and stop by *scale*. """
+        """ Divide start and stop by *scale*. """
 
         self._start /= scale
         self._stop /= scale
@@ -229,7 +258,7 @@ class Slice(object):
 
     def intersect(i1, i2):
 
-        """ Test if the interval intersects with i2 ?. """
+        """ Test if the interval intersects with i2 ? """
 
         return ((i1._start < i2._stop and i2._start < i1._stop) or
                 (i2._start < i1._stop and i1._start < i2._stop))
@@ -270,6 +299,8 @@ class Slice(object):
 class FlatSlice(Slice):
     """ This class defines a flat slice. """
     pass
+
+####################################################################################################
 
 class LineSlice(Slice):
     """ This class defines a line slice. """

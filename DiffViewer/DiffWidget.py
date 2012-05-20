@@ -14,7 +14,7 @@ from PyQt4 import QtGui, QtCore
 from DiffViewer.RawTextDocumentDiff import chunk_type
 from DiffViewer.SyntaxHighlighterStyle import SyntaxHighlighterStyle
 from DiffViewer.Tools.IteratorTools import pairwise, iter_with_last_flag
-from DiffViewer.Tools.StringTools import suppress_trailing_newline
+from DiffViewer.Tools.StringTools import remove_trailing_newline
 import DiffViewer.DiffWidgetConfig as DiffWidgetConfig
 
 ####################################################################################################
@@ -107,7 +107,7 @@ class DiffViewerCursor(object):
     def insert_text(self, text, text_format, last_text_fragment):
 
         if last_text_fragment:
-            text = suppress_trailing_newline(text)
+            text = remove_trailing_newline(text)
         if text:
             self.cursor.insertText(text, text_format)
         

@@ -7,17 +7,11 @@
 # 
 ####################################################################################################
 
-####################################################################################################
+root_dir=`python -c 'import os; print os.path.abspath(os.path.dirname("$0"))'`
 
-tagfile=`dirname $0 `/../TAGS
-
-# -e Enable etags mode
-
-ctags -f $tagfile -e --recurse --languages=python --exclude="__init__.py"
-
-if [ $? != 0 ]; then
-  ctags --version
-fi
+for i in `find ${root_dir} -name '*.py' | sort -n` ; do
+  grep -L 'DiffViewer - Diff Viewer' $i;
+done
 
 ####################################################################################################
 #

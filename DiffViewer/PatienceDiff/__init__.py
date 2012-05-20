@@ -1,3 +1,9 @@
+####################################################################################################
+# 
+# DiffViewer - Diff Viewer 
+# Copyright (C) Salvaire Fabrice 2012 
+# 
+####################################################################################################
 
 from ._patiencediff_c import (
     PatienceSequenceMatcher_c as PatienceSequenceMatcher
