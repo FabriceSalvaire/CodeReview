@@ -5,7 +5,7 @@
 # 
 ####################################################################################################
 
-""" This modules defines the colour styles used by the Diff Viewer for text blocks. """
+""" This modules defines colour styles used by the Diff Viewer for text blocks. """
 
 ####################################################################################################
 
@@ -41,11 +41,13 @@ class TextBlockStyle(object):
 
 class TextBlockStyles(dict):
 
-    """ This class implements a dictionary of Test Block Styles indexed by the *frame_type*. """
+    """ This class implements a dictionary of Text Block Styles indexed by the frame type. """
 
     ##############################################
 
     def add(self, frame_type, background_colour, line_colour):
+
+        # API ?
 
         self[frame_type] = TextBlockStyle(background_colour, line_colour)
 

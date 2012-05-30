@@ -1,0 +1,21 @@
+check public parameters, operator, init doc place
+
+DiffViewer.Tools
+ + EnumFactory
+ + IteratorTools
+ + Slice
+ + StringTools.py
+DiffViewer.Tools
+ + DiffWidgetConfig.py
+ + RawTextDocument.py
+ + SyntaxHighlighterStyle.py
+ + TextDocumentModel.py
+ - RawTextDocumentDiff.py
+ - SyntaxHighlighter.py
+ - TextDocumentDiffModel.py : review and complete !
+ x DiffWidget.py
+ x __init__.py
+ x diff-viewer
+
+# End
+ 

@@ -22,11 +22,11 @@ and the constant's name using::
 
   repr(enum.cst1)
 
-We can test that two constants are equal using::
+We can test constant equality using::
 
   enum1.cst == enum2.cst
 
-or with something that understands the *int* protocol::
+or with something that understand the *int* protocol::
 
   enum1.cst == obj
   # equivalent to
@@ -39,7 +39,7 @@ The number of constants could be retrieved with::
 The enumerate factory :func:`ExplicitEnumFactory` is a variant that permits to specify the values of
 the constants::
         
-  enum = ExplicitEnumFactory('Enum2', {'cst1':1, 'cst2':3})
+  enum2 = ExplicitEnumFactory('Enum2', {'cst1':1, 'cst2':3})
 
 We can test if a value is in the enumerate using::
 

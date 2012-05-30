@@ -11,8 +11,8 @@
 
 def remove_trailing_newline(text):
 
-    """ Return the string *text* with only the last trailing newline ('\\\\r\\\\n', '\\\\r',
-    '\\\\n') removed.  By contrast the standard function :func:`string.rstrip`removes all the
+    """ Return the string *text* with only the last trailing newline (``\\\\r\\\\n``, ``\\\\r``,
+    ``\\\\n``) removed.  By contrast the standard function :func:`string.rstrip` removes all the
     trailing newlines.
     """
     

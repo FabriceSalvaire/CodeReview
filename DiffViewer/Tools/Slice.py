@@ -5,7 +5,10 @@
 # 
 ####################################################################################################
 
-""" This module implements interval arithmetic for flat slice and line slice. """
+""" This module implements interval arithmetic for flat [#f1]_ and line slice.
+
+.. [#f1] Flat indexes address characters in a file.
+"""
 
 ####################################################################################################
 
@@ -13,32 +16,34 @@ class Slice(object):
 
     """ This class implements a generic slice.
 
-    A slice is built from an iterable that provide the start and stop value like for a standard
-    Python slice.  This class implements an array interface (:func:`__getitem__` method) so as to
-    pass a :class:`Slice` instance to the constructor.  Some examples to build a slice::
+    Like for a standard Python slice, a :class:`Slice` instance is built from two values or an
+    indexable object providing the start and stop value.  This class implements an array interface
+    (:func:`__getitem__` method) so as to pass a :class:`Slice` instance to the constructor.  Some
+    examples to build a slice::
 
       slice1 = Slice(1, 2)
       slice2 = Slice((1, 2))
+      slice2 = Slice([1, 2])
       slice3 = Slice(slice2)
 
-    The interval limits of the slice can be accessed using the *start*, *stop*, *lower* and *upper*
-    read-only attributes, *upper* is equal to *stop* -1.
+    The interval limits of the slice can be accessed using the :attr:`start`, :attr:`stop`,
+    :attr:`lower` and :attr:`upper` read-only attributes, *upper* is defined as *stop* -1.
 
-    To cast a slice instance to a standard Python slice use the call::
+    To cast an instance to a standard Python slice use the call::
 
       slice()
 
-    To get the length of the slice defined by stop - start use the :func:`len` function.
+    To get the length of the slice defined by *stop* - *start* use the :func:`len` function.
 
-    A slice is not empty if it verifies the predicate stop > start, this predicate can be tested
-    using a Boolean evaluation.
+    A slice is not empty if it verifies the predicate *stop* > *start*, this predicate can be tested
+    using a Boolean evaluation of the instance.
 
     A slice can be scaled by a factor using::
 
       slice / 2
       slice /= 2
 
-    The union and the intersection of slices can be computed using::
+    The union and the intersection of two slices can be computed using::
      
       # union
       slice1 |= slice2
@@ -198,7 +203,7 @@ class Slice(object):
 
         """ Map a sub-slice in the slice domain.
 
-        Return a new slice shifted by start.
+        Return a new slice shifted by *start*.
         """
 
         start = sub_slice.start + self._start
@@ -258,7 +263,7 @@ class Slice(object):
 
     def intersect(i1, i2):
 
-        """ Test if the interval intersects with i2 ? """
+        """ Test if the interval intersects with i2. """
 
         return ((i1._start < i2._stop and i2._start < i1._stop) or
                 (i2._start < i1._stop and i1._start < i2._stop))
@@ -290,7 +295,7 @@ class Slice(object):
 
     def is_included_in(i1, i2):
 
-        """ Test if the interval is included in i2 ? """
+        """ Test if the interval is included in i2. """
         
         return i2._start <= i1._start and i1._stop <= i2._stop
     

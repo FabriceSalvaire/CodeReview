@@ -1,0 +1,7 @@
+* can't choose item order
+* order of the text between class and __init__ doc string 
+* class attribute values are displayed using repr evaluation => noise
+* instance attribute are displayed is some circumstance
+* can't disable items using comment key
+
+# End

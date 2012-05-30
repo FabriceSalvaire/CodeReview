@@ -5,6 +5,39 @@
 # 
 ####################################################################################################
 
+# Fixme: unicode support
+#   - doc [] len ...
+#   - englis 's
+
+""" This module provides an enhancement over a basic array of characters, so called Text Buffer.  It
+features an API to manipulate text buffer using a line indexing and slicing.
+
+Definition of therms used in this document:
+
+  Text Buffer
+    A text buffer is an object that provide the characters and implements the method **__getitem__**
+    to index or slice them and the method **__len__** to get the number of characters.
+  
+  Text Document
+    A text document is a text buffer adapted by a :class:`RawTextDocument` class featuring the line
+    indexing and slicing.
+  
+  Flat Slice
+    A flat slice represents an interval of character indexes.  Only the sliced object know how to
+    interpret the slice.
+  
+  Line Slice
+    A line slice represents an interval of line indexes.  The only difference with a flat slice is
+    semantic.
+  
+  Text Chunk or View
+    A text chunk represents a sliced text buffer.
+  
+  Line
+    A line represents either a slice, a view or the corresponding string of characters.
+
+"""
+
 ####################################################################################################
 
 import bisect
@@ -18,13 +51,39 @@ from DiffViewer.Tools.IteratorTools import pairwise
 
 class RawTextDocumentAbc(object):
 
-    """ This class implements a Text Document Abc that provides operations on lines."""
+    """ This class implements the basic function for a Text Chunk.
+
+    To get the number of characters of the chunk use the function :func:`len` and to test if the
+    slice is empty use a Boolean evaluation of the instance.
+
+    To get the text buffer use the function :func:`unicode`.
+
+    To get a view or light view if the light view mode is set, we can use::
+
+      text_document[slice]
+
+    The light view mode is set using the boolean attribute :attr:`light_view_mode`.
+
+    """
 
     light_view_mode = False
     
     ###############################################
 
     def __init__(self, text_buffer, flat_slice, line_start_locations, line_separators):
+
+        """ The parameter *text_buffer* specifies the text buffer.  It must implement the method
+        **__getitem__** to index and slice the characters.
+
+        The parameter *flat_slice* specifies the flat slice corresponding to the text chunk.
+
+        The list *line_start_locations* contains the position of the new lines in the text chunk and
+        the list *line_separators* contains the corresponding new line separators.  The standard
+        separators (``\\\\r\\\\n``, ``\\\\r``, ``\\\\n``) are supported.  The list
+        *line_start_locations* ends by a sentinel that corresponds to the number of characters in
+        the text chunk and the list *line_separators* by an empty string.  This sentinel
+        corresponds to a virtual line at the end of the text buffer.
+        """
 
         self._text_buffer = text_buffer
         self._flat_slice = flat_slice
@@ -33,17 +92,25 @@ class RawTextDocumentAbc(object):
 
     ###############################################
 
+    def __nonzero__(self):
+
+        """ Test if the slice is empty. """
+        
+        return bool(self._flat_slice)
+
+    ###############################################
+
     def __len__(self):
 
-        """ Return the number of characters. """
+        """ Return the number of characters of the text chunk. """
         
-        return len(self._text_buffer)
+        return len(self._flat_slice)
 
     ###############################################
 
     def __unicode__(self):
 
-        """ Return the unicode text buffer. """
+        """ Return the text buffer instance. """
         
         return self._text_buffer
 
@@ -51,7 +118,7 @@ class RawTextDocumentAbc(object):
 
     def substring(self, slice_):
 
-        """ Return a the unicode sub-string corresponding to the slice. """
+        """ Return the unicode sub-string corresponding to the slice. """
         
         return self._text_buffer[self.to_flat_slice(slice_)()]
    
@@ -59,7 +126,7 @@ class RawTextDocumentAbc(object):
 
     def flat_slice(self):
 
-        """ Return the corresponding flat slice. """
+        """ Return a copy of the flat slice corresponding to the text chunk. """
         
         # Fixme: copy? check consistency elsewhere.
         
@@ -69,11 +136,21 @@ class RawTextDocumentAbc(object):
 
     def view(self, slice_):
 
+        """ Return a :class:`RawTextDocumentView` instance for the corresponding slice.
+
+        Not implemented.
+        """
+
         raise NotImplementedError
 
     ###############################################
 
     def light_view(self, slice_):
+
+        """ Return a :class:`RawTextDocumentLightView` instance for the corresponding slice.
+
+        Not implemented.
+        """
 
         # Fixme: light_view is abstract in a subclass
         
@@ -82,6 +159,10 @@ class RawTextDocumentAbc(object):
     ###############################################
 
     def __getitem__(self, slice_):
+
+        """ This method implements an array interface and return a light view or a view depending of
+        the setup.
+        """
 
         if self.light_view_mode:
             return self.light_view(slice_)
@@ -105,7 +186,7 @@ class RawTextDocumentAbc(object):
     def line_to_flat_slice(self, line_slice):
 
         """ Convert a line slice to a flat slice and return it. """
-        
+
         return FlatSlice(self._line_start_locations[line_slice.start],
                          self._line_start_locations[line_slice.stop])
 
@@ -140,8 +221,8 @@ class RawTextDocumentAbc(object):
 
     def line_slice_iterator(self, new_line_separator=True):
 
-        """ Return an iterator on the flat slices of the lines.  If *new_line_separator* is set then
-        the line separator is included.
+        """ Return an iterator on the line's flat slices.  If *new_line_separator* is set then the
+        line separator is included.
         """
         
         if new_line_separator:
@@ -157,8 +238,8 @@ class RawTextDocumentAbc(object):
 
     def line_iterator(self, new_line_separator=True):
 
-        """ Return an iterator on the lines.  If *new_line_separator* is set
-        then the line separator is included.
+        """ Return an iterator on the string lines.  If *new_line_separator* is set then the line
+        separator is included.
         """
           
         for flat_slice in self.line_slice_iterator(new_line_separator):
@@ -168,7 +249,8 @@ class RawTextDocumentAbc(object):
 
     def lines(self, new_line_separator=True):
 
-        """ Return the lines.  If *new_line_separator* is set then the line separator is included.
+        """ Return the list of string lines.  If *new_line_separator* is set then the line separator
+        is included.
         """
         
         return list(self.line_iterator(new_line_separator))
@@ -183,6 +265,10 @@ class RawTextDocument(RawTextDocumentAbc):
 
     def __init__(self, text_buffer):
 
+        """ The parameter *text_buffer* specifies the text buffer,
+        cf. :class:`RawTextDocumentAbc` for explanations.
+        """
+
         super(RawTextDocument, self). __init__(text_buffer,
                                                FlatSlice(0, len(text_buffer)),
                                                *self._split_lines(text_buffer))
@@ -193,10 +279,12 @@ class RawTextDocument(RawTextDocumentAbc):
 
     def _append_sentinel(self, line_start_locations, line_separators, stop_location):
 
-        """ Append a sentinel to *line_start_locations* and *line_separators*.
+        """ Append a sentinel to the lists: *line_start_locations* and *line_separators*.
 
-        This method ensures *line_separators* end by *stop_location*, and it appends an empty string
-        to *line_separators* if it is not true.
+        The parameter *stop_location* corresponds to the stop index of the text chunk.
+
+        This method ensures the list *line_separators* end by *stop_location* and it appends an
+        empty string to *line_separators* if it is not true.
         """
         
         if line_start_locations[-1] != stop_location:
@@ -207,7 +295,8 @@ class RawTextDocument(RawTextDocumentAbc):
 
     def _split_lines(self, text_buffer):
 
-        """ Split the lines and return the 2-tuple *line_start_locations*, *line_separators*.
+        """ Split the lines and return the 2-tuple (*line_start_locations*, *line_separators*),
+        cf. :class:`RawTextDocumentAbc` for their definitions.
         """
         
         line_start_locations = [0]
@@ -240,7 +329,7 @@ class RawTextDocument(RawTextDocumentAbc):
 
     def view(self, slice_):
 
-        """ Return the view corresponding to the slice. """
+        """ Return a :class:`RawTextDocumentView` instance for the corresponding slice. """
         
         flat_slice = self.to_flat_slice(slice_)
         if isinstance(slice_, LineSlice):
@@ -248,8 +337,10 @@ class RawTextDocument(RawTextDocumentAbc):
         else:
             line_slice = self.flat_to_line_slice(slice_)
 
+        # line_start_locations ...
         line_start_locations = [flat_slice.start]
         line_start_locations += self._line_start_locations[line_slice()][1:]
+        # line_separators is a subset
         line_separators = self._line_separators[line_slice()][:-1]
         self._append_sentinel(line_start_locations, line_separators, flat_slice.stop)
 
@@ -263,7 +354,7 @@ class RawTextDocument(RawTextDocumentAbc):
 
     def light_view(self, slice_):
 
-        """ Return the view corresponding to the slice. """
+        """ Return a :class:`RawTextDocumentLightView` instance for the corresponding slice. """
         
         flat_slice = self.to_flat_slice(slice_)
 
@@ -273,27 +364,33 @@ class RawTextDocument(RawTextDocumentAbc):
 
 class RawTextDocumentView(RawTextDocumentAbc):
 
-    """ This class implements a view on a Text Document.
-
-    The original slice is stored in the attribute *slice*.
-    """
+    """ This class implements a view on a Text Document. """
     
     ##############################################
 
     def __init__(self, raw_text_document, slice_, *args):
 
+        """ The parameter *raw_text_document* specifies the text document.
+
+        The parameter *slice_* specifies the slice corresponding to the view, it can be either a
+        flat ro a line slice.
+
+        The remaining parameters are those of the :meth:`RawTextDocumentAbc.__init__` method.
+
+        Public attributes:
+
+          :attr:`slice`
+
+            is a copy of the slice passed as argument.
+          
+        """
+
+        # Fixme: raw_text_document has text_buffer
+
         super(RawTextDocumentView, self).__init__(*args)
 
         self._raw_text_document = raw_text_document
         self.slice = slice_
-
-    ###############################################
-
-    def __nonzero__(self):
-
-        """ Test if the slice is empty. """
-        
-        return bool(self.slice)
     
     ###############################################
 
@@ -319,6 +416,8 @@ class RawTextDocumentView(RawTextDocumentAbc):
         method tries to keep the type of slice.
         """
         
+        # Fixme: if same type than original
+
         if type(slice_) == type(self.slice):
             return self.slice.map(slice_)
         else:
@@ -363,6 +462,22 @@ class RawTextDocumentView(RawTextDocumentAbc):
 class RawTextDocumentLightView(object):
 
     """ This class implements a light view on a Text Document.
+
+    A light view doesn't feature line indexing and slicing.  The memory footprint is lighter than a
+    standard view and thus well suited for many small chunks.
+
+    To get the number of characters of the chunk use the function :func:`len` and to test if the
+    slice is empty use a Boolean evaluation of the instance.
+
+    To get the text buffer use the function :func:`unicode`.
+
+    To get a light view, we can use::
+
+      text_document[slice]
+
+    Public attributes:
+
+      :attr:`flat_slice`
     """
 
     __slots__ = ['_raw_text_document', 'flat_slice']
@@ -371,8 +486,22 @@ class RawTextDocumentLightView(object):
 
     def __init__(self, raw_text_document, flat_slice):
 
+        """ The parameter *raw_text_document* specifies the text document.
+
+        The parameter *flat_slice* specifies the slice corresponding to the view.
+
+        """
+
         self._raw_text_document = raw_text_document
         self.flat_slice = flat_slice
+
+    ###############################################
+
+    def __len__(self):
+
+        """ Return the number of characters of the text chunk. """
+        
+        return len(self.flat_slice)
 
     ###############################################
 
@@ -417,12 +546,6 @@ class RawTextDocumentLightView(object):
         flat_slice = self.to_document_flat_slice(flat_slice)
         
         return self._raw_text_document.substring(flat_slice)
-
-    ###############################################
-
-    def __getitem__(self, flat_slice):
-        
-        return self.view(flat_slice)
     
     ###############################################
 
@@ -431,7 +554,11 @@ class RawTextDocumentLightView(object):
         """ Return the view corresponding to the local slice in the view. """
         
         return self._raw_text_document.light_view(flat_slice)
+
+    ###############################################
     
+    __getitem__  = view
+
 ####################################################################################################
 #
 # End

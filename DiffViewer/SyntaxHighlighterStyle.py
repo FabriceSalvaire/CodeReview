@@ -5,7 +5,7 @@
 # 
 ####################################################################################################
 
-""" This module defines the style for the syntax highlighting. """
+""" This module defines styles for syntax highlighting. """
 
 ####################################################################################################
 
@@ -14,25 +14,42 @@ from pygments.styles import get_style_by_name
 
 ####################################################################################################
 
+def to_brush(colour):
+    """ Convert a Pygments colour rrggbb to a Qt brush compatible object. """
+    return QtGui.QColor("#" + colour)
+
+####################################################################################################
+
 class SyntaxHighlighterStyle(dict):
 
     """ This class defines a QTextCharFormat for each type of tokens defined by Pygments.
 
-    This class has a dictionnary interface.
+    This class has a dictionnary interface and return a copy of the QTextCharFormat instance.
     """
 
     ##############################################
     
     def __init__(self, style='default'):
 
-        """ The parameter *style* select the Pygments style. """
+        """ The parameter *style* select the Pygments style.
+
+        Pygments style attributes are:
+
+        * bgcolor,
+        * bold,
+        * border,
+        * color,
+        * italic,
+        * mono,
+        * roman,
+        * sans,
+        * underline.
+
+        """
 
         pygments_style = get_style_by_name(style)
         for token, style_attributes in pygments_style.list_styles():
-            # style attributes: bgcolor, bold, border, color, italic, mono, roman, sans, underline
             text_format = QtGui.QTextCharFormat()
-            def to_brush(colour):
-                return QtGui.QColor("#" + colour)
             if style_attributes['bgcolor']:
                 text_format.setBackground(to_brush(style_attributes['bgcolor']))
             if style_attributes['color']:
@@ -49,7 +66,9 @@ class SyntaxHighlighterStyle(dict):
 
         """ Return a copy of the QTextCharFormat for the corresponding key. """
 
-        return QtGui.QTextCharFormat(super(SyntaxHighlighterStyle, self).__getitem__(key))
+        text_char_format = super(SyntaxHighlighterStyle, self).__getitem__(key)
+
+        return QtGui.QTextCharFormat(text_char_format)
             
 ####################################################################################################
 # 

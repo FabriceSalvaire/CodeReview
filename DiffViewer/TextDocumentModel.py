@@ -5,6 +5,8 @@
 # 
 ####################################################################################################
 
+# Fixme: english ...
+
 """ This module implements a basic document model.
 
 A document is made of text blocks that are made of text fragments.  A text block corresponds to a
@@ -23,7 +25,7 @@ class TextBlock(list):
     def __init__(self, line_slice, frame_type=None):
 
         """ The parameter *line_slice* specifies the line slice corresponding to the text block and
-        the parameter *frame_type* the type of block.
+        the parameter *frame_type* the type of frame.
         """
 
         super(TextBlock, self).__init__()
@@ -47,22 +49,24 @@ class TextFragment(object):
 
     def __init__(self, text, frame_type=None, token_type=None):
 
-        """ The parameter *text* specifies the content, the parameter *frame_type* the type of frame
-        for the text fragment and the parameter *token_type* the type of token for the syntax
-        highlighting.
+        """ The parameter *text* specifies the content, it must implement the Boolean
+        evaluation and the unicode conversion.
+
+        The parameter *frame_type* specifies the type of frame and the parameter *token_type* the
+        type of token for the syntax highlighting.
+
+        To test if an instance represents an non empty string use a Boolean evaluation like::
+
+          bool(instance)
+
+        To get the content string use::
+          
+          unicode(instance)
         """
 
         self.text = text
         self.frame_type = frame_type
         self.token_type = token_type
-
-    ##############################################
-
-    def __unicode__(self):
-
-        """ Return the unicode text. """
-
-        return unicode(self.text)
 
     ##############################################
     
@@ -74,7 +78,17 @@ class TextFragment(object):
 
     ##############################################
 
+    def __unicode__(self):
+
+        """ Return the unicode text. """
+
+        return unicode(self.text)
+
+    ##############################################
+
     def __nonzero__(self):
+
+        # Fixme: english whether
 
         """ Test if the text is an empty string. """
 
@@ -83,7 +97,7 @@ class TextFragment(object):
 ####################################################################################################
 
 class TextDocumentModel(list):
-    """ This class implements a list of text blocks. """
+    """ This class implements an ordered list of text blocks. """
     pass
 
 ####################################################################################################
