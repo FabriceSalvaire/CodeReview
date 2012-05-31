@@ -1,4 +1,7 @@
 check public parameters, operator, init doc place
+define therms first at the root
+factory: like a routine but use class to split the job in private methodes, use
+call ?
 
 DiffViewer.Tools
  + EnumFactory
@@ -10,7 +13,7 @@ DiffViewer.Tools
  + RawTextDocument.py
  + SyntaxHighlighterStyle.py
  + TextDocumentModel.py
- - RawTextDocumentDiff.py
+ ? RawTextDocumentDiff.py : see audit
  - SyntaxHighlighter.py
  - TextDocumentDiffModel.py : review and complete !
  x DiffWidget.py

@@ -5,14 +5,25 @@
 # 
 ####################################################################################################
 
+####################################################################################################
+#
+#                                              Audit
+#
+# - 31/05/2012 Fabrice
+#   languages:
+#     two way chunk / chunk / view
+#   equal_block vs equal
+#
+####################################################################################################
+
 """ This module provides an API to compute and store the difference between two text documents.
 
 The difference is computed in therms of line difference, thus documents are split to a set of
-contiguous lines called *chunks*.  There is three types of line difference: a removed chunk, an
-inserted chunk and a replaced chunk.  A difference is located in the document using a number of
-lines of context, that is an equal chunk type.  Differences are represented by a list of contiguous
-chunks, any combination of removed, inserted and replaced chunk, and is delimited by two equal
-chunks to define the context.
+contiguous lines called *chunks*.  There is three types of line difference: removed, inserted and
+replaced chunk.  A difference is located in the document using a number of context lines, these
+lines are the same in both documents, they correspond to equal chunks.  Differences are represented
+by a list of contiguous chunks, any combination of removed, inserted and replaced chunk, and are
+delimited by two equal chunks to set the context.
 """ 
 
 ####################################################################################################
@@ -27,6 +38,7 @@ from DiffViewer.Tools.Slice import FlatSlice, LineSlice
 ####################################################################################################
 
 #: Defines the type of chunks
+# Fixme: poorly formated by sphinx, name ?
 chunk_type = EnumFactory('TwoWayChunkTypes', ('equal', 'insert', 'delete', 'replace',
                                               'equal_block'))
 
@@ -34,11 +46,25 @@ chunk_type = EnumFactory('TwoWayChunkTypes', ('equal', 'insert', 'delete', 'repl
 
 class TwoWayChunk(object):
 
-    """ This class implements a two way chunk """
+    """ This class implements a two way chunk.
+
+    Public attributes:
+    
+      :attr:`chunk1`
+        Line slice for document1
+    
+      :attr:`chunk2`
+        Line slice for document2
+    
+    """
 
     ##############################################
 
     def __init__(self, chunk1, chunk2):
+
+        """ The parameters *chunk1* and *chunk2* are the corresponding document views for the
+        chunk.
+        """
 
         self.chunk1, self.chunk2 = chunk1, chunk2
 
@@ -51,7 +77,7 @@ class TwoWayChunk(object):
 ####################################################################################################
 
 class TwoWayChunkDelete(TwoWayChunk):
-    chunk_type = chunk_type.equal
+    chunk_type = chunk_type.delete
 
 class TwoWayChunkEqual(TwoWayChunk):
     chunk_type = chunk_type.equal
@@ -77,7 +103,10 @@ class TwoWayLineChunkInsert(TwoWayChunk):
 
 class TwoWayLineChunkReplace(TwoWayChunk):
 
-    """ This class implements the specific case of replace chunk type. """
+    """ This class implements the specific case of replace chunk type.
+
+    The class implements the *iter* and *getitem* protocol to access the sub-chunks.
+    """
 
     chunk_type = chunk_type.replace
     
@@ -115,7 +144,18 @@ class TwoWayLineChunkReplace(TwoWayChunk):
 
 class TwoWayGroup(object):
 
-    """ This class implements a group of contiguous line changes between two files. """
+    """ This class implements a group of contiguous line changes between two files.
+
+    The class implements the *iter* and *getitem* protocol to access the groups.
+
+    Public attributes:
+    
+      :attr:`slice1`
+        Line slice for document1
+    
+      :attr:`slice2`
+        Line slice for document2
+    """
 
     ##############################################
     
@@ -164,6 +204,18 @@ class TwoWayFileDiff(object):
     ##############################################
 
     def __init__(self, document1, document2):
+
+        """ The parameters *document1* and *document2* are two :class:`DiffViewer.RawTextDocument`
+        documents.
+
+        The class implements the *iter* and *getitem* protocol to access the groups.
+
+        Public attributes:
+
+          :attr:`document1`
+
+          :attr:`document2`
+        """
 
         self.document1, self.document2 = document1, document2
         self._groups = []
