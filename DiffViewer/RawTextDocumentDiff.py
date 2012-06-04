@@ -18,12 +18,27 @@
 
 """ This module provides an API to compute and store the difference between two text documents.
 
-The difference is computed in therms of line difference, thus documents are split to a set of
-contiguous lines called *chunks*.  There is three types of line difference: removed, inserted and
-replaced chunk.  A difference is located in the document using a number of context lines, these
-lines are the same in both documents, they correspond to equal chunks.  Differences are represented
-by a list of contiguous chunks, any combination of removed, inserted and replaced chunk, and are
-delimited by two equal chunks to set the context.
+The difference between two documents is computed in therms of line difference, thus documents are
+split to a set of contiguous lines called *chunks*.  Chunks are implemented as document views.
+
+There is three types of differences, some lines was removed, some lines was inserted and some lines
+was replaced by something else.  A difference is located in the document using a number of context
+lines, these lines are the same in both documents.  These context lines are useful to make patch.
+
+The differences are grouped as ordered set of contiguous line differences (any combination of
+removed, inserted and replaced chunk) and are delimited by two equal chunks to define the context.
+
+Thus we have five types of chunks: *removed*, *inserted*, *replaced*, *equal* for the context lines
+and *equal_block* for the equal contents that are out of the context lines.  This separation for
+equal contents permits to keep at this level the structure computed by the difference algorithm.
+
+For replaced contents, we can apply a similar logic and compute a difference in therms of flat
+slices instead of line slices.
+
+To sumarize, a document difference is an ordered list of group differences.  Each group is made of
+any combination of *removed*, *inserted* and *replaced* chunk type and delimited by two *equal*
+chunks.  And *replaced* chunks are made of any combination of *removed*, *inserted*, *replaced* and
+*equal* sub-chunks.  Moreover we can complete the structure with *equal_block* chunks.
 """ 
 
 ####################################################################################################
@@ -51,10 +66,10 @@ class TwoWayChunk(object):
     Public attributes:
     
       :attr:`chunk1`
-        Line slice for document1
+        view for document1
     
       :attr:`chunk2`
-        Line slice for document2
+        view for document2
     
     """
 
@@ -77,33 +92,40 @@ class TwoWayChunk(object):
 ####################################################################################################
 
 class TwoWayChunkDelete(TwoWayChunk):
+    """ This class implements a two way delete flat chunk. """
     chunk_type = chunk_type.delete
 
 class TwoWayChunkEqual(TwoWayChunk):
+    """ This class implements a two way equal flat chunk. """
     chunk_type = chunk_type.equal
 
 class TwoWayChunkInsert(TwoWayChunk):
+    """ This class implements a two way insert flat chunk. """
     chunk_type = chunk_type.insert
 
 class TwoWayChunkReplace(TwoWayChunk):
+    """ This class implements a two way replace flat chunk. """
     chunk_type = chunk_type.replace
 
 ####################################################################################################
 
 class TwoWayLineChunkDelete(TwoWayChunk):
+    """ This class implements a two way delete line chunk. """
     chunk_type = chunk_type.delete
 
 class TwoWayLineChunkEqual(TwoWayChunk):
+    """ This class implements a two way equal line chunk. """
     chunk_type = chunk_type.equal
 
 class TwoWayLineChunkInsert(TwoWayChunk):
+    """ This class implements a two way insert line chunk. """
     chunk_type = chunk_type.insert
 
 ####################################################################################################
 
 class TwoWayLineChunkReplace(TwoWayChunk):
 
-    """ This class implements the specific case of replace chunk type.
+    """ This class implements the specific case of replace line chunk type.
 
     The class implements the *iter* and *getitem* protocol to access the sub-chunks.
     """

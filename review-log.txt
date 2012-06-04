@@ -14,7 +14,7 @@ DiffViewer.Tools
  + SyntaxHighlighterStyle.py
  + TextDocumentModel.py
  ? RawTextDocumentDiff.py : see audit
- - SyntaxHighlighter.py
+ ? SyntaxHighlighter.py : see audit
  - TextDocumentDiffModel.py : review and complete !
  x DiffWidget.py
  x __init__.py

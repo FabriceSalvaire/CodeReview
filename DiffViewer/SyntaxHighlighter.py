@@ -10,7 +10,7 @@
 #                                              Audit
 #
 # - 02/04/2012 Fabrice
-#   Check design: purpose of HighlightedText ?
+#   Check design: purpose of HighlightedText ? Merge code?
 #
 ####################################################################################################
 
@@ -29,13 +29,19 @@ from DiffViewer.TextDocumentModel import TextDocumentModel, TextBlock, TextFragm
 
 class HighlightedTextFragment(object):
 
-    """ This class implements a highlighted text fragment. """
+    """ This class implements an highlighted text fragment. """
 
     ##############################################
 
     def __init__(self, flat_slice, token):
 
         """ The parameter *token* specifies the Pygments token type.
+
+        Public Attributes:
+
+          :attr:`slice`
+
+          :attr:`token`          
         """
 
         self.slice = flat_slice
@@ -57,6 +63,10 @@ class HighlightedText(list):
 
     def __init__(self, raw_text_document, lexer):
 
+        """ The parameter *raw_text_document* is a :class:`DiffViewer.RawTextDocument` instance and
+        the parameter *lexer* is Pygments lexer instance.
+        """
+
         super(HighlightedText, self).__init__()
 
         self.raw_text_document = raw_text_document
@@ -66,6 +76,8 @@ class HighlightedText(list):
     ##############################################
     
     def _lex(self, lexer):
+
+        """ Lex the document. """
 
         current_location = 0
         for token, text in pygments.lex(unicode(self.raw_text_document), lexer):
@@ -83,7 +95,8 @@ def highlight_text(raw_text_document, lexer):
     The parameter *raw_text_document* is a :class:`DiffViewer.RawTextDocument` instance and the
     parameter *lexer* is Pygments lexer instance.
 
-    Return a :class:`HighlightedText` instance.
+    Return an :class:`TextDocumentModel` instance.  The document has one text block that contains
+    all the fragments.  Text fragments use light views.
     """
 
     highlighted_text = HighlightedText(raw_text_document, lexer)

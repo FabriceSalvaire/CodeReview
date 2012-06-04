@@ -7,10 +7,11 @@
 
 """ This module provides a document model for the Diff Viewer.
 
-A document is made of text blocks that are made of text fragments.  A text block corresponds to a
-chunck of lines and is decorated by a frame type corresponding to the type of chunck.  A text
-fragment is a piece of text and is decorated by a frame type and a token type used for the syntax
-highlighting.  The frame type is used for replace chunck type to show the intra-line difference.
+A document is made of text blocks that are themselves made of text fragments.  A text block
+corresponds to a chunck of lines and is decorated by a frame type corresponding to the type of
+chunck.  A text fragment is a piece of text and is decorated by a frame type and a token type used
+for the syntax highlighting.  The frame type is used for replace chunck type to show the inner-line
+difference.
 """
 
 ####################################################################################################
@@ -29,6 +30,15 @@ class TextBlockDiff(TextBlock):
     
     def __init__(self, line_slice, frame_type=None, other_side=None):
 
+        """ The parameter *line_slice* specifies the line slice corresponding to the text block and
+        the parameter *frame_type* the type of frame.  The parameter *other_side* specifies the
+        corresponding text block of the second document.
+
+        Public Attributes:
+
+          :attr:`other_side`
+        """
+
         super(TextBlockDiff, self).__init__(line_slice, frame_type)
 
         self.other_side = other_side
@@ -37,7 +47,7 @@ class TextBlockDiff(TextBlock):
     
     def copy(self):
 
-        """ Return a copy of self. """
+        """ Return a copy of the instance. """
 
         return self.__class__(self.line_slice, self.frame_type, self.other_side)
         
@@ -56,6 +66,12 @@ class TextDocumentDiffModelFactory(object):
     ###############################################
 
     def process(self, file_diff):
+
+        """ Build two :class:`DiffViewer.TextDocumentModel` instances from a class
+        :class:`DiffViewer.RawTextDocumentDiff` instance.
+
+        Return the 2-tuple mades of the document models.
+        """
 
         document1 = file_diff.document1
         document2 = file_diff.document2
@@ -105,6 +121,8 @@ class TextDocumentDiffModelFactory(object):
 
     def _link(self, text_block1, text_block2):
 
+        """ Create the links between the two text blocks. """
+
         text_block1.link_other_side(text_block2)
         text_block2.link_other_side(text_block1)
     
@@ -112,22 +130,25 @@ class TextDocumentDiffModelFactory(object):
 
     def _complete_one_side(self, document, line_slice, document_model):
 
+        """ Add to the document model an equal block. """
+
         text_block = TextBlockDiff(line_slice, chunk_type.equal_block)
         document_model.append(text_block)
         
         if bool(line_slice):
             flat_slice = document.to_flat_slice(line_slice)
             chunk = document[flat_slice]
-            text_fragment = TextFragment(chunk)
-            text_block.append(text_fragment)
+            text_block.append(TextFragment(chunk))
             
         return text_block
              
     ###############################################
 
-    def _append_sub_chunk(self, chunk, text_block1, text_block2):
+    def _append_sub_chunk(self, sub_chunks, text_block1, text_block2):
 
-        for sub_chunk in chunk:
+        """ Append sub-chunks to the text blocks. """
+
+        for sub_chunk in sub_chunks:
             sub_frame_type = sub_chunk.chunk_type
             if bool(sub_chunk.chunk1):
                 text_block1.append(TextFragment(sub_chunk.chunk1, sub_frame_type))
@@ -137,6 +158,11 @@ class TextDocumentDiffModelFactory(object):
 ####################################################################################################
 
 def highlight_document(document_model, highlighted_text):
+
+    """ Merge a Diff document model and highlighted counter part.
+
+    Return a new document model.
+    """
 
     raw_text_document = highlighted_text.raw_text_document
     
