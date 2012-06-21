@@ -1,0 +1,129 @@
+#! /usr/bin/env python
+
+####################################################################################################
+
+from __future__ import print_function
+
+import pygit2 as git
+import os
+import sys
+
+####################################################################################################
+
+if len(sys.argv) != 2:
+    print("Give a repository path")
+    sys.exit(1)
+
+repository_path = sys.argv[1]
+
+repository_path = os.path.expandvars(repository_path)
+repository_path = os.path.abspath(repository_path)
+repository_path = os.path.normpath(repository_path)
+
+print("Repository:", repository_path)
+
+####################################################################################################
+
+def pretty_print_commit(commit):
+
+    message_template = """
+==================================================
+Commit:
+  hex: %s
+  author: %s
+  committer: %s
+  parents: %s
+  message: %s
+"""
+
+    print(message_template % (commit.hex,
+                              commit.author.name,
+                              commit.committer.name,
+                              str([x.hex for x in commit.parents]),
+                              commit.message,
+                              ))
+
+    # print(commit.tree)
+
+####################################################################################################
+
+def walk_from_commit(commit):
+
+    pretty_print_commit(commit)
+    number_of_parents = len(commit.parents)
+    if number_of_parents == 1:
+        show_diff(commit.parents[0].tree, commit.tree)
+    elif number_of_parents > 1:
+        print("More than one parents")
+    for parent_commit in commit.parents:
+        walk_from_commit(parent_commit)
+
+####################################################################################################
+
+def walk_from_tree(tree):
+
+    for entry in tree:
+        print(entry.hex, entry.name, entry.attributes)
+        obj = entry.to_object()
+        if obj.type == git.GIT_OBJ_BLOB:
+            print(entry.to_object().data)
+        elif obj.type == git.GIT_OBJ_TREE:
+            walk_from_tree(obj)
+
+####################################################################################################
+
+translate_diff = {
+    git.GIT_DELTA_UNMODIFIED:'Unmodified',
+    git.GIT_DELTA_ADDED:'Added',
+    git.GIT_DELTA_DELETED:'Deleted',
+    git.GIT_DELTA_MODIFIED:'Modified',
+    git.GIT_DELTA_RENAMED:'Renamed',
+    git.GIT_DELTA_COPIED:'Copied',
+    git.GIT_DELTA_IGNORED:'Ignored',
+    git.GIT_DELTA_UNTRACKED:'Untracked',
+    }
+
+def show_diff(tree1, tree2):
+
+    diff = tree1.diff(tree2)
+    for file_diff in diff.changes['files']:
+        print(' '*2, translate_diff[file_diff[2]], file_diff[0])
+
+####################################################################################################
+
+repository = git.Repository(os.path.join(repository_path, '.git'))
+
+head = repository.lookup_reference('HEAD')
+head = head.resolve()
+head_commit = repository[head.oid]
+
+pretty_print_commit(head_commit)
+walk_from_commit(head_commit)
+
+walk_from_tree(head_commit.tree)
+
+translate_status = {
+ git.GIT_STATUS_CURRENT:'Current',
+ git.GIT_STATUS_INDEX_MODIFIED:'Index Modified',
+ git.GIT_STATUS_WT_MODIFIED:'Wt Modified',
+ git.GIT_STATUS_IGNORED:'Ignored',
+ git.GIT_STATUS_INDEX_NEW:'Index New',
+ git.GIT_STATUS_WT_NEW:'Wt New',
+ git.GIT_STATUS_INDEX_DELETED:'Index Deleted',
+ git.GIT_STATUS_WT_DELETED:'Wt Deleted',
+}
+
+print("Status:")
+git_status = repository.status()
+for filepath, status in git_status.items():
+    print(filepath, translate_status[status])
+
+diff = head_commit.tree.diff()
+for file_diff in diff.changes['files']:
+    print(translate_diff[file_diff[2]], file_diff[0])
+
+####################################################################################################
+#
+# End
+#
+####################################################################################################
