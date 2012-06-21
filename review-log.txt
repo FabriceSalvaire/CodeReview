@@ -15,7 +15,7 @@ DiffViewer.Tools
  + TextDocumentModel.py
  ? RawTextDocumentDiff.py : see audit
  ? SyntaxHighlighter.py : see audit
- - TextDocumentDiffModel.py : review and complete !
+ ? TextDocumentDiffModel.py : check code
  x DiffWidget.py
  x __init__.py
  x diff-viewer

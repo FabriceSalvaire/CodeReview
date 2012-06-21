@@ -9,7 +9,7 @@
 #
 #                                              Audit
 #
-# - 02/04/2012 Fabrice
+# - 04/06/2012 Fabrice
 #   Check design: purpose of HighlightedText ? Merge code?
 #
 ####################################################################################################
@@ -64,7 +64,7 @@ class HighlightedText(list):
     def __init__(self, raw_text_document, lexer):
 
         """ The parameter *raw_text_document* is a :class:`DiffViewer.RawTextDocument` instance and
-        the parameter *lexer* is Pygments lexer instance.
+        the parameter *lexer* is a Pygments lexer instance.
         """
 
         super(HighlightedText, self).__init__()
@@ -93,10 +93,10 @@ def highlight_text(raw_text_document, lexer):
     """ Highlight a text.
 
     The parameter *raw_text_document* is a :class:`DiffViewer.RawTextDocument` instance and the
-    parameter *lexer* is Pygments lexer instance.
+    parameter *lexer* is a Pygments lexer instance.
 
-    Return an :class:`TextDocumentModel` instance.  The document has one text block that contains
-    all the fragments.  Text fragments use light views.
+    Return an :class:`DiffViewer.TextDocumentModel` instance.  The document has one text block that
+    contains all the fragments.  Text fragments use light views.
     """
 
     highlighted_text = HighlightedText(raw_text_document, lexer)

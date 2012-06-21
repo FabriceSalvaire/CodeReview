@@ -74,7 +74,8 @@ class Application(QtGui.QApplication):
             self._raw_text_documents.append(raw_text_document)
             lexer = get_lexer_for_filename(file_name, stripnl=False)
             self._lexers.append(lexer)
-            
+
+        self._highlighted_documents = []
         if not args.show:
             file_diff = TwoWayFileDiffFactory().process(* self._raw_text_documents)
             self._document_models = TextDocumentDiffModelFactory().process(file_diff)
@@ -82,12 +83,19 @@ class Application(QtGui.QApplication):
             for raw_text_document, lexer in zip(self._raw_text_documents, self._lexers):
                 highlighted_text = HighlightedText(raw_text_document, lexer)
                 self._highlighted_texts.append(highlighted_text)
-            self._highlighted_documents = []
             for document_model, highlighted_text in zip(self._document_models, self._highlighted_texts):
                 highlighted_document = highlight_document(document_model, highlighted_text)
                 self._highlighted_documents.append(highlighted_document)
         else:
-            self._highlighted_documents = []
+            # Fixme: broken
+            # self._diff_view.set_document_models(self._highlighted_documents, complete_mode)
+            # File "/home/gv/fabrice/unison-osiris/git-python/DiffViewer/DiffWidget.py", line 333, in set_document_models
+            # cursor.begin_block(side, text_block.frame_type)
+            # File "/home/gv/fabrice/unison-osiris/git-python/DiffViewer/DiffWidget.py", line 99, in begin_block
+            # if ((side == LEFT and frame_type == chunk_type.insert) or
+            # File "/home/gv/fabrice/unison-osiris/git-python/DiffViewer/Tools/EnumFactory.py", line 107, in __eq__
+            # return self._value == int(other)
+            # TypeError: int() argument must be a string or a number, not 'NoneType'
             for raw_text_document, lexer in zip(self._raw_text_documents, self._lexers):
                 highlighted_document = highlight_text(raw_text_document, lexer)
                 self._highlighted_documents.append(highlighted_document)
