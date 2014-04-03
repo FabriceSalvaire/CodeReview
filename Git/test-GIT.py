@@ -34,7 +34,19 @@ repository = Git.Repository(repository_path)
 
 head = repository.head
 print str(head)
-head.top_down_visitor(max_level=2)
+
+line = '*'*80
+
+print '\n', line
+print "Top Down Builder"
+print line
+max_level = sys.maxint
+head.top_down_builder(max_level)
+
+print '\n', line
+print "Top Down Visitor"
+print line
+head.top_down_visitor(max_level)
 
 ####################################################################################################
 # 

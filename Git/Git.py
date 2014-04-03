@@ -125,6 +125,14 @@ class Commit(object):
 
         self.repository[self.hex] = self
 
+
+    ##############################################
+
+    @staticmethod
+    def _join_commit_keys(commits):
+
+        return ', '.join([str(x.hex) for x in commits])
+
     ##############################################
 
     def __str__(self):
@@ -143,16 +151,16 @@ Commit:
         return message_template % (self.hex,
                                    self.author.name,
                                    self.committer.name,
-                                   ', '.join([str(x.hex) for x in self.ancestors]),
-                                   ', '.join([str(x.hex) for x in self.raw_ancestors]),
+                                   self._join_commit_keys(self.ancestors),
+                                   self._join_commit_keys(self.raw_ancestors),
                                    self.message,
                                    )
 
     ##############################################
 
-    def top_down_visitor(self, max_level=sys.maxint, level=0):
+    def top_down_builder(self, max_level=sys.maxint, level=0):
 
-        print "top_down_visitor", level, self.message
+        print "top_down_builder", level, self.message
         for raw_commit in self.raw_ancestors:
             seen = raw_commit.hex in self.repository
             if seen:
@@ -169,8 +177,19 @@ Commit:
         if level <= max_level:
             for commit in self.ancestors:
                 if not commit._ancestors_visited:
-                    commit.top_down_visitor(max_level, level)
+                    commit.top_down_builder(max_level, level)
         self._ancestors_visited = True
+
+    ##############################################
+
+    def top_down_visitor(self, max_level=sys.maxint, level=0):
+
+        print str(self)
+        level += 1
+        if level <= max_level:
+            for commit in reversed(self.ancestors):
+                if commit.successors[0] is self:
+                    commit.top_down_visitor(max_level, level)
 
 ####################################################################################################
 # 
