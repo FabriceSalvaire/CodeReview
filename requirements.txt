@@ -1,0 +1,5 @@
+Pygments
+PyYAML
+pygit2
+# PyQt5
+

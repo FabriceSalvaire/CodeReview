@@ -1,0 +1,21 @@
+language: python
+python:
+   - "3.4"
+#   - "pypy"
+env:
+
+before_script:
+
+install:
+    - pip install -q -r requirements.txt
+    - pip install .
+
+script:
+    # fixme:
+    - python unit-test/test_*.py
+
+####################################################################################################
+#
+# End
+#
+####################################################################################################

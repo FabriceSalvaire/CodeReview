@@ -109,7 +109,7 @@ setup_dict = dict(
     long_description=long_description,
     # cf. http://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
-        "Topic :: ...",
+        "Topic :: Software Development :: Version Control",
         "Intended Audience :: Education",
         "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: GNU General Public License (GPL)",
