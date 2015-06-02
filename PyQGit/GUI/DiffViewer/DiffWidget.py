@@ -1,7 +1,20 @@
 ####################################################################################################
 #
-# DiffViewer - Diff Viewer
-# Copyright (C) Salvaire Fabrice 2012
+# PyQGit - A Python/Qt Git GUI
+# Copyright (C) 2015 Fabrice Salvaire
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ####################################################################################################
 
@@ -11,11 +24,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 ####################################################################################################
 
-from DiffViewer.RawTextDocumentDiff import chunk_type
-from DiffViewer.SyntaxHighlighterStyle import SyntaxHighlighterStyle
-from DiffViewer.Tools.IteratorTools import pairwise, iter_with_last_flag
-from DiffViewer.Tools.StringTools import remove_trailing_newline
-import DiffViewer.DiffWidgetConfig as DiffWidgetConfig
+from .SyntaxHighlighterStyle import SyntaxHighlighterStyle
+from PyQGit.Diff.RawTextDocumentDiff import chunk_type
+from PyQGit.Tools.IteratorTools import pairwise, iter_with_last_flag
+from PyQGit.Tools.StringTools import remove_trailing_newline
+import PyQGit.GUI.DiffViewer.DiffWidgetConfig as DiffWidgetConfig
 
 ####################################################################################################
 
@@ -245,7 +258,7 @@ class SplitterHandle(QtWidgets.QSplitterHandle):
             painter.drawLine(0, y_bottom_left, width, y_bottom_right)
 
         del painter
-    
+
 ####################################################################################################
 
 class DiffView(QtWidgets.QSplitter):

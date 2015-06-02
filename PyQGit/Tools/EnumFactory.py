@@ -24,11 +24,11 @@ The enumerate factory :func:`EnumFactory` builds a enumerate from a list of name
 these constants a value from 0 to N-1, where N is the number of constants.  For example::
 
   enum = EnumFactory('Enum1', ('cst1', 'cst2'))
-  
+
 builds a enumerate with *cst1* set to 0 and *cst2* set to 1.
 
 We can get a constant's value using an integer context like::
-     
+
   int(enum.cst1)
 
 and the constant's name using::
@@ -51,7 +51,7 @@ The number of constants could be retrieved with::
 
 The enumerate factory :func:`ExplicitEnumFactory` is a variant that permits to specify the values of
 the constants::
-        
+
   enum2 = ExplicitEnumFactory('Enum2', {'cst1':1, 'cst2':3})
 
 We can test if a value is in the enumerate using::
@@ -107,30 +107,36 @@ class EnumConstant(object):
     """ Define an Enum Constant """
 
     ##############################################
-    
+
     def __init__(self, name, value):
 
         self._name = name
         self._value = value
 
     ##############################################
-    
+
+    def __hash__(self):
+
+        return self._value
+
+    ##############################################
+
     def __eq__(self, other):
 
         return self._value == int(other)
-        
+
     ##############################################
-    
+
     def __int__(self):
 
         return self._value
 
     ##############################################
-    
+
     def __repr__(self):
 
         return self._name
-    
+
 ####################################################################################################
 
 def EnumFactory(enum_name, enum_tuple):

@@ -1,8 +1,21 @@
 ####################################################################################################
-# 
-# DiffViewer - Diff Viewer 
-# Copyright (C) Salvaire Fabrice 2012 
-# 
+#
+# PyQGit - A Python/Qt Git GUI
+# Copyright (C) 2015 Fabrice Salvaire
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
 ####################################################################################################
 
 ####################################################################################################
@@ -22,8 +35,8 @@ import pygments
 
 ####################################################################################################
 
-from DiffViewer.Tools.Slice import FlatSlice
-from DiffViewer.TextDocumentModel import TextDocumentModel, TextBlock, TextFragment
+from PyQGit.Tools.Slice import FlatSlice
+from PyQGit.Diff.TextDocumentModel import TextDocumentModel, TextBlock, TextFragment
 
 ####################################################################################################
 
@@ -41,7 +54,7 @@ class HighlightedTextFragment(object):
 
           :attr:`slice`
 
-          :attr:`token`          
+          :attr:`token`
         """
 
         self.slice = flat_slice
@@ -52,7 +65,7 @@ class HighlightedTextFragment(object):
     def __repr__(self):
 
         return repr(self.slice) + ' ' + str(self.token)
-        
+
 ####################################################################################################
 
 class HighlightedText(list):
@@ -74,7 +87,7 @@ class HighlightedText(list):
         self._lex(lexer)
 
     ##############################################
-    
+
     def _lex(self, lexer):
 
         """ Lex the document. """
@@ -110,7 +123,7 @@ def highlight_text(raw_text_document, lexer):
         text_block.append(text_fragment)
 
     return document
-        
+
 ####################################################################################################
 #
 # End

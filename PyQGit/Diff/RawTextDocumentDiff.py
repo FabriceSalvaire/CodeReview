@@ -1,7 +1,20 @@
 ####################################################################################################
 #
-# DiffViewer - Diff Viewer
-# Copyright (C) Salvaire Fabrice 2012
+# PyQGit - A Python/Qt Git GUI
+# Copyright (C) 2015 Fabrice Salvaire
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ####################################################################################################
 
@@ -43,12 +56,12 @@ chunks.  And *replaced* chunks are made of any combination of *removed*, *insert
 
 ####################################################################################################
 
-from DiffViewer.PatienceDiff import PatienceSequenceMatcher
+from PyQGit.PatienceDiff import PatienceSequenceMatcher
 
 ####################################################################################################
 
-from DiffViewer.Tools.EnumFactory import EnumFactory
-from DiffViewer.Tools.Slice import FlatSlice, LineSlice
+from PyQGit.Tools.EnumFactory import EnumFactory
+from PyQGit.Tools.Slice import FlatSlice, LineSlice
 
 ####################################################################################################
 
@@ -64,13 +77,13 @@ class TwoWayChunk(object):
     """ This class implements a two way chunk.
 
     Public attributes:
-    
+
       :attr:`chunk1`
         view for document1
-    
+
       :attr:`chunk2`
         view for document2
-    
+
     """
 
     ##############################################
@@ -131,7 +144,7 @@ class TwoWayLineChunkReplace(TwoWayChunk):
     """
 
     chunk_type = chunk_type.replace
-    
+
     ##############################################
 
     def __init__(self, chunk1, chunk2, chunks):
@@ -171,24 +184,24 @@ class TwoWayGroup(object):
     The class implements the *iter* and *getitem* protocol to access the groups.
 
     Public attributes:
-    
+
       :attr:`slice1`
         Line slice for document1
-    
+
       :attr:`slice2`
         Line slice for document2
     """
 
     ##############################################
-    
+
     def __init__(self):
-        
+
         self._chunks = []
         self.slice1 = None
         self.slice2 = None
-        
+
     ##############################################
-    
+
     def __iter__(self):
 
         """ Return an iterator over the chunks. """
@@ -196,13 +209,13 @@ class TwoWayGroup(object):
         return iter(self._chunks)
 
     ##############################################
-    
+
     def __getitem__(self, slice_):
 
         """ Provide an array interface to the chunks. """
 
         return self._chunks[slice_]
-    
+
     ##############################################
 
     def append(self, chunk):
@@ -216,7 +229,7 @@ class TwoWayGroup(object):
         else:
             self.slice1 |= chunk.chunk1.slice
             self.slice2 |= chunk.chunk2.slice
-        
+
 ####################################################################################################
 
 class TwoWayFileDiff(object):
@@ -265,7 +278,7 @@ class TwoWayFileDiff(object):
         """ Append a group. """
 
         self._groups.append(group)
-        
+
     ###############################################
 
     def pretty_print(self):
@@ -294,7 +307,7 @@ class TwoWayFileDiff(object):
 
         def pretty_print_chunk_lines(chunk, prefix):
             print(prefix + prefix.join(chunk.lines()).rstrip())
-            
+        
         def pretty_print_chunk(chunk):
             if isinstance(chunk, TwoWayLineChunkEqual):
                 pretty_print_chunk_lines(chunk.chunk1, prefix=' ')
@@ -305,7 +318,7 @@ class TwoWayFileDiff(object):
             elif isinstance(chunk, TwoWayLineChunkReplace):
                 pretty_print_chunk_lines(chunk.chunk1, prefix='-')
                 pretty_print_chunk_lines(chunk.chunk2, prefix='+')
-            
+        
         for group in self:
             print('='*80)
             print('@', group.slice1, group.slice2, '@')
@@ -314,12 +327,12 @@ class TwoWayFileDiff(object):
                 if isinstance(chunk, TwoWayLineChunkReplace):
                     for sub_chunk in chunk:
                         pretty_print_chunk(sub_chunk)
-                        
+
 ####################################################################################################
 
 class TwoWayFileDiffFactory(object):
 
-    """ This class implements a factory to compute file differences. """ 
+    """ This class implements a factory to compute file differences. """
 
     ###############################################
 
@@ -394,7 +407,7 @@ class TwoWayFileDiffFactory(object):
             sub_chunks.append(sub_chunk_diff)
 
         return sub_chunks
-    
+
 ####################################################################################################
 #
 # End
