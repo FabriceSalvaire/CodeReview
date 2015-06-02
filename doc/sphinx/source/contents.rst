@@ -6,7 +6,7 @@
   :maxdepth: 2
   :numbered:
 
-  api/DiffViewer.rst
+  api/PyQGit.rst
 
 =========
  Indexes

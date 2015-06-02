@@ -27,7 +27,7 @@ from RstFactory import RstFactory
 
 ####################################################################################################
 
-module_path = 'DiffViewer'
+module_path = 'PyQGit'
 rst_directory = 'doc/sphinx/source/api'
 excluded_directory = ()
 
