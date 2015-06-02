@@ -45,7 +45,7 @@ class LogBrowserMainWindow(MainWindowBase):
 
     def __init__(self, parent=None):
 
-        super(LogBrowserMainWindow, self).__init__(title='CodeReview PDF Browser', parent=parent)
+        super(LogBrowserMainWindow, self).__init__(title='CodeReview Log Browser', parent=parent)
 
         self._current_path = None
         self._init_ui()
