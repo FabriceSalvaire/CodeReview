@@ -1,6 +1,10 @@
-TAGS
+__pycache__
+.git
 build
-bzr-repo
 doc/sphinx/build
-git-repo
 side-view_ui.py
+test-repository/bzr-repo/
+test-repository/git-repo/repo-branches/
+test-repository/git-repo/repo-twisted-branches/
+test-repository/git-repo/repo-two-branches/
+test-repository/git-repo/repo1/
