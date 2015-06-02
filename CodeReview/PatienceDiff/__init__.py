@@ -16,9 +16,12 @@
 #
 ####################################################################################################
 
-from ._patiencediff_c import (
-    PatienceSequenceMatcher_c as PatienceSequenceMatcher
+try:
+    from ._patiencediff_c import (
+        PatienceSequenceMatcher_c as PatienceSequenceMatcher
     )
+except:
+    PatienceSequenceMatcher = None # make Sphinx happy ...
 
 ####################################################################################################
 #
