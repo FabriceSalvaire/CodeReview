@@ -4,7 +4,7 @@ import unittest
 
 ####################################################################################################
 
-from DiffViewer.Slice import Slice
+from DiffViewer.Tools.Slice import Slice
 
 ####################################################################################################
 
@@ -35,7 +35,7 @@ class TestSlice(unittest.TestCase):
         a_slice = slice1.map(slice2)
         self.assertEqual(a_slice.start, 11)
         self.assertEqual(a_slice.stop, 16)
-        
+
 ####################################################################################################
 
 if __name__ == '__main__':

@@ -1,6 +1,5 @@
 ####################################################################################################
 
-import io
 import unittest
 
 from pygments.lexers import get_lexer_for_filename
@@ -27,8 +26,8 @@ class TestSyntaxHighlighter(unittest.TestCase):
         highlighted_text = HighlightedText(raw_text_document, lexer)
 
         for fragment in highlighted_text:
-            print repr(fragment), '[' + raw_text_document.substring(fragment.slice) + ']'
-        
+            print(repr(fragment), '[' + raw_text_document.substring(fragment.slice) + ']')
+
 ####################################################################################################
 
 if __name__ == '__main__':

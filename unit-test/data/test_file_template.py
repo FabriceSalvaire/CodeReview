@@ -11,11 +11,11 @@ def function1(x, y):
     return x + y
 
 list1 = [x + 1
-         for x in xrange(10)]
+         for x in range(10)]
 
 z = function1(1, 2)
 
-print "Hello World!"
+print("Hello World!")
 
 def function2(x):
     """ This is function 2 """

@@ -33,7 +33,7 @@ class TestTextDocumentModel(unittest.TestCase):
             text2 = f.read()
 
         lexer = get_lexer_for_filename('data/test_file1.py', stripnl=False)
-            
+        
         raw_text_document1 = RawTextDocument(text1)
         raw_text_document2 = RawTextDocument(text2)
         file_diff = TwoWayFileDiffFactory().process(raw_text_document1, raw_text_document2)
@@ -41,9 +41,9 @@ class TestTextDocumentModel(unittest.TestCase):
 
         highlighted_text1 = HighlightedText(raw_text_document1, lexer)
         
-        print 'Document 1:'
+        print('Document 1:')
         self._pretty_print(document_model1)
-        print '\nHighlighted Document 1:'
+        print('\nHighlighted Document 1:')
         highlighted_document1 = highlight_document(document_model1, highlighted_text1)
         self._pretty_print(highlighted_document1)
         # print '\nDocument 2:'
@@ -54,18 +54,18 @@ class TestTextDocumentModel(unittest.TestCase):
     def _pretty_print(self, document_model):
         
         for text_block in document_model:
-            print '='*100
-            print text_block
+            print('='*100)
+            print(text_block)
             for text_fragment in text_block:
                 margin = ' '*2
-                print margin + '-'*48
-                print margin + ('\n' + margin).join(repr(text_fragment).splitlines())
+                print(margin + '-'*48)
+                print(margin + ('\n' + margin).join(repr(text_fragment).splitlines()))
                 if bool(text_fragment):
                     line = '#'*100
-                    print line
-                    print unicode(text_fragment).rstrip()
-                    print line
-                    
+                    print(line)
+                    print(str(text_fragment).rstrip())
+                    print(line)
+
 ####################################################################################################
 
 if __name__ == '__main__':

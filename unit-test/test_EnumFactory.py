@@ -4,7 +4,7 @@ import unittest
 
 ####################################################################################################
 
-from DiffViewer.EnumFactory import EnumFactory, ExplicitEnumFactory
+from DiffViewer.Tools.EnumFactory import EnumFactory, ExplicitEnumFactory
 
 ####################################################################################################
 
@@ -23,10 +23,10 @@ class TestEnumFactory(unittest.TestCase):
         self.assertEqual(len(enum1), 2)
         
         enum2 = ExplicitEnumFactory('Enum2', {'cst1':1, 'cst2':3})
- 
+        
         self.assertEqual(enum2.cst1, 1)
         self.assertEqual(enum2.cst2, 3)
-
+        
         self.assertTrue(enum2.cst2 in enum2)
 
 ####################################################################################################

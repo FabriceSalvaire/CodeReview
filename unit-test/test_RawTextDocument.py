@@ -4,7 +4,7 @@ import unittest
 
 ####################################################################################################
 
-from DiffViewer.Slice import FlatSlice, LineSlice
+from DiffViewer.Tools.Slice import FlatSlice, LineSlice
 from DiffViewer.RawTextDocument import RawTextDocument
 
 ####################################################################################################
@@ -49,18 +49,18 @@ class TestRawTextDocument(unittest.TestCase):
     def test_view(self):
 
         text_buffer = ''
-        for i in xrange(10):
+        for i in range(10):
             text_buffer += 'azerty' + str(i) + '\n'
 
         raw_text_document = RawTextDocument(text_buffer)
         view = raw_text_document[LineSlice(1, 3)]
-        self.assertEqual(unicode(view).splitlines(), text_buffer.splitlines()[1:3])
+        self.assertEqual(str(view).splitlines(), text_buffer.splitlines()[1:3])
         self.assertEqual(view.substring(FlatSlice(0,6)), 'azerty')
 
         text_buffer = "012\n45\n78\n01"
         raw_text_document = RawTextDocument(text_buffer)
         view = raw_text_document[FlatSlice(5, 11)]
-        self.assertEqual(unicode(view).splitlines(), [x.strip() for x in view.lines()])
+        self.assertEqual(str(view).splitlines(), [x.strip() for x in view.lines()])
 
     ##############################################
 
@@ -72,8 +72,8 @@ class TestRawTextDocument(unittest.TestCase):
         raw_text_document.light_view_mode = True
         flat_slice = FlatSlice(5, 10)
         view = raw_text_document[flat_slice]
-        self.assertEqual(unicode(view), text_buffer[flat_slice()])
-        
+        self.assertEqual(str(view), text_buffer[flat_slice()])
+
 ####################################################################################################
 
 if __name__ == '__main__':
