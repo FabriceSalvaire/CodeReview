@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 ####################################################################################################
 
@@ -14,13 +14,10 @@ if len(sys.argv) != 2:
     print("Give a repository path")
     sys.exit(1)
 
-repository_path = sys.argv[1]
+source_path = sys.argv[1]
+source_path = os.path.realpath(os.path.expandvars(source_path))
 
-repository_path = os.path.expandvars(repository_path)
-repository_path = os.path.abspath(repository_path)
-repository_path = os.path.normpath(repository_path)
-
-print("Repository:", repository_path)
+print("Repository:", source_path)
 
 ####################################################################################################
 
@@ -47,16 +44,16 @@ Commit:
 
 ####################################################################################################
 
-def walk_from_commit(commit):
+# def walk_from_commit(commit):
 
-    pretty_print_commit(commit)
-    number_of_parents = len(commit.parents)
-    if number_of_parents == 1:
-        show_diff(commit.parents[0].tree, commit.tree)
-    elif number_of_parents > 1:
-        print("More than one parents")
-    for parent_commit in commit.parents:
-        walk_from_commit(parent_commit)
+#     pretty_print_commit(commit)
+#     number_of_parents = len(commit.parents)
+#     if number_of_parents == 1:
+#         show_diff(commit.parents[0].tree, commit.tree)
+#     elif number_of_parents > 1:
+#         print("More than one parents")
+#     for parent_commit in commit.parents:
+#         walk_from_commit(parent_commit)
 
 ####################################################################################################
 
@@ -72,55 +69,61 @@ def walk_from_tree(tree):
 
 ####################################################################################################
 
-translate_diff = {
-    git.GIT_DELTA_UNMODIFIED:'Unmodified',
-    git.GIT_DELTA_ADDED:'Added',
-    git.GIT_DELTA_DELETED:'Deleted',
-    git.GIT_DELTA_MODIFIED:'Modified',
-    git.GIT_DELTA_RENAMED:'Renamed',
-    git.GIT_DELTA_COPIED:'Copied',
-    git.GIT_DELTA_IGNORED:'Ignored',
-    git.GIT_DELTA_UNTRACKED:'Untracked',
-    }
+# translate_diff = {
+#     git.GIT_DELTA_UNMODIFIED:'Unmodified',
+#     git.GIT_DELTA_ADDED:'Added',
+#     git.GIT_DELTA_DELETED:'Deleted',
+#     git.GIT_DELTA_MODIFIED:'Modified',
+#     git.GIT_DELTA_RENAMED:'Renamed',
+#     git.GIT_DELTA_COPIED:'Copied',
+#     git.GIT_DELTA_IGNORED:'Ignored',
+#     git.GIT_DELTA_UNTRACKED:'Untracked',
+#     }
 
-def show_diff(tree1, tree2):
+# def show_diff(tree1, tree2):
 
-    diff = tree1.diff(tree2)
-    for file_diff in diff.changes['files']:
-        print(' '*2, translate_diff[file_diff[2]], file_diff[0])
+#     diff = tree1.diff(tree2)
+#     for file_diff in diff.changes['files']:
+#         print(' '*2, translate_diff[file_diff[2]], file_diff[0])
 
 ####################################################################################################
 
-repository = git.Repository(os.path.join(repository_path, '.git'))
+repository_path = git.discover_repository(source_path)
+repository = git.Repository(repository_path)
 
-head = repository.lookup_reference('HEAD')
-head = head.resolve()
-head_commit = repository[head.oid]
+# head = repository.lookup_reference('HEAD').resolve()
+head = repository.head
+head_commit = repository[head.target]
 
 pretty_print_commit(head_commit)
-walk_from_commit(head_commit)
 
-walk_from_tree(head_commit.tree)
+for commit in repository.walk(head_commit.id, git.GIT_SORT_TIME):
+    pretty_print_commit(commit)
+
+# walk_from_commit(head_commit)
+# walk_from_tree(head_commit.tree)
 
 translate_status = {
  git.GIT_STATUS_CURRENT:'Current',
- git.GIT_STATUS_INDEX_MODIFIED:'Index Modified',
- git.GIT_STATUS_WT_MODIFIED:'Wt Modified',
  git.GIT_STATUS_IGNORED:'Ignored',
- git.GIT_STATUS_INDEX_NEW:'Index New',
- git.GIT_STATUS_WT_NEW:'Wt New',
  git.GIT_STATUS_INDEX_DELETED:'Index Deleted',
+ git.GIT_STATUS_INDEX_MODIFIED:'Index Modified',
+ git.GIT_STATUS_INDEX_NEW:'Index New',
  git.GIT_STATUS_WT_DELETED:'Wt Deleted',
+ git.GIT_STATUS_WT_MODIFIED:'Wt Modified',
+ git.GIT_STATUS_WT_NEW:'Wt New',
 }
 
-print("Status:")
+print("\nStatus:")
 git_status = repository.status()
 for filepath, status in git_status.items():
-    print(filepath, translate_status[status])
+    print(filepath, translate_status.get(status, status))
 
-diff = head_commit.tree.diff()
-for file_diff in diff.changes['files']:
-    print(translate_diff[file_diff[2]], file_diff[0])
+print("\nDiff:")
+commit = repository.revparse_single('HEAD^')
+diff = repository.diff(head_commit, commit)
+for patch in diff:
+    print(patch.old_file_path, patch.new_file_path, patch.status)
 
 ####################################################################################################
 #
