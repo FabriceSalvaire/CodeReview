@@ -1,0 +1,21 @@
+.. -*- Mode: rst -*-
+
+.. |Python| replace:: Python
+.. _Python: http://python.org
+
+.. |PyPI| replace:: PyPI
+.. _PyPI: https://pypi.python.org/pypi
+
+.. |pip| replace:: pip
+.. _pip: https://python-packaging-user-guide.readthedocs.org/en/latest/projects.html#pip
+
+.. |Sphinx| replace:: Sphinx
+.. _Sphinx: http://sphinx-doc.org
+
+.. |pygit2| replace:: pygit2
+.. _pygit2: http://www.pygit2.org/install.html
+
+.. |PyQt5| replace:: PyQt5
+.. _PyQt5: http://www.riverbankcomputing.com/software/pyqt/download5
+
+.. End

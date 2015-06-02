@@ -1,0 +1,12 @@
+.. -*- Mode: rst -*-
+
+==========
+ Features
+==========
+
+The main features of CodeReview are:
+
+ * display the log of a Git repository
+ * diff side by side using Patience algorithm
+
+.. end

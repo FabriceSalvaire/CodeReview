@@ -1,0 +1,42 @@
+.. -*- Mode: rst -*-
+
+..
+   |CodeReviewUrl|
+   |CodeReviewHomePage|_
+   |CodeReviewDoc|_
+   |CodeReview@github|_
+   |CodeReview@readthedocs|_
+   |CodeReview@readthedocs-badge|
+   |CodeReview@pypi|_
+
+.. |ohloh| image:: https://www.openhub.net/accounts/230426/widgets/account_tiny.gif
+   :target: https://www.openhub.net/accounts/fabricesalvaire
+   :alt: Fabrice Salvaire's Ohloh profile
+   :height: 15px
+   :width:  80px
+
+.. |CodeReviewUrl| replace:: http://fabricesalvaire.github.io/CodeReview
+
+.. |CodeReviewHomePage| replace:: CodeReview Home Page
+.. _CodeReviewHomePage: http://fabricesalvaire.github.io/CodeReview
+
+.. |CodeReviewDoc| replace:: CodeReview Documentation
+.. _CodeReviewDoc: http://CodeReview.readthedocs.org/en/latest
+
+.. |CodeReview@readthedocs-badge| image:: https://readthedocs.org/projects/CodeReview/badge/?version=latest
+   :target: http://CodeReview.readthedocs.org/en/latest
+
+.. |CodeReview@github| replace:: https://github.com/FabriceSalvaire/CodeReview
+.. .. _CodeReview@github: https://github.com/FabriceSalvaire/CodeReview
+
+.. |CodeReview@readthedocs| replace:: http://CodeReview.readthedocs.org
+.. .. _CodeReview@readthedocs: http://CodeReview.readthedocs.org
+
+.. |CodeReview@pypi| replace:: https://pypi.python.org/pypi/CodeReview
+.. .. _CodeReview@pypi: https://pypi.python.org/pypi/CodeReview
+
+.. |Build Status| image:: https://travis-ci.org/FabriceSalvaire/CodeReview.svg?branch=master
+   :target: https://travis-ci.org/FabriceSalvaire/CodeReview
+   :alt: CodeReview build status @travis-ci.org
+
+.. End

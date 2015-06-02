@@ -1,9 +1,23 @@
+# -*- coding: utf-8 -*-
+
+####################################################################################################
+#
+# CodeReview - A Python/Qt Git GUI
+# Copyright (C) 2015 Fabrice Salvaire
+#
+####################################################################################################
+
+####################################################################################################
+
+import sys, os
+
 ####################################################################################################
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-# sys.path.insert(0, os.path.abspath(directory))
+# for directory in ,:
+sys.path.insert(0, os.path.abspath(os.path.join(__file__, *['..']*4)))
 
 ####################################################################################################
 #
@@ -20,7 +34,6 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.intersphinx',
               'sphinx.ext.todo',
               'sphinx.ext.coverage',
-              'sphinx.ext.pngmath',
               'sphinx.ext.ifconfig',
               'sphinx.ext.viewcode',
               ]
@@ -35,11 +48,11 @@ source_suffix = '.rst'
 #source_encoding = 'utf-8-sig'
 
 # The master toctree document.
-master_doc = 'contents'
+master_doc = 'index'
 
 # General information about the project.
-project = u'PyQGit'
-copyright = u'2015, Fabrice Salvaire'
+project = 'CodeReview'
+copyright = '2014, Fabrice Salvaire'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -107,8 +120,15 @@ autodoc_default_flags = [
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-# html_theme = 'default'
-html_theme = 'MyTheme'
+#!# html_theme = 'MyTheme'
+
+# on_rtd is whether we are on readthedocs.org
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+if not on_rtd:  # only import and set the theme if we're building docs locally
+    import sphinx_rtd_theme
+    html_theme = 'sphinx_rtd_theme'
+    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+# otherwise, readthedocs.org uses their theme by default, so no need to specify it
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -116,7 +136,7 @@ html_theme = 'MyTheme'
 # html_theme_options = {}
 
 # Add any paths that contain custom themes here, relative to this directory.
-html_theme_path = ['themes']
+#!# html_theme_path = ['themes']
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
@@ -181,7 +201,7 @@ html_static_path = ['_static']
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'PyQGit-doc'
+htmlhelp_basename = 'CodeReview'
 
 ####################################################################################################
 #
@@ -197,15 +217,12 @@ latex_font_size = '10pt'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('contents', 'PyQGit.tex', u'PyQGit Documentation',
-   u'Fabrice Salvaire', 'manual'),
-  ('contents-client', 'PyQGit-client.tex', u'PyQGit Documentation',
-   u'Fabrice Salvaire', 'manual'),
+  ('index', 'CodeReview.tex', 'CodeReview Documentation', 'Fabrice Salvaire', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
-# latex_logo = None
+latex_logo = None
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.
@@ -234,7 +251,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('contents', 'PyQGit', u'PyQGit Documentation', [u'Fabrice Salvaire'], 1)
+    ('index', 'CodeReview', 'CodeReview Documentation', ['Fabrice Salvaire'], 1)
 ]
 
 # Example configuration for intersphinx: refer to the Python standard library.
