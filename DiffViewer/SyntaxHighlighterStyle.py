@@ -1,15 +1,15 @@
 ####################################################################################################
-# 
-# DiffViewer - Diff Viewer 
-# Copyright (C) Salvaire Fabrice 2012 
-# 
+#
+# DiffViewer - Diff Viewer
+# Copyright (C) Salvaire Fabrice 2012
+#
 ####################################################################################################
 
 """ This module defines styles for syntax highlighting. """
 
 ####################################################################################################
 
-from PyQt4 import QtGui
+from PyQt5 import QtGui
 from pygments.styles import get_style_by_name
 
 ####################################################################################################

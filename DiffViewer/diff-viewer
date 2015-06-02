@@ -2,10 +2,10 @@
 # -*- python -*-
 
 ####################################################################################################
-# 
-# DiffViewer - Diff Viewer 
-# Copyright (C) Salvaire Fabrice 2012 
-# 
+#
+# DiffViewer - Diff Viewer
+# Copyright (C) Salvaire Fabrice 2012
+#
 ####################################################################################################
 
 ####################################################################################################
@@ -13,7 +13,7 @@
 import argparse
 import sys
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from pygments.lexers import get_lexer_for_filename
 
@@ -27,7 +27,7 @@ from DiffViewer.TextDocumentDiffModel import TextDocumentDiffModelFactory, highl
 
 ####################################################################################################
 
-class Application(QtGui.QApplication):
+class Application(QtWidgets.QApplication):
 
     ################################################
 
@@ -35,24 +35,26 @@ class Application(QtGui.QApplication):
 
         super(Application, self).__init__(sys.argv)
 
-        self._main_window = QtGui.QMainWindow(None)
+        self._main_window = QtWidgets.QMainWindow(None)
 
-        self._central_widget = QtGui.QWidget(self._main_window)
+        self._central_widget = QtWidgets.QWidget(self._main_window)
         self._main_window.setCentralWidget(self._central_widget)
-        self._vertical_layout = QtGui.QVBoxLayout(self._central_widget)
+        self._vertical_layout = QtWidgets.QVBoxLayout(self._central_widget)
 
         self._diff_view = DiffView()
         self._vertical_layout.addWidget(self._diff_view)
- 
-        self._horizontal_layout = QtGui.QHBoxLayout()
+        
+        self._horizontal_layout = QtWidgets.QHBoxLayout()
         self._vertical_layout.addLayout(self._horizontal_layout)
-        self._complete_checkbox = QtGui.QCheckBox(self._central_widget)
-        self._complete_checkbox.setText(QtGui.QApplication.translate("main_window", "Complete", None, QtGui.QApplication.UnicodeUTF8))
+        self._complete_checkbox = QtWidgets.QCheckBox(self._central_widget)
+        self._complete_checkbox.setText("Complete")
+        # QtWidgets.QApplication.translate("main_window", , None, QtWidgets.QApplication.UnicodeUTF8))
         self._horizontal_layout.addWidget(self._complete_checkbox)
-        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self._horizontal_layout.addItem(spacerItem)
-        self._refresh_button = QtGui.QPushButton(self._central_widget)
-        self._refresh_button.setText(QtGui.QApplication.translate("main_window", "Refresh", None, QtGui.QApplication.UnicodeUTF8))
+        self._refresh_button = QtWidgets.QPushButton(self._central_widget)
+        self._refresh_button.setText("Refresh")
+        # QtWidgets.QApplication.translate("main_window", "Refresh", None, QtWidgets.QApplication.UnicodeUTF8)
         self._horizontal_layout.addWidget(self._refresh_button)
 
         self._open_files(args)
@@ -108,7 +110,7 @@ class Application(QtGui.QApplication):
 
         complete_mode = self._complete_checkbox.checkState() == QtCore.Qt.Checked
         self._diff_view.set_document_models(self._highlighted_documents, complete_mode)
-            
+
 ####################################################################################################
 #
 # Options

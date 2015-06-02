@@ -7,7 +7,7 @@
 
 ####################################################################################################
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 ####################################################################################################
 
@@ -22,7 +22,7 @@ import DiffViewer.DiffWidgetConfig as DiffWidgetConfig
 def get_monospaced_font():
 
     # Get the defaul font size
-    size = QtGui.QApplication.font().pointSize()
+    size = QtWidgets.QApplication.font().pointSize()
     
     font = QtGui.QFont('', size)
     font.setFixedPitch(True)
@@ -122,7 +122,7 @@ class DiffViewerCursor(object):
 
 ####################################################################################################
 
-class TextBrowser(QtGui.QTextBrowser):
+class TextBrowser(QtWidgets.QTextBrowser):
 
     ##############################################
 
@@ -133,7 +133,7 @@ class TextBrowser(QtGui.QTextBrowser):
         self.text_blocks = text_blocks
         
         # Truncate long lines
-        self.setLineWrapMode(QtGui.QTextEdit.NoWrap)
+        self.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
 
     ##############################################
 
@@ -183,7 +183,7 @@ class TextBrowser(QtGui.QTextBrowser):
 
 ####################################################################################################
 
-class SplitterHandle(QtGui.QSplitterHandle):
+class SplitterHandle(QtWidgets.QSplitterHandle):
 
     ##############################################
 
@@ -191,7 +191,7 @@ class SplitterHandle(QtGui.QSplitterHandle):
 
         super(SplitterHandle, self).__init__(QtCore.Qt.Horizontal, parent)
 
-        self.frame_width = QtGui.QApplication.style().pixelMetric(QtGui.QStyle.PM_DefaultFrameWidth)
+        self.frame_width = QtWidgets.QApplication.style().pixelMetric(QtWidgets.QStyle.PM_DefaultFrameWidth)
 
     ##############################################
 
@@ -248,7 +248,7 @@ class SplitterHandle(QtGui.QSplitterHandle):
     
 ####################################################################################################
 
-class DiffView(QtGui.QSplitter):
+class DiffView(QtWidgets.QSplitter):
 
     """ Widget to show differences in side-by-side format.
     """
