@@ -1,10 +1,7 @@
-#! /usr/bin/env python
-# -*- Python -*-
-
 ####################################################################################################
 #
-# DiffViewer - Diff Viewer
-# Copyright (C) 2014 Salvaire Fabrice
+# CodeReview - A Python/Qt Git GUI
+# Copyright (C) 2015 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,15 +20,24 @@
 
 ####################################################################################################
 
-from RstFactory import RstFactory
+def html_highlight_backtrace(backtrace_text):
 
-####################################################################################################
+    lines = [x for x in backtrace_text.split('\n') if x]
 
-module_path = 'CodeReview'
-rst_directory = 'doc/sphinx/source/api'
-excluded_directory = ()
+    backtrace_highlighted = '<h3>' + lines[0] + '</h3>'
 
-rst_factory = RstFactory(module_path, rst_directory, excluded_directory)
+    for line in lines[1:-1]:
+        line = line.replace('<', '(')
+        line = line.replace('>', ')')
+        if 'File' in line:
+            line = '<font color="blue"><h6>' + line + '</h6>'
+        else:
+            line = '<font color="black"><code>' + line + '</code>'
+        backtrace_highlighted += line
+
+    backtrace_highlighted += '<font color="blue"><h4>' + lines[-1] + '</h4>'
+
+    return backtrace_highlighted
 
 ####################################################################################################
 #

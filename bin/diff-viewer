@@ -19,11 +19,11 @@ from pygments.lexers import get_lexer_for_filename
 
 ####################################################################################################
 
-from PyQGit.Diff.RawTextDocument import RawTextDocument
-from PyQGit.Diff.RawTextDocumentDiff import TwoWayFileDiffFactory
-from PyQGit.Diff.SyntaxHighlighter import HighlightedText, highlight_text
-from PyQGit.Diff.TextDocumentDiffModel import TextDocumentDiffModelFactory, highlight_document
-from PyQGit.GUI.DiffViewer.DiffWidget import DiffView
+from CodeReview.Diff.RawTextDocument import RawTextDocument
+from CodeReview.Diff.RawTextDocumentDiff import TwoWayFileDiffFactory
+from CodeReview.Diff.SyntaxHighlighter import HighlightedText, highlight_text
+from CodeReview.Diff.TextDocumentDiffModel import TextDocumentDiffModelFactory, highlight_document
+from CodeReview.GUI.DiffViewer.DiffWidget import DiffView
 
 ####################################################################################################
 

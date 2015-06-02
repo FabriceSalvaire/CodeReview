@@ -1,10 +1,7 @@
-#! /usr/bin/env python
-# -*- Python -*-
-
 ####################################################################################################
 #
-# DiffViewer - Diff Viewer
-# Copyright (C) 2014 Salvaire Fabrice
+# CodeReview - A Python/Qt Git GUI
+# Copyright (C) 2015 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,17 +18,32 @@
 #
 ####################################################################################################
 
-####################################################################################################
-
-from RstFactory import RstFactory
+""" This modules provides iterator tools. """
 
 ####################################################################################################
 
-module_path = 'CodeReview'
-rst_directory = 'doc/sphinx/source/api'
-excluded_directory = ()
+def pairwise(iterable):
 
-rst_factory = RstFactory(module_path, rst_directory, excluded_directory)
+    """ Return a generator which generate a pair wise list from an iterable: s -> (s[0],s[1]),
+    (s[1],s[2]), ... (s[N-1], s[N]).
+    """
+
+    prev = iterable[0]
+    for x in iterable[1:]:
+        yield prev, x
+        prev = x
+
+####################################################################################################
+
+def iter_with_last_flag(iterable):
+    
+    """ Iterate over an iterable and yield a 2-tuple containing the current item and a Boolean
+    indicating if it is the last item.
+    """
+
+    last_index = len(iterable) -1
+    for i, x in enumerate(iterable):
+        yield x, i == last_index
 
 ####################################################################################################
 #

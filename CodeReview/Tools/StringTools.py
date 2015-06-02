@@ -1,10 +1,7 @@
-#! /usr/bin/env python
-# -*- Python -*-
-
 ####################################################################################################
 #
-# DiffViewer - Diff Viewer
-# Copyright (C) 2014 Salvaire Fabrice
+# CodeReview - A Python/Qt Git GUI
+# Copyright (C) 2015 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,18 +18,24 @@
 #
 ####################################################################################################
 
-####################################################################################################
-
-from RstFactory import RstFactory
+""" This module provides string tools. """
 
 ####################################################################################################
 
-module_path = 'CodeReview'
-rst_directory = 'doc/sphinx/source/api'
-excluded_directory = ()
+def remove_trailing_newline(text):
 
-rst_factory = RstFactory(module_path, rst_directory, excluded_directory)
-
+    """ Return the string *text* with only the last trailing newline (``\\\\r\\\\n``, ``\\\\r``,
+    ``\\\\n``) removed.  By contrast the standard function :func:`string.rstrip` removes all the
+    trailing newlines.
+    """
+    
+    if text.endswith('\r\n'):
+        return text[:-2]
+    elif text[-1] in ('\n', '\r'):
+        return text[:-1]
+    else:
+        return text
+    
 ####################################################################################################
 #
 # End

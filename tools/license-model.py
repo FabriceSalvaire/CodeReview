@@ -1,6 +1,6 @@
 ####################################################################################################
 #
-# PyQGit - A Python/Qt Git GUI
+# CodeReview - A Python/Qt Git GUI
 # Copyright (C) 2015 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU

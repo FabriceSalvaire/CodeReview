@@ -1,10 +1,7 @@
-#! /usr/bin/env python
-# -*- Python -*-
-
 ####################################################################################################
 #
-# DiffViewer - Diff Viewer
-# Copyright (C) 2014 Salvaire Fabrice
+# CodeReview - A Python/Qt Git GUI
+# Copyright (C) 2015 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,15 +20,29 @@
 
 ####################################################################################################
 
-from RstFactory import RstFactory
+import argparse
 
 ####################################################################################################
 
-module_path = 'CodeReview'
-rst_directory = 'doc/sphinx/source/api'
-excluded_directory = ()
+from CodeReview.Tools.Path import to_absolute_path
 
-rst_factory = RstFactory(module_path, rst_directory, excluded_directory)
+####################################################################################################
+
+class PathAction(argparse.Action):
+
+    ##############################################
+
+    def __call__(self, parser, namespace, values, option_string=None):
+
+        # print '%r %r %r' % (namespace, values, option_string)
+        if values is not None:
+            if isinstance(values, list):
+                absolute_path = [to_absolute_path(x) for x in values]
+            else:
+                absolute_path = to_absolute_path(values)
+        else:
+            absolute_path = None
+        setattr(namespace, self.dest, absolute_path)
 
 ####################################################################################################
 #

@@ -1,5 +1,3 @@
-#! /usr/bin/env python
-
 ####################################################################################################
 #
 # CodeReview - A Python/Qt Git GUI
@@ -21,51 +19,50 @@
 ####################################################################################################
 
 ####################################################################################################
-#
-# Logging
-#
 
-import CodeReview.Logging.Logging as Logging
-
-logger = Logging.setup_logging('pyqgit')
+import os
 
 ####################################################################################################
 
-import argparse
+def to_absolute_path(path):
+
+    # Expand ~ . and Remove trailing '/'
+
+    return os.path.abspath(os.path.expanduser(path))
 
 ####################################################################################################
 
-from CodeReview.GUI.LogBrowser.LogBrowserApplication import LogBrowserApplication
-from CodeReview.Tools.ProgramOptions import PathAction
-
-####################################################################################################
-#
-# Options
-#
-
-argument_parser = argparse.ArgumentParser(description='Log Browser')
-
-argument_parser.add_argument('path', metavar='PATH',
-                             action=PathAction,
-                             nargs='?', default='.',
-                             help='path')
-
-argument_parser.add_argument('--user-script',
-                             action=PathAction,
-                             default=None,
-                             help='user script to execute')
-
-argument_parser.add_argument('--user-script-args',
-                             default='',
-                             help="user script args (don't forget to quote)")
-
-args = argument_parser.parse_args()
+def parent_directory_of(file_name, step=1):
+    
+    directory = file_name
+    for i in range(step):
+        directory = os.path.dirname(directory)
+    return directory
 
 ####################################################################################################
 
-application = LogBrowserApplication(args=args)
-application.exec_()
+def find(file_name, directories):
+    
+    if isinstance(directories, bytes):
+        directories = (directories,)
+    for directory in directories:
+        for directory_path, sub_directories, file_names in os.walk(directory):
+            if file_name in file_names:
+                return os.path.join(directory_path, file_name)
 
+    raise NameError("File %s not found in directories %s" % (file_name, str(directories)))
+
+####################################################################################################
+
+def find_alias(directory, file_names):
+
+    for file_name in file_names:
+        absolut_file_name = os.path.join(directory, file_name)
+        if os.path.exists(absolut_file_name):
+            return absolut_file_name
+
+    raise NameError("Any file in %s found in directory %s" % (str(file_names), directory))
+            
 ####################################################################################################
 #
 # End

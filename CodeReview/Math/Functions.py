@@ -1,10 +1,7 @@
-#! /usr/bin/env python
-# -*- Python -*-
-
 ####################################################################################################
 #
-# DiffViewer - Diff Viewer
-# Copyright (C) 2014 Salvaire Fabrice
+# CodeReview - A Python/Qt Git GUI
+# Copyright (C) 2015 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,15 +20,13 @@
 
 ####################################################################################################
 
-from RstFactory import RstFactory
+def rint(f):
+    return int(round(f))
 
 ####################################################################################################
 
-module_path = 'CodeReview'
-rst_directory = 'doc/sphinx/source/api'
-excluded_directory = ()
-
-rst_factory = RstFactory(module_path, rst_directory, excluded_directory)
+def middle(a, b):
+    return .5*(a + b)
 
 ####################################################################################################
 #

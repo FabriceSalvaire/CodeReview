@@ -1,10 +1,7 @@
-#! /usr/bin/env python
-# -*- Python -*-
-
 ####################################################################################################
 #
-# DiffViewer - Diff Viewer
-# Copyright (C) 2014 Salvaire Fabrice
+# CodeReview - A Python/Qt Git GUI
+# Copyright (C) 2015 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,15 +20,31 @@
 
 ####################################################################################################
 
-from RstFactory import RstFactory
+about_pyqgit = """
+A Python/Qt Git GUI
+"""
 
 ####################################################################################################
 
-module_path = 'CodeReview'
-rst_directory = 'doc/sphinx/source/api'
-excluded_directory = ()
-
-rst_factory = RstFactory(module_path, rst_directory, excluded_directory)
+system_information_message_pattern = """
+<h2>CodeReview %(pyqgit_version)s</h2>
+<h2>Host %(node)s</h2>
+<h3>Hardware</h3>
+<ul>
+<li>Machine: %(machine)s</li>
+<li>Architecture: %(architecture)s</li>
+<li>CPU: %(cpu)s</li>
+<li>Number of cores: %(number_of_cores)u</li>
+<li>Memory Size: %(memory_size_mb)u MB</li>
+</ul>
+<h3>Software Versions</h3>
+<ul>
+<li>OS: %(os)s %(distribution)s</li>
+<li>Python %(python_version)s</li>
+<li>Qt %(qt_version)s</li>
+<li>PyQt %(pyqt_version)s</li>
+</ul>
+"""
 
 ####################################################################################################
 #
