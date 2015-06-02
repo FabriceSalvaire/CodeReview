@@ -129,6 +129,7 @@ class LogBrowserMainWindow(MainWindowBase):
             commit1 = log_table_model[index]
             try:
                 commit2 = log_table_model[index +1]
+                commit1, commit2 = commit2, commit1 # Fixme:
             except IndexError:
                 commit2 = None
         else:
