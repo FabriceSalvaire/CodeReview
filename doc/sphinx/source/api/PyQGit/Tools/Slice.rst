@@ -2,7 +2,7 @@
  :mod:`Slice`
 **************
 
-.. automodule:: DiffViewer.Tools.Slice
+.. automodule:: PyQGit.Tools.Slice
    :members:
    :show-inheritance:
 

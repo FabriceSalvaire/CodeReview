@@ -1,8 +1,8 @@
 **********************
- :mod:`IteratorTools`
+ :mod:`ConfigInstall`
 **********************
 
-.. automodule:: DiffViewer.Tools.IteratorTools
+.. automodule:: PyQGit.Config.ConfigInstall
    :members:
    :show-inheritance:
 

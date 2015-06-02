@@ -2,7 +2,7 @@
  :mod:`EnumFactory`
 ********************
 
-.. automodule:: DiffViewer.Tools.EnumFactory
+.. automodule:: PyQGit.Tools.EnumFactory
    :members:
    :show-inheritance:
 

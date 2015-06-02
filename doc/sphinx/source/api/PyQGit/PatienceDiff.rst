@@ -5,7 +5,7 @@
 .. toctree::
   PatienceDiff/_patiencediff_py
 
-.. automodule:: DiffViewer.PatienceDiff
+.. automodule:: PyQGit.PatienceDiff
    :members:
    :show-inheritance:
 

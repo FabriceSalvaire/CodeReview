@@ -2,7 +2,7 @@
  :mod:`StringTools`
 ********************
 
-.. automodule:: DiffViewer.Tools.StringTools
+.. automodule:: PyQGit.Tools.StringTools
    :members:
    :show-inheritance:
 
