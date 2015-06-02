@@ -56,8 +56,6 @@ class CriticalErrorForm(QtWidgets.QDialog, Ui_critical_error_form):
 
         self.setupUi(self)
 
-        self.expert_group_box.hide()
-
         self._exception_type = exception_type
         self._exception_value = exception_value
         self._exception_backtrace = exception_backtrace
