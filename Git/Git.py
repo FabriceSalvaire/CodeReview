@@ -1,8 +1,8 @@
 ####################################################################################################
-# 
-# - 
-# Copyright (C) 2012 
-# 
+#
+# -
+# Copyright (C) 2012
+#
 ####################################################################################################
 
 ####################################################################################################
@@ -125,7 +125,6 @@ class Commit(object):
 
         self.repository[self.hex] = self
 
-
     ##############################################
 
     @staticmethod
@@ -158,21 +157,21 @@ Commit:
 
     ##############################################
 
-    def top_down_builder(self, max_level=sys.maxint, level=0):
+    def top_down_builder(self, max_level=sys.maxsize, level=0):
 
-        print "top_down_builder", level, self.message
+        print("top_down_builder", level, self.message)
         for raw_commit in self.raw_ancestors:
             seen = raw_commit.hex in self.repository
             if seen:
                 commit = self.repository[raw_commit.hex]
-                print "Commit %s already seen" % (commit.hex)
+                print("Commit %s already seen" % (commit.hex))
             else:
                 commit = self.create_from_raw_commit(self.repository, raw_commit)
-                print 'Create:', commit.hex
+                print('Create:', commit.hex)
                 # print str(commit)
             commit.successors.append(self)
             self.ancestors.append(commit)
-        print "<<Current Commit Node>>:\n", str(self)
+        print("<<Current Commit Node>>:\n", str(self))
         level += 1
         if level <= max_level:
             for commit in self.ancestors:
@@ -182,9 +181,9 @@ Commit:
 
     ##############################################
 
-    def top_down_visitor(self, max_level=sys.maxint, level=0):
+    def top_down_visitor(self, max_level=sys.maxsize, level=0):
 
-        print str(self)
+        print(str(self))
         level += 1
         if level <= max_level:
             for commit in reversed(self.ancestors):
@@ -192,7 +191,7 @@ Commit:
                     commit.top_down_visitor(max_level, level)
 
 ####################################################################################################
-# 
+#
 # End
-# 
+#
 ####################################################################################################

@@ -34,13 +34,13 @@ class Application(QtWidgets.QApplication):
     def __init__(self, args):
 
         super(Application, self).__init__(sys.argv)
-
+        
         self._main_window = QtWidgets.QMainWindow(None)
-
+        
         self._central_widget = QtWidgets.QWidget(self._main_window)
         self._main_window.setCentralWidget(self._central_widget)
         self._vertical_layout = QtWidgets.QVBoxLayout(self._central_widget)
-
+        
         self._diff_view = DiffView()
         self._vertical_layout.addWidget(self._diff_view)
         
@@ -56,11 +56,11 @@ class Application(QtWidgets.QApplication):
         self._refresh_button.setText("Refresh")
         # QtWidgets.QApplication.translate("main_window", "Refresh", None, QtWidgets.QApplication.UnicodeUTF8)
         self._horizontal_layout.addWidget(self._refresh_button)
-
+        
         self._open_files(args)
         
         self._main_window.showMaximized()
-
+        
         self._complete_checkbox.stateChanged.connect(self._set_document_models)
 
     ################################################
@@ -76,7 +76,7 @@ class Application(QtWidgets.QApplication):
             self._raw_text_documents.append(raw_text_document)
             lexer = get_lexer_for_filename(file_name, stripnl=False)
             self._lexers.append(lexer)
-
+        
         self._highlighted_documents = []
         if not args.show:
             file_diff = TwoWayFileDiffFactory().process(* self._raw_text_documents)
@@ -101,7 +101,7 @@ class Application(QtWidgets.QApplication):
             for raw_text_document, lexer in zip(self._raw_text_documents, self._lexers):
                 highlighted_document = highlight_text(raw_text_document, lexer)
                 self._highlighted_documents.append(highlighted_document)
-
+        
         self._set_document_models()
 
     ################################################
