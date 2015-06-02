@@ -20,11 +20,12 @@
 
 # Fixme: english ...
 
-""" This module implements a basic document model.
+"""This module implements a basic document model.
 
-A document is made of text blocks that are made of text fragments.  A text block corresponds to a
-chunck of lines and is decorated by a frame type.  A text fragment is a piece of text and is
-decorated by a frame type and a token type used for the syntax highlighting.
+A document is made of text blocks that are themselves made of text fragments.  A text block
+corresponds to a chunck of lines and is decorated by a frame type.  A text fragment is a piece of
+text and is decorated by a frame type and a token type used for the syntax highlighting.
+
 """
 
 ####################################################################################################
@@ -74,7 +75,7 @@ class TextFragment(object):
 
         To get the content string use::
 
-          unicode(instance)
+          str(instance)
         """
 
         self.text = text

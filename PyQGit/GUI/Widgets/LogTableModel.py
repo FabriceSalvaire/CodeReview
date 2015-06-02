@@ -27,6 +27,7 @@ import pygit2 as git
 ####################################################################################################
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import Qt
 
 ####################################################################################################
 
@@ -40,6 +41,7 @@ class LogTableModel(QtCore.QAbstractTableModel):
 
         self._column_names = (
             # 'Hex',
+            'Revision',
             'Message',
             'Date',
             # 'Author',
@@ -54,15 +56,17 @@ class LogTableModel(QtCore.QAbstractTableModel):
         fromtimestamp = datetime.datetime.fromtimestamp
         for commit in repository.walk(head_commit.id, git.GIT_SORT_TIME):
             self._commits.append(commit)
+        self._number_of_commits = len(self._commits)
+        for i, commit in enumerate(self._commits[1:]):
             commit_data = (
                 # commit.hex,
+                self._number_of_commits - i -1,
                 commit.message,
                 fromtimestamp(commit.commit_time).strftime('%Y-%m-%d %H:%M:%S'),
                 # commit.author.name,
                 commit.committer.name,
             )
             self._commit_datas.append(commit_data)
-        self._number_of_commits = len(self._commits)
 
     ##############################################
 
@@ -72,12 +76,12 @@ class LogTableModel(QtCore.QAbstractTableModel):
 
     ##############################################
 
-    def data(self, index, role=QtCore.Qt.DisplayRole):
+    def data(self, index, role=Qt.DisplayRole):
 
         if not index.isValid(): # or not(0 <= index.row() < self._number_of_commits):
             return QtCore.QVariant()
 
-        if role == QtCore.Qt.DisplayRole:
+        if role == Qt.DisplayRole:
             commit = self._commit_datas[index.row()]
             if commit is not None:
                 column = index.column()
@@ -89,16 +93,16 @@ class LogTableModel(QtCore.QAbstractTableModel):
 
     ##############################################
 
-    def headerData(self, section, orientation, role=QtCore.Qt.DisplayRole):
+    def headerData(self, section, orientation, role=Qt.DisplayRole):
 
-        if role == QtCore.Qt.TextAlignmentRole:
-            if orientation == QtCore.Qt.Horizontal:
-                return QtCore.QVariant(int(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter))
+        if role == Qt.TextAlignmentRole:
+            if orientation == Qt.Horizontal:
+                return QtCore.QVariant(int(Qt.AlignHCenter|Qt.AlignVCenter))
             else:
-                return QtCore.QVariant(int(QtCore.Qt.AlignRight|QtCore.Qt.AlignVCenter))
+                return QtCore.QVariant(int(Qt.AlignRight|Qt.AlignVCenter))
         
-        if role == QtCore.Qt.DisplayRole:
-            if orientation == QtCore.Qt.Horizontal:
+        if role == Qt.DisplayRole:
+            if orientation == Qt.Horizontal:
                 column_name = self._column_names[section]
                 return QtCore.QVariant(column_name)
             else:

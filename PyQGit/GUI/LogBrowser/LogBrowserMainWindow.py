@@ -58,22 +58,34 @@ class LogBrowserMainWindow(MainWindowBase):
 
         self._central_widget = QtWidgets.QWidget(self)
         self.setCentralWidget(self._central_widget)
-
+        
         self._vertical_layout = QtWidgets.QVBoxLayout(self._central_widget)
         self._message_box = MessageBox(self)
+        splitter = QtWidgets.QSplitter()
+        splitter.setOrientation(Qt.Vertical)
         self._log_table = QtWidgets.QTableView()
         self._commit_table = QtWidgets.QTableView()
-
-        for widget in (self._message_box, self._log_table, self._commit_table):
+        
+        for widget in (self._message_box, splitter):
             self._vertical_layout.addWidget(widget)
+        for widget in (self._log_table, self._commit_table):
+            splitter.addWidget(widget)
         
-        self._log_table.setSelectionMode(QtWidgets.QTableView.SingleSelection)
-        self._log_table.setSelectionBehavior(QtWidgets.QTableView.SelectRows)
-        self._log_table.clicked.connect(self._update_commit_table)
+        table = self._log_table
+        table.setSelectionMode(QtWidgets.QTableView.SingleSelection)
+        table.setSelectionBehavior(QtWidgets.QTableView.SelectRows)
+        table.verticalHeader().setVisible(False)
+        table.setShowGrid(False)
+        # table.setSortingEnabled(True)
+        table.clicked.connect(self._update_commit_table)
         
-        self._commit_table.setSelectionMode(QtWidgets.QTableView.SingleSelection)
-        self._commit_table.setSelectionBehavior(QtWidgets.QTableView.SelectRows)
-        self._commit_table.clicked.connect(self._show_patch)
+        table = self._commit_table
+        table.setSelectionMode(QtWidgets.QTableView.SingleSelection)
+        table.setSelectionBehavior(QtWidgets.QTableView.SelectRows)
+        table.verticalHeader().setVisible(False)
+        table.setShowGrid(False)
+        table.setSortingEnabled(True)
+        table.clicked.connect(self._show_patch)
         
         # horizontal_header = table_view.horizontalHeader()
         # horizontal_header.setMovable(True)
@@ -152,6 +164,7 @@ class LogBrowserMainWindow(MainWindowBase):
         print(patch.status, patch.similarity, patch.additions, patch.deletions, patch.is_binary)
         for hunk in patch.hunks:
             print(hunk.old_start, hunk.old_lines, hunk.new_start, hunk.new_lines, hunk.lines)
+        # print(self._application._repository[patch.new_id].data) # old_id
 
 ####################################################################################################
 #

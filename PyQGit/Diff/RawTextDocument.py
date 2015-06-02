@@ -22,14 +22,15 @@
 #   - doc [] len ...
 #   - englis 's
 
-""" This module provides an enhancement over a basic array of characters, so called Text Buffer.  It
-features an API to manipulate text buffer using a line indexing and slicing.
+"""This module provides an enhancement over a standard array of characters, so called Text Buffer in
+this documentation.  It features an API to manipulate the text buffer using line indexing and
+slicing.
 
 Definition of therms used in this document:
 
   Text Buffer
-    A text buffer is an object that provide the characters and implements the method **__getitem__**
-    to index or slice them and the method **__len__** to get the number of characters.
+    A text buffer is an object that provides the characters and implements the method **__getitem__**
+    to index or slice its content and the method **__len__** to get the number of characters.
 
   Text Document
     A text document is a text buffer adapted by a :class:`RawTextDocument` class featuring the line
@@ -69,7 +70,7 @@ class RawTextDocumentAbc(object):
     To get the number of characters of the chunk use the function :func:`len` and to test if the
     slice is empty use a Boolean evaluation of the instance.
 
-    To get the text buffer use the function :func:`unicode`.
+    To get the text buffer use the function :func:`str`.
 
     To get a view or light view if the light view mode is set, we can use::
 
