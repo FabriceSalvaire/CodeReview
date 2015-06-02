@@ -43,7 +43,7 @@ from PyQGit.Tools.ProgramOptions import PathAction
 # Options
 #
 
-argument_parser = argparse.ArgumentParser(description='PDF Brower')
+argument_parser = argparse.ArgumentParser(description='Log Browser')
 
 argument_parser.add_argument('path', metavar='PATH',
                              action=PathAction,

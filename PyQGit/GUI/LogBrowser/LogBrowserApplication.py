@@ -21,6 +21,9 @@
 ###################################################################################################
 
 import logging
+import os
+
+import pygit2 as git
 
 from PyQt5 import QtCore, QtWidgets
 
@@ -28,6 +31,7 @@ from PyQt5 import QtCore, QtWidgets
 
 from PyQGit.GUI.Base.GuiApplicationBase import GuiApplicationBase
 from PyQGit.Application.ApplicationBase import ApplicationBase
+from PyQGit.GUI.Widgets.LogTableModel import LogTableModel
 
 ####################################################################################################
 
@@ -59,6 +63,7 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
     def post_init(self):
 
         super(LogBrowserApplication, self).post_init()
+        self._init_repository()
 
     ##############################################
 
@@ -74,6 +79,25 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
         """
 
         self._main_window.show_message(message, timeout, warn)
+
+    ##############################################
+
+    def _init_repository(self):
+
+        if self._args.path is None:
+            path = os.getcwd()
+        else:
+            path = self._args.path
+        try:
+            repository_path = git.discover_repository(path)
+            self._repository = git.Repository(repository_path)
+            self._log_table_model = LogTableModel(self._repository)
+            log_table = self._main_window._log_table
+            log_table.setModel(self._log_table_model)
+            log_table.resizeColumnsToContents()
+        except KeyError:
+            self.show_message("Any Git repository was found in path {}".format(path), warn=True)
+            self._repository = None
 
 ####################################################################################################
 #

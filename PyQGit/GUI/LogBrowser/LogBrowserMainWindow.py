@@ -58,7 +58,16 @@ class LogBrowserMainWindow(MainWindowBase):
 
         self._central_widget = QtWidgets.QWidget(self)
         self.setCentralWidget(self._central_widget)
-        
+
+        self._vertical_layout = QtWidgets.QVBoxLayout(self._central_widget)
+        self._message_box = MessageBox(self)
+        self._vertical_layout.addWidget(self._message_box)
+        self._log_table = QtWidgets.QTableView()
+        self._vertical_layout.addWidget(self._log_table)
+
+        self._log_table.setSelectionMode(QtWidgets.QTableView.SingleSelection)
+        self._log_table.setSelectionBehavior(QtWidgets.QTableView.SelectRows)
+        # log_table.clicked.connect()
 
     ##############################################
 
