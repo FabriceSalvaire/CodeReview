@@ -23,20 +23,33 @@ from PyQt5.QtCore import Qt
 
 ####################################################################################################
 
+from CodeReview.Tools.EnumFactory import EnumFactory
+
+####################################################################################################
+
 class CommitTableModel(QtCore.QAbstractTableModel):
+
+    column_enum = EnumFactory('ColumnEnum', (
+        'modification',
+        'old_path',
+        'new_path',
+        'similarity',
+        ))
 
     ##############################################
 
     def __init__(self, repository):
 
         super(CommitTableModel, self).__init__()
-
+        
+        # Fixme: enum
         self._column_names = (
+            'Modification',
             'Old Path',
             'New Path',
-            'Modification',
+            'Similarity',
         )
-
+        
         self._repository = repository
         
         self._patch_datas = []
@@ -48,21 +61,23 @@ class CommitTableModel(QtCore.QAbstractTableModel):
 
         self._patch_datas = []
         self._number_of_patches = 0
-
+        
         # GIT_DIFF_PATIENCE
         diff = self._repository.diff(commit1, commit2)
         diff.find_similar()
         # flags, rename_threshold, copy_threshold, rename_from_rewrite_threshold, break_rewrite_threshold, rename_limit
         for patch in diff:
             if patch.new_file_path != patch.old_file_path:
-                new_file_path = patch.new_file_path + ' {} %'.format(patch.similarity)
+                new_file_path = patch.new_file_path
+                similarity = ' {} %'.format(patch.similarity)
             else:
                 new_file_path = ''
-            patch_data = (patch.old_file_path, new_file_path, patch.status, patch)
+                similarity = ''
+            patch_data = (patch.status, patch.old_file_path, new_file_path, similarity, patch)
             self._patch_datas.append(patch_data)
-
+            
         self._number_of_patches = len(diff)
-
+        
         self.modelReset.emit()
 
     ##############################################
@@ -82,8 +97,8 @@ class CommitTableModel(QtCore.QAbstractTableModel):
         
         if role == Qt.DisplayRole:
             return QtCore.QVariant(patch[column])
-        elif role == Qt.ForegroundRole and column == 0:
-            modification = patch[2] # Fxme: enumerate
+        elif role == Qt.ForegroundRole and column == self.column_enum.old_path:
+            modification = patch[int(self.column_enum.modification)]
             if modification == 'D':
                 return QtGui.QColor(Qt.red)
             elif modification == 'M':
