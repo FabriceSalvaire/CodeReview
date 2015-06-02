@@ -61,13 +61,22 @@ class LogBrowserMainWindow(MainWindowBase):
 
         self._vertical_layout = QtWidgets.QVBoxLayout(self._central_widget)
         self._message_box = MessageBox(self)
-        self._vertical_layout.addWidget(self._message_box)
         self._log_table = QtWidgets.QTableView()
-        self._vertical_layout.addWidget(self._log_table)
+        self._commit_table = QtWidgets.QTableView()
 
+        for widget in (self._message_box, self._log_table, self._commit_table):
+            self._vertical_layout.addWidget(widget)
+        
         self._log_table.setSelectionMode(QtWidgets.QTableView.SingleSelection)
         self._log_table.setSelectionBehavior(QtWidgets.QTableView.SelectRows)
-        # log_table.clicked.connect()
+        self._log_table.clicked.connect(self._update_commit_table)
+        
+        self._commit_table.setSelectionMode(QtWidgets.QTableView.SingleSelection)
+        self._commit_table.setSelectionBehavior(QtWidgets.QTableView.SelectRows)
+        self._commit_table.clicked.connect(self._show_patch)
+        
+        # horizontal_header = table_view.horizontalHeader()
+        # horizontal_header.setMovable(True)
 
     ##############################################
 
@@ -109,6 +118,39 @@ class LogBrowserMainWindow(MainWindowBase):
                 status_bar.clearMessage()
             else:
                 status_bar.showMessage(message, timeout)
+
+    ##############################################
+
+    def _update_commit_table(self, index):
+
+        index = index.row()
+        if index:
+            log_table_model = self._log_table.model()
+            commit1 = log_table_model[index]
+            try:
+                commit2 = log_table_model[index +1]
+            except IndexError:
+                commit2 = None
+        else:
+            print("\nStatus:")
+            git_status = self._application._repository.status()
+            for filepath, status in git_status.items():
+                print(filepath, status)
+            commit1 = commit2 = None
+
+        self._commit_table.model().update(commit1, commit2)
+        self._commit_table.resizeColumnsToContents()
+
+    ##############################################
+
+    def _show_patch(self, index):
+
+        index = index.row()
+        commit_table_model = self._commit_table.model()
+        patch = commit_table_model[index]
+        print(patch.status, patch.similarity, patch.additions, patch.deletions, patch.is_binary)
+        for hunk in patch.hunks:
+            print(hunk.old_start, hunk.old_lines, hunk.new_start, hunk.new_lines, hunk.lines)
 
 ####################################################################################################
 #

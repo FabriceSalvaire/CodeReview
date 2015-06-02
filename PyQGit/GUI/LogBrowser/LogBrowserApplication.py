@@ -32,6 +32,7 @@ from PyQt5 import QtCore, QtWidgets
 from PyQGit.GUI.Base.GuiApplicationBase import GuiApplicationBase
 from PyQGit.Application.ApplicationBase import ApplicationBase
 from PyQGit.GUI.Widgets.LogTableModel import LogTableModel
+from PyQGit.GUI.Widgets.CommitTableModel import CommitTableModel
 
 ####################################################################################################
 
@@ -91,13 +92,19 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
         try:
             repository_path = git.discover_repository(path)
             self._repository = git.Repository(repository_path)
-            self._log_table_model = LogTableModel(self._repository)
-            log_table = self._main_window._log_table
-            log_table.setModel(self._log_table_model)
-            log_table.resizeColumnsToContents()
         except KeyError:
             self.show_message("Any Git repository was found in path {}".format(path), warn=True)
             self._repository = None
+            return
+
+        self._log_table_model = LogTableModel(self._repository)
+        log_table = self._main_window._log_table
+        log_table.setModel(self._log_table_model)
+        log_table.resizeColumnsToContents()
+
+        self._commit_table_model = CommitTableModel(self._repository)
+        commit_table = self._main_window._commit_table
+        commit_table.setModel(self._commit_table_model)
 
 ####################################################################################################
 #
