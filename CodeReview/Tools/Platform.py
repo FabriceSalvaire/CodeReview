@@ -84,12 +84,6 @@ class Platform(object):
         self.screens = []
         for i in range(self.number_of_screens):
             self.screens.append(Screen(self, i))
-        
-        # OpenGL
-        self.gl_renderer = None
-        self.gl_version = None
-        self.gl_vendor = None
-        self.gl_extensions = None
 
     ##############################################
 
@@ -162,17 +156,6 @@ class Platform(object):
 
     ##############################################
 
-    def query_opengl(self):
-        
-        import OpenGL.GL as GL
-        
-        self.gl_renderer = GL.glGetString(GL.GL_RENDERER)
-        self.gl_version = GL.glGetString(GL.GL_VERSION)
-        self.gl_vendor = GL.glGetString(GL.GL_VENDOR)
-        self.gl_extensions = GL.glGetString(GL.GL_EXTENSIONS)
-
-    ##############################################
-
     def __str__(self):
       
         message_template = '''
@@ -184,10 +167,6 @@ Platform %(node)s
       Number of Cores: %(number_of_cores)u
       CPU Frequence: %(cpu_mhz)u MHz
     Memory: %(memory_size_mb)u MB
-   OpenGL
-     Render: %(gl_renderer)s
-     Version: %(gl_version)s
-     Vendor: %(gl_vendor)s
    Number of Screens: %(number_of_screens)u
 '''
         message = message_template % self.__dict__
