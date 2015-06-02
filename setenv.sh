@@ -2,8 +2,9 @@
 
 ####################################################################################################
 
+. $HOME/python-virtual-env/py3-pyqt5/bin/activate
+
 append_to_ld_library_path_if_not /usr/local/lib
-append_to_ld_library_path_if_not ${PWD}/pygit2
 append_to_python_path_if_not ${PWD}
 
 ####################################################################################################
