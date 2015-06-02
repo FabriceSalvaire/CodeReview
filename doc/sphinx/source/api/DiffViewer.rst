@@ -2,17 +2,20 @@
  :mod:`DiffViewer`
 *******************
 
-
 .. toctree::
-  DiffViewer/RawTextDocumentDiff
   DiffViewer/DiffWidget
-  DiffViewer/TextDocumentDiffModel
-  DiffViewer/RawTextDocument
   DiffViewer/DiffWidgetConfig
+  DiffViewer/PatienceDiff
+  DiffViewer/RawTextDocument
+  DiffViewer/RawTextDocumentDiff
   DiffViewer/SyntaxHighlighter
   DiffViewer/SyntaxHighlighterStyle
+  DiffViewer/TextDocumentDiffModel
   DiffViewer/TextDocumentModel
-  DiffViewer/PatienceDiff
   DiffViewer/Tools
+
+.. automodule:: DiffViewer
+   :members:
+   :show-inheritance:
 
 .. End
