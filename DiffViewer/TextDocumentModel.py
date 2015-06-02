@@ -1,8 +1,8 @@
 ####################################################################################################
-# 
-# DiffViewer - Diff Viewer 
-# Copyright (C) Salvaire Fabrice 2012 
-# 
+#
+# DiffViewer - Diff Viewer
+# Copyright (C) Salvaire Fabrice 2012
+#
 ####################################################################################################
 
 # Fixme: english ...
@@ -21,7 +21,7 @@ class TextBlock(list):
     """ This class implements a text block. """
 
     ##############################################
-    
+
     def __init__(self, line_slice, frame_type=None):
 
         """ The parameter *line_slice* specifies the line slice corresponding to the text block and
@@ -34,11 +34,11 @@ class TextBlock(list):
         self.frame_type = frame_type
 
     ##############################################
-    
+
     def __repr__(self):
 
         return 'Text Block: frame type=' + str(self.frame_type) + ', slice=' + repr(self.line_slice)
-        
+
 ####################################################################################################
 
 class TextFragment(object):
@@ -60,7 +60,7 @@ class TextFragment(object):
           bool(instance)
 
         To get the content string use::
-          
+
           unicode(instance)
         """
 
@@ -69,7 +69,7 @@ class TextFragment(object):
         self.token_type = token_type
 
     ##############################################
-    
+
     def __repr__(self):
 
         return 'Text Fragment: frame type=' + str(self.frame_type) \
@@ -78,22 +78,22 @@ class TextFragment(object):
 
     ##############################################
 
-    def __unicode__(self):
+    def __str__(self):
 
         """ Return the unicode text. """
 
-        return unicode(self.text)
+        return str(self.text)
 
     ##############################################
 
-    def __nonzero__(self):
+    def __bool__(self):
 
         # Fixme: english whether
 
         """ Test if the text is an empty string. """
 
         return bool(self.text)
-    
+
 ####################################################################################################
 
 class TextDocumentModel(list):

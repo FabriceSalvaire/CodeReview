@@ -80,7 +80,7 @@ class HighlightedText(list):
         """ Lex the document. """
 
         current_location = 0
-        for token, text in pygments.lex(unicode(self.raw_text_document), lexer):
+        for token, text in pygments.lex(str(self.raw_text_document), lexer):
             stop_position = current_location + len(text)
             flat_slice = FlatSlice(current_location, stop_position)
             self.append(HighlightedTextFragment(flat_slice, token))

@@ -151,7 +151,7 @@ static inline int
 compare_lines(struct line *a, struct line *b)
 {
     return ((a->hash != b->hash)
-            || PyObject_Compare(a->data, b->data));
+            || PyObject_RichCompareBool(a->data, b->data, Py_NE)); // Py3 update
 }
 
 
@@ -804,7 +804,7 @@ PatienceSequenceMatcher_dealloc(PatienceSequenceMatcher* self)
     free(self->hashtable.table);
     delete_lines(self->b, self->bsize);
     delete_lines(self->a, self->asize);
-    self->ob_type->tp_free((PyObject *)self);
+    Py_TYPE(self)->tp_free((PyObject *)self); // Py3 update
 }
 
 
@@ -1209,8 +1209,7 @@ static char PatienceSequenceMatcher_doc[] =
 
 
 static PyTypeObject PatienceSequenceMatcherType = {
-    PyObject_HEAD_INIT(NULL)
-    0,                                           /* ob_size */
+    PyVarObject_HEAD_INIT(NULL, 0) // Py3 update
     "PatienceSequenceMatcher",                   /* tp_name */
     sizeof(PatienceSequenceMatcher),             /* tp_basicsize */
     0,                                           /* tp_itemsize */
@@ -1258,24 +1257,35 @@ static PyMethodDef cpatiencediff_methods[] = {
 };
 
 
+// Py3 update
+static struct PyModuleDef moduledef = {
+  PyModuleDef_HEAD_INIT,
+  "_patiencediff_c", /* m_name */
+  "C implementation of PatienceSequenceMatcher", /* m_doc */
+  -1, /* m_size */
+  cpatiencediff_methods, /* m_methods */
+  NULL, /* m_reload */
+  NULL, /* m_traverse */
+  NULL, /* m_clear */
+  NULL, /* m_free */
+};
+
 PyMODINIT_FUNC
-init_patiencediff_c(void)
+PyInit__patiencediff_c(void) // Py3 update
 {
     PyObject* m;
 
     if (PyType_Ready(&PatienceSequenceMatcherType) < 0)
-        return;
+        return NULL;
 
-    m = Py_InitModule3("_patiencediff_c", cpatiencediff_methods,
-                       "C implementation of PatienceSequenceMatcher");
+    m = PyModule_Create(&moduledef); // Py3 update
+
     if (m == NULL)
-      return;
+      return NULL;
 
     Py_INCREF(&PatienceSequenceMatcherType);
     PyModule_AddObject(m, "PatienceSequenceMatcher_c",
                        (PyObject *)&PatienceSequenceMatcherType);
+
+    return m; // Py3 update
 }
-
-
-/* vim: sw=4 et 
- */

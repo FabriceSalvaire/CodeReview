@@ -1,8 +1,8 @@
 ####################################################################################################
-# 
-# DiffViewer - Diff Viewer 
-# Copyright (C) Salvaire Fabrice 2012 
-# 
+#
+# DiffViewer - Diff Viewer
+# Copyright (C) Salvaire Fabrice 2012
+#
 ####################################################################################################
 
 """ This module provides a document model for the Diff Viewer.
@@ -27,7 +27,7 @@ class TextBlockDiff(TextBlock):
     """ This class implements a text block with a link to the other side. """
 
     ##############################################
-    
+
     def __init__(self, line_slice, frame_type=None, other_side=None):
 
         """ The parameter *line_slice* specifies the line slice corresponding to the text block and
@@ -44,13 +44,13 @@ class TextBlockDiff(TextBlock):
         self.other_side = other_side
 
     ##############################################
-    
+
     def copy(self):
 
         """ Return a copy of the instance. """
 
         return self.__class__(self.line_slice, self.frame_type, self.other_side)
-        
+
     ##############################################
 
     def link_other_side(self, other_side):
@@ -58,7 +58,7 @@ class TextBlockDiff(TextBlock):
         """ Link to the other side. """
 
         self.other_side = other_side
-        
+
 ####################################################################################################
 
 class TextDocumentDiffModelFactory(object):
@@ -104,7 +104,7 @@ class TextDocumentDiffModelFactory(object):
                 else:
                     text_block1.append(TextFragment(chunk.chunk1))
                     text_block2.append(TextFragment(chunk.chunk2))
-                    
+                
                 document_model1.append(text_block1)
                 document_model2.append(text_block2)
 
@@ -112,7 +112,7 @@ class TextDocumentDiffModelFactory(object):
             current_line2 = group.slice2.stop
 
         # Last group lines corresponds to equal contents
-        if current_line1 < document1.line_slice.stop or current_line2 < document2().line_slice.stop:
+        if current_line1 < document1.line_slice.stop or current_line2 < document2.line_slice.stop:
             add_equal_contents(document1.line_slice.stop, document2.line_slice.stop)
 
         return document_model1, document_model2
@@ -125,7 +125,7 @@ class TextDocumentDiffModelFactory(object):
 
         text_block1.link_other_side(text_block2)
         text_block2.link_other_side(text_block1)
-    
+
     ###############################################
 
     def _complete_one_side(self, document, line_slice, document_model):
@@ -139,9 +139,9 @@ class TextDocumentDiffModelFactory(object):
             flat_slice = document.to_flat_slice(line_slice)
             chunk = document[flat_slice]
             text_block.append(TextFragment(chunk))
-            
+        
         return text_block
-             
+
     ###############################################
 
     def _append_sub_chunk(self, sub_chunks, text_block1, text_block2):
@@ -167,7 +167,7 @@ def highlight_document(document_model, highlighted_text):
     raw_text_document = highlighted_text.raw_text_document
     
     highlighted_text_iterator = iter(highlighted_text)
-    highlighted_fragment = highlighted_text_iterator.next()
+    highlighted_fragment = next(highlighted_text_iterator)
     highlighted_slice= highlighted_fragment.slice
     
     highlighted_document = TextDocumentModel()
@@ -175,7 +175,7 @@ def highlight_document(document_model, highlighted_text):
         highlighted_text_block = text_block.copy()
         highlighted_document.append(highlighted_text_block)
         text_block_iterator = iter(text_block)
-        text_fragment = text_block_iterator.next()
+        text_fragment = next(text_block_iterator)
         text_slice = text_fragment.text.flat_slice()
         while True:
             # Fixme: add func in classes ?
@@ -200,10 +200,10 @@ def highlight_document(document_model, highlighted_text):
                 highlighted_text_block.append(highlighted_text_fragment)
             try:
                 if next_highlighted_fragment:
-                    highlighted_fragment = highlighted_text_iterator.next()
+                    highlighted_fragment = next(highlighted_text_iterator)
                     highlighted_slice= highlighted_fragment.slice
                 if next_text_fragment:
-                    text_fragment = text_block_iterator.next()
+                    text_fragment = next(text_block_iterator)
                     text_slice = text_fragment.text.flat_slice()
             except StopIteration:
                 break

@@ -1,8 +1,8 @@
 ####################################################################################################
-# 
-# DiffViewer - Diff Viewer 
-# Copyright (C) Salvaire Fabrice 2012 
-# 
+#
+# DiffViewer - Diff Viewer
+# Copyright (C) Salvaire Fabrice 2012
+#
 ####################################################################################################
 
 ####################################################################################################
@@ -39,7 +39,7 @@ To sumarize, a document difference is an ordered list of group differences.  Eac
 any combination of *removed*, *inserted* and *replaced* chunk type and delimited by two *equal*
 chunks.  And *replaced* chunks are made of any combination of *removed*, *inserted*, *replaced* and
 *equal* sub-chunks.  Moreover we can complete the structure with *equal_block* chunks.
-""" 
+"""
 
 ####################################################################################################
 
@@ -273,13 +273,13 @@ class TwoWayFileDiff(object):
         """ Pretty-print the file differences. """
 
         def pretty_print_chunk(chunk, level=0):
-            print ' '*level + chunk.__class__.__name__
+            print(' '*level + chunk.__class__.__name__)
             for chunk_slice in chunk.chunk1, chunk.chunk2:
-                print ' '*2*(level+1) + repr(chunk_slice)
+                print(' '*2*(level+1) + repr(chunk_slice))
         
         for group in self:
-            print '='*80
-            print '@', group.slice1, group.slice2, '@'
+            print('='*80)
+            print('@', group.slice1, group.slice2, '@')
             for chunk in group:
                 pretty_print_chunk(chunk, level=0)
                 if isinstance(chunk, TwoWayLineChunkReplace):
@@ -293,7 +293,7 @@ class TwoWayFileDiff(object):
         """ Pretty-print the file differences using unidiff format. """
 
         def pretty_print_chunk_lines(chunk, prefix):
-            print prefix + prefix.join(chunk.lines()).rstrip()
+            print(prefix + prefix.join(chunk.lines()).rstrip())
             
         def pretty_print_chunk(chunk):
             if isinstance(chunk, TwoWayLineChunkEqual):
@@ -307,8 +307,8 @@ class TwoWayFileDiff(object):
                 pretty_print_chunk_lines(chunk.chunk2, prefix='+')
             
         for group in self:
-            print '='*80
-            print '@', group.slice1, group.slice2, '@'
+            print('='*80)
+            print('@', group.slice1, group.slice2, '@')
             for chunk in group:
                 pretty_print_chunk(chunk)
                 if isinstance(chunk, TwoWayLineChunkReplace):
@@ -375,12 +375,12 @@ class TwoWayFileDiffFactory(object):
         """
 
         sub_chunks = []
-        text1, text2 = [unicode(chunk).encode('utf_32-BE') for chunk in chunk1, chunk2]
+        text1, text2 = [str(chunk).encode('utf_32-BE') for chunk in (chunk1, chunk2)]
         line_sequence_matcher = PatienceSequenceMatcher(None, text1, text2)
         opcodes = line_sequence_matcher.get_opcodes()
         for tag, start_1, stop_1, start_2, stop_2 in opcodes:
-            slice1 = FlatSlice(start_1, stop_1) /4 # 4-byte encoding
-            slice2 = FlatSlice(start_2, stop_2) /4
+            slice1 = FlatSlice(start_1, stop_1) //4 # 4-byte encoding
+            slice2 = FlatSlice(start_2, stop_2) //4
             sub_chunk1 = chunk1[slice1]
             sub_chunk2 = chunk2[slice2]
             if tag == 'equal':

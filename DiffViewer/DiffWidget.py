@@ -1,8 +1,8 @@
 ####################################################################################################
-# 
-# DiffViewer - Diff Viewer 
-# Copyright (C) Salvaire Fabrice 2012 
-# 
+#
+# DiffViewer - Diff Viewer
+# Copyright (C) Salvaire Fabrice 2012
+#
 ####################################################################################################
 
 ####################################################################################################
@@ -28,13 +28,13 @@ def get_monospaced_font():
     font.setFixedPitch(True)
     font.setStyleHint(QtGui.QFont.TypeWriter)
 
-    print 'Monospaced Font familly is', QtGui.QFontInfo(font).family()
+    print('Monospaced Font familly is', QtGui.QFontInfo(font).family())
     
     return font
 
 ####################################################################################################
 
-LEFT, RIGHT = range(2)
+LEFT, RIGHT = list(range(2))
 
 ####################################################################################################
 
@@ -52,9 +52,9 @@ class TextBlock(object):
     def __repr__(self):
 
         return 'TextBlock [%u, %u] frame type: %s' % (self.y_top, self.y_bottom, str(self.frame_type))
-        
+
 ####################################################################################################
-        
+
 class TextBlocks(list):
 
     ##############################################
@@ -80,13 +80,13 @@ class DiffViewerCursor(object):
         self.cursor = cursor
         self.text_blocks = text_blocks
         self.insert = True
-        
+
     ##############################################
 
     def y(self):
 
         """ Return the top position of the current block. """
-        
+
         return self.cursor.block().layout().position().y()
 
     ##############################################
@@ -110,7 +110,7 @@ class DiffViewerCursor(object):
             text = remove_trailing_newline(text)
         if text:
             self.cursor.insertText(text, text_format)
-        
+
     ##############################################
 
     def end(self):
@@ -119,13 +119,13 @@ class DiffViewerCursor(object):
         self.text_blocks[-1].y_bottom = self.y()
         for text_block0, text_block1 in pairwise(self.text_blocks):
             text_block0.y_bottom = text_block1.y_top
-            
+
 ####################################################################################################
 
 class TextBrowser(QtGui.QTextBrowser):
 
     ##############################################
-    
+
     def __init__(self, parent, text_blocks):
 
         super(TextBrowser, self).__init__(parent)
@@ -136,7 +136,7 @@ class TextBrowser(QtGui.QTextBrowser):
         self.setLineWrapMode(QtGui.QTextEdit.NoWrap)
 
     ##############################################
-        
+
     def paintEvent(self, event):
 
         width = self.width()
@@ -179,22 +179,22 @@ class TextBrowser(QtGui.QTextBrowser):
         del painter
 
         # Paint text
-        super(TextBrowser, self).paintEvent(event) 
-        
+        super(TextBrowser, self).paintEvent(event)
+
 ####################################################################################################
-        
+
 class SplitterHandle(QtGui.QSplitterHandle):
 
     ##############################################
-    
+
     def __init__(self, parent):
 
         super(SplitterHandle, self).__init__(QtCore.Qt.Horizontal, parent)
 
         self.frame_width = QtGui.QApplication.style().pixelMetric(QtGui.QStyle.PM_DefaultFrameWidth)
-        
+
     ##############################################
-    
+
     def paintEvent(self, event):
 
         diff_view = self.parent()
@@ -229,7 +229,7 @@ class SplitterHandle(QtGui.QSplitterHandle):
                 continue
             if y_top_left > height and y_top_right > height:
                 break
- 
+            
             text_block_style = DiffWidgetConfig.text_block_styles[text_block_left.frame_type]
 
             painter.setPen(QtCore.Qt.NoPen)
@@ -254,11 +254,11 @@ class DiffView(QtGui.QSplitter):
     """
 
     ##############################################
-    
+
     def __init__(self, parent=None):
 
         super(DiffView, self).__init__(QtCore.Qt.Horizontal, parent)
-    
+        
         self.setHandleWidth(30)
 
         self.monospaced_font = get_monospaced_font()
@@ -312,17 +312,17 @@ class DiffView(QtGui.QSplitter):
         self.handle(1).update()
 
     ##############################################
-    
+
     def clear(self):
 
-        for i in xrange(2):
+        for i in range(2):
             self.browsers[i].clear()
             self.documents[i].clear()
             self.text_blocks[i].clear()
         self.update()
-            
+
     ##############################################
-    
+
     def set_document_models(self, document_models, complete_mode=True):
 
         self.clear()
@@ -337,9 +337,9 @@ class DiffView(QtGui.QSplitter):
                         if (text_block.frame_type == chunk_type.replace and
                             text_fragment.frame_type != chunk_type.equal):
                             text_format.setBackground(DiffWidgetConfig.intra_difference_background_colour)
-                        cursor.insert_text(unicode(text_fragment), text_format, last_text_fragment)
+                        cursor.insert_text(str(text_fragment), text_format, last_text_fragment)
             cursor.end()
-                
+
 ####################################################################################################
 #
 # End

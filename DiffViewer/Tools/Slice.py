@@ -1,8 +1,8 @@
 ####################################################################################################
-# 
-# DiffViewer - Diff Viewer 
-# Copyright (C) Salvaire Fabrice 2012 
-# 
+#
+# DiffViewer - Diff Viewer
+# Copyright (C) Salvaire Fabrice 2012
+#
 ####################################################################################################
 
 """ This module implements interval arithmetic for flat [#f1]_ and line slice.
@@ -44,7 +44,7 @@ class Slice(object):
       slice /= 2
 
     The union and the intersection of two slices can be computed using::
-     
+
       # union
       slice1 |= slice2
       slice = slice1 | slice2
@@ -72,7 +72,7 @@ class Slice(object):
         self._stop = stop
 
     ###############################################
-    
+
     def _check_arguments(self, args):
 
         """ Check the arguments provided to the constructor. """
@@ -120,20 +120,20 @@ class Slice(object):
             string_interval = '[%u, %u]' % (self.lower, self.upper)
         else:
             string_interval = '[]@%u' % (self.start)
-        
+
         return self.__class__.__name__ + ' ' + string_interval
 
     ###############################################
 
     def __len__(self):
-        
+
         """ Return the length of the slice defined by stop - start. """
 
         return self._stop - self._start
 
     ###############################################
 
-    def __nonzero__(self):
+    def __bool__(self):
 
         """ Test is the slice is not the empty. """
 
@@ -146,7 +146,7 @@ class Slice(object):
     def __call__(self):
 
         """ Return a standard Python slice. """
- 
+
         return slice(self._start, self._stop)
 
     ###############################################
@@ -216,22 +216,22 @@ class Slice(object):
 
     ###############################################
 
-    def __idiv__(self, scale):
+    def __ifloordiv__(self, scale):
 
         """ Divide start and stop by *scale*. """
 
-        self._start /= scale
-        self._stop /= scale
+        self._start //= scale
+        self._stop //= scale
 
         return self
 
     ###############################################
 
-    def __div__(self, scale):
+    def __floordiv__(self, scale):
 
         """ Return a new slice with start and stop divided by *scale*. """
 
-        return self.__class__(self._start / scale, self._stop / scale)
+        return self.__class__(self._start // scale, self._stop // scale)
 
     ###############################################
 
@@ -290,15 +290,15 @@ class Slice(object):
 
         self._start, self._stop = self._union(self, i2)
         return self
-    
+
     ###############################################
 
     def is_included_in(i1, i2):
 
         """ Test if the interval is included in i2. """
-        
+
         return i2._start <= i1._start and i1._stop <= i2._stop
-    
+
 ####################################################################################################
 
 class FlatSlice(Slice):
