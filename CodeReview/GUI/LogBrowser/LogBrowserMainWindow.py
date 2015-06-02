@@ -162,7 +162,16 @@ class LogBrowserMainWindow(MainWindowBase):
         print(patch.status, patch.similarity, patch.additions, patch.deletions, patch.is_binary)
         for hunk in patch.hunks:
             print(hunk.old_start, hunk.old_lines, hunk.new_start, hunk.new_lines, hunk.lines)
-        # print(self._application._repository[patch.new_id].data) # old_id
+
+        repository = self._application._repository
+        texts = [repository[blob_id].data.decode('utf-8')
+                 for blob_id in (patch.old_id, patch.new_id)]
+        
+        # Fixme: multiple instance
+        from CodeReview.GUI.DiffViewer.DiffViewerMainWindow import DiffViewerMainWindow
+        self._diff_window = DiffViewerMainWindow()
+        self._diff_window.showMaximized()
+        self._diff_window.diff_documents(texts=texts, paths=(patch.old_file_path, patch.new_file_path))
 
 ####################################################################################################
 #

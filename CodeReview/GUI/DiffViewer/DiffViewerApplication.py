@@ -57,6 +57,7 @@ class DiffViewerApplication(GuiApplicationBase, ApplicationBase):
     def post_init(self):
 
         super(DiffViewerApplication, self).post_init()
+        self._main_window.open_files(self._args.file1, self._args.file2, self._args.show)
 
     ##############################################
 

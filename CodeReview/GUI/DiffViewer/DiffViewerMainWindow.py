@@ -53,7 +53,6 @@ class DiffViewerMainWindow(MainWindowBase):
 
         self._current_path = None
         self._init_ui()
-        self._open_files(self._application.args)
 
     ##############################################
 
@@ -127,20 +126,30 @@ class DiffViewerMainWindow(MainWindowBase):
 
     ################################################
 
-    def _open_files(self, args):
+    def open_files(self, file1, file2, show=False):
 
+        paths = (file1, file2)
+        texts = []
+        for file_name in paths:
+            with open(file_name) as f:
+                texts.append(f.read())
+        self.diff_documents(texts, paths, show)
+
+    ##############################################
+
+    def diff_documents(self, texts, paths, show=False):
+
+        self._paths = paths
         self._raw_text_documents = []
         self._lexers = []
-        for file_name in args.file1, args.file2:
-            with open(file_name) as f:
-                text = f.read()
+        for text, path in zip(texts, self._paths):
             raw_text_document = RawTextDocument(text)
             self._raw_text_documents.append(raw_text_document)
-            lexer = get_lexer_for_filename(file_name, stripnl=False)
+            lexer = get_lexer_for_filename(path, stripnl=False)
             self._lexers.append(lexer)
-        
+            
         self._highlighted_documents = []
-        if not args.show:
+        if not show:
             file_diff = TwoWayFileDiffFactory().process(* self._raw_text_documents)
             self._document_models = TextDocumentDiffModelFactory().process(file_diff)
             self._highlighted_texts = []
