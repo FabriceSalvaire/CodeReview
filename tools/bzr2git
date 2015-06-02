@@ -2,6 +2,6 @@
 mv .git .git-backup
 git init
 bzr fast-export --plain --git-branch=master | git fast-import
-git remote add origin git@github.com:FabriceSalvaire/git-gui.git
+git remote add origin git@github.com:FabriceSalvaire/PyQGit.git
 git push origin master # --force
 # End
