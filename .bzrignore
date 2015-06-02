@@ -1,5 +1,8 @@
-__pycache__
 .git
+.git-backup
+.gitignore
+__pycache__
+MANIFEST
 build
 doc/sphinx/build
 side-view_ui.py
