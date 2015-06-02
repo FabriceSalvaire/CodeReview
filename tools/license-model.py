@@ -1,9 +1,7 @@
-#! /bin/bash
-
 ####################################################################################################
 #
 # DiffViewer - Diff Viewer
-# Copyright (C) 2014 Salvaire Fabrice
+# Copyright (C) 2012 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,29 +15,5 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-####################################################################################################
-
-# Clean the repository
-
-####################################################################################################
-
-root_dir=`dirname $0`
-root_dir=`dirname ${root_dir}`
-
-if [ "x${root_dir}" == 'x/' ]; then
-  echo Error: The file was sourced!
-else
-  # rm -rf ${root_dir}/build
-  rm -rf ${root_dir}/dist
-  find ${root_dir} -name "*pyc" -type f -exec rm {} \;
-  find ${root_dir} -name "__pycache__" -type d -exec rmdir {} \;
-  find ${root_dir} -name "*~" -type f -exec rm {} \;
-  find ${root_dir} -name "*_flymake.py" -type f -exec rm {} \;
-fi
-
-####################################################################################################
-#
-# End
 #
 ####################################################################################################

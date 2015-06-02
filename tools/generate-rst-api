@@ -1,4 +1,5 @@
-#! /bin/bash
+#! /usr/bin/env python
+# -*- Python -*-
 
 ####################################################################################################
 #
@@ -20,23 +21,17 @@
 #
 ####################################################################################################
 
-# Clean the repository
+####################################################################################################
+
+from RstFactory import RstFactory
 
 ####################################################################################################
 
-root_dir=`dirname $0`
-root_dir=`dirname ${root_dir}`
+module_path = 'DiffViewer'
+rst_directory = 'doc/sphinx/source/api'
+excluded_directory = ()
 
-if [ "x${root_dir}" == 'x/' ]; then
-  echo Error: The file was sourced!
-else
-  # rm -rf ${root_dir}/build
-  rm -rf ${root_dir}/dist
-  find ${root_dir} -name "*pyc" -type f -exec rm {} \;
-  find ${root_dir} -name "__pycache__" -type d -exec rmdir {} \;
-  find ${root_dir} -name "*~" -type f -exec rm {} \;
-  find ${root_dir} -name "*_flymake.py" -type f -exec rm {} \;
-fi
+rst_factory = RstFactory(module_path, rst_directory, excluded_directory)
 
 ####################################################################################################
 #
