@@ -1,0 +1,487 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.1.6.2. Interval &mdash; CodeReview 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CodeReview 0.1.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="2.1.6. Math" href="../Math.html"/>
+        <link rel="next" title="2.1.7. PatienceDiff" href="../PatienceDiff.html"/>
+        <link rel="prev" title="2.1.6.1. Functions" href="Functions.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../index.html" class="icon icon-home"> CodeReview
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">1.1. Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">1.3. Installation from Source</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference-manual.html">2. API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../CodeReview.html">2.1. <code class="docutils literal"><span class="pre">CodeReview</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../Application.html">2.1.1. <code class="docutils literal"><span class="pre">Application</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Application/ApplicationBase.html">2.1.1.1. <code class="docutils literal"><span class="pre">ApplicationBase</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Config.html">2.1.2. <code class="docutils literal"><span class="pre">Config</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Config/Config.html">2.1.2.1. <code class="docutils literal"><span class="pre">Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Config/ConfigInstall.html">2.1.2.2. <code class="docutils literal"><span class="pre">ConfigInstall</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Config/Messages.html">2.1.2.3. <code class="docutils literal"><span class="pre">Messages</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Diff.html">2.1.3. <code class="docutils literal"><span class="pre">Diff</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Diff/RawTextDocument.html">2.1.3.1. <code class="docutils literal"><span class="pre">RawTextDocument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Diff/RawTextDocumentDiff.html">2.1.3.2. <code class="docutils literal"><span class="pre">RawTextDocumentDiff</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Diff/SyntaxHighlighter.html">2.1.3.3. <code class="docutils literal"><span class="pre">SyntaxHighlighter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Diff/TextDocumentDiffModel.html">2.1.3.4. <code class="docutils literal"><span class="pre">TextDocumentDiffModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Diff/TextDocumentModel.html">2.1.3.5. <code class="docutils literal"><span class="pre">TextDocumentModel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../GUI.html">2.1.4. <code class="docutils literal"><span class="pre">GUI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GUI/Base.html">2.1.4.1. <code class="docutils literal"><span class="pre">Base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GUI/DiffViewer.html">2.1.4.2. <code class="docutils literal"><span class="pre">DiffViewer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GUI/Forms.html">2.1.4.3. <code class="docutils literal"><span class="pre">Forms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GUI/LogBrowser.html">2.1.4.4. <code class="docutils literal"><span class="pre">LogBrowser</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GUI/Widgets.html">2.1.4.5. <code class="docutils literal"><span class="pre">Widgets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GUI/ui.html">2.1.4.6. <code class="docutils literal"><span class="pre">ui</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Logging/Email.html">2.1.5.1. <code class="docutils literal"><span class="pre">Email</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Logging/ExceptionHook.html">2.1.5.2. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Logging/Logging.html">2.1.5.3. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Functions.html">2.1.6.1. <code class="docutils literal"><span class="pre">Functions</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">2.1.6.2. <code class="docutils literal"><span class="pre">Interval</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../PatienceDiff.html">2.1.7. <code class="docutils literal"><span class="pre">PatienceDiff</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../PatienceDiff/_patiencediff_py.html">2.1.7.1. <code class="docutils literal"><span class="pre">_patiencediff_py</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tools.html">2.1.8. <code class="docutils literal"><span class="pre">Tools</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tools/BackTrace.html">2.1.8.1. <code class="docutils literal"><span class="pre">BackTrace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tools/EnumFactory.html">2.1.8.2. <code class="docutils literal"><span class="pre">EnumFactory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tools/IteratorTools.html">2.1.8.3. <code class="docutils literal"><span class="pre">IteratorTools</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tools/Path.html">2.1.8.4. <code class="docutils literal"><span class="pre">Path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tools/Platform.html">2.1.8.5. <code class="docutils literal"><span class="pre">Platform</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tools/ProgramOptions.html">2.1.8.6. <code class="docutils literal"><span class="pre">ProgramOptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tools/RevisionVersion.html">2.1.8.7. <code class="docutils literal"><span class="pre">RevisionVersion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tools/Singleton.html">2.1.8.8. <code class="docutils literal"><span class="pre">Singleton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tools/Slice.html">2.1.8.9. <code class="docutils literal"><span class="pre">Slice</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tools/StringTools.html">2.1.8.10. <code class="docutils literal"><span class="pre">StringTools</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Version.html">2.1.9. <code class="docutils literal"><span class="pre">Version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">2.2. Indexes</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">CodeReview</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../reference-manual.html">2. API Documentation</a> &raquo;</li>
+      
+          <li><a href="../../CodeReview.html">2.1. <code class="docutils literal"><span class="pre">CodeReview</span></code></a> &raquo;</li>
+      
+          <li><a href="../Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a> &raquo;</li>
+      
+    <li>2.1.6.2. <code class="docutils literal"><span class="pre">Interval</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/api/CodeReview/Math/Interval.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-CodeReview.Math.Interval">
+<span id="interval"></span><h1>2.1.6.2. <code class="xref py py-mod docutils literal"><span class="pre">Interval</span></code><a class="headerlink" href="#module-CodeReview.Math.Interval" title="Permalink to this headline">¶</a></h1>
+<p>Implements 1D and 2D Interval Arithmetic</p>
+<dl class="class">
+<dt id="CodeReview.Math.Interval.Interval">
+<em class="property">class </em><code class="descclassname">CodeReview.Math.Interval.</code><code class="descname">Interval</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>One-dimension Interval</p>
+<p>Initialise an interval</p>
+<ul class="simple">
+<li>Interval(inf, sup)</li>
+<li>else args must support the __getitem__ interface, e.g.:
+- Interval((inf, sup))
+- Interval([inf, sup])
+- Interval(interval_instance)</li>
+</ul>
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval._check_arguments">
+<code class="descname">_check_arguments</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval._check_arguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval._check_arguments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="CodeReview.Math.Interval.Interval._intersection">
+<em class="property">static </em><code class="descname">_intersection</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval._intersection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval._intersection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="CodeReview.Math.Interval.Interval._union">
+<em class="property">static </em><code class="descname">_union</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval._union"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval._union" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a clone of the interval</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval.enlarge">
+<code class="descname">enlarge</code><span class="sig-paren">(</span><em>dx</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval.enlarge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval.enlarge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enlarge the interval of dx</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval.intersect">
+<code class="descname">intersect</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval.intersect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval.intersect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does the interval intersect with i2?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval.is_empty">
+<code class="descname">is_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval.is_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval.is_included_in">
+<code class="descname">is_included_in</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval.is_included_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval.is_included_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the interval included in i1?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval.is_outside_of">
+<code class="descname">is_outside_of</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval.is_outside_of"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval.is_outside_of" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the interval outside of i2?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval.length">
+<code class="descname">length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval.length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval.length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return sup - inf</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval.map_in">
+<code class="descname">map_in</code><span class="sig-paren">(</span><em>interval_reference</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval.map_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval.map_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a new interval shifted of interval_reference.inf</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval.map_x_in">
+<code class="descname">map_x_in</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval.map_x_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval.map_x_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return x - inf</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval.middle">
+<code class="descname">middle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval.middle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval.middle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return interval middle</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval.unmap_x_in">
+<code class="descname">unmap_x_in</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval.unmap_x_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval.unmap_x_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return x + inf</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval.zero_length">
+<code class="descname">zero_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval.zero_length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval.zero_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return sup == inf</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="CodeReview.Math.Interval.IntervalInt">
+<em class="property">class </em><code class="descclassname">CodeReview.Math.Interval.</code><code class="descname">IntervalInt</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#IntervalInt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.IntervalInt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#CodeReview.Math.Interval.Interval" title="CodeReview.Math.Interval.Interval"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Math.Interval.Interval</span></code></a></p>
+<p>One-dimension Integer Interval</p>
+<p>Initialise an interval</p>
+<ul class="simple">
+<li>Interval(inf, sup)</li>
+<li>else args must support the __getitem__ interface, e.g.:
+- Interval((inf, sup))
+- Interval([inf, sup])
+- Interval(interval_instance)</li>
+</ul>
+<dl class="method">
+<dt id="CodeReview.Math.Interval.IntervalInt._check_arguments">
+<code class="descname">_check_arguments</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#IntervalInt._check_arguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.IntervalInt._check_arguments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.IntervalInt.length">
+<code class="descname">length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#IntervalInt.length"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.IntervalInt.length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return sup - inf +1</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.IntervalInt.length_float">
+<code class="descname">length_float</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#IntervalInt.length_float"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.IntervalInt.length_float" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return sup - inf</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="CodeReview.Math.Interval.Interval2D">
+<em class="property">class </em><code class="descclassname">CodeReview.Math.Interval.</code><code class="descname">Interval2D</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Two-dimension Interval</p>
+<p>Initialise a 2D interval</p>
+<p>x and y must support the __getitem__ interface</p>
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval2D.area">
+<code class="descname">area</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval2D.area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval2D.area" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the area</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval2D.bounding_box">
+<code class="descname">bounding_box</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval2D.bounding_box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval2D.bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the corresponding bounding box (x.inf, y.inf, x.sup, y.sup)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval2D.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval2D.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval2D.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a clone of the interval</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval2D.diagonal">
+<code class="descname">diagonal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval2D.diagonal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval2D.diagonal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the diagonal length</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval2D.enlarge">
+<code class="descname">enlarge</code><span class="sig-paren">(</span><em>dx</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval2D.enlarge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval2D.enlarge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enlarge the interval of dx</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval2D.intersect">
+<code class="descname">intersect</code><span class="sig-paren">(</span><em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval2D.intersect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval2D.intersect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does the interval intersect with i2?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval2D.is_empty">
+<code class="descname">is_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval2D.is_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval2D.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval2D.is_included_in">
+<code class="descname">is_included_in</code><span class="sig-paren">(</span><em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval2D.is_included_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval2D.is_included_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the interval included in i2?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval2D.map_in">
+<code class="descname">map_in</code><span class="sig-paren">(</span><em>interval_reference</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval2D.map_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval2D.map_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a new interval shifted of interval_reference.inf</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval2D.map_xy_in">
+<code class="descname">map_xy_in</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval2D.map_xy_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval2D.map_xy_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return x - y.inf, y - y.inf</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval2D.middle">
+<code class="descname">middle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval2D.middle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval2D.middle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return interval middle</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval2D.size">
+<code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval2D.size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval2D.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the horizontal and vertical size</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Math.Interval.Interval2D.unmap_xy_in">
+<code class="descname">unmap_xy_in</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#Interval2D.unmap_xy_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.Interval2D.unmap_xy_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return x + y.inf, y + y.inf</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="CodeReview.Math.Interval.IntervalInt2D">
+<em class="property">class </em><code class="descclassname">CodeReview.Math.Interval.</code><code class="descname">IntervalInt2D</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Math/Interval.html#IntervalInt2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Math.Interval.IntervalInt2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#CodeReview.Math.Interval.Interval2D" title="CodeReview.Math.Interval.Interval2D"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Math.Interval.Interval2D</span></code></a></p>
+<p>Two-dimension Integer Interval</p>
+<p>Initialise a 2D interval</p>
+<p>x and y must support the __getitem__ interface</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../PatienceDiff.html" class="btn btn-neutral float-right" title="2.1.7. PatienceDiff" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Functions.html" class="btn btn-neutral" title="2.1.6.1. Functions" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Fabrice Salvaire.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../static/jquery.js"></script>
+      <script type="text/javascript" src="../../../static/underscore.js"></script>
+      <script type="text/javascript" src="../../../static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

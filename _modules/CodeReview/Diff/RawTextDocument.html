@@ -1,0 +1,817 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CodeReview.Diff.RawTextDocument &mdash; CodeReview 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CodeReview 0.1.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../index.html" class="icon icon-home"> CodeReview
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">1.1. Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">1.3. Installation from Source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">2. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/CodeReview.html">2.1. <code class="docutils literal"><span class="pre">CodeReview</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Application.html">2.1.1. <code class="docutils literal"><span class="pre">Application</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Application/ApplicationBase.html">2.1.1.1. <code class="docutils literal"><span class="pre">ApplicationBase</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Config.html">2.1.2. <code class="docutils literal"><span class="pre">Config</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Config/Config.html">2.1.2.1. <code class="docutils literal"><span class="pre">Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Config/ConfigInstall.html">2.1.2.2. <code class="docutils literal"><span class="pre">ConfigInstall</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Config/Messages.html">2.1.2.3. <code class="docutils literal"><span class="pre">Messages</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Diff.html">2.1.3. <code class="docutils literal"><span class="pre">Diff</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Diff/RawTextDocument.html">2.1.3.1. <code class="docutils literal"><span class="pre">RawTextDocument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html">2.1.3.2. <code class="docutils literal"><span class="pre">RawTextDocumentDiff</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Diff/SyntaxHighlighter.html">2.1.3.3. <code class="docutils literal"><span class="pre">SyntaxHighlighter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Diff/TextDocumentDiffModel.html">2.1.3.4. <code class="docutils literal"><span class="pre">TextDocumentDiffModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Diff/TextDocumentModel.html">2.1.3.5. <code class="docutils literal"><span class="pre">TextDocumentModel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/GUI.html">2.1.4. <code class="docutils literal"><span class="pre">GUI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/GUI/Base.html">2.1.4.1. <code class="docutils literal"><span class="pre">Base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/GUI/DiffViewer.html">2.1.4.2. <code class="docutils literal"><span class="pre">DiffViewer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/GUI/Forms.html">2.1.4.3. <code class="docutils literal"><span class="pre">Forms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/GUI/LogBrowser.html">2.1.4.4. <code class="docutils literal"><span class="pre">LogBrowser</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/GUI/Widgets.html">2.1.4.5. <code class="docutils literal"><span class="pre">Widgets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/GUI/ui.html">2.1.4.6. <code class="docutils literal"><span class="pre">ui</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/Email.html">2.1.5.1. <code class="docutils literal"><span class="pre">Email</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/ExceptionHook.html">2.1.5.2. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/Logging.html">2.1.5.3. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Math/Functions.html">2.1.6.1. <code class="docutils literal"><span class="pre">Functions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Math/Interval.html">2.1.6.2. <code class="docutils literal"><span class="pre">Interval</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/PatienceDiff.html">2.1.7. <code class="docutils literal"><span class="pre">PatienceDiff</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/PatienceDiff/_patiencediff_py.html">2.1.7.1. <code class="docutils literal"><span class="pre">_patiencediff_py</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Tools.html">2.1.8. <code class="docutils literal"><span class="pre">Tools</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/BackTrace.html">2.1.8.1. <code class="docutils literal"><span class="pre">BackTrace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/EnumFactory.html">2.1.8.2. <code class="docutils literal"><span class="pre">EnumFactory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/IteratorTools.html">2.1.8.3. <code class="docutils literal"><span class="pre">IteratorTools</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/Path.html">2.1.8.4. <code class="docutils literal"><span class="pre">Path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/Platform.html">2.1.8.5. <code class="docutils literal"><span class="pre">Platform</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/ProgramOptions.html">2.1.8.6. <code class="docutils literal"><span class="pre">ProgramOptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/RevisionVersion.html">2.1.8.7. <code class="docutils literal"><span class="pre">RevisionVersion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/Singleton.html">2.1.8.8. <code class="docutils literal"><span class="pre">Singleton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/Slice.html">2.1.8.9. <code class="docutils literal"><span class="pre">Slice</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/StringTools.html">2.1.8.10. <code class="docutils literal"><span class="pre">StringTools</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Version.html">2.1.9. <code class="docutils literal"><span class="pre">Version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">2.2. Indexes</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">CodeReview</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>CodeReview.Diff.RawTextDocument</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for CodeReview.Diff.RawTextDocument</h1><div class="highlight"><pre>
+<span class="c">####################################################################################################</span>
+<span class="c">#</span>
+<span class="c"># CodeReview - A Python/Qt Git GUI</span>
+<span class="c"># Copyright (C) 2015 Fabrice Salvaire</span>
+<span class="c">#</span>
+<span class="c"># This program is free software: you can redistribute it and/or modify it under the terms of the GNU</span>
+<span class="c"># General Public License as published by the Free Software Foundation, either version 3 of the</span>
+<span class="c"># License, or (at your option) any later version.</span>
+<span class="c">#</span>
+<span class="c"># This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without</span>
+<span class="c"># even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span>
+<span class="c"># General Public License for more details.</span>
+<span class="c">#</span>
+<span class="c"># You should have received a copy of the GNU General Public License along with this program.  If</span>
+<span class="c"># not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c">#</span>
+<span class="c">####################################################################################################</span>
+
+<span class="c"># Fixme: unicode support</span>
+<span class="c">#   - doc [] len ...</span>
+<span class="c">#   - englis &#39;s</span>
+
+<span class="sd">&quot;&quot;&quot;This module provides an enhancement over a standard array of characters, so called Text Buffer in</span>
+<span class="sd">this documentation.  It features an API to manipulate the text buffer using line indexing and</span>
+<span class="sd">slicing.</span>
+
+<span class="sd">Definition of therms used in this document:</span>
+
+<span class="sd">  Text Buffer</span>
+<span class="sd">    A text buffer is an object that provides the characters and implements the method **__getitem__**</span>
+<span class="sd">    to index or slice its content and the method **__len__** to get the number of characters.</span>
+
+<span class="sd">  Text Document</span>
+<span class="sd">    A text document is a text buffer adapted by a :class:`RawTextDocument` class featuring the line</span>
+<span class="sd">    indexing and slicing.</span>
+
+<span class="sd">  Flat Slice</span>
+<span class="sd">    A flat slice represents an interval of character indexes.  Only the sliced object know how to</span>
+<span class="sd">    interpret the slice.</span>
+
+<span class="sd">  Line Slice</span>
+<span class="sd">    A line slice represents an interval of line indexes.  The only difference with a flat slice is</span>
+<span class="sd">    semantic.</span>
+
+<span class="sd">  Text Chunk or View</span>
+<span class="sd">    A text chunk represents a sliced text buffer.</span>
+
+<span class="sd">  Line</span>
+<span class="sd">    A line represents either a slice, a view or the corresponding string of characters.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c">####################################################################################################</span>
+
+<span class="kn">import</span> <span class="nn">bisect</span>
+
+<span class="c">####################################################################################################</span>
+
+<span class="kn">from</span> <span class="nn">CodeReview.Tools.Slice</span> <span class="kn">import</span> <span class="n">FlatSlice</span><span class="p">,</span> <span class="n">LineSlice</span>
+<span class="kn">from</span> <span class="nn">CodeReview.Tools.IteratorTools</span> <span class="kn">import</span> <span class="n">pairwise</span>
+
+<span class="c">####################################################################################################</span>
+
+<div class="viewcode-block" id="RawTextDocumentAbc"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc">[docs]</a><span class="k">class</span> <span class="nc">RawTextDocumentAbc</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; This class implements the basic function for a Text Chunk.</span>
+
+<span class="sd">    To get the number of characters of the chunk use the function :func:`len` and to test if the</span>
+<span class="sd">    slice is empty use a Boolean evaluation of the instance.</span>
+
+<span class="sd">    To get the text buffer use the function :func:`str`.</span>
+
+<span class="sd">    To get a view or light view if the light view mode is set, we can use::</span>
+
+<span class="sd">      text_document[slice]</span>
+
+<span class="sd">    The light view mode is set using the boolean attribute :attr:`light_view_mode`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">light_view_mode</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="c">###############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_buffer</span><span class="p">,</span> <span class="n">flat_slice</span><span class="p">,</span> <span class="n">line_start_locations</span><span class="p">,</span> <span class="n">line_separators</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; The parameter *text_buffer* specifies the text buffer.  It must implement the method</span>
+<span class="sd">        **__getitem__** to index and slice the characters.</span>
+
+<span class="sd">        The parameter *flat_slice* specifies the flat slice corresponding to the text chunk.</span>
+
+<span class="sd">        The list *line_start_locations* contains the position of the new lines in the text chunk and</span>
+<span class="sd">        the list *line_separators* contains the corresponding new line separators.  The standard</span>
+<span class="sd">        separators (``\\\\r\\\\n``, ``\\\\r``, ``\\\\n``) are supported.  The list</span>
+<span class="sd">        *line_start_locations* ends by a sentinel that corresponds to the number of characters in</span>
+<span class="sd">        the text chunk and the list *line_separators* by an empty string.  This sentinel</span>
+<span class="sd">        corresponds to a virtual line at the end of the text buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_text_buffer</span> <span class="o">=</span> <span class="n">text_buffer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flat_slice</span> <span class="o">=</span> <span class="n">flat_slice</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_line_start_locations</span> <span class="o">=</span> <span class="n">line_start_locations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_line_separators</span> <span class="o">=</span> <span class="n">line_separators</span>
+
+    <span class="c">###############################################</span>
+
+    <span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test if the slice is empty. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_slice</span><span class="p">)</span>
+
+    <span class="c">###############################################</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the number of characters of the text chunk. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_slice</span><span class="p">)</span>
+
+    <span class="c">###############################################</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the text buffer instance. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text_buffer</span>
+
+    <span class="c">###############################################</span>
+
+<div class="viewcode-block" id="RawTextDocumentAbc.substring"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.substring">[docs]</a>    <span class="k">def</span> <span class="nf">substring</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the unicode sub-string corresponding to the slice. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text_buffer</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">to_flat_slice</span><span class="p">(</span><span class="n">slice_</span><span class="p">)()]</span>
+
+    <span class="c">###############################################</span>
+</div>
+<div class="viewcode-block" id="RawTextDocumentAbc.flat_slice"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.flat_slice">[docs]</a>    <span class="k">def</span> <span class="nf">flat_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a copy of the flat slice corresponding to the text chunk. &quot;&quot;&quot;</span>
+
+        <span class="c"># Fixme: copy? check consistency elsewhere.</span>
+
+        <span class="k">return</span> <span class="n">FlatSlice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_slice</span><span class="p">)</span>
+
+    <span class="c">###############################################</span>
+</div>
+<div class="viewcode-block" id="RawTextDocumentAbc.view"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.view">[docs]</a>    <span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a :class:`RawTextDocumentView` instance for the corresponding slice.</span>
+
+<span class="sd">        Not implemented.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="c">###############################################</span>
+</div>
+<div class="viewcode-block" id="RawTextDocumentAbc.light_view"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.light_view">[docs]</a>    <span class="k">def</span> <span class="nf">light_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a :class:`RawTextDocumentLightView` instance for the corresponding slice.</span>
+
+<span class="sd">        Not implemented.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># Fixme: light_view is abstract in a subclass</span>
+
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="c">###############################################</span>
+</div>
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; This method implements an array interface and return a light view or a view depending of</span>
+<span class="sd">        the setup.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">light_view_mode</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">light_view</span><span class="p">(</span><span class="n">slice_</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">slice_</span><span class="p">)</span>
+
+    <span class="c">##############################################</span>
+
+<div class="viewcode-block" id="RawTextDocumentAbc.line_of"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_of">[docs]</a>    <span class="k">def</span> <span class="nf">line_of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the line number for the location. &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">location</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flat_slice</span><span class="o">.</span><span class="n">stop</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span>
+
+        <span class="c"># Return the index j where location &lt; _line_start_locations[j]</span>
+        <span class="k">return</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect_right</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_line_start_locations</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="c">##############################################</span>
+</div>
+<div class="viewcode-block" id="RawTextDocumentAbc.line_to_flat_slice"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_to_flat_slice">[docs]</a>    <span class="k">def</span> <span class="nf">line_to_flat_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_slice</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Convert a line slice to a flat slice and return it. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">FlatSlice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_line_start_locations</span><span class="p">[</span><span class="n">line_slice</span><span class="o">.</span><span class="n">start</span><span class="p">],</span>
+                         <span class="bp">self</span><span class="o">.</span><span class="n">_line_start_locations</span><span class="p">[</span><span class="n">line_slice</span><span class="o">.</span><span class="n">stop</span><span class="p">])</span>
+
+    <span class="c">###############################################</span>
+</div>
+<div class="viewcode-block" id="RawTextDocumentAbc.to_flat_slice"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.to_flat_slice">[docs]</a>    <span class="k">def</span> <span class="nf">to_flat_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Ensure *slice_* is a flat slice and return it. &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slice_</span><span class="p">,</span> <span class="n">FlatSlice</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">slice_</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slice_</span><span class="p">,</span> <span class="n">LineSlice</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_to_flat_slice</span><span class="p">(</span><span class="n">slice_</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span>
+
+    <span class="c">##############################################</span>
+</div>
+<div class="viewcode-block" id="RawTextDocumentAbc.flat_to_line_slice"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.flat_to_line_slice">[docs]</a>    <span class="k">def</span> <span class="nf">flat_to_line_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flat_slice</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Convert a flat slice to a line slice and return it. &quot;&quot;&quot;</span>
+
+        <span class="n">start_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_of</span><span class="p">(</span><span class="n">flat_slice</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">flat_slice</span><span class="p">:</span>
+            <span class="n">upper_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_of</span><span class="p">(</span><span class="n">flat_slice</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">upper_line</span><span class="o">=</span> <span class="n">start_line</span>
+
+        <span class="k">return</span> <span class="n">LineSlice</span><span class="p">(</span><span class="n">start_line</span><span class="p">,</span> <span class="n">upper_line</span> <span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c">##############################################</span>
+</div>
+<div class="viewcode-block" id="RawTextDocumentAbc.line_slice_iterator"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_slice_iterator">[docs]</a>    <span class="k">def</span> <span class="nf">line_slice_iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_line_separator</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return an iterator on the line&#39;s flat slices.  If *new_line_separator* is set then the</span>
+<span class="sd">        line separator is included.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">new_line_separator</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">pairwise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_line_start_locations</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">FlatSlice</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">start_end</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pairwise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_line_start_locations</span><span class="p">)):</span>
+                <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">start_end</span>
+                <span class="n">end</span> <span class="o">-=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_line_separators</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">yield</span> <span class="n">FlatSlice</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+
+    <span class="c">##############################################</span>
+</div>
+<div class="viewcode-block" id="RawTextDocumentAbc.line_iterator"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_iterator">[docs]</a>    <span class="k">def</span> <span class="nf">line_iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_line_separator</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return an iterator on the string lines.  If *new_line_separator* is set then the line</span>
+<span class="sd">        separator is included.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">flat_slice</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_slice_iterator</span><span class="p">(</span><span class="n">new_line_separator</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text_buffer</span><span class="p">[</span><span class="n">flat_slice</span><span class="p">()]</span>
+
+    <span class="c">##############################################</span>
+</div>
+<div class="viewcode-block" id="RawTextDocumentAbc.lines"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.lines">[docs]</a>    <span class="k">def</span> <span class="nf">lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_line_separator</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the list of string lines.  If *new_line_separator* is set then the line separator</span>
+<span class="sd">        is included.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_iterator</span><span class="p">(</span><span class="n">new_line_separator</span><span class="p">))</span>
+
+<span class="c">####################################################################################################</span>
+</div></div>
+<div class="viewcode-block" id="RawTextDocument"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocument">[docs]</a><span class="k">class</span> <span class="nc">RawTextDocument</span><span class="p">(</span><span class="n">RawTextDocumentAbc</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; This class implements a Text Document. &quot;&quot;&quot;</span>
+
+    <span class="c">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_buffer</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; The parameter *text_buffer* specifies the text buffer,</span>
+<span class="sd">        cf. :class:`RawTextDocumentAbc` for explanations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">RawTextDocument</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span> <span class="n">__init__</span><span class="p">(</span><span class="n">text_buffer</span><span class="p">,</span>
+                                               <span class="n">FlatSlice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">text_buffer</span><span class="p">)),</span>
+                                               <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_split_lines</span><span class="p">(</span><span class="n">text_buffer</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flat_to_line_slice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_slice</span><span class="p">)</span>
+
+    <span class="c">##############################################</span>
+
+<div class="viewcode-block" id="RawTextDocument._append_sentinel"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocument._append_sentinel">[docs]</a>    <span class="k">def</span> <span class="nf">_append_sentinel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_start_locations</span><span class="p">,</span> <span class="n">line_separators</span><span class="p">,</span> <span class="n">stop_location</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Append a sentinel to the lists: *line_start_locations* and *line_separators*.</span>
+
+<span class="sd">        The parameter *stop_location* corresponds to the stop index of the text chunk.</span>
+
+<span class="sd">        This method ensures the list *line_separators* end by *stop_location* and it appends an</span>
+<span class="sd">        empty string to *line_separators* if it is not true.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">line_start_locations</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">stop_location</span><span class="p">:</span>
+            <span class="n">line_start_locations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stop_location</span><span class="p">)</span>
+            <span class="n">line_separators</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="c">##############################################</span>
+</div>
+<div class="viewcode-block" id="RawTextDocument._split_lines"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocument._split_lines">[docs]</a>    <span class="k">def</span> <span class="nf">_split_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_buffer</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Split the lines and return the 2-tuple (*line_start_locations*, *line_separators*),</span>
+<span class="sd">        cf. :class:`RawTextDocumentAbc` for their definitions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">line_start_locations</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">line_separators</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">buffer_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">text_buffer</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">buffer_length</span><span class="p">:</span>
+            <span class="n">line_separator_length</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">char</span> <span class="o">=</span> <span class="n">text_buffer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">char</span> <span class="o">==</span> <span class="s">&#39;</span><span class="se">\r</span><span class="s">&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">text_buffer</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">:</span>
+                    <span class="n">line_separator_length</span> <span class="o">=</span> <span class="mi">2</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">line_separator_length</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">char</span> <span class="o">==</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">:</span>
+                <span class="n">line_separator_length</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">line_separator_length</span><span class="p">:</span>
+                <span class="n">new_line_location</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">line_separator_length</span> 
+                <span class="n">line_start_locations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_line_location</span><span class="p">)</span>
+                <span class="n">line_separators</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text_buffer</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">new_line_location</span><span class="p">])</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">new_line_location</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_append_sentinel</span><span class="p">(</span><span class="n">line_start_locations</span><span class="p">,</span> <span class="n">line_separators</span><span class="p">,</span> <span class="n">buffer_length</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">line_start_locations</span><span class="p">,</span> <span class="n">line_separators</span>
+
+    <span class="c">###############################################</span>
+</div>
+<div class="viewcode-block" id="RawTextDocument.view"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocument.view">[docs]</a>    <span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a :class:`RawTextDocumentView` instance for the corresponding slice. &quot;&quot;&quot;</span>
+
+        <span class="n">flat_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_flat_slice</span><span class="p">(</span><span class="n">slice_</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slice_</span><span class="p">,</span> <span class="n">LineSlice</span><span class="p">):</span>
+            <span class="n">line_slice</span> <span class="o">=</span> <span class="n">slice_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">line_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flat_to_line_slice</span><span class="p">(</span><span class="n">slice_</span><span class="p">)</span>
+
+        <span class="c"># line_start_locations ...</span>
+        <span class="n">line_start_locations</span> <span class="o">=</span> <span class="p">[</span><span class="n">flat_slice</span><span class="o">.</span><span class="n">start</span><span class="p">]</span>
+        <span class="n">line_start_locations</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_line_start_locations</span><span class="p">[</span><span class="n">line_slice</span><span class="p">()][</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="c"># line_separators is a subset</span>
+        <span class="n">line_separators</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_line_separators</span><span class="p">[</span><span class="n">line_slice</span><span class="p">()][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_append_sentinel</span><span class="p">(</span><span class="n">line_start_locations</span><span class="p">,</span> <span class="n">line_separators</span><span class="p">,</span> <span class="n">flat_slice</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">RawTextDocumentView</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                                   <span class="n">slice_</span><span class="p">,</span>
+                                   <span class="bp">self</span><span class="o">.</span><span class="n">_text_buffer</span><span class="p">,</span>
+                                   <span class="n">flat_slice</span><span class="p">,</span>
+                                   <span class="n">line_start_locations</span><span class="p">,</span> <span class="n">line_separators</span><span class="p">)</span>
+
+    <span class="c">###############################################</span>
+</div>
+<div class="viewcode-block" id="RawTextDocument.light_view"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocument.light_view">[docs]</a>    <span class="k">def</span> <span class="nf">light_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a :class:`RawTextDocumentLightView` instance for the corresponding slice. &quot;&quot;&quot;</span>
+
+        <span class="n">flat_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_flat_slice</span><span class="p">(</span><span class="n">slice_</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">RawTextDocumentLightView</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flat_slice</span><span class="p">)</span>
+
+<span class="c">####################################################################################################</span>
+</div></div>
+<div class="viewcode-block" id="RawTextDocumentView"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentView">[docs]</a><span class="k">class</span> <span class="nc">RawTextDocumentView</span><span class="p">(</span><span class="n">RawTextDocumentAbc</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; This class implements a view on a Text Document. &quot;&quot;&quot;</span>
+
+    <span class="c">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw_text_document</span><span class="p">,</span> <span class="n">slice_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; The parameter *raw_text_document* specifies the text document.</span>
+
+<span class="sd">        The parameter *slice_* specifies the slice corresponding to the view, it can be either a</span>
+<span class="sd">        flat ro a line slice.</span>
+
+<span class="sd">        The remaining parameters are those of the :meth:`RawTextDocumentAbc.__init__` method.</span>
+
+<span class="sd">        Public attributes:</span>
+
+<span class="sd">          :attr:`slice`</span>
+
+<span class="sd">            is a copy of the slice passed as argument.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># Fixme: raw_text_document has text_buffer</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">RawTextDocumentView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raw_text_document</span> <span class="o">=</span> <span class="n">raw_text_document</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slice</span> <span class="o">=</span> <span class="n">slice_</span>
+
+    <span class="c">###############################################</span>
+
+<div class="viewcode-block" id="RawTextDocumentView.is_line_view"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentView.is_line_view">[docs]</a>    <span class="k">def</span> <span class="nf">is_line_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test if it is a line slice. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slice</span><span class="p">,</span> <span class="n">LineSlice</span><span class="p">)</span>
+
+    <span class="c">###############################################</span>
+</div>
+<div class="viewcode-block" id="RawTextDocumentView.to_document_flat_slice"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentView.to_document_flat_slice">[docs]</a>    <span class="k">def</span> <span class="nf">to_document_flat_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Convert a slice into the view to a flat slice in the document space and return it. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flat_slice</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_flat_slice</span><span class="p">(</span><span class="n">slice_</span><span class="p">))</span>
+
+    <span class="c">###############################################</span>
+</div>
+<div class="viewcode-block" id="RawTextDocumentView.to_document_slice"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentView.to_document_slice">[docs]</a>    <span class="k">def</span> <span class="nf">to_document_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Convert a slice into the view to a slice in the document space and return it.  This</span>
+<span class="sd">        method tries to keep the type of slice.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># Fixme: if same type than original</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">slice_</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slice</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">slice</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">slice_</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_document_flat_slice</span><span class="p">(</span><span class="n">slice_</span><span class="p">)</span>
+
+    <span class="c">##############################################</span>
+</div>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">string_slice</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slice</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slice</span><span class="p">,</span> <span class="n">LineSlice</span><span class="p">):</span>
+            <span class="n">string_slice</span> <span class="o">+=</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_slice</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">string_slice</span>
+
+    <span class="c">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the unicode string corresponding to the view. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text_buffer</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_flat_slice</span><span class="p">()]</span>
+
+    <span class="c">###############################################</span>
+
+<div class="viewcode-block" id="RawTextDocumentView.substring"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentView.substring">[docs]</a>    <span class="k">def</span> <span class="nf">substring</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the sub-string corresponding to the local slice in the view. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text_buffer</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">to_document_flat_slice</span><span class="p">(</span><span class="n">slice_</span><span class="p">)()]</span>
+
+    <span class="c">###############################################</span>
+</div>
+<div class="viewcode-block" id="RawTextDocumentView.view"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentView.view">[docs]</a>    <span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the view corresponding to the local slice in the view. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_text_document</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">to_document_slice</span><span class="p">(</span><span class="n">slice_</span><span class="p">)]</span>
+
+<span class="c">####################################################################################################</span>
+</div></div>
+<div class="viewcode-block" id="RawTextDocumentLightView"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView">[docs]</a><span class="k">class</span> <span class="nc">RawTextDocumentLightView</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; This class implements a light view on a Text Document.</span>
+
+<span class="sd">    A light view doesn&#39;t feature line indexing and slicing.  The memory footprint is lighter than a</span>
+<span class="sd">    standard view and thus well suited for many small chunks.</span>
+
+<span class="sd">    To get the number of characters of the chunk use the function :func:`len` and to test if the</span>
+<span class="sd">    slice is empty use a Boolean evaluation of the instance.</span>
+
+<span class="sd">    To get the text buffer use the function :func:`unicode`.</span>
+
+<span class="sd">    To get a light view, we can use::</span>
+
+<span class="sd">      text_document[slice]</span>
+
+<span class="sd">    Public attributes:</span>
+
+<span class="sd">      :attr:`flat_slice`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;_raw_text_document&#39;</span><span class="p">,</span> <span class="s">&#39;flat_slice&#39;</span><span class="p">]</span>
+
+    <span class="c">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw_text_document</span><span class="p">,</span> <span class="n">flat_slice</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; The parameter *raw_text_document* specifies the text document.</span>
+
+<span class="sd">        The parameter *flat_slice* specifies the slice corresponding to the view.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raw_text_document</span> <span class="o">=</span> <span class="n">raw_text_document</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flat_slice</span> <span class="o">=</span> <span class="n">flat_slice</span>
+
+    <span class="c">###############################################</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the number of characters of the text chunk. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flat_slice</span><span class="p">)</span>
+
+    <span class="c">###############################################</span>
+
+    <span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test if the slice is empty. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flat_slice</span><span class="p">)</span>
+
+    <span class="c">###############################################</span>
+
+<div class="viewcode-block" id="RawTextDocumentLightView.to_document_flat_slice"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.to_document_flat_slice">[docs]</a>    <span class="k">def</span> <span class="nf">to_document_flat_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flat_slice</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Convert a flat slice into the view to a flat slice in the document space and return</span>
+<span class="sd">        it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">flat_slice</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">flat_slice</span><span class="p">)</span>
+
+    <span class="c">##############################################</span>
+</div>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">string_slice</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flat_slice</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">string_slice</span>
+
+    <span class="c">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the unicode string corresponding to the view. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_text_document</span><span class="o">.</span><span class="n">substring</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flat_slice</span><span class="p">)</span>
+
+    <span class="c">###############################################</span>
+
+<div class="viewcode-block" id="RawTextDocumentLightView.substring"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.substring">[docs]</a>    <span class="k">def</span> <span class="nf">substring</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flat_slice</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the sub-string corresponding to the local slice in the view. &quot;&quot;&quot;</span>
+
+        <span class="n">flat_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_document_flat_slice</span><span class="p">(</span><span class="n">flat_slice</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_text_document</span><span class="o">.</span><span class="n">substring</span><span class="p">(</span><span class="n">flat_slice</span><span class="p">)</span>
+
+    <span class="c">###############################################</span>
+</div>
+<div class="viewcode-block" id="RawTextDocumentLightView.view"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocument.html#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.view">[docs]</a>    <span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flat_slice</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the view corresponding to the local slice in the view. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_text_document</span><span class="o">.</span><span class="n">light_view</span><span class="p">(</span><span class="n">flat_slice</span><span class="p">)</span>
+
+    <span class="c">###############################################</span>
+</div>
+    <span class="n">__getitem__</span>  <span class="o">=</span> <span class="n">view</span>
+
+<span class="c">####################################################################################################</span>
+<span class="c">#</span>
+<span class="c"># End</span>
+<span class="c">#</span>
+<span class="c">####################################################################################################</span></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Fabrice Salvaire.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../static/jquery.js"></script>
+      <script type="text/javascript" src="../../../static/underscore.js"></script>
+      <script type="text/javascript" src="../../../static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

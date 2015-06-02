@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.1.8.9. Slice &mdash; CodeReview 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CodeReview 0.1.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="2.1.8. Tools" href="../Tools.html"/>
+        <link rel="next" title="2.1.8.10. StringTools" href="StringTools.html"/>
+        <link rel="prev" title="2.1.8.8. Singleton" href="Singleton.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../index.html" class="icon icon-home"> CodeReview
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">1.1. Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">1.3. Installation from Source</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference-manual.html">2. API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../CodeReview.html">2.1. <code class="docutils literal"><span class="pre">CodeReview</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../Application.html">2.1.1. <code class="docutils literal"><span class="pre">Application</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Application/ApplicationBase.html">2.1.1.1. <code class="docutils literal"><span class="pre">ApplicationBase</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Config.html">2.1.2. <code class="docutils literal"><span class="pre">Config</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Config/Config.html">2.1.2.1. <code class="docutils literal"><span class="pre">Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Config/ConfigInstall.html">2.1.2.2. <code class="docutils literal"><span class="pre">ConfigInstall</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Config/Messages.html">2.1.2.3. <code class="docutils literal"><span class="pre">Messages</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Diff.html">2.1.3. <code class="docutils literal"><span class="pre">Diff</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Diff/RawTextDocument.html">2.1.3.1. <code class="docutils literal"><span class="pre">RawTextDocument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Diff/RawTextDocumentDiff.html">2.1.3.2. <code class="docutils literal"><span class="pre">RawTextDocumentDiff</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Diff/SyntaxHighlighter.html">2.1.3.3. <code class="docutils literal"><span class="pre">SyntaxHighlighter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Diff/TextDocumentDiffModel.html">2.1.3.4. <code class="docutils literal"><span class="pre">TextDocumentDiffModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Diff/TextDocumentModel.html">2.1.3.5. <code class="docutils literal"><span class="pre">TextDocumentModel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../GUI.html">2.1.4. <code class="docutils literal"><span class="pre">GUI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GUI/Base.html">2.1.4.1. <code class="docutils literal"><span class="pre">Base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GUI/DiffViewer.html">2.1.4.2. <code class="docutils literal"><span class="pre">DiffViewer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GUI/Forms.html">2.1.4.3. <code class="docutils literal"><span class="pre">Forms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GUI/LogBrowser.html">2.1.4.4. <code class="docutils literal"><span class="pre">LogBrowser</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GUI/Widgets.html">2.1.4.5. <code class="docutils literal"><span class="pre">Widgets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GUI/ui.html">2.1.4.6. <code class="docutils literal"><span class="pre">ui</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Logging/Email.html">2.1.5.1. <code class="docutils literal"><span class="pre">Email</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Logging/ExceptionHook.html">2.1.5.2. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Logging/Logging.html">2.1.5.3. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Math/Functions.html">2.1.6.1. <code class="docutils literal"><span class="pre">Functions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Math/Interval.html">2.1.6.2. <code class="docutils literal"><span class="pre">Interval</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../PatienceDiff.html">2.1.7. <code class="docutils literal"><span class="pre">PatienceDiff</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../PatienceDiff/_patiencediff_py.html">2.1.7.1. <code class="docutils literal"><span class="pre">_patiencediff_py</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../Tools.html">2.1.8. <code class="docutils literal"><span class="pre">Tools</span></code></a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="BackTrace.html">2.1.8.1. <code class="docutils literal"><span class="pre">BackTrace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="EnumFactory.html">2.1.8.2. <code class="docutils literal"><span class="pre">EnumFactory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="IteratorTools.html">2.1.8.3. <code class="docutils literal"><span class="pre">IteratorTools</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Path.html">2.1.8.4. <code class="docutils literal"><span class="pre">Path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Platform.html">2.1.8.5. <code class="docutils literal"><span class="pre">Platform</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ProgramOptions.html">2.1.8.6. <code class="docutils literal"><span class="pre">ProgramOptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="RevisionVersion.html">2.1.8.7. <code class="docutils literal"><span class="pre">RevisionVersion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Singleton.html">2.1.8.8. <code class="docutils literal"><span class="pre">Singleton</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">2.1.8.9. <code class="docutils literal"><span class="pre">Slice</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="StringTools.html">2.1.8.10. <code class="docutils literal"><span class="pre">StringTools</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Version.html">2.1.9. <code class="docutils literal"><span class="pre">Version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">2.2. Indexes</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">CodeReview</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../reference-manual.html">2. API Documentation</a> &raquo;</li>
+      
+          <li><a href="../../CodeReview.html">2.1. <code class="docutils literal"><span class="pre">CodeReview</span></code></a> &raquo;</li>
+      
+          <li><a href="../Tools.html">2.1.8. <code class="docutils literal"><span class="pre">Tools</span></code></a> &raquo;</li>
+      
+    <li>2.1.8.9. <code class="docutils literal"><span class="pre">Slice</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/api/CodeReview/Tools/Slice.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-CodeReview.Tools.Slice">
+<span id="slice"></span><h1>2.1.8.9. <code class="xref py py-mod docutils literal"><span class="pre">Slice</span></code><a class="headerlink" href="#module-CodeReview.Tools.Slice" title="Permalink to this headline">¶</a></h1>
+<p>This module implements interval arithmetic for flat <a class="footnote-reference" href="#f1" id="id1">[1]</a> and line slice.</p>
+<table class="docutils footnote" frame="void" id="f1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Flat indexes address characters in a file.</td></tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="CodeReview.Tools.Slice.FlatSlice">
+<em class="property">class </em><code class="descclassname">CodeReview.Tools.Slice.</code><code class="descname">FlatSlice</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#FlatSlice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.FlatSlice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#CodeReview.Tools.Slice.Slice" title="CodeReview.Tools.Slice.Slice"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Tools.Slice.Slice</span></code></a></p>
+<p>This class defines a flat slice.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="CodeReview.Tools.Slice.LineSlice">
+<em class="property">class </em><code class="descclassname">CodeReview.Tools.Slice.</code><code class="descname">LineSlice</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#LineSlice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.LineSlice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#CodeReview.Tools.Slice.Slice" title="CodeReview.Tools.Slice.Slice"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Tools.Slice.Slice</span></code></a></p>
+<p>This class defines a line slice.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="CodeReview.Tools.Slice.Slice">
+<em class="property">class </em><code class="descclassname">CodeReview.Tools.Slice.</code><code class="descname">Slice</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>This class implements a generic slice.</p>
+<p>Like for a standard Python slice, a <a class="reference internal" href="#CodeReview.Tools.Slice.Slice" title="CodeReview.Tools.Slice.Slice"><code class="xref py py-class docutils literal"><span class="pre">Slice</span></code></a> instance is built from two values or an
+indexable object providing the start and stop value.  This class implements an array interface
+(<code class="xref py py-func docutils literal"><span class="pre">__getitem__()</span></code> method) so as to pass a <a class="reference internal" href="#CodeReview.Tools.Slice.Slice" title="CodeReview.Tools.Slice.Slice"><code class="xref py py-class docutils literal"><span class="pre">Slice</span></code></a> instance to the constructor.  Some
+examples to build a slice:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">slice1</span> <span class="o">=</span> <span class="n">Slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">slice2</span> <span class="o">=</span> <span class="n">Slice</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">slice2</span> <span class="o">=</span> <span class="n">Slice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">slice3</span> <span class="o">=</span> <span class="n">Slice</span><span class="p">(</span><span class="n">slice2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The interval limits of the slice can be accessed using the <a class="reference internal" href="#CodeReview.Tools.Slice.Slice.start" title="CodeReview.Tools.Slice.Slice.start"><code class="xref py py-attr docutils literal"><span class="pre">start</span></code></a>, <a class="reference internal" href="#CodeReview.Tools.Slice.Slice.stop" title="CodeReview.Tools.Slice.Slice.stop"><code class="xref py py-attr docutils literal"><span class="pre">stop</span></code></a>,
+<a class="reference internal" href="#CodeReview.Tools.Slice.Slice.lower" title="CodeReview.Tools.Slice.Slice.lower"><code class="xref py py-attr docutils literal"><span class="pre">lower</span></code></a> and <a class="reference internal" href="#CodeReview.Tools.Slice.Slice.upper" title="CodeReview.Tools.Slice.Slice.upper"><code class="xref py py-attr docutils literal"><span class="pre">upper</span></code></a> read-only attributes, <em>upper</em> is defined as <em>stop</em> -1.</p>
+<p>To cast an instance to a standard Python slice use the call:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">slice</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To get the length of the slice defined by <em>stop</em> - <em>start</em> use the <a class="reference external" href="http://docs.python.org/library/functions.html#len" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">len()</span></code></a> function.</p>
+<p>A slice is not empty if it verifies the predicate <em>stop</em> &gt; <em>start</em>, this predicate can be tested
+using a Boolean evaluation of the instance.</p>
+<p>A slice can be scaled by a factor using:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">slice</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="nb">slice</span> <span class="o">/=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>The union and the intersection of two slices can be computed using:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># union</span>
+<span class="n">slice1</span> <span class="o">|=</span> <span class="n">slice2</span>
+<span class="nb">slice</span> <span class="o">=</span> <span class="n">slice1</span> <span class="o">|</span> <span class="n">slice2</span>
+
+<span class="c"># intersection</span>
+<span class="n">slice1</span> <span class="o">&amp;=</span> <span class="n">slice2</span>
+<span class="nb">slice</span> <span class="o">=</span> <span class="n">slice1</span> <span class="o">&amp;</span> <span class="n">slice2</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="CodeReview.Tools.Slice.Slice._check_arguments">
+<code class="descname">_check_arguments</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice._check_arguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice._check_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the arguments provided to the constructor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Tools.Slice.Slice._get_lower">
+<code class="descname">_get_lower</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice._get_lower"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice._get_lower" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the lower boundary.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Tools.Slice.Slice._get_start">
+<code class="descname">_get_start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice._get_start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice._get_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the start boundary.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Tools.Slice.Slice._get_stop">
+<code class="descname">_get_stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice._get_stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice._get_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the stop boundary.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Tools.Slice.Slice._get_upper">
+<code class="descname">_get_upper</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice._get_upper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice._get_upper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the upper boundary.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="CodeReview.Tools.Slice.Slice._intersection">
+<em class="property">static </em><code class="descname">_intersection</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice._intersection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice._intersection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the intersection of two slices.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="CodeReview.Tools.Slice.Slice._union">
+<em class="property">static </em><code class="descname">_union</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice._union"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice._union" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the union of two slices.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Tools.Slice.Slice.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a copy of the slice.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Tools.Slice.Slice.intersect">
+<code class="descname">intersect</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice.intersect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice.intersect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the interval intersects with i2.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Tools.Slice.Slice.is_included_in">
+<code class="descname">is_included_in</code><span class="sig-paren">(</span><em>i1</em>, <em>i2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice.is_included_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice.is_included_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the interval is included in i2.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="CodeReview.Tools.Slice.Slice.lower">
+<code class="descname">lower</code><a class="headerlink" href="#CodeReview.Tools.Slice.Slice.lower" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lower index</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.Tools.Slice.Slice.map">
+<code class="descname">map</code><span class="sig-paren">(</span><em>sub_slice</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice.map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice.map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Map a sub-slice in the slice domain.</p>
+<p>Return a new slice shifted by <em>start</em>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="CodeReview.Tools.Slice.Slice.start">
+<code class="descname">start</code><a class="headerlink" href="#CodeReview.Tools.Slice.Slice.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start index</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="CodeReview.Tools.Slice.Slice.stop">
+<code class="descname">stop</code><a class="headerlink" href="#CodeReview.Tools.Slice.Slice.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop index</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="CodeReview.Tools.Slice.Slice.upper">
+<code class="descname">upper</code><a class="headerlink" href="#CodeReview.Tools.Slice.Slice.upper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upper index</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="StringTools.html" class="btn btn-neutral float-right" title="2.1.8.10. StringTools" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Singleton.html" class="btn btn-neutral" title="2.1.8.8. Singleton" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Fabrice Salvaire.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../static/jquery.js"></script>
+      <script type="text/javascript" src="../../../static/underscore.js"></script>
+      <script type="text/javascript" src="../../../static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

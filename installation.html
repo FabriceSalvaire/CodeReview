@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Introduction &mdash; CodeReview 0.1.0 documentation</title>
+  <title>1. Installation &mdash; CodeReview 0.1.0 documentation</title>
   
 
   
@@ -30,8 +30,9 @@
   
 
   
-    <link rel="top" title="CodeReview 0.1.0 documentation" href="#"/>
-        <link rel="next" title="1. Installation" href="installation.html"/> 
+    <link rel="top" title="CodeReview 0.1.0 documentation" href="index.html"/>
+        <link rel="next" title="2. API Documentation" href="reference-manual.html"/>
+        <link rel="prev" title="Introduction" href="index.html"/> 
 
   
   <script src="static/js/modernizr.min.js"></script>
@@ -48,7 +49,7 @@
         
 
         
-          <a href="#" class="icon icon-home"> CodeReview
+          <a href="index.html" class="icon icon-home"> CodeReview
         
 
         
@@ -70,11 +71,11 @@
         
           
           
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">1. Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#dependencies">1.1. Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-from-source">1.3. Installation from Source</a></li>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">1. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">1.1. Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-from-source">1.3. Installation from Source</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reference-manual.html">2. API Documentation</a><ul>
@@ -153,7 +154,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">CodeReview</a>
+        <a href="index.html">CodeReview</a>
       </nav>
 
 
@@ -162,13 +163,13 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="#">Docs</a> &raquo;</li>
+    <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Introduction</li>
+    <li>1. Installation</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/installation.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -177,58 +178,55 @@
 </div>
           <div role="main" class="document">
             
-  <br/><p>Welcome to the CodeReview documentation!</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>The official Home Page of CodeReview is located at <a class="reference external" href="http://fabricesalvaire.github.io/CodeReview">http://fabricesalvaire.github.io/CodeReview</a></p>
-<p>If you are at <a class="reference external" href="http://readthedocs.org">http://readthedocs.org</a> then you are reading the so called <em>latest documentation</em>.</p>
-<p>The <em>latest documentation</em> <a class="reference external" href="http://CodeReview.readthedocs.org/en/latest"><img alt="CodeReview&#64;readthedocs-badge" src="https://readthedocs.org/projects/CodeReview/badge/?version=latest" /></a> is automatically built from the
-git repository after each commit.</p>
-<p class="last">As opposite the <a class="reference external" href="http://fabricesalvaire.github.io/CodeReview">CodeReview Home Page</a> is built manually and is thus less prone to errors.</p>
-</div>
-<div class="section" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-</div>
-<div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>The procedure to install CodeReview is described in the <a class="reference internal" href="installation.html#installation-page"><span>Installation Manual</span></a>.</p>
-</div>
-<div class="section" id="documentation">
-<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
-<p>The best way to know what we can do with CodeReview and learn it, is to start with the examples.</p>
+  <span class="target" id="installation-page"></span><div class="section" id="installation">
+<h1>1. Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>The installation of CodeReview by itself is quite simple. However it will be easier to get the
+dependencies on a Linux desktop.</p>
+<div class="section" id="dependencies">
+<h2>1.1. Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>CodeReview requires the following dependencies:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="reference-manual.html#reference-manual-page"><span>CodeReview Reference Manual</span></a></li>
+<li><a class="reference external" href="http://python.org">Python</a> 3</li>
+<li><a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a> 5</li>
+<li>libgit2 see <a class="reference external" href="http://www.pygit2.org/install.html#quick-install">link</a> to install</li>
+</ul>
+</div></blockquote>
+<p>Theses packages are available via <a class="reference external" href="https://python-packaging-user-guide.readthedocs.org/en/latest/projects.html#pip">pip</a>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="http://www.pygit2.org/install.html">pygit2</a></li>
+<li>Pygments</li>
+<li>PyYAML</li>
+</ul>
+</div></blockquote>
+<p>For development, you will need in addition:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="http://sphinx-doc.org">Sphinx</a></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="overview">
-<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">1. Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#dependencies">1.1. Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-from-source">1.3. Installation from Source</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="reference-manual.html">2. API Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/CodeReview.html">2.1. <code class="docutils literal"><span class="pre">CodeReview</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/Application.html">2.1.1. <code class="docutils literal"><span class="pre">Application</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/Config.html">2.1.2. <code class="docutils literal"><span class="pre">Config</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/Diff.html">2.1.3. <code class="docutils literal"><span class="pre">Diff</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/GUI.html">2.1.4. <code class="docutils literal"><span class="pre">GUI</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/PatienceDiff.html">2.1.7. <code class="docutils literal"><span class="pre">PatienceDiff</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/Tools.html">2.1.8. <code class="docutils literal"><span class="pre">Tools</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/Version.html">2.1.9. <code class="docutils literal"><span class="pre">Version</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="reference-manual.html#indexes">2.2. Indexes</a></li>
-</ul>
-</li>
-</ul>
+<div class="section" id="installation-from-pypi-repository">
+<h2>1.2. Installation from PyPi Repository<a class="headerlink" href="#installation-from-pypi-repository" title="Permalink to this headline">¶</a></h2>
+<p>CodeReview is made available on the <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a> repository at <a class="reference external" href="https://pypi.python.org/pypi/CodeReview">https://pypi.python.org/pypi/CodeReview</a></p>
+<p>Run this command to install the last release:</p>
+<div class="highlight-sh"><div class="highlight"><pre>pip install CodeReview
+</pre></div>
+</div>
+</div>
+<div class="section" id="installation-from-source">
+<h2>1.3. Installation from Source<a class="headerlink" href="#installation-from-source" title="Permalink to this headline">¶</a></h2>
+<p>The CodeReview source code is hosted at <a class="reference external" href="https://github.com/FabriceSalvaire/CodeReview">https://github.com/FabriceSalvaire/CodeReview</a></p>
+<p>To clone the Git repository, run this command in a terminal:</p>
+<div class="highlight-sh"><div class="highlight"><pre>git clone git@github.com:FabriceSalvaire/CodeReview.git
+</pre></div>
+</div>
+<p>Then to build and install CodeReview run these commands:</p>
+<div class="highlight-sh"><div class="highlight"><pre>python setup.py build
+python setup.py install
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -238,8 +236,10 @@ git repository after each commit.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="installation.html" class="btn btn-neutral float-right" title="1. Installation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="reference-manual.html" class="btn btn-neutral float-right" title="2. API Documentation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
+      
+        <a href="index.html" class="btn btn-neutral" title="Introduction" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

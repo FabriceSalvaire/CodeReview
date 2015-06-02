@@ -1,0 +1,363 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.1.4.2.1. DiffWidget &mdash; CodeReview 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CodeReview 0.1.0 documentation" href="../../../../index.html"/>
+        <link rel="up" title="2.1.4.2. DiffViewer" href="../DiffViewer.html"/>
+        <link rel="next" title="2.1.4.2.2. DiffWidgetConfig" href="DiffWidgetConfig.html"/>
+        <link rel="prev" title="2.1.4.2. DiffViewer" href="../DiffViewer.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../../index.html" class="icon icon-home"> CodeReview
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">1. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#dependencies">1.1. Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#installation-from-source">1.3. Installation from Source</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../reference-manual.html">2. API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../CodeReview.html">2.1. <code class="docutils literal"><span class="pre">CodeReview</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../Application.html">2.1.1. <code class="docutils literal"><span class="pre">Application</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Application/ApplicationBase.html">2.1.1.1. <code class="docutils literal"><span class="pre">ApplicationBase</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Config.html">2.1.2. <code class="docutils literal"><span class="pre">Config</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Config/Config.html">2.1.2.1. <code class="docutils literal"><span class="pre">Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Config/ConfigInstall.html">2.1.2.2. <code class="docutils literal"><span class="pre">ConfigInstall</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Config/Messages.html">2.1.2.3. <code class="docutils literal"><span class="pre">Messages</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Diff.html">2.1.3. <code class="docutils literal"><span class="pre">Diff</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Diff/RawTextDocument.html">2.1.3.1. <code class="docutils literal"><span class="pre">RawTextDocument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Diff/RawTextDocumentDiff.html">2.1.3.2. <code class="docutils literal"><span class="pre">RawTextDocumentDiff</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Diff/SyntaxHighlighter.html">2.1.3.3. <code class="docutils literal"><span class="pre">SyntaxHighlighter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Diff/TextDocumentDiffModel.html">2.1.3.4. <code class="docutils literal"><span class="pre">TextDocumentDiffModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Diff/TextDocumentModel.html">2.1.3.5. <code class="docutils literal"><span class="pre">TextDocumentModel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../GUI.html">2.1.4. <code class="docutils literal"><span class="pre">GUI</span></code></a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../Base.html">2.1.4.1. <code class="docutils literal"><span class="pre">Base</span></code></a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../DiffViewer.html">2.1.4.2. <code class="docutils literal"><span class="pre">DiffViewer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Forms.html">2.1.4.3. <code class="docutils literal"><span class="pre">Forms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../LogBrowser.html">2.1.4.4. <code class="docutils literal"><span class="pre">LogBrowser</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Widgets.html">2.1.4.5. <code class="docutils literal"><span class="pre">Widgets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ui.html">2.1.4.6. <code class="docutils literal"><span class="pre">ui</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Logging/Email.html">2.1.5.1. <code class="docutils literal"><span class="pre">Email</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Logging/ExceptionHook.html">2.1.5.2. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Logging/Logging.html">2.1.5.3. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Math/Functions.html">2.1.6.1. <code class="docutils literal"><span class="pre">Functions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Math/Interval.html">2.1.6.2. <code class="docutils literal"><span class="pre">Interval</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../PatienceDiff.html">2.1.7. <code class="docutils literal"><span class="pre">PatienceDiff</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../PatienceDiff/_patiencediff_py.html">2.1.7.1. <code class="docutils literal"><span class="pre">_patiencediff_py</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Tools.html">2.1.8. <code class="docutils literal"><span class="pre">Tools</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Tools/BackTrace.html">2.1.8.1. <code class="docutils literal"><span class="pre">BackTrace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Tools/EnumFactory.html">2.1.8.2. <code class="docutils literal"><span class="pre">EnumFactory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Tools/IteratorTools.html">2.1.8.3. <code class="docutils literal"><span class="pre">IteratorTools</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Tools/Path.html">2.1.8.4. <code class="docutils literal"><span class="pre">Path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Tools/Platform.html">2.1.8.5. <code class="docutils literal"><span class="pre">Platform</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Tools/ProgramOptions.html">2.1.8.6. <code class="docutils literal"><span class="pre">ProgramOptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Tools/RevisionVersion.html">2.1.8.7. <code class="docutils literal"><span class="pre">RevisionVersion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Tools/Singleton.html">2.1.8.8. <code class="docutils literal"><span class="pre">Singleton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Tools/Slice.html">2.1.8.9. <code class="docutils literal"><span class="pre">Slice</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Tools/StringTools.html">2.1.8.10. <code class="docutils literal"><span class="pre">StringTools</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Version.html">2.1.9. <code class="docutils literal"><span class="pre">Version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference-manual.html#indexes">2.2. Indexes</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">CodeReview</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../../reference-manual.html">2. API Documentation</a> &raquo;</li>
+      
+          <li><a href="../../../CodeReview.html">2.1. <code class="docutils literal"><span class="pre">CodeReview</span></code></a> &raquo;</li>
+      
+          <li><a href="../../GUI.html">2.1.4. <code class="docutils literal"><span class="pre">GUI</span></code></a> &raquo;</li>
+      
+          <li><a href="../DiffViewer.html">2.1.4.2. <code class="docutils literal"><span class="pre">DiffViewer</span></code></a> &raquo;</li>
+      
+    <li>2.1.4.2.1. <code class="docutils literal"><span class="pre">DiffWidget</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/api/CodeReview/GUI/DiffViewer/DiffWidget.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-CodeReview.GUI.DiffViewer.DiffWidget">
+<span id="diffwidget"></span><h1>2.1.4.2.1. <code class="xref py py-mod docutils literal"><span class="pre">DiffWidget</span></code><a class="headerlink" href="#module-CodeReview.GUI.DiffViewer.DiffWidget" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffView">
+<em class="property">class </em><code class="descclassname">CodeReview.GUI.DiffViewer.DiffWidget.</code><code class="descname">DiffView</code><span class="sig-paren">(</span><em>parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QSplitter</span></code></p>
+<p>Widget to show differences in side-by-side format.</p>
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffView.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffView.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffView.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffView.createHandle">
+<code class="descname">createHandle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffView.createHandle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffView.createHandle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffView.set_document_models">
+<code class="descname">set_document_models</code><span class="sig-paren">(</span><em>document_models</em>, <em>complete_mode=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffView.set_document_models"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffView.set_document_models" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffView.update_scroll_bar">
+<code class="descname">update_scroll_bar</code><span class="sig-paren">(</span><em>scroll_bar</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffView.update_scroll_bar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffView.update_scroll_bar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor">
+<em class="property">class </em><code class="descclassname">CodeReview.GUI.DiffViewer.DiffWidget.</code><code class="descname">DiffViewerCursor</code><span class="sig-paren">(</span><em>cursor</em>, <em>text_blocks</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffViewerCursor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.begin_block">
+<code class="descname">begin_block</code><span class="sig-paren">(</span><em>side</em>, <em>frame_type</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffViewerCursor.begin_block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.begin_block" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.end">
+<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffViewerCursor.end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.insert_text">
+<code class="descname">insert_text</code><span class="sig-paren">(</span><em>text</em>, <em>text_format</em>, <em>last_text_fragment</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffViewerCursor.insert_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.insert_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.y">
+<code class="descname">y</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffViewerCursor.y"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.y" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the top position of the current block.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.SplitterHandle">
+<em class="property">class </em><code class="descclassname">CodeReview.GUI.DiffViewer.DiffWidget.</code><code class="descname">SplitterHandle</code><span class="sig-paren">(</span><em>parent</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#SplitterHandle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.SplitterHandle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QSplitterHandle</span></code></p>
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.SplitterHandle.paintEvent">
+<code class="descname">paintEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#SplitterHandle.paintEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.SplitterHandle.paintEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.TextBlock">
+<em class="property">class </em><code class="descclassname">CodeReview.GUI.DiffViewer.DiffWidget.</code><code class="descname">TextBlock</code><span class="sig-paren">(</span><em>y_top</em>, <em>y_bottom</em>, <em>frame_type</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#TextBlock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.TextBlock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.TextBlocks">
+<em class="property">class </em><code class="descclassname">CodeReview.GUI.DiffViewer.DiffWidget.</code><code class="descname">TextBlocks</code><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#TextBlocks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.TextBlocks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a></p>
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.TextBlocks.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>y_top</em>, <em>y_bottom</em>, <em>frame_type</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#TextBlocks.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.TextBlocks.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.TextBlocks.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#TextBlocks.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.TextBlocks.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.TextBrowser">
+<em class="property">class </em><code class="descclassname">CodeReview.GUI.DiffViewer.DiffWidget.</code><code class="descname">TextBrowser</code><span class="sig-paren">(</span><em>parent</em>, <em>text_blocks</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#TextBrowser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.TextBrowser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QTextBrowser</span></code></p>
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.TextBrowser.paintEvent">
+<code class="descname">paintEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#TextBrowser.paintEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.TextBrowser.paintEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="CodeReview.GUI.DiffViewer.DiffWidget.get_monospaced_font">
+<code class="descclassname">CodeReview.GUI.DiffViewer.DiffWidget.</code><code class="descname">get_monospaced_font</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#get_monospaced_font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.get_monospaced_font" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="DiffWidgetConfig.html" class="btn btn-neutral float-right" title="2.1.4.2.2. DiffWidgetConfig" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../DiffViewer.html" class="btn btn-neutral" title="2.1.4.2. DiffViewer" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Fabrice Salvaire.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

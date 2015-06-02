@@ -1,0 +1,568 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CodeReview.Tools.Slice &mdash; CodeReview 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CodeReview 0.1.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../index.html" class="icon icon-home"> CodeReview
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">1.1. Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installation-from-source">1.3. Installation from Source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">2. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/CodeReview.html">2.1. <code class="docutils literal"><span class="pre">CodeReview</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Application.html">2.1.1. <code class="docutils literal"><span class="pre">Application</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Application/ApplicationBase.html">2.1.1.1. <code class="docutils literal"><span class="pre">ApplicationBase</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Config.html">2.1.2. <code class="docutils literal"><span class="pre">Config</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Config/Config.html">2.1.2.1. <code class="docutils literal"><span class="pre">Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Config/ConfigInstall.html">2.1.2.2. <code class="docutils literal"><span class="pre">ConfigInstall</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Config/Messages.html">2.1.2.3. <code class="docutils literal"><span class="pre">Messages</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Diff.html">2.1.3. <code class="docutils literal"><span class="pre">Diff</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Diff/RawTextDocument.html">2.1.3.1. <code class="docutils literal"><span class="pre">RawTextDocument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html">2.1.3.2. <code class="docutils literal"><span class="pre">RawTextDocumentDiff</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Diff/SyntaxHighlighter.html">2.1.3.3. <code class="docutils literal"><span class="pre">SyntaxHighlighter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Diff/TextDocumentDiffModel.html">2.1.3.4. <code class="docutils literal"><span class="pre">TextDocumentDiffModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Diff/TextDocumentModel.html">2.1.3.5. <code class="docutils literal"><span class="pre">TextDocumentModel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/GUI.html">2.1.4. <code class="docutils literal"><span class="pre">GUI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/GUI/Base.html">2.1.4.1. <code class="docutils literal"><span class="pre">Base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/GUI/DiffViewer.html">2.1.4.2. <code class="docutils literal"><span class="pre">DiffViewer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/GUI/Forms.html">2.1.4.3. <code class="docutils literal"><span class="pre">Forms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/GUI/LogBrowser.html">2.1.4.4. <code class="docutils literal"><span class="pre">LogBrowser</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/GUI/Widgets.html">2.1.4.5. <code class="docutils literal"><span class="pre">Widgets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/GUI/ui.html">2.1.4.6. <code class="docutils literal"><span class="pre">ui</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/Email.html">2.1.5.1. <code class="docutils literal"><span class="pre">Email</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/ExceptionHook.html">2.1.5.2. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/Logging.html">2.1.5.3. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Math/Functions.html">2.1.6.1. <code class="docutils literal"><span class="pre">Functions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Math/Interval.html">2.1.6.2. <code class="docutils literal"><span class="pre">Interval</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/PatienceDiff.html">2.1.7. <code class="docutils literal"><span class="pre">PatienceDiff</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/PatienceDiff/_patiencediff_py.html">2.1.7.1. <code class="docutils literal"><span class="pre">_patiencediff_py</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Tools.html">2.1.8. <code class="docutils literal"><span class="pre">Tools</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/BackTrace.html">2.1.8.1. <code class="docutils literal"><span class="pre">BackTrace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/EnumFactory.html">2.1.8.2. <code class="docutils literal"><span class="pre">EnumFactory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/IteratorTools.html">2.1.8.3. <code class="docutils literal"><span class="pre">IteratorTools</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/Path.html">2.1.8.4. <code class="docutils literal"><span class="pre">Path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/Platform.html">2.1.8.5. <code class="docutils literal"><span class="pre">Platform</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/ProgramOptions.html">2.1.8.6. <code class="docutils literal"><span class="pre">ProgramOptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/RevisionVersion.html">2.1.8.7. <code class="docutils literal"><span class="pre">RevisionVersion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/Singleton.html">2.1.8.8. <code class="docutils literal"><span class="pre">Singleton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/Slice.html">2.1.8.9. <code class="docutils literal"><span class="pre">Slice</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Tools/StringTools.html">2.1.8.10. <code class="docutils literal"><span class="pre">StringTools</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Version.html">2.1.9. <code class="docutils literal"><span class="pre">Version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference-manual.html#indexes">2.2. Indexes</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">CodeReview</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>CodeReview.Tools.Slice</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for CodeReview.Tools.Slice</h1><div class="highlight"><pre>
+<span class="c">####################################################################################################</span>
+<span class="c">#</span>
+<span class="c"># CodeReview - A Python/Qt Git GUI</span>
+<span class="c"># Copyright (C) 2015 Fabrice Salvaire</span>
+<span class="c">#</span>
+<span class="c"># This program is free software: you can redistribute it and/or modify it under the terms of the GNU</span>
+<span class="c"># General Public License as published by the Free Software Foundation, either version 3 of the</span>
+<span class="c"># License, or (at your option) any later version.</span>
+<span class="c">#</span>
+<span class="c"># This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without</span>
+<span class="c"># even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span>
+<span class="c"># General Public License for more details.</span>
+<span class="c">#</span>
+<span class="c"># You should have received a copy of the GNU General Public License along with this program.  If</span>
+<span class="c"># not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c">#</span>
+<span class="c">####################################################################################################</span>
+
+<span class="sd">&quot;&quot;&quot; This module implements interval arithmetic for flat [#f1]_ and line slice.</span>
+
+<span class="sd">.. [#f1] Flat indexes address characters in a file.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c">####################################################################################################</span>
+
+<div class="viewcode-block" id="Slice"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice">[docs]</a><span class="k">class</span> <span class="nc">Slice</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; This class implements a generic slice.</span>
+
+<span class="sd">    Like for a standard Python slice, a :class:`Slice` instance is built from two values or an</span>
+<span class="sd">    indexable object providing the start and stop value.  This class implements an array interface</span>
+<span class="sd">    (:func:`__getitem__` method) so as to pass a :class:`Slice` instance to the constructor.  Some</span>
+<span class="sd">    examples to build a slice::</span>
+
+<span class="sd">      slice1 = Slice(1, 2)</span>
+<span class="sd">      slice2 = Slice((1, 2))</span>
+<span class="sd">      slice2 = Slice([1, 2])</span>
+<span class="sd">      slice3 = Slice(slice2)</span>
+
+<span class="sd">    The interval limits of the slice can be accessed using the :attr:`start`, :attr:`stop`,</span>
+<span class="sd">    :attr:`lower` and :attr:`upper` read-only attributes, *upper* is defined as *stop* -1.</span>
+
+<span class="sd">    To cast an instance to a standard Python slice use the call::</span>
+
+<span class="sd">      slice()</span>
+
+<span class="sd">    To get the length of the slice defined by *stop* - *start* use the :func:`len` function.</span>
+
+<span class="sd">    A slice is not empty if it verifies the predicate *stop* &gt; *start*, this predicate can be tested</span>
+<span class="sd">    using a Boolean evaluation of the instance.</span>
+
+<span class="sd">    A slice can be scaled by a factor using::</span>
+
+<span class="sd">      slice / 2</span>
+<span class="sd">      slice /= 2</span>
+
+<span class="sd">    The union and the intersection of two slices can be computed using::</span>
+
+<span class="sd">      # union</span>
+<span class="sd">      slice1 |= slice2</span>
+<span class="sd">      slice = slice1 | slice2</span>
+
+<span class="sd">      # intersection</span>
+<span class="sd">      slice1 &amp;= slice2</span>
+<span class="sd">      slice = slice1 &amp; slice2</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># How to subclass slice ?</span>
+
+    <span class="c">###############################################</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+
+        <span class="n">array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_arguments</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">stop</span> <span class="o">&lt;</span> <span class="n">start</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;stop &lt; start&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span> <span class="o">=</span> <span class="n">stop</span>
+
+    <span class="c">###############################################</span>
+
+<div class="viewcode-block" id="Slice._check_arguments"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice._check_arguments">[docs]</a>    <span class="k">def</span> <span class="nf">_check_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Check the arguments provided to the constructor. &quot;&quot;&quot;</span>
+
+        <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">array</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">array</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span>
+
+        <span class="k">return</span> <span class="n">array</span>
+
+    <span class="c">###############################################</span>
+</div>
+<div class="viewcode-block" id="Slice.copy"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c"># Clone ?</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a copy of the slice. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span><span class="p">)</span>
+
+    <span class="c">###############################################</span>
+</div>
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Provide an array interface to the slice. &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span>
+        <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span>
+
+    <span class="c">###############################################</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Pretty-print a slice. &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">string_interval</span> <span class="o">=</span> <span class="s">&#39;[</span><span class="si">%u</span><span class="s">, </span><span class="si">%u</span><span class="s">]&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">string_interval</span> <span class="o">=</span> <span class="s">&#39;[]@</span><span class="si">%u</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">string_interval</span>
+
+    <span class="c">###############################################</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the length of the slice defined by stop - start. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span>
+
+    <span class="c">###############################################</span>
+
+    <span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test is the slice is not the empty. &quot;&quot;&quot;</span>
+
+        <span class="c"># None &gt; None = False</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span>
+
+    <span class="c">###############################################</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a standard Python slice. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="nb">slice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span><span class="p">)</span>
+
+    <span class="c">###############################################</span>
+
+<div class="viewcode-block" id="Slice._get_lower"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice._get_lower">[docs]</a>    <span class="k">def</span> <span class="nf">_get_lower</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the lower boundary. &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="c">###############################################</span>
+</div>
+<div class="viewcode-block" id="Slice._get_upper"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice._get_upper">[docs]</a>    <span class="k">def</span> <span class="nf">_get_upper</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the upper boundary. &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="c">###############################################</span>
+</div>
+    <span class="n">lower</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_lower</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s">&#39;Lower index&#39;</span><span class="p">)</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_upper</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s">&#39;Upper index&#39;</span><span class="p">)</span>
+
+    <span class="c">###############################################</span>
+
+<div class="viewcode-block" id="Slice._get_start"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice._get_start">[docs]</a>    <span class="k">def</span> <span class="nf">_get_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the start boundary. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span>
+
+    <span class="c">###############################################</span>
+</div>
+<div class="viewcode-block" id="Slice._get_stop"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice._get_stop">[docs]</a>    <span class="k">def</span> <span class="nf">_get_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the stop boundary. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span>
+
+    <span class="c">###############################################</span>
+</div>
+    <span class="n">start</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_start</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s">&#39;Start index&#39;</span><span class="p">)</span>
+    <span class="n">stop</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_stop</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s">&#39;Stop index&#39;</span><span class="p">)</span>
+
+    <span class="c">###############################################</span>
+
+<div class="viewcode-block" id="Slice.map"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice.map">[docs]</a>    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub_slice</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Map a sub-slice in the slice domain.</span>
+
+<span class="sd">        Return a new slice shifted by *start*.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="n">sub_slice</span><span class="o">.</span><span class="n">start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="n">sub_slice</span><span class="o">.</span><span class="n">stop</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span>
+
+        <span class="k">if</span> <span class="n">stop</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+
+    <span class="c">###############################################</span>
+</div>
+    <span class="k">def</span> <span class="nf">__ifloordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Divide start and stop by *scale*. &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start</span> <span class="o">//=</span> <span class="n">scale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span> <span class="o">//=</span> <span class="n">scale</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c">###############################################</span>
+
+    <span class="k">def</span> <span class="nf">__floordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return a new slice with start and stop divided by *scale*. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span> <span class="o">//</span> <span class="n">scale</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span> <span class="o">//</span> <span class="n">scale</span><span class="p">)</span>
+
+    <span class="c">###############################################</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Slice._intersection"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice._intersection">[docs]</a>    <span class="k">def</span> <span class="nf">_intersection</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Compute the intersection of two slices. &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">i1</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">i2</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="nb">max</span><span class="p">((</span><span class="n">i1</span><span class="o">.</span><span class="n">_start</span><span class="p">,</span> <span class="n">i2</span><span class="o">.</span><span class="n">_start</span><span class="p">)),</span>
+                    <span class="nb">min</span><span class="p">((</span><span class="n">i1</span><span class="o">.</span><span class="n">_stop</span><span class="p">,</span> <span class="n">i2</span><span class="o">.</span><span class="n">_stop</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
+</div>
+    <span class="k">def</span> <span class="nf">__and__</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the intersection of i1 and i2. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">i1</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="o">*</span><span class="n">i1</span><span class="o">.</span><span class="n">_intersection</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__iand__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Update the interval with its intersection with i2. &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+   <span class="c">###############################################</span>
+
+<div class="viewcode-block" id="Slice.intersect"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice.intersect">[docs]</a>    <span class="k">def</span> <span class="nf">intersect</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test if the interval intersects with i2. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">((</span><span class="n">i1</span><span class="o">.</span><span class="n">_start</span> <span class="o">&lt;</span> <span class="n">i2</span><span class="o">.</span><span class="n">_stop</span> <span class="ow">and</span> <span class="n">i2</span><span class="o">.</span><span class="n">_start</span> <span class="o">&lt;</span> <span class="n">i1</span><span class="o">.</span><span class="n">_stop</span><span class="p">)</span> <span class="ow">or</span>
+                <span class="p">(</span><span class="n">i2</span><span class="o">.</span><span class="n">_start</span> <span class="o">&lt;</span> <span class="n">i1</span><span class="o">.</span><span class="n">_stop</span> <span class="ow">and</span> <span class="n">i1</span><span class="o">.</span><span class="n">_start</span> <span class="o">&lt;</span> <span class="n">i2</span><span class="o">.</span><span class="n">_stop</span><span class="p">))</span>
+
+    <span class="c">###############################################</span>
+</div>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Slice._union"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice._union">[docs]</a>    <span class="k">def</span> <span class="nf">_union</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Compute the union of two slices. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="nb">min</span><span class="p">((</span><span class="n">i1</span><span class="o">.</span><span class="n">_start</span><span class="p">,</span> <span class="n">i2</span><span class="o">.</span><span class="n">_start</span><span class="p">)),</span>
+                <span class="nb">max</span><span class="p">((</span><span class="n">i1</span><span class="o">.</span><span class="n">_stop</span><span class="p">,</span> <span class="n">i2</span><span class="o">.</span><span class="n">_stop</span><span class="p">)))</span>
+</div>
+    <span class="k">def</span> <span class="nf">__or__</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Return the union of i1 and i2. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">i1</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="o">*</span><span class="n">i1</span><span class="o">.</span><span class="n">_union</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__ior__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Update the interval with its union with i2. &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c">###############################################</span>
+
+<div class="viewcode-block" id="Slice.is_included_in"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice.is_included_in">[docs]</a>    <span class="k">def</span> <span class="nf">is_included_in</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Test if the interval is included in i2. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">i2</span><span class="o">.</span><span class="n">_start</span> <span class="o">&lt;=</span> <span class="n">i1</span><span class="o">.</span><span class="n">_start</span> <span class="ow">and</span> <span class="n">i1</span><span class="o">.</span><span class="n">_stop</span> <span class="o">&lt;=</span> <span class="n">i2</span><span class="o">.</span><span class="n">_stop</span>
+
+<span class="c">####################################################################################################</span>
+</div></div>
+<div class="viewcode-block" id="FlatSlice"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.FlatSlice">[docs]</a><span class="k">class</span> <span class="nc">FlatSlice</span><span class="p">(</span><span class="n">Slice</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; This class defines a flat slice. &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+<span class="c">####################################################################################################</span>
+</div>
+<div class="viewcode-block" id="LineSlice"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.LineSlice">[docs]</a><span class="k">class</span> <span class="nc">LineSlice</span><span class="p">(</span><span class="n">Slice</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; This class defines a line slice. &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+<span class="c">####################################################################################################</span>
+<span class="c">#</span>
+<span class="c"># End</span>
+<span class="c">#</span>
+<span class="c">####################################################################################################</span></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Fabrice Salvaire.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../static/jquery.js"></script>
+      <script type="text/javascript" src="../../../static/underscore.js"></script>
+      <script type="text/javascript" src="../../../static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
