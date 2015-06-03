@@ -159,19 +159,25 @@ class LogBrowserMainWindow(MainWindowBase):
         index = index.row()
         commit_table_model = self._commit_table.model()
         patch = commit_table_model[index]
-        print(patch.status, patch.similarity, patch.additions, patch.deletions, patch.is_binary)
-        for hunk in patch.hunks:
-            print(hunk.old_start, hunk.old_lines, hunk.new_start, hunk.new_lines, hunk.lines)
 
-        repository = self._application._repository
-        texts = [repository[blob_id].data.decode('utf-8')
-                 for blob_id in (patch.old_id, patch.new_id)]
-        
-        # Fixme: multiple instance
-        from CodeReview.GUI.DiffViewer.DiffViewerMainWindow import DiffViewerMainWindow
-        self._diff_window = DiffViewerMainWindow()
-        self._diff_window.showMaximized()
-        self._diff_window.diff_documents(texts=texts, paths=(patch.old_file_path, patch.new_file_path))
+        if patch.status == 'M' and not patch.is_binary:
+            self._logger.info('revision {} '.format(index) + patch.new_file_path)
+            # print(patch.status, patch.similarity, patch.additions, patch.deletions, patch.is_binary)
+            # for hunk in patch.hunks:
+            #     print(hunk.old_start, hunk.old_lines, hunk.new_start, hunk.new_lines, hunk.lines)
+            
+            repository = self._application._repository
+            texts = [repository[blob_id].data.decode('utf-8')
+                     for blob_id in (patch.old_id, patch.new_id)]
+            
+            # Fixme: multiple instance
+            from CodeReview.GUI.DiffViewer.DiffViewerMainWindow import DiffViewerMainWindow
+            self._diff_window = DiffViewerMainWindow()
+            self._diff_window.showMaximized()
+            self._diff_window.diff_documents(texts=texts, paths=(patch.old_file_path, patch.new_file_path))
+        # else not implemented
+        # show highlighted added/removed document
+        # show image pdf ...
 
 ####################################################################################################
 #

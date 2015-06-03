@@ -16,7 +16,7 @@
 #
 ####################################################################################################
 
-""" This module defines styles for syntax highlighting. """
+"""This module defines styles for syntax highlighting."""
 
 ####################################################################################################
 
@@ -26,23 +26,24 @@ from pygments.styles import get_style_by_name
 ####################################################################################################
 
 def to_brush(colour):
-    """ Convert a Pygments colour rrggbb to a Qt brush compatible object. """
+    """Convert a Pygments colour rrggbb to a Qt brush compatible object."""
     return QtGui.QColor("#" + colour)
 
 ####################################################################################################
 
 class SyntaxHighlighterStyle(dict):
 
-    """ This class defines a QTextCharFormat for each type of tokens defined by Pygments.
+    """This class defines a QTextCharFormat for each type of tokens defined by Pygments.
 
     This class has a dictionnary interface and return a copy of the QTextCharFormat instance.
+
     """
 
     ##############################################
 
     def __init__(self, style='default'):
 
-        """ The parameter *style* select the Pygments style.
+        """The parameter *style* select the Pygments style.
 
         Pygments style attributes are:
 
@@ -76,11 +77,13 @@ class SyntaxHighlighterStyle(dict):
 
     def __getitem__(self, key):
 
-        """ Return a copy of the QTextCharFormat for the corresponding key. """
+        """Return a copy of the QTextCharFormat for the corresponding key."""
 
-        text_char_format = super(SyntaxHighlighterStyle, self).__getitem__(key)
-
-        return QtGui.QTextCharFormat(text_char_format)
+        if key is None:
+            return QtGui.QTextCharFormat() # Fixme: right ?
+        else:
+            text_char_format = super(SyntaxHighlighterStyle, self).__getitem__(key)
+            return QtGui.QTextCharFormat(text_char_format)
 
 ####################################################################################################
 #

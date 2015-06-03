@@ -20,7 +20,7 @@
 
 import logging
 
-from pygments.lexers import get_lexer_for_filename
+import pygments.lexers as pygments_lexers
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt
@@ -137,27 +137,34 @@ class DiffViewerMainWindow(MainWindowBase):
 
     ##############################################
 
-    def diff_documents(self, texts, paths, show=False):
+    def _get_lexer(self, path, text):
 
-        self._paths = paths
-        self._raw_text_documents = []
-        self._lexers = []
-        for text, path in zip(texts, self._paths):
-            raw_text_document = RawTextDocument(text)
-            self._raw_text_documents.append(raw_text_document)
-            lexer = get_lexer_for_filename(path, stripnl=False)
-            self._lexers.append(lexer)
-            
+        try:
+            # get_lexer_for_filename(filename)
+            return pygments_lexers.guess_lexer_for_filename(path, text, stripnl=False)
+        except pygments_lexers.ClassNotFound:
+            try:
+                return pygments_lexers.guess_lexer(text, stripnl=False)
+            except pygments_lexers.ClassNotFound:
+                return None
+
+    ##############################################
+
+    def diff_documents(self, texts, paths, show=False, highlight=False):
+
+        lexers = [self._get_lexer(path, text) for path, text in zip(paths, texts)]
+        raw_text_documents = [RawTextDocument(text) for text in texts]
+        
         self._highlighted_documents = []
         if not show:
-            file_diff = TwoWayFileDiffFactory().process(* self._raw_text_documents)
-            self._document_models = TextDocumentDiffModelFactory().process(file_diff)
-            self._highlighted_texts = []
-            for raw_text_document, lexer in zip(self._raw_text_documents, self._lexers):
-                highlighted_text = HighlightedText(raw_text_document, lexer)
-                self._highlighted_texts.append(highlighted_text)
-            for document_model, highlighted_text in zip(self._document_models, self._highlighted_texts):
-                highlighted_document = highlight_document(document_model, highlighted_text)
+            file_diff = TwoWayFileDiffFactory().process(* raw_text_documents)
+            document_models = TextDocumentDiffModelFactory().process(file_diff)
+            for raw_text_document, document_model, lexer in zip(raw_text_documents, document_models, lexers):
+                if lexer is not None and highlight:
+                    highlighted_text = HighlightedText(raw_text_document, lexer)
+                    highlighted_document = highlight_document(document_model, highlighted_text)
+                else:
+                    highlighted_document = document_model
                 self._highlighted_documents.append(highlighted_document)
         else: # Only show the document
             # Fixme: broken, chunk_type is ???
@@ -180,6 +187,7 @@ class DiffViewerMainWindow(MainWindowBase):
     def _set_document_models(self):
 
         complete_mode = self._complete_checkbox.checkState() == QtCore.Qt.Checked
+        # Fixme: right way ?
         self._diff_view.set_document_models(self._highlighted_documents, complete_mode)
 
 ####################################################################################################
