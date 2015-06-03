@@ -27,7 +27,7 @@
 #
 ####################################################################################################
 
-""" This module provides an API to compute and store the difference between two text documents.
+"""This module provides an API to compute and store the difference between two text documents.
 
 The difference between two documents is computed in therms of line difference, thus documents are
 split to a set of contiguous lines called *chunks*.  Chunks are implemented as document views.
@@ -50,6 +50,7 @@ To sumarize, a document difference is an ordered list of group differences.  Eac
 any combination of *removed*, *inserted* and *replaced* chunk type and delimited by two *equal*
 chunks.  And *replaced* chunks are made of any combination of *removed*, *inserted*, *replaced* and
 *equal* sub-chunks.  Moreover we can complete the structure with *equal_block* chunks.
+
 """
 
 ####################################################################################################
@@ -72,7 +73,7 @@ chunk_type = EnumFactory('TwoWayChunkTypes', ('equal', 'insert', 'delete', 'repl
 
 class TwoWayChunk(object):
 
-    """ This class implements a two way chunk.
+    """This class implements a two way chunk.
 
     Public attributes:
 
@@ -88,8 +89,8 @@ class TwoWayChunk(object):
 
     def __init__(self, chunk1, chunk2):
 
-        """ The parameters *chunk1* and *chunk2* are the corresponding document views for the
-        chunk.
+        """The parameters *chunk1* and *chunk2* are the corresponding document views for the chunk.
+
         """
 
         self.chunk1, self.chunk2 = chunk1, chunk2
@@ -103,42 +104,43 @@ class TwoWayChunk(object):
 ####################################################################################################
 
 class TwoWayChunkDelete(TwoWayChunk):
-    """ This class implements a two way delete flat chunk. """
+    """This class implements a two way delete flat chunk."""
     chunk_type = chunk_type.delete
 
 class TwoWayChunkEqual(TwoWayChunk):
-    """ This class implements a two way equal flat chunk. """
+    """This class implements a two way equal flat chunk."""
     chunk_type = chunk_type.equal
 
 class TwoWayChunkInsert(TwoWayChunk):
-    """ This class implements a two way insert flat chunk. """
+    """This class implements a two way insert flat chunk."""
     chunk_type = chunk_type.insert
 
 class TwoWayChunkReplace(TwoWayChunk):
-    """ This class implements a two way replace flat chunk. """
+    """This class implements a two way replace flat chunk."""
     chunk_type = chunk_type.replace
 
 ####################################################################################################
 
 class TwoWayLineChunkDelete(TwoWayChunk):
-    """ This class implements a two way delete line chunk. """
+    """This class implements a two way delete line chunk."""
     chunk_type = chunk_type.delete
 
 class TwoWayLineChunkEqual(TwoWayChunk):
-    """ This class implements a two way equal line chunk. """
+    """This class implements a two way equal line chunk."""
     chunk_type = chunk_type.equal
 
 class TwoWayLineChunkInsert(TwoWayChunk):
-    """ This class implements a two way insert line chunk. """
+    """This class implements a two way insert line chunk."""
     chunk_type = chunk_type.insert
 
 ####################################################################################################
 
 class TwoWayLineChunkReplace(TwoWayChunk):
 
-    """ This class implements the specific case of replace line chunk type.
+    """This class implements the specific case of replace line chunk type.
 
     The class implements the *iter* and *getitem* protocol to access the sub-chunks.
+
     """
 
     chunk_type = chunk_type.replace
@@ -161,7 +163,7 @@ class TwoWayLineChunkReplace(TwoWayChunk):
 
     def __iter__(self):
 
-        """ Return an iterator over the sub-chunks. """
+        """Return an iterator over the sub-chunks."""
 
         return iter(self._chunks)
 
@@ -169,7 +171,7 @@ class TwoWayLineChunkReplace(TwoWayChunk):
 
     def __getitem__(self, slice_):
 
-        """ Provide an array interface to the chunks. """
+        """Provide an array interface to the chunks."""
 
         return self._chunks[slice_]
 
@@ -177,7 +179,7 @@ class TwoWayLineChunkReplace(TwoWayChunk):
 
 class TwoWayGroup(object):
 
-    """ This class implements a group of contiguous line changes between two files.
+    """This class implements a group of contiguous line changes between two files.
 
     The class implements the *iter* and *getitem* protocol to access the groups.
 
@@ -188,6 +190,7 @@ class TwoWayGroup(object):
 
       :attr:`slice2`
         Line slice for document2
+
     """
 
     ##############################################
@@ -202,7 +205,7 @@ class TwoWayGroup(object):
 
     def __iter__(self):
 
-        """ Return an iterator over the chunks. """
+        """Return an iterator over the chunks."""
 
         return iter(self._chunks)
 
@@ -210,7 +213,7 @@ class TwoWayGroup(object):
 
     def __getitem__(self, slice_):
 
-        """ Provide an array interface to the chunks. """
+        """Provide an array interface to the chunks."""
 
         return self._chunks[slice_]
 
@@ -218,7 +221,7 @@ class TwoWayGroup(object):
 
     def append(self, chunk):
 
-        """ Append a chunk. """
+        """Append a chunk."""
 
         self._chunks.append(chunk)
         if self.slice1 is None:
@@ -232,13 +235,13 @@ class TwoWayGroup(object):
 
 class TwoWayFileDiff(object):
 
-    """ This class stores the difference between two files. """
+    """This class stores the difference between two files."""
 
     ##############################################
 
     def __init__(self, document1, document2):
 
-        """ The parameters *document1* and *document2* are two :class:`DiffViewer.RawTextDocument`
+        """The parameters *document1* and *document2* are two :class:`DiffViewer.RawTextDocument`
         documents.
 
         The class implements the *iter* and *getitem* protocol to access the groups.
@@ -248,6 +251,7 @@ class TwoWayFileDiff(object):
           :attr:`document1`
 
           :attr:`document2`
+
         """
 
         self.document1, self.document2 = document1, document2
@@ -257,7 +261,7 @@ class TwoWayFileDiff(object):
 
     def __iter__(self):
 
-        """ Return an iterator over the groups. """ 
+        """Return an iterator over the groups."""
 
         return iter(self._groups)
 
@@ -265,7 +269,7 @@ class TwoWayFileDiff(object):
 
     def __getitem__(self, slice_):
 
-        """ Provides an array interface. """
+        """Provides an array interface."""
 
         return self._groups[slice_]
 
@@ -273,7 +277,7 @@ class TwoWayFileDiff(object):
 
     def append(self, group):
 
-        """ Append a group. """
+        """Append a group."""
 
         self._groups.append(group)
 
@@ -281,7 +285,7 @@ class TwoWayFileDiff(object):
 
     def pretty_print(self):
 
-        """ Pretty-print the file differences. """
+        """Pretty-print the file differences."""
 
         def pretty_print_chunk(chunk, level=0):
             print(' '*level + chunk.__class__.__name__)
@@ -301,7 +305,7 @@ class TwoWayFileDiff(object):
 
     def print_unidiff(self):
 
-        """ Pretty-print the file differences using unidiff format. """
+        """Pretty-print the file differences using unidiff format."""
 
         def pretty_print_chunk_lines(chunk, prefix):
             print(prefix + prefix.join(chunk.lines()).rstrip())
@@ -330,32 +334,32 @@ class TwoWayFileDiff(object):
 
 class TwoWayFileDiffFactory(object):
 
-    """ This class implements a factory to compute file differences. """
+    """This class implements a factory to compute file differences."""
 
     ###############################################
 
     def process(self, document1, document2, number_of_lines_of_context=3):
 
-        """ Compute the difference between two :class:`RawTextDocument` documents and return a
-        :class:`TwoWayFileDiff` instance.  The parameter *number_of_lines_of_context* provides the
-        number of lines of context for the diff algorithm.
+        """Compute the difference between two :class:`RawTextDocument` documents using the Patience
+        algorithm and return a :class:`TwoWayFileDiff` instance.  The parameter
+        *number_of_lines_of_context* provides the number of lines of context for the diff algorithm.
+
         """
 
         file_diff = TwoWayFileDiff(document1, document2)
-
+        
         sequence_matcher = PatienceSequenceMatcher(None, document1.lines(), document2.lines())
         sequence_matcher_groups = sequence_matcher.get_grouped_opcodes(number_of_lines_of_context)
-
         for opcodes in sequence_matcher_groups:
             self._process_group(file_diff, opcodes)
-
+        
         return file_diff
 
     ###############################################
 
     def _process_group(self, file_diff, opcodes):
 
-        """ Process a group of contiguous line changes and append the group to the file diff. """
+        """Process a group of contiguous line changes and append the group to the file diff."""
 
         group = TwoWayGroup()
         for tag, start_1, stop_1, start_2, stop_2 in opcodes:
@@ -379,10 +383,11 @@ class TwoWayFileDiffFactory(object):
 
     def _process_replace_chunk(self, chunk1, chunk2):
 
-        """ Process a replace chunk type and return the sub-chunks.
+        """Process a replace chunk type and return the sub-chunks.
 
-        The text is encoded in UTF-32 before to be passed to the diff algorithm in order to have
+        The text is encoded in UTF-32 before to be passed to the Patience algorithm in order to have
         fixed character boundaries.
+
         """
 
         sub_chunks = []
@@ -403,7 +408,7 @@ class TwoWayFileDiffFactory(object):
             elif tag == 'replace':
                 sub_chunk_diff = TwoWayChunkReplace(sub_chunk1, sub_chunk2)
             sub_chunks.append(sub_chunk_diff)
-
+        
         return sub_chunks
 
 ####################################################################################################

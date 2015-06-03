@@ -18,6 +18,10 @@
 
 ####################################################################################################
 
+import logging
+
+####################################################################################################
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 ####################################################################################################
@@ -30,6 +34,10 @@ import CodeReview.GUI.DiffViewer.DiffWidgetConfig as DiffWidgetConfig
 
 ####################################################################################################
 
+_module_logger = logging.getLogger(__name__)
+
+####################################################################################################
+
 def get_monospaced_font():
 
     # Get the defaul font size
@@ -38,8 +46,8 @@ def get_monospaced_font():
     font = QtGui.QFont('', size)
     font.setFixedPitch(True)
     font.setStyleHint(QtGui.QFont.TypeWriter)
-
-    print('Monospaced Font familly is', QtGui.QFontInfo(font).family())
+    
+    _module_logger.info('Monospaced Font familly is ' + QtGui.QFontInfo(font).family())
     
     return font
 
@@ -96,7 +104,7 @@ class DiffViewerCursor(object):
 
     def y(self):
 
-        """ Return the top position of the current block. """
+        """Return the top position of the current block."""
 
         return self.cursor.block().layout().position().y()
 
@@ -140,7 +148,7 @@ class TextBrowser(QtWidgets.QTextBrowser):
     def __init__(self, parent, text_blocks):
 
         super(TextBrowser, self).__init__(parent)
-
+        
         self.text_blocks = text_blocks
         
         # Truncate long lines
@@ -151,11 +159,11 @@ class TextBrowser(QtWidgets.QTextBrowser):
     def paintEvent(self, event):
 
         width = self.width()
-
+        
         y = self.verticalScrollBar().value()
         y_min = event.rect().top()
         y_max = event.rect().bottom()
-
+        
         # print 'y, y_min, y_max:', y, y_min, y_max
         
         painter = QtGui.QPainter(self.viewport())
@@ -166,12 +174,12 @@ class TextBrowser(QtWidgets.QTextBrowser):
         painter.setPen(pen)
         
         for text_block in self.text_blocks:
-
+            
             # print text_block
-
+            
             if text_block.frame_type is None or text_block.frame_type == chunk_type.equal:
                 continue
-
+            
             # Shift text block in the viewport
             y_top = text_block.y_top - y -1
             y_bottom = text_block.y_bottom - y +1
@@ -186,9 +194,9 @@ class TextBrowser(QtWidgets.QTextBrowser):
             painter.setPen(text_block_style.line_colour)
             painter.drawLine(0, y_top, width, y_top)
             painter.drawLine(0, y_bottom - 1, width, y_bottom - 1)
-
+        
         del painter
-
+        
         # Paint text
         super(TextBrowser, self).paintEvent(event)
 
@@ -201,7 +209,7 @@ class SplitterHandle(QtWidgets.QSplitterHandle):
     def __init__(self, parent):
 
         super(SplitterHandle, self).__init__(QtCore.Qt.Horizontal, parent)
-
+        
         self.frame_width = QtWidgets.QApplication.style().pixelMetric(QtWidgets.QStyle.PM_DefaultFrameWidth)
 
     ##############################################
@@ -209,10 +217,10 @@ class SplitterHandle(QtWidgets.QSplitterHandle):
     def paintEvent(self, event):
 
         diff_view = self.parent()
-
+        
         painter = QtGui.QPainter(self)
         painter.setClipRect(event.rect())
-
+        
         width = self.width()
         height = self.height()
 
@@ -223,14 +231,14 @@ class SplitterHandle(QtWidgets.QSplitterHandle):
         pen = QtGui.QPen(QtCore.Qt.black)
         pen.setWidth(2)
         painter.setPen(pen)
-
+        
         # print 'Paint Handle:'
         for text_block_left, text_block_right in zip(* diff_view.text_blocks):
             # print text_block_left, text_block_right
-
+            
             if text_block_left.frame_type is None or text_block_left.frame_type == chunk_type.equal:
                 continue
-
+            
             y_top_left = text_block_left.y_top - y_left -1
             y_bottom_left = text_block_left.y_bottom - y_left +1
             y_top_right = text_block_right.y_top - y_right -1
@@ -242,27 +250,26 @@ class SplitterHandle(QtWidgets.QSplitterHandle):
                 break
             
             text_block_style = DiffWidgetConfig.text_block_styles[text_block_left.frame_type]
-
+            
             painter.setPen(QtCore.Qt.NoPen)
             painter.setBrush(text_block_style.background_colour)
             polygon = QtGui.QPolygon(4)
             polygon.setPoints(0, y_top_left, width, y_top_right, width, y_bottom_right, 0, y_bottom_left)
             painter.drawConvexPolygon(polygon)
-
+            
             painter.setPen(text_block_style.line_colour)
             painter.setRenderHints(QtGui.QPainter.Antialiasing, y_top_left != y_top_right)
             painter.drawLine(0, y_top_left, width, y_top_right)
             painter.setRenderHints(QtGui.QPainter.Antialiasing, y_bottom_left != y_bottom_right)
             painter.drawLine(0, y_bottom_left, width, y_bottom_right)
-
+        
         del painter
 
 ####################################################################################################
 
 class DiffView(QtWidgets.QSplitter):
 
-    """ Widget to show differences in side-by-side format.
-    """
+    """Widget to show differences in side-by-side format."""
 
     ##############################################
 
@@ -271,7 +278,7 @@ class DiffView(QtWidgets.QSplitter):
         super(DiffView, self).__init__(QtCore.Qt.Horizontal, parent)
         
         self.setHandleWidth(30)
-
+        
         self.monospaced_font = get_monospaced_font()
         self.syntax_highlighter_style = SyntaxHighlighterStyle()
         
@@ -279,14 +286,14 @@ class DiffView(QtWidgets.QSplitter):
         self.text_blocks = (TextBlocks(), TextBlocks())
         self.browsers = [TextBrowser(self, text_block) for text_block in self.text_blocks]
         self.cursors = [QtGui.QTextCursor(document) for document in self.documents]
-
+        
         for i, (browser, document) in enumerate(zip(self.browsers, self.documents)):
             document.setUndoRedoEnabled(False)
             document.setDefaultFont(self.monospaced_font)
             self.setCollapsible(i, False)
             browser.setDocument(document)
             self.addWidget(browser)
-
+        
         self.ignore_scroll_bar_update_signal = False
         for browser in self.browsers:
             for scroll_bar in browser.horizontalScrollBar(), browser.verticalScrollBar():
@@ -337,7 +344,7 @@ class DiffView(QtWidgets.QSplitter):
     def set_document_models(self, document_models, complete_mode=True):
 
         self.clear()
-
+        
         for side, document_model in enumerate(document_models):
             cursor = DiffViewerCursor(self.cursors[side], self.text_blocks[side])
             for text_block in document_model:

@@ -20,10 +20,12 @@
 
 def html_highlight_backtrace(backtrace_text):
 
+    """Highlight a backtrace using HTML tags."""
+    
     lines = [x for x in backtrace_text.split('\n') if x]
-
+    
     backtrace_highlighted = '<h3>' + lines[0] + '</h3>'
-
+    
     for line in lines[1:-1]:
         line = line.replace('<', '(')
         line = line.replace('>', ')')
@@ -32,9 +34,9 @@ def html_highlight_backtrace(backtrace_text):
         else:
             line = '<font color="black"><code>' + line + '</code>'
         backtrace_highlighted += line
-
+    
     backtrace_highlighted += '<font color="blue"><h4>' + lines[-1] + '</h4>'
-
+    
     return backtrace_highlighted
 
 ####################################################################################################

@@ -16,13 +16,11 @@
 #
 ####################################################################################################
 
-# Fixme: english ...
-
 """This module implements a basic document model.
 
 A document is made of text blocks that are themselves made of text fragments.  A text block
 corresponds to a chunck of lines and is decorated by a frame type.  A text fragment is a piece of
-text and is decorated by a frame type and a token type used for the syntax highlighting.
+text and is decorated by a frame type and a token type used for syntax highlighting.
 
 """
 
@@ -30,14 +28,15 @@ text and is decorated by a frame type and a token type used for the syntax highl
 
 class TextBlock(list):
 
-    """ This class implements a text block. """
+    """This class implements a text block."""
 
     ##############################################
 
     def __init__(self, line_slice, frame_type=None):
 
-        """ The parameter *line_slice* specifies the line slice corresponding to the text block and
-        the parameter *frame_type* the type of frame.
+        """The parameter *line_slice* specifies the line slice corresponding to the text block and the
+        parameter *frame_type* the type of frame.
+
         """
 
         super(TextBlock, self).__init__()
@@ -55,25 +54,26 @@ class TextBlock(list):
 
 class TextFragment(object):
 
-    """ This class implements a text fragment. """
+    """This class implements a text fragment."""
 
     ##############################################
 
     def __init__(self, text, frame_type=None, token_type=None):
 
-        """ The parameter *text* specifies the content, it must implement the Boolean
-        evaluation and the unicode conversion.
+        """The parameter *text* specifies the content, it must implement the Boolean evaluation and the
+        string conversion.
 
         The parameter *frame_type* specifies the type of frame and the parameter *token_type* the
         type of token for the syntax highlighting.
 
-        To test if an instance represents an non empty string use a Boolean evaluation like::
+        To test if an instance represents an non-empty string use a Boolean evaluation::
 
           bool(instance)
 
         To get the content string use::
 
           str(instance)
+
         """
 
         self.text = text
@@ -92,7 +92,7 @@ class TextFragment(object):
 
     def __str__(self):
 
-        """ Return the unicode text. """
+        """Return the unicode text."""
 
         return str(self.text)
 
@@ -100,16 +100,14 @@ class TextFragment(object):
 
     def __bool__(self):
 
-        # Fixme: english whether
-
-        """ Test if the text is an empty string. """
+        """Test whether the text is an empty string."""
 
         return bool(self.text)
 
 ####################################################################################################
 
 class TextDocumentModel(list):
-    """ This class implements an ordered list of text blocks. """
+    """This class implements an ordered list of text blocks."""
     pass
 
 ####################################################################################################

@@ -25,7 +25,7 @@
 #
 ####################################################################################################
 
-""" This modules provides facility to syntax highlight a text document. """
+""" This modules provides a facility to syntax highlight a text document. """
 
 ####################################################################################################
 

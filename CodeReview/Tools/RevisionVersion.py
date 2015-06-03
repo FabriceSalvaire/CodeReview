@@ -57,7 +57,7 @@ class RevisionVersion(object):
                 self.suffix = version['suffix']
             else:
                 self.suffix = None
-
+        
         else:
             raise NameError('parameter must be a string or a tuple')
         
@@ -115,7 +115,7 @@ class RevisionVersion(object):
         version_string = self.version_string()
         if self.suffix is not None:
             version_string += self.suffix
-
+        
         return version_string
 
     ##############################################

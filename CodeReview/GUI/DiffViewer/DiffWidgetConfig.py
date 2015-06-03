@@ -16,7 +16,7 @@
 #
 ####################################################################################################
 
-""" This modules defines colour styles used by the Diff Viewer for text blocks. """
+"""This modules defines colour styles used by the Diff Viewer for text blocks."""
 
 ####################################################################################################
 
@@ -30,7 +30,7 @@ from CodeReview.Diff.RawTextDocumentDiff import chunk_type
 
 class TextBlockStyle(object):
 
-    """ This class defines colour style for a text block.
+    """This class defines colour style for a text block.
 
     Public attributes:
 
@@ -39,6 +39,7 @@ class TextBlockStyle(object):
 
       :attr:`line_colour`
         top and bottom line colour of the text block
+
     """
 
     ##############################################
@@ -52,7 +53,7 @@ class TextBlockStyle(object):
 
 class TextBlockStyles(dict):
 
-    """ This class implements a dictionary of Text Block Styles indexed by the frame type. """
+    """This class implements a dictionary of Text Block Styles indexed by the frame type."""
 
     ##############################################
 

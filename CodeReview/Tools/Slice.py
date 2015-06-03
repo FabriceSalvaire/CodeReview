@@ -16,16 +16,17 @@
 #
 ####################################################################################################
 
-""" This module implements interval arithmetic for flat [#f1]_ and line slice.
+"""This module implements interval arithmetic for flat [#f1]_ and line slice.
 
 .. [#f1] Flat indexes address characters in a file.
+
 """
 
 ####################################################################################################
 
 class Slice(object):
 
-    """ This class implements a generic slice.
+    """This class implements a generic slice.
 
     Like for a standard Python slice, a :class:`Slice` instance is built from two values or an
     indexable object providing the start and stop value.  This class implements an array interface
@@ -51,8 +52,8 @@ class Slice(object):
 
     A slice can be scaled by a factor using::
 
-      slice / 2
-      slice /= 2
+      slice // 2
+      slice //= 2
 
     The union and the intersection of two slices can be computed using::
 
@@ -75,10 +76,10 @@ class Slice(object):
         array = self._check_arguments(args)
         start = array[0]
         stop = array[1]
-
+        
         if stop < start:
             raise ValueError('stop < start')
-
+        
         self._start = start
         self._stop = stop
 
@@ -86,7 +87,7 @@ class Slice(object):
 
     def _check_arguments(self, args):
 
-        """ Check the arguments provided to the constructor. """
+        """Check the arguments provided to the constructor."""
 
         size = len(args)
         if size == 1:
@@ -95,7 +96,7 @@ class Slice(object):
             array = args
         else:
             raise ValueError
-
+        
         return array
 
     ###############################################
@@ -104,7 +105,7 @@ class Slice(object):
 
         # Clone ?
 
-        """ Return a copy of the slice. """
+        """Return a copy of the slice."""
 
         return self.__class__(self._start, self._stop)
 
@@ -112,7 +113,7 @@ class Slice(object):
 
     def __getitem__(self, i):
 
-        """ Provide an array interface to the slice. """
+        """Provide an array interface to the slice."""
 
         if i == 0:
             return self._start
@@ -125,13 +126,13 @@ class Slice(object):
 
     def __repr__(self):
 
-        """ Pretty-print a slice. """
+        """Pretty-print a slice."""
 
         if bool(self):
             string_interval = '[%u, %u]' % (self.lower, self.upper)
         else:
             string_interval = '[]@%u' % (self.start)
-
+        
         return self.__class__.__name__ + ' ' + string_interval
 
     ###############################################
@@ -162,9 +163,10 @@ class Slice(object):
 
     ###############################################
 
-    def _get_lower(self):
+    @property
+    def lower(self):
 
-        """ Return the lower boundary. """
+        """ Lower boundary. """
 
         if bool(self):
             return self._start
@@ -173,9 +175,10 @@ class Slice(object):
 
     ###############################################
 
-    def _get_upper(self):
+    @property
+    def upper(self):
 
-        """ Return the upper boundary. """
+        """ Upper boundary. """
 
         if bool(self):
             return self._stop -1
@@ -184,37 +187,30 @@ class Slice(object):
 
     ###############################################
 
-    lower = property(_get_lower, None, None, 'Lower index')
-    upper = property(_get_upper, None, None, 'Upper index')
+    @property
+    def start(self):
 
-    ###############################################
-
-    def _get_start(self):
-
-        """ Return the start boundary. """
+        """ Start boundary. """
 
         return self._start
 
     ###############################################
 
-    def _get_stop(self):
+    @property
+    def stop(self):
 
-        """ Return the stop boundary. """
+        """Stop boundary."""
 
         return self._stop
 
     ###############################################
 
-    start = property(_get_start, None, None, 'Start index')
-    stop = property(_get_stop, None, None, 'Stop index')
-
-    ###############################################
-
     def map(self, sub_slice):
 
-        """ Map a sub-slice in the slice domain.
+        """Map a sub-slice in the slice domain.
 
         Return a new slice shifted by *start*.
+
         """
 
         start = sub_slice.start + self._start
@@ -222,25 +218,25 @@ class Slice(object):
 
         if stop > self._stop:
             raise IndexError
-
+        
         return self.__class__(start, stop)
 
     ###############################################
 
     def __ifloordiv__(self, scale):
 
-        """ Divide start and stop by *scale*. """
+        """Divide start and stop by *scale*."""
 
         self._start //= scale
         self._stop //= scale
-
+        
         return self
 
     ###############################################
 
     def __floordiv__(self, scale):
 
-        """ Return a new slice with start and stop divided by *scale*. """
+        """Return a new slice with start and stop divided by *scale*."""
 
         return self.__class__(self._start // scale, self._stop // scale)
 
@@ -249,7 +245,7 @@ class Slice(object):
     @staticmethod
     def _intersection(i1, i2):
 
-        """ Compute the intersection of two slices. """
+        """Compute the intersection of two slices."""
 
         if i1.intersect(i2):
             return (max((i1._start, i2._start)),
@@ -259,13 +255,13 @@ class Slice(object):
 
     def __and__(i1, i2):
 
-        """ Return the intersection of i1 and i2. """
+        """Return the intersection of i1 and i2."""
 
         return i1.__class__(*i1._intersection(i1, i2))
 
     def __iand__(self, i2):
 
-        """ Update the interval with its intersection with i2. """
+        """Update the interval with its intersection with i2."""
 
         self._start, self._stop = self._intersection(self, i2)
         return self
@@ -274,7 +270,7 @@ class Slice(object):
 
     def intersect(i1, i2):
 
-        """ Test if the interval intersects with i2. """
+        """Test if the interval intersects with i2."""
 
         return ((i1._start < i2._stop and i2._start < i1._stop) or
                 (i2._start < i1._stop and i1._start < i2._stop))
@@ -284,20 +280,20 @@ class Slice(object):
     @staticmethod
     def _union(i1, i2):
 
-        """ Compute the union of two slices. """
+        """Compute the union of two slices."""
 
         return (min((i1._start, i2._start)),
                 max((i1._stop, i2._stop)))
 
     def __or__(i1, i2):
 
-        """ Return the union of i1 and i2. """
+        """Return the union of i1 and i2."""
 
         return i1.__class__(*i1._union(i1, i2))
 
     def __ior__(self, i2):
 
-        """ Update the interval with its union with i2. """
+        """Update the interval with its union with i2."""
 
         self._start, self._stop = self._union(self, i2)
         return self
@@ -306,20 +302,20 @@ class Slice(object):
 
     def is_included_in(i1, i2):
 
-        """ Test if the interval is included in i2. """
+        """Test if the interval is included in i2."""
 
         return i2._start <= i1._start and i1._stop <= i2._stop
 
 ####################################################################################################
 
 class FlatSlice(Slice):
-    """ This class defines a flat slice. """
+    """This class defines a flat slice."""
     pass
 
 ####################################################################################################
 
 class LineSlice(Slice):
-    """ This class defines a line slice. """
+    """This class defines a line slice."""
     pass
 
 ####################################################################################################

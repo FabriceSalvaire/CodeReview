@@ -16,13 +16,14 @@
 #
 ####################################################################################################
 
-""" This module provides a document model for the Diff Viewer.
+"""This module provides a document model for the Diff Viewer.
 
 A document is made of text blocks that are themselves made of text fragments.  A text block
 corresponds to a chunck of lines and is decorated by a frame type corresponding to the type of
 chunck.  A text fragment is a piece of text and is decorated by a frame type and a token type used
 for the syntax highlighting.  The frame type is used for replace chunck type to show the inner-line
 difference.
+
 """
 
 ####################################################################################################
@@ -35,19 +36,20 @@ from CodeReview.Tools.Slice import LineSlice
 
 class TextBlockDiff(TextBlock):
 
-    """ This class implements a text block with a link to the other side. """
+    """This class implements a text block with a link to the other side."""
 
     ##############################################
 
     def __init__(self, line_slice, frame_type=None, other_side=None):
 
-        """ The parameter *line_slice* specifies the line slice corresponding to the text block and
-        the parameter *frame_type* the type of frame.  The parameter *other_side* specifies the
+        """The parameter *line_slice* specifies the line slice corresponding to the text block and the
+        parameter *frame_type* the type of frame.  The parameter *other_side* specifies the
         corresponding text block of the second document.
 
         Public Attributes:
 
           :attr:`other_side`
+
         """
 
         super(TextBlockDiff, self).__init__(line_slice, frame_type)
@@ -58,7 +60,7 @@ class TextBlockDiff(TextBlock):
 
     def copy(self):
 
-        """ Return a copy of the instance. """
+        """Return a copy of the instance."""
 
         return self.__class__(self.line_slice, self.frame_type, self.other_side)
 
@@ -66,7 +68,7 @@ class TextBlockDiff(TextBlock):
 
     def link_other_side(self, other_side):
 
-        """ Link to the other side. """
+        """Link to the other side."""
 
         self.other_side = other_side
 
@@ -78,10 +80,11 @@ class TextDocumentDiffModelFactory(object):
 
     def process(self, file_diff):
 
-        """ Build two :class:`DiffViewer.TextDocumentModel` instances from a class
+        """Build two :class:`DiffViewer.TextDocumentModel` instances from a class
         :class:`DiffViewer.RawTextDocumentDiff` instance.
 
         Return the 2-tuple mades of the document models.
+
         """
 
         document1 = file_diff.document1
@@ -170,9 +173,10 @@ class TextDocumentDiffModelFactory(object):
 
 def highlight_document(document_model, highlighted_text):
 
-    """ Merge a Diff document model and highlighted counter part.
+    """Merge a Diff document model and highlighted counter part.
 
     Return a new document model.
+
     """
 
     raw_text_document = highlighted_text.raw_text_document
