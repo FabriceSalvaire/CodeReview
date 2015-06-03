@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>2.1.4.2.3. DiffWidget &mdash; CodeReview 0.1.0 documentation</title>
+  <title>2.1.4.2.2. DiffViewerMainWindow &mdash; CodeReview 0.1.0 documentation</title>
   
 
   
@@ -32,8 +32,8 @@
   
     <link rel="top" title="CodeReview 0.1.0 documentation" href="../../../../index.html"/>
         <link rel="up" title="2.1.4.2. DiffViewer" href="../DiffViewer.html"/>
-        <link rel="next" title="2.1.4.2.4. DiffWidgetConfig" href="DiffWidgetConfig.html"/>
-        <link rel="prev" title="2.1.4.2.2. DiffViewerMainWindow" href="DiffViewerMainWindow.html"/> 
+        <link rel="next" title="2.1.4.2.3. DiffWidget" href="DiffWidget.html"/>
+        <link rel="prev" title="2.1.4.2.1. DiffViewerApplication" href="DiffViewerApplication.html"/> 
 
   
   <script src="static/js/modernizr.min.js"></script>
@@ -174,11 +174,11 @@
       
           <li><a href="../DiffViewer.html">2.1.4.2. <code class="docutils literal"><span class="pre">DiffViewer</span></code></a> &raquo;</li>
       
-    <li>2.1.4.2.3. <code class="docutils literal"><span class="pre">DiffWidget</span></code></li>
+    <li>2.1.4.2.2. <code class="docutils literal"><span class="pre">DiffViewerMainWindow</span></code></li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../../../_sources/api/CodeReview/GUI/DiffViewer/DiffWidget.txt" rel="nofollow"> View page source</a>
+            <a href="../../../../_sources/api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -187,110 +187,79 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="module-CodeReview.GUI.DiffViewer.DiffWidget">
-<span id="diffwidget"></span><h1>2.1.4.2.3. <code class="xref py py-mod docutils literal"><span class="pre">DiffWidget</span></code><a class="headerlink" href="#module-CodeReview.GUI.DiffViewer.DiffWidget" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-CodeReview.GUI.DiffViewer.DiffViewerMainWindow">
+<span id="diffviewermainwindow"></span><h1>2.1.4.2.2. <code class="xref py py-mod docutils literal"><span class="pre">DiffViewerMainWindow</span></code><a class="headerlink" href="#module-CodeReview.GUI.DiffViewer.DiffViewerMainWindow" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffView">
-<em class="property">class </em><code class="descclassname">CodeReview.GUI.DiffViewer.DiffWidget.</code><code class="descname">DiffView</code><span class="sig-paren">(</span><em>parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QSplitter</span></code></p>
-<p>Widget to show differences in side-by-side format.</p>
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow">
+<em class="property">class </em><code class="descclassname">CodeReview.GUI.DiffViewer.DiffViewerMainWindow.</code><code class="descname">DiffViewerMainWindow</code><span class="sig-paren">(</span><em>parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#DiffViewerMainWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../Base/MainWindowBase.html#CodeReview.GUI.Base.MainWindowBase.MainWindowBase" title="CodeReview.GUI.Base.MainWindowBase.MainWindowBase"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.GUI.Base.MainWindowBase.MainWindowBase</span></code></a></p>
 <dl class="method">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffView.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffView.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffView.clear" title="Permalink to this definition">¶</a></dt>
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._create_actions">
+<code class="descname">_create_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#DiffViewerMainWindow._create_actions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._create_actions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffView.createHandle">
-<code class="descname">createHandle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffView.createHandle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffView.createHandle" title="Permalink to this definition">¶</a></dt>
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._create_toolbar">
+<code class="descname">_create_toolbar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#DiffViewerMainWindow._create_toolbar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._create_toolbar" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffView.set_document_models">
-<code class="descname">set_document_models</code><span class="sig-paren">(</span><em>document_models</em>, <em>complete_mode=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffView.set_document_models"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffView.set_document_models" title="Permalink to this definition">¶</a></dt>
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._get_lexer">
+<code class="descname">_get_lexer</code><span class="sig-paren">(</span><em>path</em>, <em>text</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#DiffViewerMainWindow._get_lexer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._get_lexer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffView.update_scroll_bar">
-<code class="descname">update_scroll_bar</code><span class="sig-paren">(</span><em>scroll_bar</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffView.update_scroll_bar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffView.update_scroll_bar" title="Permalink to this definition">¶</a></dt>
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._init_ui">
+<code class="descname">_init_ui</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#DiffViewerMainWindow._init_ui"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._init_ui" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._logger">
+<code class="descname">_logger</code><em class="property"> = &lt;logging.Logger object&gt;</em><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._next_file">
+<code class="descname">_next_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#DiffViewerMainWindow._next_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._next_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._previous_file">
+<code class="descname">_previous_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#DiffViewerMainWindow._previous_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._previous_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._set_document_models">
+<code class="descname">_set_document_models</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#DiffViewerMainWindow._set_document_models"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._set_document_models" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow.diff_documents">
+<code class="descname">diff_documents</code><span class="sig-paren">(</span><em>texts</em>, <em>paths</em>, <em>show=False</em>, <em>highlight=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#DiffViewerMainWindow.diff_documents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow.diff_documents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow.init_menu">
+<code class="descname">init_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#DiffViewerMainWindow.init_menu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow.init_menu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow.open_files">
+<code class="descname">open_files</code><span class="sig-paren">(</span><em>file1</em>, <em>file2</em>, <em>show=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#DiffViewerMainWindow.open_files"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow.open_files" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow.show_message">
+<code class="descname">show_message</code><span class="sig-paren">(</span><em>message=None</em>, <em>timeout=0</em>, <em>warn=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#DiffViewerMainWindow.show_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow.show_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hides the normal status indications and displays the given message for the specified
+number of milli-seconds (timeout). If timeout is 0 (default), the message remains displayed
+until the clearMessage() slot is called or until the showMessage() slot is called again to
+change the message.</p>
+<p>Note that showMessage() is called to show temporary explanations of tool tip texts, so
+passing a timeout of 0 is not sufficient to display a permanent message.</p>
 </dd></dl>
 
-<dl class="class">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor">
-<em class="property">class </em><code class="descclassname">CodeReview.GUI.DiffViewer.DiffWidget.</code><code class="descname">DiffViewerCursor</code><span class="sig-paren">(</span><em>cursor</em>, <em>text_blocks</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffViewerCursor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<dl class="method">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.begin_block">
-<code class="descname">begin_block</code><span class="sig-paren">(</span><em>side</em>, <em>frame_type</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffViewerCursor.begin_block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.begin_block" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.end">
-<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffViewerCursor.end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.end" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.insert_text">
-<code class="descname">insert_text</code><span class="sig-paren">(</span><em>text</em>, <em>text_format</em>, <em>last_text_fragment</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffViewerCursor.insert_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.insert_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.y">
-<code class="descname">y</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#DiffViewerCursor.y"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.y" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the top position of the current block.</p>
 </dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.SplitterHandle">
-<em class="property">class </em><code class="descclassname">CodeReview.GUI.DiffViewer.DiffWidget.</code><code class="descname">SplitterHandle</code><span class="sig-paren">(</span><em>parent</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#SplitterHandle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.SplitterHandle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QSplitterHandle</span></code></p>
-<dl class="method">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.SplitterHandle.paintEvent">
-<code class="descname">paintEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#SplitterHandle.paintEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.SplitterHandle.paintEvent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.TextBlock">
-<em class="property">class </em><code class="descclassname">CodeReview.GUI.DiffViewer.DiffWidget.</code><code class="descname">TextBlock</code><span class="sig-paren">(</span><em>y_top</em>, <em>y_bottom</em>, <em>frame_type</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#TextBlock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.TextBlock" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-</dd></dl>
-
-<dl class="class">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.TextBlocks">
-<em class="property">class </em><code class="descclassname">CodeReview.GUI.DiffViewer.DiffWidget.</code><code class="descname">TextBlocks</code><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#TextBlocks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.TextBlocks" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a></p>
-<dl class="method">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.TextBlocks.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>y_top</em>, <em>y_bottom</em>, <em>frame_type</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#TextBlocks.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.TextBlocks.add" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.TextBlocks.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#TextBlocks.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.TextBlocks.clear" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.TextBrowser">
-<em class="property">class </em><code class="descclassname">CodeReview.GUI.DiffViewer.DiffWidget.</code><code class="descname">TextBrowser</code><span class="sig-paren">(</span><em>parent</em>, <em>text_blocks</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#TextBrowser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.TextBrowser" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QTextBrowser</span></code></p>
-<dl class="method">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.TextBrowser.paintEvent">
-<code class="descname">paintEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#TextBrowser.paintEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.TextBrowser.paintEvent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="CodeReview.GUI.DiffViewer.DiffWidget.get_monospaced_font">
-<code class="descclassname">CodeReview.GUI.DiffViewer.DiffWidget.</code><code class="descname">get_monospaced_font</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffWidget.html#get_monospaced_font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffWidget.get_monospaced_font" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </div>
 
@@ -300,10 +269,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="DiffWidgetConfig.html" class="btn btn-neutral float-right" title="2.1.4.2.4. DiffWidgetConfig" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="DiffWidget.html" class="btn btn-neutral float-right" title="2.1.4.2.3. DiffWidget" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="DiffViewerMainWindow.html" class="btn btn-neutral" title="2.1.4.2.2. DiffViewerMainWindow" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="DiffViewerApplication.html" class="btn btn-neutral" title="2.1.4.2.1. DiffViewerApplication" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

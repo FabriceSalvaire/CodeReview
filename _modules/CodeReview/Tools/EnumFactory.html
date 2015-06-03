@@ -244,7 +244,7 @@
 
 <span class="c">####################################################################################################</span>
 
-<div class="viewcode-block" id="ReadOnlyMetaClass"><a class="viewcode-back" href="../../../api/CodeReview/Tools/EnumFactory.html#CodeReview.Tools.EnumFactory.ReadOnlyMetaClass">[docs]</a><span class="k">class</span> <span class="nc">ReadOnlyMetaClass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+<div class="viewcode-block" id="ReadOnlyMetaClass"><a class="viewcode-back" href="../../../api/CodeReview/Tools/EnumFactory.html#CodeReview.Diff.RawTextDocumentDiff.ReadOnlyMetaClass">[docs]</a><span class="k">class</span> <span class="nc">ReadOnlyMetaClass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot; This meta class implements a class where attributes are read only. &quot;&quot;&quot;</span>
 
@@ -256,7 +256,7 @@
 
 <span class="c">####################################################################################################</span>
 </div>
-<div class="viewcode-block" id="EnumMetaClass"><a class="viewcode-back" href="../../../api/CodeReview/Tools/EnumFactory.html#CodeReview.Tools.EnumFactory.EnumMetaClass">[docs]</a><span class="k">class</span> <span class="nc">EnumMetaClass</span><span class="p">(</span><span class="n">ReadOnlyMetaClass</span><span class="p">):</span>
+<div class="viewcode-block" id="EnumMetaClass"><a class="viewcode-back" href="../../../api/CodeReview/Tools/EnumFactory.html#CodeReview.Diff.RawTextDocumentDiff.EnumMetaClass">[docs]</a><span class="k">class</span> <span class="nc">EnumMetaClass</span><span class="p">(</span><span class="n">ReadOnlyMetaClass</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot; This meta class implements the :func:`len` protocol. &quot;&quot;&quot;</span>
 
@@ -268,7 +268,7 @@
 
 <span class="c">####################################################################################################</span>
 </div>
-<div class="viewcode-block" id="ExplicitEnumMetaClass"><a class="viewcode-back" href="../../../api/CodeReview/Tools/EnumFactory.html#CodeReview.Tools.EnumFactory.ExplicitEnumMetaClass">[docs]</a><span class="k">class</span> <span class="nc">ExplicitEnumMetaClass</span><span class="p">(</span><span class="n">ReadOnlyMetaClass</span><span class="p">):</span>
+<div class="viewcode-block" id="ExplicitEnumMetaClass"><a class="viewcode-back" href="../../../api/CodeReview/Tools/EnumFactory.html#CodeReview.Diff.RawTextDocumentDiff.ExplicitEnumMetaClass">[docs]</a><span class="k">class</span> <span class="nc">ExplicitEnumMetaClass</span><span class="p">(</span><span class="n">ReadOnlyMetaClass</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot; This meta class implements the operator ``in``. &quot;&quot;&quot;</span>
 
@@ -280,7 +280,7 @@
 
 <span class="c">####################################################################################################</span>
 </div>
-<div class="viewcode-block" id="EnumConstant"><a class="viewcode-back" href="../../../api/CodeReview/Tools/EnumFactory.html#CodeReview.Tools.EnumFactory.EnumConstant">[docs]</a><span class="k">class</span> <span class="nc">EnumConstant</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="EnumConstant"><a class="viewcode-back" href="../../../api/CodeReview/Tools/EnumFactory.html#CodeReview.Diff.RawTextDocumentDiff.EnumConstant">[docs]</a><span class="k">class</span> <span class="nc">EnumConstant</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot; Define an Enum Constant &quot;&quot;&quot;</span>
 
@@ -317,7 +317,7 @@
 
 <span class="c">####################################################################################################</span>
 </div>
-<div class="viewcode-block" id="EnumFactory"><a class="viewcode-back" href="../../../api/CodeReview/Tools/EnumFactory.html#CodeReview.Tools.EnumFactory.EnumFactory">[docs]</a><span class="k">def</span> <span class="nf">EnumFactory</span><span class="p">(</span><span class="n">enum_name</span><span class="p">,</span> <span class="n">enum_tuple</span><span class="p">):</span>
+<div class="viewcode-block" id="EnumFactory"><a class="viewcode-back" href="../../../api/CodeReview/Tools/EnumFactory.html#CodeReview.Diff.RawTextDocumentDiff.EnumFactory">[docs]</a><span class="k">def</span> <span class="nf">EnumFactory</span><span class="p">(</span><span class="n">enum_name</span><span class="p">,</span> <span class="n">enum_tuple</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot; Return an :class:`EnumMetaClass` instance, where *enum_name* is the class name and</span>
 <span class="sd">    *enum_tuple* is an iterable of constant&#39;s names.</span>
@@ -327,12 +327,12 @@
     <span class="n">obj_dict</span><span class="p">[</span><span class="s">&#39;_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">enum_tuple</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">value</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">enum_tuple</span><span class="p">):</span>
         <span class="n">obj_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">EnumConstant</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-
+    
     <span class="k">return</span> <span class="n">EnumMetaClass</span><span class="p">(</span><span class="n">enum_name</span><span class="p">,</span> <span class="p">(),</span> <span class="n">obj_dict</span><span class="p">)</span>
 
 <span class="c">####################################################################################################</span>
 </div>
-<div class="viewcode-block" id="ExplicitEnumFactory"><a class="viewcode-back" href="../../../api/CodeReview/Tools/EnumFactory.html#CodeReview.Tools.EnumFactory.ExplicitEnumFactory">[docs]</a><span class="k">def</span> <span class="nf">ExplicitEnumFactory</span><span class="p">(</span><span class="n">enum_name</span><span class="p">,</span> <span class="n">enum_dict</span><span class="p">):</span>
+<div class="viewcode-block" id="ExplicitEnumFactory"><a class="viewcode-back" href="../../../api/CodeReview/Tools/EnumFactory.html#CodeReview.Diff.RawTextDocumentDiff.ExplicitEnumFactory">[docs]</a><span class="k">def</span> <span class="nf">ExplicitEnumFactory</span><span class="p">(</span><span class="n">enum_name</span><span class="p">,</span> <span class="n">enum_dict</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot; Return an :class:`ExplicitEnumMetaClass` instance, where *enum_name* is the class name and</span>
 <span class="sd">    *enum_dict* is a dict of constant&#39;s names and their values.</span>
@@ -342,7 +342,7 @@
     <span class="n">obj_dict</span><span class="p">[</span><span class="s">&#39;constants&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">enum_dict</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">enum_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">obj_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">EnumConstant</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-
+    
     <span class="k">return</span> <span class="n">ExplicitEnumMetaClass</span><span class="p">(</span><span class="n">enum_name</span><span class="p">,</span> <span class="p">(),</span> <span class="n">obj_dict</span><span class="p">)</span>
 
 <span class="c">####################################################################################################</span>

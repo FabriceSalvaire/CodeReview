@@ -203,20 +203,33 @@
 
 <span class="c">####################################################################################################</span>
 
+<span class="kn">from</span> <span class="nn">CodeReview.Tools.EnumFactory</span> <span class="kn">import</span> <span class="n">EnumFactory</span>
+
+<span class="c">####################################################################################################</span>
+
 <div class="viewcode-block" id="CommitTableModel"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/Widgets/CommitTableModel.html#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel">[docs]</a><span class="k">class</span> <span class="nc">CommitTableModel</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QAbstractTableModel</span><span class="p">):</span>
+
+    <span class="n">column_enum</span> <span class="o">=</span> <span class="n">EnumFactory</span><span class="p">(</span><span class="s">&#39;ColumnEnum&#39;</span><span class="p">,</span> <span class="p">(</span>
+        <span class="s">&#39;modification&#39;</span><span class="p">,</span>
+        <span class="s">&#39;old_path&#39;</span><span class="p">,</span>
+        <span class="s">&#39;new_path&#39;</span><span class="p">,</span>
+        <span class="s">&#39;similarity&#39;</span><span class="p">,</span>
+        <span class="p">))</span>
 
     <span class="c">##############################################</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">CommitTableModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
-
+        
+        <span class="c"># Fixme: enum</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_column_names</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s">&#39;Modification&#39;</span><span class="p">,</span>
             <span class="s">&#39;Old Path&#39;</span><span class="p">,</span>
             <span class="s">&#39;New Path&#39;</span><span class="p">,</span>
-            <span class="s">&#39;Modification&#39;</span><span class="p">,</span>
+            <span class="s">&#39;Similarity&#39;</span><span class="p">,</span>
         <span class="p">)</span>
-
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span> <span class="o">=</span> <span class="n">repository</span>
         
         <span class="bp">self</span><span class="o">.</span><span class="n">_patch_datas</span> <span class="o">=</span> <span class="p">[]</span>
@@ -228,25 +241,35 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_patch_datas</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_number_of_patches</span> <span class="o">=</span> <span class="mi">0</span>
-
+        
         <span class="c"># GIT_DIFF_PATIENCE</span>
         <span class="n">diff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">commit1</span><span class="p">,</span> <span class="n">commit2</span><span class="p">)</span>
         <span class="n">diff</span><span class="o">.</span><span class="n">find_similar</span><span class="p">()</span>
         <span class="c"># flags, rename_threshold, copy_threshold, rename_from_rewrite_threshold, break_rewrite_threshold, rename_limit</span>
         <span class="k">for</span> <span class="n">patch</span> <span class="ow">in</span> <span class="n">diff</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">patch</span><span class="o">.</span><span class="n">new_file_path</span> <span class="o">!=</span> <span class="n">patch</span><span class="o">.</span><span class="n">old_file_path</span><span class="p">:</span>
-                <span class="n">new_file_path</span> <span class="o">=</span> <span class="n">patch</span><span class="o">.</span><span class="n">new_file_path</span> <span class="o">+</span> <span class="s">&#39; {} %&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">patch</span><span class="o">.</span><span class="n">similarity</span><span class="p">)</span>
+                <span class="n">new_file_path</span> <span class="o">=</span> <span class="n">patch</span><span class="o">.</span><span class="n">new_file_path</span>
+                <span class="n">similarity</span> <span class="o">=</span> <span class="s">&#39; {} %&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">patch</span><span class="o">.</span><span class="n">similarity</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">new_file_path</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-            <span class="n">patch_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">patch</span><span class="o">.</span><span class="n">old_file_path</span><span class="p">,</span> <span class="n">new_file_path</span><span class="p">,</span> <span class="n">patch</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">patch</span><span class="p">)</span>
+                <span class="n">similarity</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+            <span class="n">patch_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">patch</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">patch</span><span class="o">.</span><span class="n">old_file_path</span><span class="p">,</span> <span class="n">new_file_path</span><span class="p">,</span> <span class="n">similarity</span><span class="p">,</span> <span class="n">patch</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_patch_datas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">patch_data</span><span class="p">)</span>
-
+            
         <span class="bp">self</span><span class="o">.</span><span class="n">_number_of_patches</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
-
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">modelReset</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
 
     <span class="c">##############################################</span>
 </div>
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c"># Fixme:</span>
+        <span class="k">for</span> <span class="n">patch_data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_patch_datas</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">patch_data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c">##############################################</span>
+
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_patch_datas</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -262,8 +285,8 @@
         
         <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QVariant</span><span class="p">(</span><span class="n">patch</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
-        <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ForegroundRole</span> <span class="ow">and</span> <span class="n">column</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">modification</span> <span class="o">=</span> <span class="n">patch</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="c"># Fxme: enumerate</span>
+        <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">ForegroundRole</span> <span class="ow">and</span> <span class="n">column</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_enum</span><span class="o">.</span><span class="n">old_path</span><span class="p">:</span>
+            <span class="n">modification</span> <span class="o">=</span> <span class="n">patch</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_enum</span><span class="o">.</span><span class="n">modification</span><span class="p">)]</span>
             <span class="k">if</span> <span class="n">modification</span> <span class="o">==</span> <span class="s">&#39;D&#39;</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">modification</span> <span class="o">==</span> <span class="s">&#39;M&#39;</span><span class="p">:</span>

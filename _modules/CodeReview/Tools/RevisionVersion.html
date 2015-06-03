@@ -237,7 +237,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">suffix</span> <span class="o">=</span> <span class="n">version</span><span class="p">[</span><span class="s">&#39;suffix&#39;</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">suffix</span> <span class="o">=</span> <span class="bp">None</span>
-
+        
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s">&#39;parameter must be a string or a tuple&#39;</span><span class="p">)</span>
         
@@ -295,7 +295,7 @@
         <span class="n">version_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_string</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">suffix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">version_string</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">suffix</span>
-
+        
         <span class="k">return</span> <span class="n">version_string</span>
 
     <span class="c">##############################################</span>

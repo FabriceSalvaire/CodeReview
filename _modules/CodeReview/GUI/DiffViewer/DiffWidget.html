@@ -198,6 +198,10 @@
 
 <span class="c">####################################################################################################</span>
 
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="c">####################################################################################################</span>
+
 <span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtWidgets</span>
 
 <span class="c">####################################################################################################</span>
@@ -210,6 +214,10 @@
 
 <span class="c">####################################################################################################</span>
 
+<span class="n">_module_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="c">####################################################################################################</span>
+
 <div class="viewcode-block" id="get_monospaced_font"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffWidget.html#CodeReview.GUI.DiffViewer.DiffWidget.get_monospaced_font">[docs]</a><span class="k">def</span> <span class="nf">get_monospaced_font</span><span class="p">():</span>
 
     <span class="c"># Get the defaul font size</span>
@@ -218,8 +226,8 @@
     <span class="n">font</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QFont</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
     <span class="n">font</span><span class="o">.</span><span class="n">setFixedPitch</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">font</span><span class="o">.</span><span class="n">setStyleHint</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QFont</span><span class="o">.</span><span class="n">TypeWriter</span><span class="p">)</span>
-
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Monospaced Font familly is&#39;</span><span class="p">,</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QFontInfo</span><span class="p">(</span><span class="n">font</span><span class="p">)</span><span class="o">.</span><span class="n">family</span><span class="p">())</span>
+    
+    <span class="n">_module_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Monospaced Font familly is &#39;</span> <span class="o">+</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QFontInfo</span><span class="p">(</span><span class="n">font</span><span class="p">)</span><span class="o">.</span><span class="n">family</span><span class="p">())</span>
     
     <span class="k">return</span> <span class="n">font</span>
 
@@ -276,7 +284,7 @@
 
 <div class="viewcode-block" id="DiffViewerCursor.y"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffWidget.html#CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.y">[docs]</a>    <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Return the top position of the current block. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return the top position of the current block.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">block</span><span class="p">()</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span><span class="o">.</span><span class="n">position</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">()</span>
 
@@ -320,7 +328,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">text_blocks</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">TextBrowser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
-
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span> <span class="o">=</span> <span class="n">text_blocks</span>
         
         <span class="c"># Truncate long lines</span>
@@ -331,11 +339,11 @@
 <div class="viewcode-block" id="TextBrowser.paintEvent"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffWidget.html#CodeReview.GUI.DiffViewer.DiffWidget.TextBrowser.paintEvent">[docs]</a>    <span class="k">def</span> <span class="nf">paintEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
         <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
-
+        
         <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">verticalScrollBar</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
         <span class="n">y_min</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">rect</span><span class="p">()</span><span class="o">.</span><span class="n">top</span><span class="p">()</span>
         <span class="n">y_max</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">rect</span><span class="p">()</span><span class="o">.</span><span class="n">bottom</span><span class="p">()</span>
-
+        
         <span class="c"># print &#39;y, y_min, y_max:&#39;, y, y_min, y_max</span>
         
         <span class="n">painter</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPainter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewport</span><span class="p">())</span>
@@ -346,12 +354,12 @@
         <span class="n">painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">pen</span><span class="p">)</span>
         
         <span class="k">for</span> <span class="n">text_block</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span><span class="p">:</span>
-
+            
             <span class="c"># print text_block</span>
-
+            
             <span class="k">if</span> <span class="n">text_block</span><span class="o">.</span><span class="n">frame_type</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">text_block</span><span class="o">.</span><span class="n">frame_type</span> <span class="o">==</span> <span class="n">chunk_type</span><span class="o">.</span><span class="n">equal</span><span class="p">:</span>
                 <span class="k">continue</span>
-
+            
             <span class="c"># Shift text block in the viewport</span>
             <span class="n">y_top</span> <span class="o">=</span> <span class="n">text_block</span><span class="o">.</span><span class="n">y_top</span> <span class="o">-</span> <span class="n">y</span> <span class="o">-</span><span class="mi">1</span>
             <span class="n">y_bottom</span> <span class="o">=</span> <span class="n">text_block</span><span class="o">.</span><span class="n">y_bottom</span> <span class="o">-</span> <span class="n">y</span> <span class="o">+</span><span class="mi">1</span>
@@ -366,9 +374,9 @@
             <span class="n">painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">text_block_style</span><span class="o">.</span><span class="n">line_colour</span><span class="p">)</span>
             <span class="n">painter</span><span class="o">.</span><span class="n">drawLine</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_top</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">y_top</span><span class="p">)</span>
             <span class="n">painter</span><span class="o">.</span><span class="n">drawLine</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_bottom</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">y_bottom</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-
+        
         <span class="k">del</span> <span class="n">painter</span>
-
+        
         <span class="c"># Paint text</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">TextBrowser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">paintEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
@@ -381,7 +389,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">SplitterHandle</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
-
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">frame_width</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">pixelMetric</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QStyle</span><span class="o">.</span><span class="n">PM_DefaultFrameWidth</span><span class="p">)</span>
 
     <span class="c">##############################################</span>
@@ -389,10 +397,10 @@
 <div class="viewcode-block" id="SplitterHandle.paintEvent"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffWidget.html#CodeReview.GUI.DiffViewer.DiffWidget.SplitterHandle.paintEvent">[docs]</a>    <span class="k">def</span> <span class="nf">paintEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
         <span class="n">diff_view</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
-
+        
         <span class="n">painter</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPainter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">painter</span><span class="o">.</span><span class="n">setClipRect</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">rect</span><span class="p">())</span>
-
+        
         <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
         <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
 
@@ -403,14 +411,14 @@
         <span class="n">pen</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">black</span><span class="p">)</span>
         <span class="n">pen</span><span class="o">.</span><span class="n">setWidth</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">pen</span><span class="p">)</span>
-
+        
         <span class="c"># print &#39;Paint Handle:&#39;</span>
         <span class="k">for</span> <span class="n">text_block_left</span><span class="p">,</span> <span class="n">text_block_right</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span> <span class="n">diff_view</span><span class="o">.</span><span class="n">text_blocks</span><span class="p">):</span>
             <span class="c"># print text_block_left, text_block_right</span>
-
+            
             <span class="k">if</span> <span class="n">text_block_left</span><span class="o">.</span><span class="n">frame_type</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">text_block_left</span><span class="o">.</span><span class="n">frame_type</span> <span class="o">==</span> <span class="n">chunk_type</span><span class="o">.</span><span class="n">equal</span><span class="p">:</span>
                 <span class="k">continue</span>
-
+            
             <span class="n">y_top_left</span> <span class="o">=</span> <span class="n">text_block_left</span><span class="o">.</span><span class="n">y_top</span> <span class="o">-</span> <span class="n">y_left</span> <span class="o">-</span><span class="mi">1</span>
             <span class="n">y_bottom_left</span> <span class="o">=</span> <span class="n">text_block_left</span><span class="o">.</span><span class="n">y_bottom</span> <span class="o">-</span> <span class="n">y_left</span> <span class="o">+</span><span class="mi">1</span>
             <span class="n">y_top_right</span> <span class="o">=</span> <span class="n">text_block_right</span><span class="o">.</span><span class="n">y_top</span> <span class="o">-</span> <span class="n">y_right</span> <span class="o">-</span><span class="mi">1</span>
@@ -422,27 +430,26 @@
                 <span class="k">break</span>
             
             <span class="n">text_block_style</span> <span class="o">=</span> <span class="n">DiffWidgetConfig</span><span class="o">.</span><span class="n">text_block_styles</span><span class="p">[</span><span class="n">text_block_left</span><span class="o">.</span><span class="n">frame_type</span><span class="p">]</span>
-
+            
             <span class="n">painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoPen</span><span class="p">)</span>
             <span class="n">painter</span><span class="o">.</span><span class="n">setBrush</span><span class="p">(</span><span class="n">text_block_style</span><span class="o">.</span><span class="n">background_colour</span><span class="p">)</span>
             <span class="n">polygon</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPolygon</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
             <span class="n">polygon</span><span class="o">.</span><span class="n">setPoints</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_top_left</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">y_top_right</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">y_bottom_right</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y_bottom_left</span><span class="p">)</span>
             <span class="n">painter</span><span class="o">.</span><span class="n">drawConvexPolygon</span><span class="p">(</span><span class="n">polygon</span><span class="p">)</span>
-
+            
             <span class="n">painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">text_block_style</span><span class="o">.</span><span class="n">line_colour</span><span class="p">)</span>
             <span class="n">painter</span><span class="o">.</span><span class="n">setRenderHints</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPainter</span><span class="o">.</span><span class="n">Antialiasing</span><span class="p">,</span> <span class="n">y_top_left</span> <span class="o">!=</span> <span class="n">y_top_right</span><span class="p">)</span>
             <span class="n">painter</span><span class="o">.</span><span class="n">drawLine</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_top_left</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">y_top_right</span><span class="p">)</span>
             <span class="n">painter</span><span class="o">.</span><span class="n">setRenderHints</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPainter</span><span class="o">.</span><span class="n">Antialiasing</span><span class="p">,</span> <span class="n">y_bottom_left</span> <span class="o">!=</span> <span class="n">y_bottom_right</span><span class="p">)</span>
             <span class="n">painter</span><span class="o">.</span><span class="n">drawLine</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_bottom_left</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">y_bottom_right</span><span class="p">)</span>
-
+        
         <span class="k">del</span> <span class="n">painter</span>
 
 <span class="c">####################################################################################################</span>
 </div></div>
 <div class="viewcode-block" id="DiffView"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffWidget.html#CodeReview.GUI.DiffViewer.DiffWidget.DiffView">[docs]</a><span class="k">class</span> <span class="nc">DiffView</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QSplitter</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; Widget to show differences in side-by-side format.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Widget to show differences in side-by-side format.&quot;&quot;&quot;</span>
 
     <span class="c">##############################################</span>
 
@@ -451,7 +458,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">DiffView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         
         <span class="bp">self</span><span class="o">.</span><span class="n">setHandleWidth</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
-
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">monospaced_font</span> <span class="o">=</span> <span class="n">get_monospaced_font</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">syntax_highlighter_style</span> <span class="o">=</span> <span class="n">SyntaxHighlighterStyle</span><span class="p">()</span>
         
@@ -459,14 +466,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span> <span class="o">=</span> <span class="p">(</span><span class="n">TextBlocks</span><span class="p">(),</span> <span class="n">TextBlocks</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">browsers</span> <span class="o">=</span> <span class="p">[</span><span class="n">TextBrowser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_block</span><span class="p">)</span> <span class="k">for</span> <span class="n">text_block</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursors</span> <span class="o">=</span> <span class="p">[</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QTextCursor</span><span class="p">(</span><span class="n">document</span><span class="p">)</span> <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">documents</span><span class="p">]</span>
-
+        
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="n">document</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">browsers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">documents</span><span class="p">)):</span>
             <span class="n">document</span><span class="o">.</span><span class="n">setUndoRedoEnabled</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
             <span class="n">document</span><span class="o">.</span><span class="n">setDefaultFont</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">monospaced_font</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setCollapsible</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
             <span class="n">browser</span><span class="o">.</span><span class="n">setDocument</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">browser</span><span class="p">)</span>
-
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">ignore_scroll_bar_update_signal</span> <span class="o">=</span> <span class="bp">False</span>
         <span class="k">for</span> <span class="n">browser</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">browsers</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">scroll_bar</span> <span class="ow">in</span> <span class="n">browser</span><span class="o">.</span><span class="n">horizontalScrollBar</span><span class="p">(),</span> <span class="n">browser</span><span class="o">.</span><span class="n">verticalScrollBar</span><span class="p">():</span>
@@ -517,7 +524,7 @@
 <div class="viewcode-block" id="DiffView.set_document_models"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffWidget.html#CodeReview.GUI.DiffViewer.DiffWidget.DiffView.set_document_models">[docs]</a>    <span class="k">def</span> <span class="nf">set_document_models</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document_models</span><span class="p">,</span> <span class="n">complete_mode</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-
+        
         <span class="k">for</span> <span class="n">side</span><span class="p">,</span> <span class="n">document_model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">document_models</span><span class="p">):</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">DiffViewerCursor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursors</span><span class="p">[</span><span class="n">side</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span><span class="p">[</span><span class="n">side</span><span class="p">])</span>
             <span class="k">for</span> <span class="n">text_block</span> <span class="ow">in</span> <span class="n">document_model</span><span class="p">:</span>

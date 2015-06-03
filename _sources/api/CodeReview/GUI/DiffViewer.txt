@@ -3,6 +3,8 @@
 *******************
 
 .. toctree::
+  DiffViewer/DiffViewerApplication
+  DiffViewer/DiffViewerMainWindow
   DiffViewer/DiffWidget
   DiffViewer/DiffWidgetConfig
   DiffViewer/SyntaxHighlighterStyle

@@ -196,16 +196,17 @@
 <span class="c">#</span>
 <span class="c">####################################################################################################</span>
 
-<span class="sd">&quot;&quot;&quot; This module implements interval arithmetic for flat [#f1]_ and line slice.</span>
+<span class="sd">&quot;&quot;&quot;This module implements interval arithmetic for flat [#f1]_ and line slice.</span>
 
 <span class="sd">.. [#f1] Flat indexes address characters in a file.</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c">####################################################################################################</span>
 
 <div class="viewcode-block" id="Slice"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice">[docs]</a><span class="k">class</span> <span class="nc">Slice</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; This class implements a generic slice.</span>
+    <span class="sd">&quot;&quot;&quot;This class implements a generic slice.</span>
 
 <span class="sd">    Like for a standard Python slice, a :class:`Slice` instance is built from two values or an</span>
 <span class="sd">    indexable object providing the start and stop value.  This class implements an array interface</span>
@@ -231,8 +232,8 @@
 
 <span class="sd">    A slice can be scaled by a factor using::</span>
 
-<span class="sd">      slice / 2</span>
-<span class="sd">      slice /= 2</span>
+<span class="sd">      slice // 2</span>
+<span class="sd">      slice //= 2</span>
 
 <span class="sd">    The union and the intersection of two slices can be computed using::</span>
 
@@ -255,10 +256,10 @@
         <span class="n">array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_arguments</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">stop</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-
+        
         <span class="k">if</span> <span class="n">stop</span> <span class="o">&lt;</span> <span class="n">start</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;stop &lt; start&#39;</span><span class="p">)</span>
-
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">_start</span> <span class="o">=</span> <span class="n">start</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span> <span class="o">=</span> <span class="n">stop</span>
 
@@ -266,7 +267,7 @@
 
 <div class="viewcode-block" id="Slice._check_arguments"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice._check_arguments">[docs]</a>    <span class="k">def</span> <span class="nf">_check_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Check the arguments provided to the constructor. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Check the arguments provided to the constructor.&quot;&quot;&quot;</span>
 
         <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -275,7 +276,7 @@
             <span class="n">array</span> <span class="o">=</span> <span class="n">args</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span>
-
+        
         <span class="k">return</span> <span class="n">array</span>
 
     <span class="c">###############################################</span>
@@ -284,7 +285,7 @@
 
         <span class="c"># Clone ?</span>
 
-        <span class="sd">&quot;&quot;&quot; Return a copy of the slice. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return a copy of the slice.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span><span class="p">)</span>
 
@@ -292,7 +293,7 @@
 </div>
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Provide an array interface to the slice. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Provide an array interface to the slice.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span>
@@ -305,13 +306,13 @@
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Pretty-print a slice. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Pretty-print a slice.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="n">string_interval</span> <span class="o">=</span> <span class="s">&#39;[</span><span class="si">%u</span><span class="s">, </span><span class="si">%u</span><span class="s">]&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">string_interval</span> <span class="o">=</span> <span class="s">&#39;[]@</span><span class="si">%u</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
-
+        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">string_interval</span>
 
     <span class="c">###############################################</span>
@@ -342,9 +343,10 @@
 
     <span class="c">###############################################</span>
 
-<div class="viewcode-block" id="Slice._get_lower"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice._get_lower">[docs]</a>    <span class="k">def</span> <span class="nf">_get_lower</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">lower</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Return the lower boundary. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; Lower boundary. &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span>
@@ -352,10 +354,11 @@
             <span class="k">return</span> <span class="bp">None</span>
 
     <span class="c">###############################################</span>
-</div>
-<div class="viewcode-block" id="Slice._get_upper"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice._get_upper">[docs]</a>    <span class="k">def</span> <span class="nf">_get_upper</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Return the upper boundary. &quot;&quot;&quot;</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Upper boundary. &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span> <span class="o">-</span><span class="mi">1</span>
@@ -363,38 +366,31 @@
             <span class="k">return</span> <span class="bp">None</span>
 
     <span class="c">###############################################</span>
-</div>
-    <span class="n">lower</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_lower</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s">&#39;Lower index&#39;</span><span class="p">)</span>
-    <span class="n">upper</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_upper</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s">&#39;Upper index&#39;</span><span class="p">)</span>
 
-    <span class="c">###############################################</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-<div class="viewcode-block" id="Slice._get_start"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice._get_start">[docs]</a>    <span class="k">def</span> <span class="nf">_get_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="sd">&quot;&quot;&quot; Return the start boundary. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; Start boundary. &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span>
 
     <span class="c">###############################################</span>
-</div>
-<div class="viewcode-block" id="Slice._get_stop"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice._get_stop">[docs]</a>    <span class="k">def</span> <span class="nf">_get_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Return the stop boundary. &quot;&quot;&quot;</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;Stop boundary.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span>
-
-    <span class="c">###############################################</span>
-</div>
-    <span class="n">start</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_start</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s">&#39;Start index&#39;</span><span class="p">)</span>
-    <span class="n">stop</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_stop</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s">&#39;Stop index&#39;</span><span class="p">)</span>
 
     <span class="c">###############################################</span>
 
 <div class="viewcode-block" id="Slice.map"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice.map">[docs]</a>    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub_slice</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Map a sub-slice in the slice domain.</span>
+        <span class="sd">&quot;&quot;&quot;Map a sub-slice in the slice domain.</span>
 
 <span class="sd">        Return a new slice shifted by *start*.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">start</span> <span class="o">=</span> <span class="n">sub_slice</span><span class="o">.</span><span class="n">start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span>
@@ -402,25 +398,25 @@
 
         <span class="k">if</span> <span class="n">stop</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">IndexError</span>
-
+        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
 
     <span class="c">###############################################</span>
 </div>
     <span class="k">def</span> <span class="nf">__ifloordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Divide start and stop by *scale*. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Divide start and stop by *scale*.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_start</span> <span class="o">//=</span> <span class="n">scale</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span> <span class="o">//=</span> <span class="n">scale</span>
-
+        
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="c">###############################################</span>
 
     <span class="k">def</span> <span class="nf">__floordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Return a new slice with start and stop divided by *scale*. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return a new slice with start and stop divided by *scale*.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span> <span class="o">//</span> <span class="n">scale</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span> <span class="o">//</span> <span class="n">scale</span><span class="p">)</span>
 
@@ -429,7 +425,7 @@
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Slice._intersection"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice._intersection">[docs]</a>    <span class="k">def</span> <span class="nf">_intersection</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Compute the intersection of two slices. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Compute the intersection of two slices.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">i1</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">i2</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span><span class="nb">max</span><span class="p">((</span><span class="n">i1</span><span class="o">.</span><span class="n">_start</span><span class="p">,</span> <span class="n">i2</span><span class="o">.</span><span class="n">_start</span><span class="p">)),</span>
@@ -439,13 +435,13 @@
 </div>
     <span class="k">def</span> <span class="nf">__and__</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Return the intersection of i1 and i2. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return the intersection of i1 and i2.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">i1</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="o">*</span><span class="n">i1</span><span class="o">.</span><span class="n">_intersection</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__iand__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Update the interval with its intersection with i2. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Update the interval with its intersection with i2.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
@@ -454,7 +450,7 @@
 
 <div class="viewcode-block" id="Slice.intersect"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice.intersect">[docs]</a>    <span class="k">def</span> <span class="nf">intersect</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Test if the interval intersects with i2. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Test if the interval intersects with i2.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="p">((</span><span class="n">i1</span><span class="o">.</span><span class="n">_start</span> <span class="o">&lt;</span> <span class="n">i2</span><span class="o">.</span><span class="n">_stop</span> <span class="ow">and</span> <span class="n">i2</span><span class="o">.</span><span class="n">_start</span> <span class="o">&lt;</span> <span class="n">i1</span><span class="o">.</span><span class="n">_stop</span><span class="p">)</span> <span class="ow">or</span>
                 <span class="p">(</span><span class="n">i2</span><span class="o">.</span><span class="n">_start</span> <span class="o">&lt;</span> <span class="n">i1</span><span class="o">.</span><span class="n">_stop</span> <span class="ow">and</span> <span class="n">i1</span><span class="o">.</span><span class="n">_start</span> <span class="o">&lt;</span> <span class="n">i2</span><span class="o">.</span><span class="n">_stop</span><span class="p">))</span>
@@ -464,20 +460,20 @@
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Slice._union"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice._union">[docs]</a>    <span class="k">def</span> <span class="nf">_union</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Compute the union of two slices. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Compute the union of two slices.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="p">(</span><span class="nb">min</span><span class="p">((</span><span class="n">i1</span><span class="o">.</span><span class="n">_start</span><span class="p">,</span> <span class="n">i2</span><span class="o">.</span><span class="n">_start</span><span class="p">)),</span>
                 <span class="nb">max</span><span class="p">((</span><span class="n">i1</span><span class="o">.</span><span class="n">_stop</span><span class="p">,</span> <span class="n">i2</span><span class="o">.</span><span class="n">_stop</span><span class="p">)))</span>
 </div>
     <span class="k">def</span> <span class="nf">__or__</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Return the union of i1 and i2. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return the union of i1 and i2.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">i1</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="o">*</span><span class="n">i1</span><span class="o">.</span><span class="n">_union</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__ior__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Update the interval with its union with i2. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Update the interval with its union with i2.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
@@ -486,20 +482,20 @@
 
 <div class="viewcode-block" id="Slice.is_included_in"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.Slice.is_included_in">[docs]</a>    <span class="k">def</span> <span class="nf">is_included_in</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Test if the interval is included in i2. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Test if the interval is included in i2.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">i2</span><span class="o">.</span><span class="n">_start</span> <span class="o">&lt;=</span> <span class="n">i1</span><span class="o">.</span><span class="n">_start</span> <span class="ow">and</span> <span class="n">i1</span><span class="o">.</span><span class="n">_stop</span> <span class="o">&lt;=</span> <span class="n">i2</span><span class="o">.</span><span class="n">_stop</span>
 
 <span class="c">####################################################################################################</span>
 </div></div>
 <div class="viewcode-block" id="FlatSlice"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.FlatSlice">[docs]</a><span class="k">class</span> <span class="nc">FlatSlice</span><span class="p">(</span><span class="n">Slice</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; This class defines a flat slice. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This class defines a flat slice.&quot;&quot;&quot;</span>
     <span class="k">pass</span>
 
 <span class="c">####################################################################################################</span>
 </div>
 <div class="viewcode-block" id="LineSlice"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Slice.html#CodeReview.Tools.Slice.LineSlice">[docs]</a><span class="k">class</span> <span class="nc">LineSlice</span><span class="p">(</span><span class="n">Slice</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; This class defines a line slice. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This class defines a line slice.&quot;&quot;&quot;</span>
     <span class="k">pass</span>
 
 <span class="c">####################################################################################################</span>

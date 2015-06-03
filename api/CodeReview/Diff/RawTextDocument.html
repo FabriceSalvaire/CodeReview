@@ -216,8 +216,8 @@ semantic.</dd>
 <em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocument.</code><code class="descname">RawTextDocument</code><span class="sig-paren">(</span><em>text_buffer</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocument" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc" title="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Diff.RawTextDocument.RawTextDocumentAbc</span></code></a></p>
 <p>This class implements a Text Document.</p>
-<p>The parameter <em>text_buffer</em> specifies the text buffer,
-cf. <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc" title="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc"><code class="xref py py-class docutils literal"><span class="pre">RawTextDocumentAbc</span></code></a> for explanations.</p>
+<p>The parameter <em>text_buffer</em> specifies the text buffer, cf. <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc" title="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc"><code class="xref py py-class docutils literal"><span class="pre">RawTextDocumentAbc</span></code></a> for
+explanations.</p>
 <dl class="method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocument._append_sentinel">
 <code class="descname">_append_sentinel</code><span class="sig-paren">(</span><em>line_start_locations</em>, <em>line_separators</em>, <em>stop_location</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocument._append_sentinel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocument._append_sentinel" title="Permalink to this definition">¶</a></dt>
@@ -266,10 +266,10 @@ slice is empty use a Boolean evaluation of the instance.</p>
 <p>The parameter <em>flat_slice</em> specifies the flat slice corresponding to the text chunk.</p>
 <p>The list <em>line_start_locations</em> contains the position of the new lines in the text chunk and
 the list <em>line_separators</em> contains the corresponding new line separators.  The standard
-separators (<code class="docutils literal"><span class="pre">\\r\\n</span></code>, <code class="docutils literal"><span class="pre">\\r</span></code>, <code class="docutils literal"><span class="pre">\\n</span></code>) are supported.  The list
-<em>line_start_locations</em> ends by a sentinel that corresponds to the number of characters in
-the text chunk and the list <em>line_separators</em> by an empty string.  This sentinel
-corresponds to a virtual line at the end of the text buffer.</p>
+separators (<code class="docutils literal"><span class="pre">\r\n</span></code>, <code class="docutils literal"><span class="pre">\r</span></code>, <code class="docutils literal"><span class="pre">\n</span></code>) are supported.  The list <em>line_start_locations</em> ends
+by a sentinel that corresponds to the number of characters in the text chunk and the list
+<em>line_separators</em> by an empty string.  This sentinel corresponds to a virtual line at the
+end of the text buffer.</p>
 <dl class="method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.flat_slice">
 <code class="descname">flat_slice</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.flat_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.flat_slice" title="Permalink to this definition">¶</a></dt>
@@ -297,8 +297,8 @@ corresponds to a virtual line at the end of the text buffer.</p>
 <dl class="method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_iterator">
 <code class="descname">line_iterator</code><span class="sig-paren">(</span><em>new_line_separator=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.line_iterator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_iterator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return an iterator on the string lines.  If <em>new_line_separator</em> is set then the line
-separator is included.</p>
+<dd><p>Return an iterator on the string lines.  If <em>new_line_separator</em> is set then the line separator
+is included.</p>
 </dd></dl>
 
 <dl class="method">
@@ -310,8 +310,8 @@ separator is included.</p>
 <dl class="method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_slice_iterator">
 <code class="descname">line_slice_iterator</code><span class="sig-paren">(</span><em>new_line_separator=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.line_slice_iterator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_slice_iterator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return an iterator on the line&#8217;s flat slices.  If <em>new_line_separator</em> is set then the
-line separator is included.</p>
+<dd><p>Return an iterator on the line&#8217;s flat slices.  If <em>new_line_separator</em> is set then the line
+separator is included.</p>
 </dd></dl>
 
 <dl class="method">
@@ -323,8 +323,8 @@ line separator is included.</p>
 <dl class="method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.lines">
 <code class="descname">lines</code><span class="sig-paren">(</span><em>new_line_separator=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.lines" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the list of string lines.  If <em>new_line_separator</em> is set then the line separator
-is included.</p>
+<dd><p>Return the list of string lines.  If <em>new_line_separator</em> is set then the line separator is
+included.</p>
 </dd></dl>
 
 <dl class="method">
@@ -386,8 +386,7 @@ slice is empty use a Boolean evaluation of the instance.</p>
 <dl class="method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.to_document_flat_slice">
 <code class="descname">to_document_flat_slice</code><span class="sig-paren">(</span><em>flat_slice</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentLightView.to_document_flat_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.to_document_flat_slice" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert a flat slice into the view to a flat slice in the document space and return
-it.</p>
+<dd><p>Convert a flat slice into the view to a flat slice in the document space and return it.</p>
 </dd></dl>
 
 <dl class="method">
@@ -434,8 +433,8 @@ flat ro a line slice.</p>
 <dl class="method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentView.to_document_slice">
 <code class="descname">to_document_slice</code><span class="sig-paren">(</span><em>slice_</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentView.to_document_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView.to_document_slice" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert a slice into the view to a slice in the document space and return it.  This
-method tries to keep the type of slice.</p>
+<dd><p>Convert a slice into the view to a slice in the document space and return it.  This method tries
+to keep the type of slice.</p>
 </dd></dl>
 
 <dl class="method">

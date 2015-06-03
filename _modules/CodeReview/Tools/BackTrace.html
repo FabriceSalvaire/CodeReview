@@ -200,10 +200,12 @@
 
 <div class="viewcode-block" id="html_highlight_backtrace"><a class="viewcode-back" href="../../../api/CodeReview/Tools/BackTrace.html#CodeReview.Tools.BackTrace.html_highlight_backtrace">[docs]</a><span class="k">def</span> <span class="nf">html_highlight_backtrace</span><span class="p">(</span><span class="n">backtrace_text</span><span class="p">):</span>
 
+    <span class="sd">&quot;&quot;&quot;Highlight a backtrace using HTML tags.&quot;&quot;&quot;</span>
+    
     <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">backtrace_text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
-
+    
     <span class="n">backtrace_highlighted</span> <span class="o">=</span> <span class="s">&#39;&lt;h3&gt;&#39;</span> <span class="o">+</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;&lt;/h3&gt;&#39;</span>
-
+    
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
         <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;&lt;&#39;</span><span class="p">,</span> <span class="s">&#39;(&#39;</span><span class="p">)</span>
         <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;)&#39;</span><span class="p">)</span>
@@ -212,9 +214,9 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">line</span> <span class="o">=</span> <span class="s">&#39;&lt;font color=&quot;black&quot;&gt;&lt;code&gt;&#39;</span> <span class="o">+</span> <span class="n">line</span> <span class="o">+</span> <span class="s">&#39;&lt;/code&gt;&#39;</span>
         <span class="n">backtrace_highlighted</span> <span class="o">+=</span> <span class="n">line</span>
-
+    
     <span class="n">backtrace_highlighted</span> <span class="o">+=</span> <span class="s">&#39;&lt;font color=&quot;blue&quot;&gt;&lt;h4&gt;&#39;</span> <span class="o">+</span> <span class="n">lines</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;&lt;/h4&gt;&#39;</span>
-
+    
     <span class="k">return</span> <span class="n">backtrace_highlighted</span>
 
 <span class="c">####################################################################################################</span>

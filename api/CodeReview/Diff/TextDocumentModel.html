@@ -190,14 +190,14 @@
 <p>This module implements a basic document model.</p>
 <p>A document is made of text blocks that are themselves made of text fragments.  A text block
 corresponds to a chunck of lines and is decorated by a frame type.  A text fragment is a piece of
-text and is decorated by a frame type and a token type used for the syntax highlighting.</p>
+text and is decorated by a frame type and a token type used for syntax highlighting.</p>
 <dl class="class">
 <dt id="CodeReview.Diff.TextDocumentModel.TextBlock">
 <em class="property">class </em><code class="descclassname">CodeReview.Diff.TextDocumentModel.</code><code class="descname">TextBlock</code><span class="sig-paren">(</span><em>line_slice</em>, <em>frame_type=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/TextDocumentModel.html#TextBlock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.TextDocumentModel.TextBlock" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a></p>
 <p>This class implements a text block.</p>
-<p>The parameter <em>line_slice</em> specifies the line slice corresponding to the text block and
-the parameter <em>frame_type</em> the type of frame.</p>
+<p>The parameter <em>line_slice</em> specifies the line slice corresponding to the text block and the
+parameter <em>frame_type</em> the type of frame.</p>
 </dd></dl>
 
 <dl class="class">
@@ -212,11 +212,11 @@ the parameter <em>frame_type</em> the type of frame.</p>
 <em class="property">class </em><code class="descclassname">CodeReview.Diff.TextDocumentModel.</code><code class="descname">TextFragment</code><span class="sig-paren">(</span><em>text</em>, <em>frame_type=None</em>, <em>token_type=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/TextDocumentModel.html#TextFragment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.TextDocumentModel.TextFragment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>This class implements a text fragment.</p>
-<p>The parameter <em>text</em> specifies the content, it must implement the Boolean
-evaluation and the unicode conversion.</p>
+<p>The parameter <em>text</em> specifies the content, it must implement the Boolean evaluation and the
+string conversion.</p>
 <p>The parameter <em>frame_type</em> specifies the type of frame and the parameter <em>token_type</em> the
 type of token for the syntax highlighting.</p>
-<p>To test if an instance represents an non empty string use a Boolean evaluation like:</p>
+<p>To test if an instance represents an non-empty string use a Boolean evaluation:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="nb">bool</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
 </pre></div>
 </div>

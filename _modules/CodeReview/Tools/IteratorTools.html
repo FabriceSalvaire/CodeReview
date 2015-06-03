@@ -196,14 +196,15 @@
 <span class="c">#</span>
 <span class="c">####################################################################################################</span>
 
-<span class="sd">&quot;&quot;&quot; This modules provides iterator tools. &quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;This modules provides iterator tools.&quot;&quot;&quot;</span>
 
 <span class="c">####################################################################################################</span>
 
 <div class="viewcode-block" id="pairwise"><a class="viewcode-back" href="../../../api/CodeReview/Tools/IteratorTools.html#CodeReview.Tools.IteratorTools.pairwise">[docs]</a><span class="k">def</span> <span class="nf">pairwise</span><span class="p">(</span><span class="n">iterable</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; Return a generator which generate a pair wise list from an iterable: s -&gt; (s[0],s[1]),</span>
+    <span class="sd">&quot;&quot;&quot;Return a generator which generate a pair wise list from an iterable: s -&gt; (s[0],s[1]),</span>
 <span class="sd">    (s[1],s[2]), ... (s[N-1], s[N]).</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">prev</span> <span class="o">=</span> <span class="n">iterable</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -214,9 +215,10 @@
 <span class="c">####################################################################################################</span>
 </div>
 <div class="viewcode-block" id="iter_with_last_flag"><a class="viewcode-back" href="../../../api/CodeReview/Tools/IteratorTools.html#CodeReview.Tools.IteratorTools.iter_with_last_flag">[docs]</a><span class="k">def</span> <span class="nf">iter_with_last_flag</span><span class="p">(</span><span class="n">iterable</span><span class="p">):</span>
-    
-    <span class="sd">&quot;&quot;&quot; Iterate over an iterable and yield a 2-tuple containing the current item and a Boolean</span>
+
+    <span class="sd">&quot;&quot;&quot;Iterate over an iterable and yield a 2-tuple containing the current item and a Boolean</span>
 <span class="sd">    indicating if it is the last item.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">last_index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span>

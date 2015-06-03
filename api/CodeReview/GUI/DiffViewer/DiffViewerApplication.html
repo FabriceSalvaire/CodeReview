@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>2.1.4.5.1. CommitTableModel &mdash; CodeReview 0.1.0 documentation</title>
+  <title>2.1.4.2.1. DiffViewerApplication &mdash; CodeReview 0.1.0 documentation</title>
   
 
   
@@ -31,9 +31,9 @@
 
   
     <link rel="top" title="CodeReview 0.1.0 documentation" href="../../../../index.html"/>
-        <link rel="up" title="2.1.4.5. Widgets" href="../Widgets.html"/>
-        <link rel="next" title="2.1.4.5.2. IconLoader" href="IconLoader.html"/>
-        <link rel="prev" title="2.1.4.5. Widgets" href="../Widgets.html"/> 
+        <link rel="up" title="2.1.4.2. DiffViewer" href="../DiffViewer.html"/>
+        <link rel="next" title="2.1.4.2.2. DiffViewerMainWindow" href="DiffViewerMainWindow.html"/>
+        <link rel="prev" title="2.1.4.2. DiffViewer" href="../DiffViewer.html"/> 
 
   
   <script src="static/js/modernizr.min.js"></script>
@@ -101,10 +101,10 @@
 </li>
 <li class="toctree-l3 current"><a class="reference internal" href="../../GUI.html">2.1.4. <code class="docutils literal"><span class="pre">GUI</span></code></a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="../Base.html">2.1.4.1. <code class="docutils literal"><span class="pre">Base</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../DiffViewer.html">2.1.4.2. <code class="docutils literal"><span class="pre">DiffViewer</span></code></a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../DiffViewer.html">2.1.4.2. <code class="docutils literal"><span class="pre">DiffViewer</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Forms.html">2.1.4.3. <code class="docutils literal"><span class="pre">Forms</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../LogBrowser.html">2.1.4.4. <code class="docutils literal"><span class="pre">LogBrowser</span></code></a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="../Widgets.html">2.1.4.5. <code class="docutils literal"><span class="pre">Widgets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Widgets.html">2.1.4.5. <code class="docutils literal"><span class="pre">Widgets</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ui.html">2.1.4.6. <code class="docutils literal"><span class="pre">ui</span></code></a></li>
 </ul>
 </li>
@@ -172,13 +172,13 @@
       
           <li><a href="../../GUI.html">2.1.4. <code class="docutils literal"><span class="pre">GUI</span></code></a> &raquo;</li>
       
-          <li><a href="../Widgets.html">2.1.4.5. <code class="docutils literal"><span class="pre">Widgets</span></code></a> &raquo;</li>
+          <li><a href="../DiffViewer.html">2.1.4.2. <code class="docutils literal"><span class="pre">DiffViewer</span></code></a> &raquo;</li>
       
-    <li>2.1.4.5.1. <code class="docutils literal"><span class="pre">CommitTableModel</span></code></li>
+    <li>2.1.4.2.1. <code class="docutils literal"><span class="pre">DiffViewerApplication</span></code></li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../../../_sources/api/CodeReview/GUI/Widgets/CommitTableModel.txt" rel="nofollow"> View page source</a>
+            <a href="../../../../_sources/api/CodeReview/GUI/DiffViewer/DiffViewerApplication.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -187,47 +187,37 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="module-CodeReview.GUI.Widgets.CommitTableModel">
-<span id="committablemodel"></span><h1>2.1.4.5.1. <code class="xref py py-mod docutils literal"><span class="pre">CommitTableModel</span></code><a class="headerlink" href="#module-CodeReview.GUI.Widgets.CommitTableModel" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-CodeReview.GUI.DiffViewer.DiffViewerApplication">
+<span id="diffviewerapplication"></span><h1>2.1.4.2.1. <code class="xref py py-mod docutils literal"><span class="pre">DiffViewerApplication</span></code><a class="headerlink" href="#module-CodeReview.GUI.DiffViewer.DiffViewerApplication" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel">
-<em class="property">class </em><code class="descclassname">CodeReview.GUI.Widgets.CommitTableModel.</code><code class="descname">CommitTableModel</code><span class="sig-paren">(</span><em>repository</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Widgets/CommitTableModel.html#CommitTableModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtCore.QAbstractTableModel</span></code></p>
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication">
+<em class="property">class </em><code class="descclassname">CodeReview.GUI.DiffViewer.DiffViewerApplication.</code><code class="descname">DiffViewerApplication</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#DiffViewerApplication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../Base/GuiApplicationBase.html#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase" title="CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase</span></code></a>, <a class="reference internal" href="../../Application/ApplicationBase.html#CodeReview.Application.ApplicationBase.ApplicationBase" title="CodeReview.Application.ApplicationBase.ApplicationBase"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Application.ApplicationBase.ApplicationBase</span></code></a></p>
 <dl class="method">
-<dt id="CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.columnCount">
-<code class="descname">columnCount</code><span class="sig-paren">(</span><em>index=&lt;PyQt5.QtCore.QModelIndex object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Widgets/CommitTableModel.html#CommitTableModel.columnCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.columnCount" title="Permalink to this definition">¶</a></dt>
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication._init_actions">
+<code class="descname">_init_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#DiffViewerApplication._init_actions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication._init_actions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.column_enum">
-<code class="descname">column_enum</code><a class="headerlink" href="#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.column_enum" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">ColumnEnum</span></code></p>
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication._logger">
+<code class="descname">_logger</code><em class="property"> = &lt;logging.Logger object&gt;</em><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication._logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication.post_init">
+<code class="descname">post_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#DiffViewerApplication.post_init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication.post_init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication.show_message">
+<code class="descname">show_message</code><span class="sig-paren">(</span><em>message=None</em>, <em>timeout=0</em>, <em>warn=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#DiffViewerApplication.show_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication.show_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hides the normal status indications and displays the given message for the specified
+number of milli-seconds (timeout). If timeout is 0 (default), the message remains displayed
+until the clearMessage() slot is called or until the showMessage() slot is called again to
+change the message.</p>
+<p>Note that showMessage() is called to show temporary explanations of tool tip texts, so
+passing a timeout of 0 is not sufficient to display a permanent message.</p>
 </dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.data">
-<code class="descname">data</code><span class="sig-paren">(</span><em>index</em>, <em>role=0</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Widgets/CommitTableModel.html#CommitTableModel.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.headerData">
-<code class="descname">headerData</code><span class="sig-paren">(</span><em>section</em>, <em>orientation</em>, <em>role=0</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Widgets/CommitTableModel.html#CommitTableModel.headerData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.headerData" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.rowCount">
-<code class="descname">rowCount</code><span class="sig-paren">(</span><em>index=&lt;PyQt5.QtCore.QModelIndex object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Widgets/CommitTableModel.html#CommitTableModel.rowCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.rowCount" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.sort">
-<code class="descname">sort</code><span class="sig-paren">(</span><em>column</em>, <em>order</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Widgets/CommitTableModel.html#CommitTableModel.sort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.sort" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>commit1=None</em>, <em>commit2=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Widgets/CommitTableModel.html#CommitTableModel.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.update" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -239,10 +229,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="IconLoader.html" class="btn btn-neutral float-right" title="2.1.4.5.2. IconLoader" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="DiffViewerMainWindow.html" class="btn btn-neutral float-right" title="2.1.4.2.2. DiffViewerMainWindow" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../Widgets.html" class="btn btn-neutral" title="2.1.4.5. Widgets" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../DiffViewer.html" class="btn btn-neutral" title="2.1.4.2. DiffViewer" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -196,24 +196,24 @@
 <span class="c">#</span>
 <span class="c">####################################################################################################</span>
 
-<span class="sd">&quot;&quot;&quot; This module provides string tools. &quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;This module provides string tools.&quot;&quot;&quot;</span>
 
 <span class="c">####################################################################################################</span>
 
 <div class="viewcode-block" id="remove_trailing_newline"><a class="viewcode-back" href="../../../api/CodeReview/Tools/StringTools.html#CodeReview.Tools.StringTools.remove_trailing_newline">[docs]</a><span class="k">def</span> <span class="nf">remove_trailing_newline</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; Return the string *text* with only the last trailing newline (``\\\\r\\\\n``, ``\\\\r``,</span>
-<span class="sd">    ``\\\\n``) removed.  By contrast the standard function :func:`string.rstrip` removes all the</span>
-<span class="sd">    trailing newlines.</span>
+    <span class="sd">r&quot;&quot;&quot;Return the string *text* with only the last trailing newline (``\r\n``, ``\r``, ``\n``) removed.</span>
+<span class="sd">    By contrast the standard function :func:`string.rstrip` removes all the trailing newlines.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
-    
+
     <span class="k">if</span> <span class="n">text</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r\n</span><span class="s">&#39;</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">text</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
-    <span class="k">elif</span> <span class="n">text</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">,</span> <span class="s">&#39;</span><span class="se">\r</span><span class="s">&#39;</span><span class="p">):</span>
+    <span class="k">elif</span> <span class="n">text</span> <span class="ow">and</span> <span class="n">text</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">,</span> <span class="s">&#39;</span><span class="se">\r</span><span class="s">&#39;</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">text</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">text</span>
-    
+
 <span class="c">####################################################################################################</span>
 <span class="c">#</span>
 <span class="c"># End</span>

@@ -196,13 +196,14 @@
 <span class="c">#</span>
 <span class="c">####################################################################################################</span>
 
-<span class="sd">&quot;&quot;&quot; This module provides a document model for the Diff Viewer.</span>
+<span class="sd">&quot;&quot;&quot;This module provides a document model for the Diff Viewer.</span>
 
 <span class="sd">A document is made of text blocks that are themselves made of text fragments.  A text block</span>
 <span class="sd">corresponds to a chunck of lines and is decorated by a frame type corresponding to the type of</span>
 <span class="sd">chunck.  A text fragment is a piece of text and is decorated by a frame type and a token type used</span>
 <span class="sd">for the syntax highlighting.  The frame type is used for replace chunck type to show the inner-line</span>
 <span class="sd">difference.</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c">####################################################################################################</span>
@@ -215,19 +216,20 @@
 
 <div class="viewcode-block" id="TextBlockDiff"><a class="viewcode-back" href="../../../api/CodeReview/Diff/TextDocumentDiffModel.html#CodeReview.Diff.TextDocumentDiffModel.TextBlockDiff">[docs]</a><span class="k">class</span> <span class="nc">TextBlockDiff</span><span class="p">(</span><span class="n">TextBlock</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; This class implements a text block with a link to the other side. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This class implements a text block with a link to the other side.&quot;&quot;&quot;</span>
 
     <span class="c">##############################################</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_slice</span><span class="p">,</span> <span class="n">frame_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">other_side</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; The parameter *line_slice* specifies the line slice corresponding to the text block and</span>
-<span class="sd">        the parameter *frame_type* the type of frame.  The parameter *other_side* specifies the</span>
+        <span class="sd">&quot;&quot;&quot;The parameter *line_slice* specifies the line slice corresponding to the text block and the</span>
+<span class="sd">        parameter *frame_type* the type of frame.  The parameter *other_side* specifies the</span>
 <span class="sd">        corresponding text block of the second document.</span>
 
 <span class="sd">        Public Attributes:</span>
 
 <span class="sd">          :attr:`other_side`</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">TextBlockDiff</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">line_slice</span><span class="p">,</span> <span class="n">frame_type</span><span class="p">)</span>
@@ -238,7 +240,7 @@
 
 <div class="viewcode-block" id="TextBlockDiff.copy"><a class="viewcode-back" href="../../../api/CodeReview/Diff/TextDocumentDiffModel.html#CodeReview.Diff.TextDocumentDiffModel.TextBlockDiff.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Return a copy of the instance. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return a copy of the instance.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_slice</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">other_side</span><span class="p">)</span>
 
@@ -246,7 +248,7 @@
 </div>
 <div class="viewcode-block" id="TextBlockDiff.link_other_side"><a class="viewcode-back" href="../../../api/CodeReview/Diff/TextDocumentDiffModel.html#CodeReview.Diff.TextDocumentDiffModel.TextBlockDiff.link_other_side">[docs]</a>    <span class="k">def</span> <span class="nf">link_other_side</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_side</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Link to the other side. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Link to the other side.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">other_side</span> <span class="o">=</span> <span class="n">other_side</span>
 
@@ -258,10 +260,11 @@
 
 <div class="viewcode-block" id="TextDocumentDiffModelFactory.process"><a class="viewcode-back" href="../../../api/CodeReview/Diff/TextDocumentDiffModel.html#CodeReview.Diff.TextDocumentDiffModel.TextDocumentDiffModelFactory.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_diff</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Build two :class:`DiffViewer.TextDocumentModel` instances from a class</span>
+        <span class="sd">&quot;&quot;&quot;Build two :class:`DiffViewer.TextDocumentModel` instances from a class</span>
 <span class="sd">        :class:`DiffViewer.RawTextDocumentDiff` instance.</span>
 
 <span class="sd">        Return the 2-tuple mades of the document models.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">document1</span> <span class="o">=</span> <span class="n">file_diff</span><span class="o">.</span><span class="n">document1</span>
@@ -350,9 +353,10 @@
 </div></div>
 <div class="viewcode-block" id="highlight_document"><a class="viewcode-back" href="../../../api/CodeReview/Diff/TextDocumentDiffModel.html#CodeReview.Diff.TextDocumentDiffModel.highlight_document">[docs]</a><span class="k">def</span> <span class="nf">highlight_document</span><span class="p">(</span><span class="n">document_model</span><span class="p">,</span> <span class="n">highlighted_text</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; Merge a Diff document model and highlighted counter part.</span>
+    <span class="sd">&quot;&quot;&quot;Merge a Diff document model and highlighted counter part.</span>
 
 <span class="sd">    Return a new document model.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">raw_text_document</span> <span class="o">=</span> <span class="n">highlighted_text</span><span class="o">.</span><span class="n">raw_text_document</span>

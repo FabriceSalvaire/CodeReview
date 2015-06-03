@@ -196,7 +196,7 @@
 <span class="c">#</span>
 <span class="c">####################################################################################################</span>
 
-<span class="sd">&quot;&quot;&quot; This module defines styles for syntax highlighting. &quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;This module defines styles for syntax highlighting.&quot;&quot;&quot;</span>
 
 <span class="c">####################################################################################################</span>
 
@@ -206,23 +206,24 @@
 <span class="c">####################################################################################################</span>
 
 <div class="viewcode-block" id="to_brush"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/SyntaxHighlighterStyle.html#CodeReview.GUI.DiffViewer.SyntaxHighlighterStyle.to_brush">[docs]</a><span class="k">def</span> <span class="nf">to_brush</span><span class="p">(</span><span class="n">colour</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Convert a Pygments colour rrggbb to a Qt brush compatible object. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Convert a Pygments colour rrggbb to a Qt brush compatible object.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="s">&quot;#&quot;</span> <span class="o">+</span> <span class="n">colour</span><span class="p">)</span>
 
 <span class="c">####################################################################################################</span>
 </div>
 <div class="viewcode-block" id="SyntaxHighlighterStyle"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/SyntaxHighlighterStyle.html#CodeReview.GUI.DiffViewer.SyntaxHighlighterStyle.SyntaxHighlighterStyle">[docs]</a><span class="k">class</span> <span class="nc">SyntaxHighlighterStyle</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; This class defines a QTextCharFormat for each type of tokens defined by Pygments.</span>
+    <span class="sd">&quot;&quot;&quot;This class defines a QTextCharFormat for each type of tokens defined by Pygments.</span>
 
 <span class="sd">    This class has a dictionnary interface and return a copy of the QTextCharFormat instance.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c">##############################################</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">&#39;default&#39;</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; The parameter *style* select the Pygments style.</span>
+        <span class="sd">&quot;&quot;&quot;The parameter *style* select the Pygments style.</span>
 
 <span class="sd">        Pygments style attributes are:</span>
 
@@ -245,21 +246,24 @@
                 <span class="n">text_format</span><span class="o">.</span><span class="n">setBackground</span><span class="p">(</span><span class="n">to_brush</span><span class="p">(</span><span class="n">style_attributes</span><span class="p">[</span><span class="s">&#39;bgcolor&#39;</span><span class="p">]))</span>
             <span class="k">if</span> <span class="n">style_attributes</span><span class="p">[</span><span class="s">&#39;color&#39;</span><span class="p">]:</span>
                 <span class="n">text_format</span><span class="o">.</span><span class="n">setForeground</span><span class="p">(</span><span class="n">to_brush</span><span class="p">(</span><span class="n">style_attributes</span><span class="p">[</span><span class="s">&#39;color&#39;</span><span class="p">]))</span>
-            <span class="k">if</span> <span class="n">style_attributes</span><span class="p">[</span><span class="s">&#39;bold&#39;</span><span class="p">]:</span>
-                <span class="n">text_format</span><span class="o">.</span><span class="n">setFontWeight</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QFont</span><span class="o">.</span><span class="n">Bold</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">style_attributes</span><span class="p">[</span><span class="s">&#39;italic&#39;</span><span class="p">]:</span>
-                <span class="n">text_format</span><span class="o">.</span><span class="n">setFontItalic</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+            <span class="c"># Fixme: font is rendered smaller ???</span>
+            <span class="c"># if style_attributes[&#39;bold&#39;]:</span>
+            <span class="c">#     text_format.setFontWeight(QtGui.QFont.Bold)</span>
+            <span class="c"># if style_attributes[&#39;italic&#39;]:</span>
+            <span class="c">#     text_format.setFontItalic(True)</span>
             <span class="bp">self</span><span class="p">[</span><span class="n">token</span><span class="p">]</span> <span class="o">=</span> <span class="n">text_format</span>
 
     <span class="c">##############################################</span>
 
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Return a copy of the QTextCharFormat for the corresponding key. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return a copy of the QTextCharFormat for the corresponding key.&quot;&quot;&quot;</span>
 
-        <span class="n">text_char_format</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">SyntaxHighlighterStyle</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__getitem__</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QTextCharFormat</span><span class="p">(</span><span class="n">text_char_format</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QTextCharFormat</span><span class="p">()</span> <span class="c"># Fixme: right ?</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">text_char_format</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">SyntaxHighlighterStyle</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__getitem__</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QTextCharFormat</span><span class="p">(</span><span class="n">text_char_format</span><span class="p">)</span>
 
 <span class="c">####################################################################################################</span>
 <span class="c">#</span>

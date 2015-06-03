@@ -196,13 +196,11 @@
 <span class="c">#</span>
 <span class="c">####################################################################################################</span>
 
-<span class="c"># Fixme: english ...</span>
-
 <span class="sd">&quot;&quot;&quot;This module implements a basic document model.</span>
 
 <span class="sd">A document is made of text blocks that are themselves made of text fragments.  A text block</span>
 <span class="sd">corresponds to a chunck of lines and is decorated by a frame type.  A text fragment is a piece of</span>
-<span class="sd">text and is decorated by a frame type and a token type used for the syntax highlighting.</span>
+<span class="sd">text and is decorated by a frame type and a token type used for syntax highlighting.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -210,14 +208,15 @@
 
 <div class="viewcode-block" id="TextBlock"><a class="viewcode-back" href="../../../api/CodeReview/Diff/TextDocumentModel.html#CodeReview.Diff.TextDocumentModel.TextBlock">[docs]</a><span class="k">class</span> <span class="nc">TextBlock</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; This class implements a text block. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This class implements a text block.&quot;&quot;&quot;</span>
 
     <span class="c">##############################################</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_slice</span><span class="p">,</span> <span class="n">frame_type</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; The parameter *line_slice* specifies the line slice corresponding to the text block and</span>
-<span class="sd">        the parameter *frame_type* the type of frame.</span>
+        <span class="sd">&quot;&quot;&quot;The parameter *line_slice* specifies the line slice corresponding to the text block and the</span>
+<span class="sd">        parameter *frame_type* the type of frame.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">TextBlock</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
@@ -235,25 +234,26 @@
 </div>
 <div class="viewcode-block" id="TextFragment"><a class="viewcode-back" href="../../../api/CodeReview/Diff/TextDocumentModel.html#CodeReview.Diff.TextDocumentModel.TextFragment">[docs]</a><span class="k">class</span> <span class="nc">TextFragment</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; This class implements a text fragment. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This class implements a text fragment.&quot;&quot;&quot;</span>
 
     <span class="c">##############################################</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">frame_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">token_type</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; The parameter *text* specifies the content, it must implement the Boolean</span>
-<span class="sd">        evaluation and the unicode conversion.</span>
+        <span class="sd">&quot;&quot;&quot;The parameter *text* specifies the content, it must implement the Boolean evaluation and the</span>
+<span class="sd">        string conversion.</span>
 
 <span class="sd">        The parameter *frame_type* specifies the type of frame and the parameter *token_type* the</span>
 <span class="sd">        type of token for the syntax highlighting.</span>
 
-<span class="sd">        To test if an instance represents an non empty string use a Boolean evaluation like::</span>
+<span class="sd">        To test if an instance represents an non-empty string use a Boolean evaluation::</span>
 
 <span class="sd">          bool(instance)</span>
 
 <span class="sd">        To get the content string use::</span>
 
 <span class="sd">          str(instance)</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
@@ -272,7 +272,7 @@
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Return the unicode text. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return the unicode text.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 
@@ -280,16 +280,14 @@
 
     <span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="c"># Fixme: english whether</span>
-
-        <span class="sd">&quot;&quot;&quot; Test if the text is an empty string. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Test whether the text is an empty string.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 
 <span class="c">####################################################################################################</span>
 </div>
 <div class="viewcode-block" id="TextDocumentModel"><a class="viewcode-back" href="../../../api/CodeReview/Diff/TextDocumentModel.html#CodeReview.Diff.TextDocumentModel.TextDocumentModel">[docs]</a><span class="k">class</span> <span class="nc">TextDocumentModel</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; This class implements an ordered list of text blocks. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This class implements an ordered list of text blocks.&quot;&quot;&quot;</span>
     <span class="k">pass</span>
 
 <span class="c">####################################################################################################</span>

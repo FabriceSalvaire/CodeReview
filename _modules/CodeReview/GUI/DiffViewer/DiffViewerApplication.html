@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>CodeReview.GUI.Forms.CriticalErrorForm &mdash; CodeReview 0.1.0 documentation</title>
+  <title>CodeReview.GUI.DiffViewer.DiffViewerApplication &mdash; CodeReview 0.1.0 documentation</title>
   
 
   
@@ -166,7 +166,7 @@
       
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
       
-    <li>CodeReview.GUI.Forms.CriticalErrorForm</li>
+    <li>CodeReview.GUI.DiffViewer.DiffViewerApplication</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -177,9 +177,7 @@
 </div>
           <div role="main" class="document">
             
-  <h1>Source code for CodeReview.GUI.Forms.CriticalErrorForm</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
-
+  <h1>Source code for CodeReview.GUI.DiffViewer.DiffViewerApplication</h1><div class="highlight"><pre>
 <span class="c">####################################################################################################</span>
 <span class="c">#</span>
 <span class="c"># CodeReview - A Python/Qt Git GUI</span>
@@ -198,80 +196,63 @@
 <span class="c">#</span>
 <span class="c">####################################################################################################</span>
 
-<span class="c">####################################################################################################</span>
-<span class="c">#</span>
-<span class="c">#                                              Audit</span>
-<span class="c">#</span>
-<span class="c"># - 25/05/2010 Fabrice</span>
-<span class="c">#   - exit button</span>
-<span class="c">#</span>
-<span class="c">####################################################################################################</span>
+<span class="c">###################################################################################################</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span>
 
 <span class="c">####################################################################################################</span>
 
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">traceback</span>
-
-<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtCore</span>
+<span class="kn">from</span> <span class="nn">CodeReview.GUI.Base.GuiApplicationBase</span> <span class="kn">import</span> <span class="n">GuiApplicationBase</span>
+<span class="kn">from</span> <span class="nn">CodeReview.Application.ApplicationBase</span> <span class="kn">import</span> <span class="n">ApplicationBase</span>
 
 <span class="c">####################################################################################################</span>
 
-<span class="kn">from</span> <span class="nn">.EmailBugForm</span> <span class="kn">import</span> <span class="n">EmailBugForm</span>
-<span class="kn">from</span> <span class="nn">CodeReview.Logging.ExceptionHook</span> <span class="kn">import</span> <span class="n">format_exception</span>
-<span class="kn">import</span> <span class="nn">CodeReview.Tools.BackTrace</span> <span class="kn">as</span> <span class="nn">BackTrace</span>
+<div class="viewcode-block" id="DiffViewerApplication"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication">[docs]</a><span class="k">class</span> <span class="nc">DiffViewerApplication</span><span class="p">(</span><span class="n">GuiApplicationBase</span><span class="p">,</span> <span class="n">ApplicationBase</span><span class="p">):</span>
 
-<span class="c">####################################################################################################</span>
-
-<span class="kn">from</span> <span class="nn">CodeReview.GUI.ui.critical_error_form_ui</span> <span class="kn">import</span> <span class="n">Ui_critical_error_form</span>
-
-<span class="c">####################################################################################################</span>
-
-<div class="viewcode-block" id="CriticalErrorForm"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/Forms/CriticalErrorForm.html#CodeReview.GUI.Forms.CriticalErrorForm.CriticalErrorForm">[docs]</a><span class="k">class</span> <span class="nc">CriticalErrorForm</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QDialog</span><span class="p">,</span> <span class="n">Ui_critical_error_form</span><span class="p">):</span>
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 
     <span class="c">###############################################</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception_type</span><span class="p">,</span> <span class="n">exception_value</span><span class="p">,</span> <span class="n">exception_backtrace</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
 
-        <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QDialog</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_exception_type</span> <span class="o">=</span> <span class="n">exception_type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_exception_value</span> <span class="o">=</span> <span class="n">exception_value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_exception_backtrace</span> <span class="o">=</span> <span class="n">exception_backtrace</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_backtrace</span> <span class="o">=</span> <span class="n">format_exception</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_exception_type</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">_exception_value</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">_exception_backtrace</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DiffViewerApplication</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
         
-        <span class="c"># Fixme: call critical exit</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">exit_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">show_backtrace_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">show_backtrace</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">send_email_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">send_email</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">.DiffViewerMainWindow</span> <span class="kn">import</span> <span class="n">DiffViewerMainWindow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span> <span class="o">=</span> <span class="n">DiffViewerMainWindow</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span><span class="o">.</span><span class="n">showMaximized</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">post_init</span><span class="p">()</span>
 
-        <span class="n">title</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">exception_value</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">error_message_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">title</span><span class="p">[:</span><span class="mi">50</span><span class="p">])</span>
-        <span class="n">backtrace_text</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exception</span><span class="p">(</span><span class="n">exception_type</span><span class="p">,</span>
-                                                            <span class="n">exception_value</span><span class="p">,</span>
-                                                            <span class="n">exception_backtrace</span><span class="p">))</span>
+    <span class="c">##############################################</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_trace_back_text_highlighted</span> <span class="o">=</span> <span class="n">BackTrace</span><span class="o">.</span><span class="n">html_highlight_backtrace</span><span class="p">(</span><span class="n">backtrace_text</span><span class="p">)</span>
+<div class="viewcode-block" id="DiffViewerApplication._init_actions"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication._init_actions">[docs]</a>    <span class="k">def</span> <span class="nf">_init_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">back_trace_text_browser</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="c">#!# self.back_trace_text_browser.hide()</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DiffViewerApplication</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_init_actions</span><span class="p">()</span>
 
-    <span class="c">###############################################</span>
-
-<div class="viewcode-block" id="CriticalErrorForm.show_backtrace"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/Forms/CriticalErrorForm.html#CodeReview.GUI.Forms.CriticalErrorForm.CriticalErrorForm.show_backtrace">[docs]</a>    <span class="k">def</span> <span class="nf">show_backtrace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="c"># print trace_back_text_highlighted</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">back_trace_text_browser</span><span class="o">.</span><span class="n">setHtml</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_trace_back_text_highlighted</span><span class="p">)</span>
-
-    <span class="c">###############################################</span>
+    <span class="c">##############################################</span>
 </div>
-<div class="viewcode-block" id="CriticalErrorForm.send_email"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/Forms/CriticalErrorForm.html#CodeReview.GUI.Forms.CriticalErrorForm.CriticalErrorForm.send_email">[docs]</a>    <span class="k">def</span> <span class="nf">send_email</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DiffViewerApplication.post_init"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication.post_init">[docs]</a>    <span class="k">def</span> <span class="nf">post_init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="n">dialog</span> <span class="o">=</span> <span class="n">EmailBugForm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backtrace</span><span class="p">)</span>
-        <span class="n">dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DiffViewerApplication</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">post_init</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span><span class="o">.</span><span class="n">open_files</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="o">.</span><span class="n">file1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="o">.</span><span class="n">file2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="o">.</span><span class="n">show</span><span class="p">)</span>
+
+    <span class="c">##############################################</span>
+</div>
+<div class="viewcode-block" id="DiffViewerApplication.show_message"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication.show_message">[docs]</a>    <span class="k">def</span> <span class="nf">show_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot; Hides the normal status indications and displays the given message for the specified</span>
+<span class="sd">        number of milli-seconds (timeout). If timeout is 0 (default), the message remains displayed</span>
+<span class="sd">        until the clearMessage() slot is called or until the showMessage() slot is called again to</span>
+<span class="sd">        change the message.</span>
+
+<span class="sd">        Note that showMessage() is called to show temporary explanations of tool tip texts, so</span>
+<span class="sd">        passing a timeout of 0 is not sufficient to display a permanent message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span><span class="o">.</span><span class="n">show_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">warn</span><span class="p">)</span>
 
 <span class="c">####################################################################################################</span>
 <span class="c">#</span>

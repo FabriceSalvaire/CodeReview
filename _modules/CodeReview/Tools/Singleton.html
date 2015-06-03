@@ -198,9 +198,7 @@
 
 <span class="c">####################################################################################################</span>
 
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Singleton snippets.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;Singleton snippets.&quot;&quot;&quot;</span>
 
 <span class="c">####################################################################################################</span>
 
@@ -210,9 +208,10 @@
 
 <div class="viewcode-block" id="SingletonMetaClass"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Singleton.html#CodeReview.Tools.Singleton.SingletonMetaClass">[docs]</a><span class="k">class</span> <span class="nc">SingletonMetaClass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; A singleton metaclass.</span>
+    <span class="sd">&quot;&quot;&quot;A singleton metaclass.</span>
 
 <span class="sd">    This implementation supports subclassing and is thread safe.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c">##############################################</span>
@@ -224,7 +223,7 @@
         <span class="c"># print(&#39;MetaSingleton __init__:&#39;, cls, class_name, super_classes, class_attribute_dict, sep=&#39;\n... &#39;)</span>
 
         <span class="nb">type</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">class_name</span><span class="p">,</span> <span class="n">super_classes</span><span class="p">,</span> <span class="n">class_attribute_dict</span><span class="p">)</span>
-
+        
         <span class="n">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="n">cls</span><span class="o">.</span><span class="n">_rlock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span> <span class="c"># A factory function that returns a new reentrant lock object.</span>
 
@@ -240,16 +239,17 @@
         <span class="k">with</span> <span class="n">cls</span><span class="o">.</span><span class="n">_rlock</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="nb">type</span><span class="o">.</span><span class="n">__call__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
+        
         <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_instance</span>
 
 <span class="c">####################################################################################################</span>
 </div>
 <div class="viewcode-block" id="singleton"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Singleton.html#CodeReview.Tools.Singleton.singleton">[docs]</a><span class="k">class</span> <span class="nc">singleton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; A singleton class decorator.</span>
+    <span class="sd">&quot;&quot;&quot;A singleton class decorator.</span>
 
 <span class="sd">    This implementation doesn&#39;t support subclassing.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c">##############################################</span>
@@ -269,7 +269,7 @@
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instance</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
+        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instance</span>
 
 <span class="c">####################################################################################################</span>
@@ -290,7 +290,7 @@
         <span class="k">if</span> <span class="n">cls</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">instances</span><span class="p">:</span>
             <span class="n">instances</span><span class="p">[</span><span class="n">cls</span><span class="p">]</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">instances</span><span class="p">[</span><span class="n">cls</span><span class="p">]</span>
-
+    
     <span class="k">return</span> <span class="n">get_instance</span>
 
 <span class="c">####################################################################################################</span>
@@ -310,7 +310,7 @@
 
         <span class="n">obj</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">monostate</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">obj</span><span class="o">.</span><span class="n">__dict__</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_shared_state</span>
-
+        
         <span class="k">return</span> <span class="n">obj</span>
 
 <span class="c">####################################################################################################</span>

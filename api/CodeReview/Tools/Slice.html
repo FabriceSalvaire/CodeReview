@@ -233,8 +233,8 @@ examples to build a slice:</p>
 <p>A slice is not empty if it verifies the predicate <em>stop</em> &gt; <em>start</em>, this predicate can be tested
 using a Boolean evaluation of the instance.</p>
 <p>A slice can be scaled by a factor using:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="nb">slice</span> <span class="o">/</span> <span class="mi">2</span>
-<span class="nb">slice</span> <span class="o">/=</span> <span class="mi">2</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">slice</span> <span class="o">//</span> <span class="mi">2</span>
+<span class="nb">slice</span> <span class="o">//=</span> <span class="mi">2</span>
 </pre></div>
 </div>
 <p>The union and the intersection of two slices can be computed using:</p>
@@ -251,30 +251,6 @@ using a Boolean evaluation of the instance.</p>
 <dt id="CodeReview.Tools.Slice.Slice._check_arguments">
 <code class="descname">_check_arguments</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice._check_arguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice._check_arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check the arguments provided to the constructor.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Tools.Slice.Slice._get_lower">
-<code class="descname">_get_lower</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice._get_lower"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice._get_lower" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the lower boundary.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Tools.Slice.Slice._get_start">
-<code class="descname">_get_start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice._get_start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice._get_start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the start boundary.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Tools.Slice.Slice._get_stop">
-<code class="descname">_get_stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice._get_stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice._get_stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the stop boundary.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Tools.Slice.Slice._get_upper">
-<code class="descname">_get_upper</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Tools/Slice.html#Slice._get_upper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Tools.Slice.Slice._get_upper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the upper boundary.</p>
 </dd></dl>
 
 <dl class="staticmethod">
@@ -310,7 +286,7 @@ using a Boolean evaluation of the instance.</p>
 <dl class="attribute">
 <dt id="CodeReview.Tools.Slice.Slice.lower">
 <code class="descname">lower</code><a class="headerlink" href="#CodeReview.Tools.Slice.Slice.lower" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lower index</p>
+<dd><p>Lower boundary.</p>
 </dd></dl>
 
 <dl class="method">
@@ -323,19 +299,19 @@ using a Boolean evaluation of the instance.</p>
 <dl class="attribute">
 <dt id="CodeReview.Tools.Slice.Slice.start">
 <code class="descname">start</code><a class="headerlink" href="#CodeReview.Tools.Slice.Slice.start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start index</p>
+<dd><p>Start boundary.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="CodeReview.Tools.Slice.Slice.stop">
 <code class="descname">stop</code><a class="headerlink" href="#CodeReview.Tools.Slice.Slice.stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stop index</p>
+<dd><p>Stop boundary.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="CodeReview.Tools.Slice.Slice.upper">
 <code class="descname">upper</code><a class="headerlink" href="#CodeReview.Tools.Slice.Slice.upper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Upper index</p>
+<dd><p>Upper boundary.</p>
 </dd></dl>
 
 </dd></dl>

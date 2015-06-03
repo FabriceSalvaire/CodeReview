@@ -211,7 +211,7 @@
 <span class="c">####################################################################################################</span>
 </div>
 <div class="viewcode-block" id="parent_directory_of"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Path.html#CodeReview.Tools.Path.parent_directory_of">[docs]</a><span class="k">def</span> <span class="nf">parent_directory_of</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    
+
     <span class="n">directory</span> <span class="o">=</span> <span class="n">file_name</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">step</span><span class="p">):</span>
         <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
@@ -220,14 +220,14 @@
 <span class="c">####################################################################################################</span>
 </div>
 <div class="viewcode-block" id="find"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Path.html#CodeReview.Tools.Path.find">[docs]</a><span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">directories</span><span class="p">):</span>
-    
+
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">directories</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
         <span class="n">directories</span> <span class="o">=</span> <span class="p">(</span><span class="n">directories</span><span class="p">,)</span>
     <span class="k">for</span> <span class="n">directory</span> <span class="ow">in</span> <span class="n">directories</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">directory_path</span><span class="p">,</span> <span class="n">sub_directories</span><span class="p">,</span> <span class="n">file_names</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">file_names</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
-
+    <span class="c"># else</span>
     <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s">&quot;File </span><span class="si">%s</span><span class="s"> not found in directories </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">directories</span><span class="p">)))</span>
 
 <span class="c">####################################################################################################</span>

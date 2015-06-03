@@ -188,6 +188,49 @@ git repository after each commit.</p>
 </div>
 <div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>I started to write some pieces of code of CodeReview at the end of 2011, as a port of the Bzr Qt
+plugin <a class="reference external" href="http://wiki.bazaar.canonical.com/QBzr">QBzr</a> for Git when Bzr started to seriously fall
+down.  I am an addict of code review and I cannot work without it.  QBzr features two nice tools,
+qlog and qdiff for this task.  It was the main reason why I am still using Bzr in 2015.  But now I
+succeed to release an alternative.</p>
+<p>The aim of CodeReview is to provide tools for code review tasks, like to show the difference between
+two versions.  However I am not a fan of any GUI that aims to deal with Git with only a mouse and
+one finger.  Thus CodeReview is not intended to compete with a &#8220;power&#8221; IDE like eclipse, idea,
+pycharm, kate ...  But just to provide features not available in Emacs (my editor) or github like a
+diff side-by-side on local changes.</p>
+<p>CodeReview is written in Python 3 and the GUI is based on the Qt5 framework.  The libgit2 and
+<a class="reference external" href="http://www.pygit2.org/install.html">pygit2</a> provides a Python API to deal with Git repositories.  I tried to achieve a clever design
+and to write a clean code.</p>
+<p>Actually CodeReview has a limited number of features.  The followings list gives some ideas to extend its
+features:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Add Mercurial support. (Git and Mercurial are actually the most cool VCS)</li>
+<li>Add a graphical representation of the branches.  I don&#8217;t understand the crappy code of qlog and I
+don&#8217;t know any algorithm on this topic (graphviz, qgit ?).  To summarize I don&#8217;t what and how to do.</li>
+<li>Implement the detection of code translocations.  Sometimes we move code within a file or a
+project.  Such changes are related as deletion and addition in the code, which don&#8217;t help to
+review code.  We can do something clever by computing a distance between all the added and
+deleted chuncks.  The distance could be computed using a Levenshtein, Damerau–Levenshtein,
+Needleman–Wunsch or Smith–Waterman algorithm (DNA alignment algorithms).</li>
+<li>Implement code analyser/validator as language plugins.  The idea is to annotate change as
+cosmetic or dangerous modifications.  For example a deleted or added space is a cosmetic change
+in C, but it can be a regression in Python where the indentation is part of the grammar.</li>
+<li>Implement blame wich is another important feature.</li>
+<li>Implement comments and maybe as a client-server architecture.</li>
+<li>look <a class="reference external" href="https://docs.python.org/3.4/library/difflib.html">https://docs.python.org/3.4/library/difflib.html</a></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="features">
+<h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
+<p>The main features of CodeReview are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>display and browse the log and paches of a Git repository</li>
+<li>diff side by side using Patience algorithm</li>
+</ul>
+</div></blockquote>
 </div>
 <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>

@@ -207,7 +207,7 @@
 <span class="c">#</span>
 <span class="c">####################################################################################################</span>
 
-<span class="sd">&quot;&quot;&quot; This module provides an API to compute and store the difference between two text documents.</span>
+<span class="sd">&quot;&quot;&quot;This module provides an API to compute and store the difference between two text documents.</span>
 
 <span class="sd">The difference between two documents is computed in therms of line difference, thus documents are</span>
 <span class="sd">split to a set of contiguous lines called *chunks*.  Chunks are implemented as document views.</span>
@@ -230,6 +230,7 @@
 <span class="sd">any combination of *removed*, *inserted* and *replaced* chunk type and delimited by two *equal*</span>
 <span class="sd">chunks.  And *replaced* chunks are made of any combination of *removed*, *inserted*, *replaced* and</span>
 <span class="sd">*equal* sub-chunks.  Moreover we can complete the structure with *equal_block* chunks.</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c">####################################################################################################</span>
@@ -252,7 +253,7 @@
 
 <div class="viewcode-block" id="TwoWayChunk"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk">[docs]</a><span class="k">class</span> <span class="nc">TwoWayChunk</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; This class implements a two way chunk.</span>
+    <span class="sd">&quot;&quot;&quot;This class implements a two way chunk.</span>
 
 <span class="sd">    Public attributes:</span>
 
@@ -268,8 +269,8 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk1</span><span class="p">,</span> <span class="n">chunk2</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; The parameters *chunk1* and *chunk2* are the corresponding document views for the</span>
-<span class="sd">        chunk.</span>
+        <span class="sd">&quot;&quot;&quot;The parameters *chunk1* and *chunk2* are the corresponding document views for the chunk.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">chunk1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunk2</span> <span class="o">=</span> <span class="n">chunk1</span><span class="p">,</span> <span class="n">chunk2</span>
@@ -283,42 +284,43 @@
 <span class="c">####################################################################################################</span>
 </div>
 <div class="viewcode-block" id="TwoWayChunkDelete"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkDelete">[docs]</a><span class="k">class</span> <span class="nc">TwoWayChunkDelete</span><span class="p">(</span><span class="n">TwoWayChunk</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; This class implements a two way delete flat chunk. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This class implements a two way delete flat chunk.&quot;&quot;&quot;</span>
     <span class="n">chunk_type</span> <span class="o">=</span> <span class="n">chunk_type</span><span class="o">.</span><span class="n">delete</span>
 </div>
 <div class="viewcode-block" id="TwoWayChunkEqual"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkEqual">[docs]</a><span class="k">class</span> <span class="nc">TwoWayChunkEqual</span><span class="p">(</span><span class="n">TwoWayChunk</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; This class implements a two way equal flat chunk. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This class implements a two way equal flat chunk.&quot;&quot;&quot;</span>
     <span class="n">chunk_type</span> <span class="o">=</span> <span class="n">chunk_type</span><span class="o">.</span><span class="n">equal</span>
 </div>
 <div class="viewcode-block" id="TwoWayChunkInsert"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkInsert">[docs]</a><span class="k">class</span> <span class="nc">TwoWayChunkInsert</span><span class="p">(</span><span class="n">TwoWayChunk</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; This class implements a two way insert flat chunk. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This class implements a two way insert flat chunk.&quot;&quot;&quot;</span>
     <span class="n">chunk_type</span> <span class="o">=</span> <span class="n">chunk_type</span><span class="o">.</span><span class="n">insert</span>
 </div>
 <div class="viewcode-block" id="TwoWayChunkReplace"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkReplace">[docs]</a><span class="k">class</span> <span class="nc">TwoWayChunkReplace</span><span class="p">(</span><span class="n">TwoWayChunk</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; This class implements a two way replace flat chunk. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This class implements a two way replace flat chunk.&quot;&quot;&quot;</span>
     <span class="n">chunk_type</span> <span class="o">=</span> <span class="n">chunk_type</span><span class="o">.</span><span class="n">replace</span>
 
 <span class="c">####################################################################################################</span>
 </div>
 <div class="viewcode-block" id="TwoWayLineChunkDelete"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkDelete">[docs]</a><span class="k">class</span> <span class="nc">TwoWayLineChunkDelete</span><span class="p">(</span><span class="n">TwoWayChunk</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; This class implements a two way delete line chunk. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This class implements a two way delete line chunk.&quot;&quot;&quot;</span>
     <span class="n">chunk_type</span> <span class="o">=</span> <span class="n">chunk_type</span><span class="o">.</span><span class="n">delete</span>
 </div>
 <div class="viewcode-block" id="TwoWayLineChunkEqual"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkEqual">[docs]</a><span class="k">class</span> <span class="nc">TwoWayLineChunkEqual</span><span class="p">(</span><span class="n">TwoWayChunk</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; This class implements a two way equal line chunk. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This class implements a two way equal line chunk.&quot;&quot;&quot;</span>
     <span class="n">chunk_type</span> <span class="o">=</span> <span class="n">chunk_type</span><span class="o">.</span><span class="n">equal</span>
 </div>
 <div class="viewcode-block" id="TwoWayLineChunkInsert"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkInsert">[docs]</a><span class="k">class</span> <span class="nc">TwoWayLineChunkInsert</span><span class="p">(</span><span class="n">TwoWayChunk</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; This class implements a two way insert line chunk. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This class implements a two way insert line chunk.&quot;&quot;&quot;</span>
     <span class="n">chunk_type</span> <span class="o">=</span> <span class="n">chunk_type</span><span class="o">.</span><span class="n">insert</span>
 
 <span class="c">####################################################################################################</span>
 </div>
 <div class="viewcode-block" id="TwoWayLineChunkReplace"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkReplace">[docs]</a><span class="k">class</span> <span class="nc">TwoWayLineChunkReplace</span><span class="p">(</span><span class="n">TwoWayChunk</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; This class implements the specific case of replace line chunk type.</span>
+    <span class="sd">&quot;&quot;&quot;This class implements the specific case of replace line chunk type.</span>
 
 <span class="sd">    The class implements the *iter* and *getitem* protocol to access the sub-chunks.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">chunk_type</span> <span class="o">=</span> <span class="n">chunk_type</span><span class="o">.</span><span class="n">replace</span>
@@ -341,7 +343,7 @@
 
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Return an iterator over the sub-chunks. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return an iterator over the sub-chunks.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="p">)</span>
 
@@ -349,7 +351,7 @@
 
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Provide an array interface to the chunks. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Provide an array interface to the chunks.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="p">[</span><span class="n">slice_</span><span class="p">]</span>
 
@@ -357,7 +359,7 @@
 </div>
 <div class="viewcode-block" id="TwoWayGroup"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayGroup">[docs]</a><span class="k">class</span> <span class="nc">TwoWayGroup</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; This class implements a group of contiguous line changes between two files.</span>
+    <span class="sd">&quot;&quot;&quot;This class implements a group of contiguous line changes between two files.</span>
 
 <span class="sd">    The class implements the *iter* and *getitem* protocol to access the groups.</span>
 
@@ -368,6 +370,7 @@
 
 <span class="sd">      :attr:`slice2`</span>
 <span class="sd">        Line slice for document2</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c">##############################################</span>
@@ -382,7 +385,7 @@
 
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Return an iterator over the chunks. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return an iterator over the chunks.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="p">)</span>
 
@@ -390,7 +393,7 @@
 
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Provide an array interface to the chunks. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Provide an array interface to the chunks.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="p">[</span><span class="n">slice_</span><span class="p">]</span>
 
@@ -398,7 +401,7 @@
 
 <div class="viewcode-block" id="TwoWayGroup.append"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayGroup.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Append a chunk. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Append a chunk.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">slice1</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
@@ -412,13 +415,13 @@
 </div></div>
 <div class="viewcode-block" id="TwoWayFileDiff"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiff">[docs]</a><span class="k">class</span> <span class="nc">TwoWayFileDiff</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; This class stores the difference between two files. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This class stores the difference between two files.&quot;&quot;&quot;</span>
 
     <span class="c">##############################################</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document1</span><span class="p">,</span> <span class="n">document2</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; The parameters *document1* and *document2* are two :class:`DiffViewer.RawTextDocument`</span>
+        <span class="sd">&quot;&quot;&quot;The parameters *document1* and *document2* are two :class:`DiffViewer.RawTextDocument`</span>
 <span class="sd">        documents.</span>
 
 <span class="sd">        The class implements the *iter* and *getitem* protocol to access the groups.</span>
@@ -428,6 +431,7 @@
 <span class="sd">          :attr:`document1`</span>
 
 <span class="sd">          :attr:`document2`</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">document1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">document2</span> <span class="o">=</span> <span class="n">document1</span><span class="p">,</span> <span class="n">document2</span>
@@ -437,7 +441,7 @@
 
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Return an iterator over the groups. &quot;&quot;&quot;</span> 
+        <span class="sd">&quot;&quot;&quot;Return an iterator over the groups.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_groups</span><span class="p">)</span>
 
@@ -445,7 +449,7 @@
 
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Provides an array interface. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Provides an array interface.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_groups</span><span class="p">[</span><span class="n">slice_</span><span class="p">]</span>
 
@@ -453,7 +457,7 @@
 
 <div class="viewcode-block" id="TwoWayFileDiff.append"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiff.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Append a group. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Append a group.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
 
@@ -461,7 +465,7 @@
 </div>
 <div class="viewcode-block" id="TwoWayFileDiff.pretty_print"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiff.pretty_print">[docs]</a>    <span class="k">def</span> <span class="nf">pretty_print</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Pretty-print the file differences. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Pretty-print the file differences.&quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">pretty_print_chunk</span><span class="p">(</span><span class="n">chunk</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
             <span class="k">print</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="o">*</span><span class="n">level</span> <span class="o">+</span> <span class="n">chunk</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
@@ -481,7 +485,7 @@
 </div>
 <div class="viewcode-block" id="TwoWayFileDiff.print_unidiff"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiff.print_unidiff">[docs]</a>    <span class="k">def</span> <span class="nf">print_unidiff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Pretty-print the file differences using unidiff format. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Pretty-print the file differences using unidiff format.&quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">pretty_print_chunk_lines</span><span class="p">(</span><span class="n">chunk</span><span class="p">,</span> <span class="n">prefix</span><span class="p">):</span>
             <span class="k">print</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="n">prefix</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">lines</span><span class="p">())</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
@@ -510,32 +514,32 @@
 </div></div>
 <div class="viewcode-block" id="TwoWayFileDiffFactory"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiffFactory">[docs]</a><span class="k">class</span> <span class="nc">TwoWayFileDiffFactory</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; This class implements a factory to compute file differences. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This class implements a factory to compute file differences.&quot;&quot;&quot;</span>
 
     <span class="c">###############################################</span>
 
 <div class="viewcode-block" id="TwoWayFileDiffFactory.process"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiffFactory.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document1</span><span class="p">,</span> <span class="n">document2</span><span class="p">,</span> <span class="n">number_of_lines_of_context</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Compute the difference between two :class:`RawTextDocument` documents and return a</span>
-<span class="sd">        :class:`TwoWayFileDiff` instance.  The parameter *number_of_lines_of_context* provides the</span>
-<span class="sd">        number of lines of context for the diff algorithm.</span>
+        <span class="sd">&quot;&quot;&quot;Compute the difference between two :class:`RawTextDocument` documents using the Patience</span>
+<span class="sd">        algorithm and return a :class:`TwoWayFileDiff` instance.  The parameter</span>
+<span class="sd">        *number_of_lines_of_context* provides the number of lines of context for the diff algorithm.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">file_diff</span> <span class="o">=</span> <span class="n">TwoWayFileDiff</span><span class="p">(</span><span class="n">document1</span><span class="p">,</span> <span class="n">document2</span><span class="p">)</span>
-
+        
         <span class="n">sequence_matcher</span> <span class="o">=</span> <span class="n">PatienceSequenceMatcher</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">document1</span><span class="o">.</span><span class="n">lines</span><span class="p">(),</span> <span class="n">document2</span><span class="o">.</span><span class="n">lines</span><span class="p">())</span>
         <span class="n">sequence_matcher_groups</span> <span class="o">=</span> <span class="n">sequence_matcher</span><span class="o">.</span><span class="n">get_grouped_opcodes</span><span class="p">(</span><span class="n">number_of_lines_of_context</span><span class="p">)</span>
-
         <span class="k">for</span> <span class="n">opcodes</span> <span class="ow">in</span> <span class="n">sequence_matcher_groups</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_process_group</span><span class="p">(</span><span class="n">file_diff</span><span class="p">,</span> <span class="n">opcodes</span><span class="p">)</span>
-
+        
         <span class="k">return</span> <span class="n">file_diff</span>
 
     <span class="c">###############################################</span>
 </div>
 <div class="viewcode-block" id="TwoWayFileDiffFactory._process_group"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiffFactory._process_group">[docs]</a>    <span class="k">def</span> <span class="nf">_process_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_diff</span><span class="p">,</span> <span class="n">opcodes</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Process a group of contiguous line changes and append the group to the file diff. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Process a group of contiguous line changes and append the group to the file diff.&quot;&quot;&quot;</span>
 
         <span class="n">group</span> <span class="o">=</span> <span class="n">TwoWayGroup</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">start_1</span><span class="p">,</span> <span class="n">stop_1</span><span class="p">,</span> <span class="n">start_2</span><span class="p">,</span> <span class="n">stop_2</span> <span class="ow">in</span> <span class="n">opcodes</span><span class="p">:</span>
@@ -559,10 +563,11 @@
 </div>
 <div class="viewcode-block" id="TwoWayFileDiffFactory._process_replace_chunk"><a class="viewcode-back" href="../../../api/CodeReview/Diff/RawTextDocumentDiff.html#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiffFactory._process_replace_chunk">[docs]</a>    <span class="k">def</span> <span class="nf">_process_replace_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk1</span><span class="p">,</span> <span class="n">chunk2</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; Process a replace chunk type and return the sub-chunks.</span>
+        <span class="sd">&quot;&quot;&quot;Process a replace chunk type and return the sub-chunks.</span>
 
-<span class="sd">        The text is encoded in UTF-32 before to be passed to the diff algorithm in order to have</span>
+<span class="sd">        The text is encoded in UTF-32 before to be passed to the Patience algorithm in order to have</span>
 <span class="sd">        fixed character boundaries.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">sub_chunks</span> <span class="o">=</span> <span class="p">[]</span>
@@ -583,7 +588,7 @@
             <span class="k">elif</span> <span class="n">tag</span> <span class="o">==</span> <span class="s">&#39;replace&#39;</span><span class="p">:</span>
                 <span class="n">sub_chunk_diff</span> <span class="o">=</span> <span class="n">TwoWayChunkReplace</span><span class="p">(</span><span class="n">sub_chunk1</span><span class="p">,</span> <span class="n">sub_chunk2</span><span class="p">)</span>
             <span class="n">sub_chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sub_chunk_diff</span><span class="p">)</span>
-
+        
         <span class="k">return</span> <span class="n">sub_chunks</span>
 
 <span class="c">####################################################################################################</span>
