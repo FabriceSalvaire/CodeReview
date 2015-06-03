@@ -82,6 +82,14 @@ class CommitTableModel(QtCore.QAbstractTableModel):
 
     ##############################################
 
+    def __iter__(self):
+
+        # Fixme:
+        for patch_data in self._patch_datas:
+            yield patch_data[-1]
+
+    ##############################################
+
     def __getitem__(self, i):
 
         return self._patch_datas[i][-1]

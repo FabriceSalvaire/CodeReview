@@ -33,6 +33,7 @@ from CodeReview.Diff.SyntaxHighlighter import HighlightedText, highlight_text
 from CodeReview.Diff.TextDocumentDiffModel import TextDocumentDiffModelFactory, highlight_document
 from CodeReview.GUI.Base.MainWindowBase import MainWindowBase
 from CodeReview.GUI.DiffViewer.DiffWidget import DiffView
+from CodeReview.GUI.Widgets.IconLoader import IconLoader
 from CodeReview.GUI.Widgets.MessageBox import MessageBox
 
 ####################################################################################################
@@ -50,10 +51,12 @@ class DiffViewerMainWindow(MainWindowBase):
     def __init__(self, parent=None):
 
         super(DiffViewerMainWindow, self).__init__(title='CodeReview Diff Viewer', parent=parent)
-
+        
         self._current_path = None
         self._init_ui()
-
+        self._create_actions()
+        self._create_toolbar()
+        
     ##############################################
 
     def _init_ui(self):
@@ -63,38 +66,64 @@ class DiffViewerMainWindow(MainWindowBase):
         self._vertical_layout = QtWidgets.QVBoxLayout(self._central_widget)
         
         self._message_box = MessageBox(self)
-        self._vertical_layout.addWidget(self._message_box)
-        
         self._diff_view = DiffView()
-        self._vertical_layout.addWidget(self._diff_view)
-        
-        self._horizontal_layout = QtWidgets.QHBoxLayout()
-        self._vertical_layout.addLayout(self._horizontal_layout)
-        self._complete_checkbox = QtWidgets.QCheckBox(self._central_widget)
-        self._complete_checkbox.setText("Complete")
-        # QtWidgets.QApplication.translate("main_window", , None, QtWidgets.QApplication.UnicodeUTF8))
-        self._horizontal_layout.addWidget(self._complete_checkbox)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self._horizontal_layout.addItem(spacerItem)
-        self._refresh_button = QtWidgets.QPushButton(self._central_widget)
-        self._refresh_button.setText("Refresh")
-        # QtWidgets.QApplication.translate("main_window", "Refresh", None, QtWidgets.QApplication.UnicodeUTF8)
-        self._horizontal_layout.addWidget(self._refresh_button)
-        
-        self._complete_checkbox.stateChanged.connect(self._set_document_models)
+
+        for widget in (self._message_box, self._diff_view):
+            self._vertical_layout.addWidget(widget)
 
     ##############################################
 
     def _create_actions(self):
 
-        pass
-        # icon_loader = IconLoader()
+        icon_loader = IconLoader()
+        
+        self._previous_file_action = \
+            QtWidgets.QAction(icon_loader['go-previous'],
+                              'Previous',
+                              self,
+                              toolTip='Previous file',
+                              shortcut='Ctrl+P',
+                              triggered=self._previous_file,
+            )
+        
+        self._next_file_action = \
+            QtWidgets.QAction(icon_loader['go-next'],
+                              'Next',
+                              self,
+                              toolTip='Next file',
+                              shortcut='Ctrl+N',
+                              triggered=self._next_file,
+            )
+        
+        self._refresh_action = \
+            QtWidgets.QAction(icon_loader['view-refresh'],
+                              'Refresh',
+                              self,
+                              toolTip='refresh',
+                              shortcut='Ctrl+R',
+                              # triggered=lambda: self._(),
+            )
+        
+        self._complete_action = \
+            QtWidgets.QAction('Complete',
+                              self,
+                              toolTip='Complete view',
+                              shortcut='Ctrl+A',
+                              checkable=True,
+                              triggered=self._set_document_models,
+            )
 
     ##############################################
 
     def _create_toolbar(self):
 
-        pass
+        self._tool_bar = self.addToolBar('Diff Viewer')
+        for action in (self._previous_file_action,
+                       self._next_file_action,
+                       self._complete_action,
+                       self._refresh_action,
+                      ):
+            self._tool_bar.addAction(action)
 
     ##############################################
 
@@ -186,9 +215,25 @@ class DiffViewerMainWindow(MainWindowBase):
 
     def _set_document_models(self):
 
-        complete_mode = self._complete_checkbox.checkState() == QtCore.Qt.Checked
+        complete_mode = self._complete_action.isChecked()
         # Fixme: right way ?
         self._diff_view.set_document_models(self._highlighted_documents, complete_mode)
+
+    ##############################################
+
+    def _previous_file(self):
+
+        main_window = self.parent()
+        if main_window is not None:
+            main_window.previous_patch()
+
+    ##############################################
+
+    def _next_file(self):
+
+        main_window = self.parent()
+        if main_window is not None:
+            main_window.next_patch()
 
 ####################################################################################################
 #

@@ -46,8 +46,12 @@ class LogBrowserMainWindow(MainWindowBase):
     def __init__(self, parent=None):
 
         super(LogBrowserMainWindow, self).__init__(title='CodeReview Log Browser', parent=parent)
-
-        self._current_path = None
+        
+        self._current_revision = None
+        self._patches = []
+        self._current_patch = None
+        self._diff_window = None
+        
         self._init_ui()
 
     ##############################################
@@ -135,6 +139,7 @@ class LogBrowserMainWindow(MainWindowBase):
 
         index = index.row()
         if index:
+            self._current_revision = index
             log_table_model = self._log_table.model()
             commit1 = log_table_model[index]
             try:
@@ -143,41 +148,64 @@ class LogBrowserMainWindow(MainWindowBase):
             except IndexError:
                 commit2 = None
         else:
+            self._current_revision = None
             print("\nStatus:")
             git_status = self._application._repository.status()
             for filepath, status in git_status.items():
                 print(filepath, status)
             commit1 = commit2 = None
 
-        self._commit_table.model().update(commit1, commit2)
+        commit_table_model = self._commit_table.model()
+        commit_table_model.update(commit1, commit2)
         self._commit_table.resizeColumnsToContents()
+        
+        self._patches = [patch for patch in commit_table_model] # Fixme:
 
     ##############################################
 
     def _show_patch(self, index):
 
-        index = index.row()
-        commit_table_model = self._commit_table.model()
-        patch = commit_table_model[index]
+        self._current_patch = index.row()
+        self._show_current_patch()
 
+    ##############################################
+
+    def _show_current_patch(self):
+
+        if self._diff_window is None:
+            from CodeReview.GUI.DiffViewer.DiffViewerMainWindow import DiffViewerMainWindow
+            self._diff_window = DiffViewerMainWindow(self)
+            self._diff_window.showMaximized()
+        
+        patch = self._patches[self._current_patch]
         if patch.status == 'M' and not patch.is_binary:
-            self._logger.info('revision {} '.format(index) + patch.new_file_path)
+            self._logger.info('revision {} '.format(self._current_revision) + patch.new_file_path)
             # print(patch.status, patch.similarity, patch.additions, patch.deletions, patch.is_binary)
             # for hunk in patch.hunks:
             #     print(hunk.old_start, hunk.old_lines, hunk.new_start, hunk.new_lines, hunk.lines)
-            
             repository = self._application._repository
             texts = [repository[blob_id].data.decode('utf-8')
                      for blob_id in (patch.old_id, patch.new_id)]
-            
-            # Fixme: multiple instance
-            from CodeReview.GUI.DiffViewer.DiffViewerMainWindow import DiffViewerMainWindow
-            self._diff_window = DiffViewerMainWindow()
-            self._diff_window.showMaximized()
             self._diff_window.diff_documents(texts=texts, paths=(patch.old_file_path, patch.new_file_path))
         # else not implemented
         # show highlighted added/removed document
         # show image pdf ...
+
+    ##############################################
+
+    def previous_patch(self):
+
+        if self._current_patch >= 1:
+            self._current_patch -= 1
+            self._show_current_patch()
+
+    ##############################################
+
+    def next_patch(self):
+
+        if self._current_patch < (len(self._patches) -1):
+            self._current_patch += 1
+            self._show_current_patch()
 
 ####################################################################################################
 #
