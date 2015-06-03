@@ -85,6 +85,59 @@ Written by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_.
  Introduction
 ==============
 
+I started to write some pieces of code of CodeReview at the end of 2011, as a port of the Bzr Qt
+plugin `QBzr <http://wiki.bazaar.canonical.com/QBzr>`_ for Git when Bzr started to seriously fall
+down.  I am an addict of code review and I cannot work without it.  QBzr features two nice tools,
+qlog and qdiff for this task.  It was the main reason why I am still using Bzr in 2015.  But now I
+succeed to release an alternative.
+
+The aim of CodeReview is to provide tools for code review tasks, like to show the difference between
+two versions.  However I am not a fan of any GUI that aims to deal with Git with only a mouse and
+one finger.  Thus CodeReview is not intended to compete with a "power" IDE like eclipse, idea,
+pycharm, kate ...  But just to provide features not available in Emacs (my editor) or github like a
+diff side-by-side on local changes.
+
+CodeReview is written in Python 3 and the GUI is based on the Qt5 framework.  The libgit2 and
+|pygit2|_ provides a Python API to deal with Git repositories.  I tried to achieve a clever design
+and to write a clean code.
+
+Actually CodeReview has a limited number of features.  The followings list gives some ideas to extend its
+features:
+
+ * Add Mercurial support. (Git and Mercurial are actually the most cool VCS)
+
+ * Add a graphical representation of the branches.  I don't understand the crappy code of qlog and I
+   don't know any algorithm on this topic (graphviz, qgit ?).  To summarize I don't what and how to do.
+
+ * Implement the detection of code translocations.  Sometimes we move code within a file or a
+   project.  Such changes are related as deletion and addition in the code, which don't help to
+   review code.  We can do something clever by computing a distance between all the added and
+   deleted chuncks.  The distance could be computed using a Levenshtein, Damerau–Levenshtein,
+   Needleman–Wunsch or Smith–Waterman algorithm (DNA alignment algorithms).
+
+ * Implement code analyser/validator as language plugins.  The idea is to annotate change as
+   cosmetic or dangerous modifications.  For example a deleted or added space is a cosmetic change
+   in C, but it can be a regression in Python where the indentation is part of the grammar.
+
+ * Implement blame wich is another important feature.
+
+ * Implement comments and maybe as a client-server architecture.
+
+ * look https://docs.python.org/3.4/library/difflib.html
+
+.. -*- Mode: rst -*-
+
+==========
+ Features
+==========
+
+The main features of CodeReview are:
+
+ * display and browse the log and paches of a Git repository
+ * diff side by side using Patience algorithm
+
+.. end
+
 .. End
 
 .. -*- Mode: rst -*-
@@ -96,19 +149,19 @@ Written by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_.
  Installation
 ==============
 
-The installation of CodeReview by itself is quite simple. However it will be easier to get the
-dependencies on a Linux desktop.
+CodeReview requires some dependencies wich are easier to install on a Linux distribution.
 
 Dependencies
 ------------
 
 CodeReview requires the following dependencies:
 
- * |Python|_ 3
- * |PyQt5|_ 5
- * libgit2 see `link <http://www.pygit2.org/install.html#quick-install>`_ to install
+ * |Python|_ v3.4
+ * |PyQt5|_ v5.4
+ * libgit2 see `link <http://www.pygit2.org/install.html#quick-install>`_  for installation instruction
 
 Theses packages are available via |pip|_:
+
  * |pygit2|_
  * Pygments
  * PyYAML

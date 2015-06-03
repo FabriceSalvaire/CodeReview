@@ -367,32 +367,75 @@ ul.auto-toc {
 </div>
 <div class="section" id="introduction">
 <h1>Introduction</h1>
+<p>I started to write some pieces of code of CodeReview at the end of 2011, as a port of the Bzr Qt
+plugin <a class="reference external" href="http://wiki.bazaar.canonical.com/QBzr">QBzr</a> for Git when Bzr started to seriously fall
+down.  I am an addict of code review and I cannot work without it.  QBzr features two nice tools,
+qlog and qdiff for this task.  It was the main reason why I am still using Bzr in 2015.  But now I
+succeed to release an alternative.</p>
+<p>The aim of CodeReview is to provide tools for code review tasks, like to show the difference between
+two versions.  However I am not a fan of any GUI that aims to deal with Git with only a mouse and
+one finger.  Thus CodeReview is not intended to compete with a &quot;power&quot; IDE like eclipse, idea,
+pycharm, kate ...  But just to provide features not available in Emacs (my editor) or github like a
+diff side-by-side on local changes.</p>
+<p>CodeReview is written in Python 3 and the GUI is based on the Qt5 framework.  The libgit2 and
+<a class="reference external" href="http://www.pygit2.org/install.html">pygit2</a> provides a Python API to deal with Git repositories.  I tried to achieve a clever design
+and to write a clean code.</p>
+<p>Actually CodeReview has a limited number of features.  The followings list gives some ideas to extend its
+features:</p>
+<blockquote>
+<ul class="simple">
+<li>Add Mercurial support. (Git and Mercurial are actually the most cool VCS)</li>
+<li>Add a graphical representation of the branches.  I don't understand the crappy code of qlog and I
+don't know any algorithm on this topic (graphviz, qgit ?).  To summarize I don't what and how to do.</li>
+<li>Implement the detection of code translocations.  Sometimes we move code within a file or a
+project.  Such changes are related as deletion and addition in the code, which don't help to
+review code.  We can do something clever by computing a distance between all the added and
+deleted chuncks.  The distance could be computed using a Levenshtein, Damerau–Levenshtein,
+Needleman–Wunsch or Smith–Waterman algorithm (DNA alignment algorithms).</li>
+<li>Implement code analyser/validator as language plugins.  The idea is to annotate change as
+cosmetic or dangerous modifications.  For example a deleted or added space is a cosmetic change
+in C, but it can be a regression in Python where the indentation is part of the grammar.</li>
+<li>Implement blame wich is another important feature.</li>
+<li>Implement comments and maybe as a client-server architecture.</li>
+<li>look <a class="reference external" href="https://docs.python.org/3.4/library/difflib.html">https://docs.python.org/3.4/library/difflib.html</a></li>
+</ul>
+</blockquote>
+<!-- -*- Mode: rst -*- -->
+</div>
+<div class="section" id="features">
+<h1>Features</h1>
+<p>The main features of CodeReview are:</p>
+<blockquote>
+<ul class="simple">
+<li>display and browse the log and paches of a Git repository</li>
+<li>diff side by side using Patience algorithm</li>
+</ul>
+</blockquote>
+<!-- end -->
 <!-- End -->
 <!-- -*- Mode: rst -*- -->
 </div>
 <div class="section" id="installation">
 <span id="installation-page"></span><h1>Installation</h1>
-<p>The installation of CodeReview by itself is quite simple. However it will be easier to get the
-dependencies on a Linux desktop.</p>
+<p>CodeReview requires some dependencies wich are easier to install on a Linux distribution.</p>
 <div class="section" id="dependencies">
 <h2>Dependencies</h2>
 <p>CodeReview requires the following dependencies:</p>
 <blockquote>
 <ul class="simple">
-<li><a class="reference external" href="http://python.org">Python</a> 3</li>
-<li><a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a> 5</li>
-<li>libgit2 see <a class="reference external" href="http://www.pygit2.org/install.html#quick-install">link</a> to install</li>
+<li><a class="reference external" href="http://python.org">Python</a> v3.4</li>
+<li><a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a> v5.4</li>
+<li>libgit2 see <a class="reference external" href="http://www.pygit2.org/install.html#quick-install">link</a>  for installation instruction</li>
 </ul>
 </blockquote>
-<dl class="docutils">
-<dt>Theses packages are available via <a class="reference external" href="https://python-packaging-user-guide.readthedocs.org/en/latest/projects.html#pip">pip</a>:</dt>
-<dd><ul class="first last simple">
+<p>Theses packages are available via <a class="reference external" href="https://python-packaging-user-guide.readthedocs.org/en/latest/projects.html#pip">pip</a>:</p>
+<blockquote>
+<ul class="simple">
 <li><a class="reference external" href="http://www.pygit2.org/install.html">pygit2</a></li>
 <li>Pygments</li>
 <li>PyYAML</li>
 </ul>
-</dd>
-</dl>
+</blockquote>
 <p>For development, you will need in addition:</p>
 <blockquote>
 <ul class="simple">

@@ -9,17 +9,16 @@
  Installation
 ==============
 
-The installation of CodeReview by itself is quite simple. However it will be easier to get the
-dependencies on a Linux desktop.
+CodeReview requires some dependencies wich are easier to install on a Linux distribution.
 
 Dependencies
 ------------
 
 CodeReview requires the following dependencies:
 
- * |Python|_ 3
- * |PyQt5|_ 5
- * libgit2 see `link <http://www.pygit2.org/install.html#quick-install>`_ to install
+ * |Python|_ v3.4
+ * |PyQt5|_ v5.4
+ * libgit2 see `link <http://www.pygit2.org/install.html#quick-install>`_  for installation instruction
 
 Theses packages are available via |pip|_:
 
