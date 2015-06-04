@@ -4,8 +4,8 @@ import unittest
 
 ####################################################################################################
 
-from DiffViewer.Tools.Slice import FlatSlice, LineSlice
-from DiffViewer.RawTextDocument import RawTextDocument
+from CodeReview.Tools.Slice import FlatSlice, LineSlice
+from CodeReview.Diff.RawTextDocument import RawTextDocument
 
 ####################################################################################################
 
@@ -73,6 +73,12 @@ class TestRawTextDocument(unittest.TestCase):
         flat_slice = FlatSlice(5, 10)
         view = raw_text_document[flat_slice]
         self.assertEqual(str(view), text_buffer[flat_slice()])
+
+    ##############################################
+
+    def test_empty(self):
+
+        raw_text_document = RawTextDocument('')
 
 ####################################################################################################
 

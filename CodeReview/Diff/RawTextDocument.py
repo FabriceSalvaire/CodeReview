@@ -225,6 +225,9 @@ class RawTextDocumentAbc(object):
 
         """Convert a flat slice to a line slice and return it."""
 
+        if not bool(flat_slice):
+            return LineSlice(0, 0)
+        
         start_line = self.line_of(flat_slice.start)
         if flat_slice:
             upper_line = self.line_of(flat_slice.upper)
