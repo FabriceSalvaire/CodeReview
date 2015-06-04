@@ -3,7 +3,7 @@
 
 ####################################################################################################
 #
-# DiffViewer - Diff Viewer
+# CodeReview - Diff Viewer
 # Copyright (C) 2014 Salvaire Fabrice
 #
 # This program is free software: you can redistribute it and/or modify
@@ -42,7 +42,7 @@ default_excluded_extension = ','.join(('~',
                                        '.txt',
                                        ))
 
-default_exclusion_pattern = '\.bzr'
+default_exclusion_pattern = '\.(bzr|git)'
 
 ####################################################################################################
 #
