@@ -17,15 +17,6 @@
 ####################################################################################################
 
 ####################################################################################################
-#
-#                                              Audit
-#
-# - 13/02/2013 Fabrice
-#   - check close
-#
-####################################################################################################
-
-####################################################################################################
 
 import logging
 
@@ -80,7 +71,6 @@ class MainWindowBase(QtWidgets.QMainWindow):
         help_menu.addSeparator()
         help_menu.addAction(application.about_action)
         help_menu.addAction(application.show_system_information_action)
-        help_menu.addAction(application.send_email_action)
 
     ##############################################
 

@@ -31,13 +31,6 @@ class Path(object):
 
 ####################################################################################################
 
-class Email(object):
-
-    from_address = 'fabrice.salvaire@orange.fr'
-    to_address = ['fabrice.salvaire@orange.fr',]
-
-####################################################################################################
-
 class Help(object):
 
     host = 'localhost'

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'critical_error_form.ui'
 #
-# Created: Tue Jun  2 14:17:53 2015
+# Created: Thu Jun  4 13:00:42 2015
 #      by: PyQt5 UI code generator 5.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,7 +13,7 @@ class Ui_critical_error_form(object):
     def setupUi(self, critical_error_form):
         critical_error_form.setObjectName("critical_error_form")
         critical_error_form.setWindowModality(QtCore.Qt.ApplicationModal)
-        critical_error_form.resize(946, 683)
+        critical_error_form.resize(997, 683)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(critical_error_form)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.error_message_label = QtWidgets.QLabel(critical_error_form)
@@ -61,16 +61,6 @@ class Ui_critical_error_form(object):
         self.verticalLayout.setObjectName("verticalLayout")
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem1)
-        self.send_email_button = QtWidgets.QPushButton(critical_error_form)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.send_email_button.sizePolicy().hasHeightForWidth())
-        self.send_email_button.setSizePolicy(sizePolicy)
-        self.send_email_button.setObjectName("send_email_button")
-        self.verticalLayout.addWidget(self.send_email_button)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout.addItem(spacerItem2)
         self.exit_button = QtWidgets.QPushButton(critical_error_form)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -79,8 +69,8 @@ class Ui_critical_error_form(object):
         self.exit_button.setSizePolicy(sizePolicy)
         self.exit_button.setObjectName("exit_button")
         self.verticalLayout.addWidget(self.exit_button)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout.addItem(spacerItem3)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout.addItem(spacerItem2)
         self.ok_button = QtWidgets.QPushButton(critical_error_form)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -107,7 +97,6 @@ class Ui_critical_error_form(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">Back Trace</span></p></body></html>"))
-        self.send_email_button.setText(_translate("critical_error_form", "Send Email"))
         self.exit_button.setText(_translate("critical_error_form", "Exit CodeReview"))
         self.ok_button.setText(_translate("critical_error_form", "OK"))
 

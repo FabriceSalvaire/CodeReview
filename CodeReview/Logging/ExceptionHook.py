@@ -25,7 +25,6 @@ import traceback
 
 ####################################################################################################
 
-from CodeReview.Logging.Email import Email
 from CodeReview.Tools.Platform import Platform
 from CodeReview.Tools.Singleton import singleton
 
@@ -126,62 +125,6 @@ class StderrExceptionHook(ExceptionHook):
         # traceback.print_exc()
         traceback.print_exception(exception_type, exception_value, exception_traceback)
         print('\n', self._line, file=sys.stderr) 
-
-####################################################################################################
-
-class EmailExceptionHook(ExceptionHook):
-
-    """ Send per email exception. """
-
-    ##############################################
-
-    def __init__(self, context='', recipients=[]):
-
-        """ The mandatory recipient is set in :attr:`Config.Email.to_address`. Additional recipients
-        can be added using the list *recipients*. A context string can be set using *context*.
-        """
-
-        self._recipients = recipients
-
-        super(EmailExceptionHook, self).__init__(context)
-
-    ##############################################
-
-    def notify(self, exception_type, exception_value, exception_traceback):
-
-        template_message = '''
-Object: An exception occurred in CodeReview software on %(date)s UTC
-
----------------------------------------------------------------------------------
-
-Context:
-%(context)s
-
----------------------------------------------------------------------------------
-%(platform)s
----------------------------------------------------------------------------------
-
-%(traceback)s
-
----------------------------------------------------------------------------------
-'''
-
-        traceback = format_exception(exception_type, exception_value, exception_traceback)
-        now = datetime.utcnow()
-        platform = Platform()
-
-        message = template_message % {'date': now.strftime('%Y-%m-%d %H:%M'),
-                                      'context': str(self.context),
-                                      'platform': str(platform),
-                                      'traceback': traceback,
-                                      }
-
-        email = Email(subject='An exception occurred in CodeReview software',
-                      recipients=Config.Email.to_address,
-                      message=message,
-                      )
-        email.add_recipients(self._recipients)
-        email.send()
 
 ####################################################################################################
 #

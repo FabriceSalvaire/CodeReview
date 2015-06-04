@@ -36,7 +36,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 from CodeReview.Application.ApplicationBase import ApplicationBase
 from CodeReview.GUI.Forms.CriticalErrorForm import CriticalErrorForm
-from CodeReview.GUI.Forms.EmailBugForm import EmailBugForm
 import CodeReview.Config.Config as Config
 import CodeReview.Config.Messages as Messages
 import CodeReview.Version as Version
@@ -116,11 +115,6 @@ class GuiApplicationBase(ApplicationBase, QtWidgets.QApplication):
             QtWidgets.QAction('System Information',
                           self,
                           triggered=self.show_system_information)
-        
-        self.send_email_action = \
-            QtWidgets.QAction('Send Email',
-                          self,
-                          triggered=self.send_email)
 
     ##############################################
 
@@ -182,13 +176,6 @@ class GuiApplicationBase(ApplicationBase, QtWidgets.QApplication):
                 })
         message = Messages.system_information_message_pattern % fields
         QtWidgets.QMessageBox.about(self.main_window, 'System Information', message)
-
-    ###############################################
-
-    def send_email(self):
-
-        dialog = EmailBugForm()
-        dialog.exec_()
 
 ####################################################################################################
 #

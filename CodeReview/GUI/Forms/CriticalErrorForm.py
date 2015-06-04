@@ -17,16 +17,6 @@
 # not, see <http://www.gnu.org/licenses/>.
 #
 ####################################################################################################
-
-####################################################################################################
-#
-#                                              Audit
-#
-# - 25/05/2010 Fabrice
-#   - exit button
-#
-####################################################################################################
-
 ####################################################################################################
 
 import sys
@@ -36,7 +26,6 @@ from PyQt5 import QtWidgets, QtCore
 
 ####################################################################################################
 
-from .EmailBugForm import EmailBugForm
 from CodeReview.Logging.ExceptionHook import format_exception
 import CodeReview.Tools.BackTrace as BackTrace
 
@@ -66,7 +55,6 @@ class CriticalErrorForm(QtWidgets.QDialog, Ui_critical_error_form):
         # Fixme: call critical exit
         self.exit_button.clicked.connect(lambda : sys.exit(1))
         self.show_backtrace_button.clicked.connect(self.show_backtrace)
-        self.send_email_button.clicked.connect(self.send_email)
 
         title = str(exception_value)
         self.error_message_label.setText(title[:50])
@@ -85,13 +73,6 @@ class CriticalErrorForm(QtWidgets.QDialog, Ui_critical_error_form):
 
         # print trace_back_text_highlighted
         self.back_trace_text_browser.setHtml(self._trace_back_text_highlighted)
-
-    ###############################################
-
-    def send_email(self):
-
-        dialog = EmailBugForm(self._backtrace)
-        dialog.exec_()
 
 ####################################################################################################
 #
