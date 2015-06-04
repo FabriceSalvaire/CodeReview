@@ -90,6 +90,11 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
         try:
             repository_path = git.discover_repository(path)
             self._repository = git.Repository(repository_path)
+            workdir = self._repository.workdir
+            if os.path.isdir(path) and not path.endswith(os.sep):
+                path += os.sep
+            self.path_filter = path.replace(workdir, '')
+            print(path, workdir, self.path_filter)
         except KeyError:
             self.show_message("Any Git repository was found in path {}".format(path), warn=True)
             self._repository = None

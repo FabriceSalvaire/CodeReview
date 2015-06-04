@@ -18,6 +18,10 @@
 
 ####################################################################################################
 
+import logging
+
+####################################################################################################
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
 
@@ -27,8 +31,14 @@ from CodeReview.Tools.EnumFactory import EnumFactory
 
 ####################################################################################################
 
+_module_logger = logging.getLogger(__name__)
+
+####################################################################################################
+
 class CommitTableModel(QtCore.QAbstractTableModel):
 
+    _logger = _module_logger.getChild('CommitTableModel')
+    
     column_enum = EnumFactory('ColumnEnum', (
         'modification',
         'old_path',
@@ -57,7 +67,7 @@ class CommitTableModel(QtCore.QAbstractTableModel):
 
     ##############################################
 
-    def update(self, commit1=None, commit2=None):
+    def update(self, commit1=None, commit2=None, path_filter=None):
 
         self._patch_datas = []
         self._number_of_patches = 0
@@ -67,6 +77,10 @@ class CommitTableModel(QtCore.QAbstractTableModel):
         diff.find_similar()
         # flags, rename_threshold, copy_threshold, rename_from_rewrite_threshold, break_rewrite_threshold, rename_limit
         for patch in diff:
+            print(path_filter)
+            if path_filter and not patch.old_file_path.startswith(path_filter):
+                self._logger.info('Skip ' + patch.old_file_path)
+                continue
             if patch.new_file_path != patch.old_file_path:
                 new_file_path = patch.new_file_path
                 similarity = ' {} %'.format(patch.similarity)
@@ -75,8 +89,8 @@ class CommitTableModel(QtCore.QAbstractTableModel):
                 similarity = ''
             patch_data = (patch.status, patch.old_file_path, new_file_path, similarity, patch)
             self._patch_datas.append(patch_data)
-            
-        self._number_of_patches = len(diff)
+        
+        self._number_of_patches = len(self._patch_datas)
         
         self.modelReset.emit()
 

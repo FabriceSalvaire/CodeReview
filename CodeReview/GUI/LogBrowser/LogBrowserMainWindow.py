@@ -156,7 +156,7 @@ class LogBrowserMainWindow(MainWindowBase):
             commit1 = commit2 = None
 
         commit_table_model = self._commit_table.model()
-        commit_table_model.update(commit1, commit2)
+        commit_table_model.update(commit1, commit2, self._application.path_filter)
         self._commit_table.resizeColumnsToContents()
         
         self._patches = [patch for patch in commit_table_model] # Fixme:
@@ -212,14 +212,13 @@ class LogBrowserMainWindow(MainWindowBase):
             self._diff_window.diff_documents(paths, texts, workdir=repository.workdir)
         else:
             self._logger.info('revision {} Binary '.format(self._current_revision) + patch.new_file_path)
-        # else not implemented
-        # show highlighted added/removed document
-        # show image pdf ...
+        # Fixme: show image pdf ...
 
     ##############################################
 
     def previous_patch(self):
 
+        # Fixme: else notify
         if self._current_patch >= 1:
             self._current_patch -= 1
             self._show_current_patch()
