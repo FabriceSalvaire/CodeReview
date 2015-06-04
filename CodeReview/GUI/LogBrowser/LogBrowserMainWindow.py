@@ -170,28 +170,48 @@ class LogBrowserMainWindow(MainWindowBase):
 
     ##############################################
 
+    def _object_text(self, oid):
+
+        repository = self._application._repository
+        try:
+            return repository[oid].data.decode('utf-8')
+        except KeyError:
+            return None
+
+    ##############################################
+
+    def _on_diff_window_closed(self):
+
+        self._diff_window = None
+
+    ##############################################
+
     def _show_current_patch(self):
 
         if self._diff_window is None:
             from CodeReview.GUI.DiffViewer.DiffViewerMainWindow import DiffViewerMainWindow
             self._diff_window = DiffViewerMainWindow(self)
+            self._diff_window.closed.connect(self._on_diff_window_closed)
             self._diff_window.showMaximized()
         
         patch = self._patches[self._current_patch]
-        if patch.status == 'M' and not patch.is_binary:
+        if not patch.is_binary:
             self._logger.info('revision {} '.format(self._current_revision) + patch.new_file_path)
             # print(patch.status, patch.similarity, patch.additions, patch.deletions, patch.is_binary)
             # for hunk in patch.hunks:
             #     print(hunk.old_start, hunk.old_lines, hunk.new_start, hunk.new_lines, hunk.lines)
             repository = self._application._repository
-            old_text = repository[patch.old_id].data.decode('utf-8')
-            try:
-                new_text = repository[patch.new_id].data.decode('utf-8')
-            except KeyError:
-                with open(os.path.join(repository.workdir, patch.new_file_path)) as f:
-                    new_text = f.read()
-            texts = [old_text, new_text]
-            self._diff_window.diff_documents(texts=texts, paths=(patch.old_file_path, patch.new_file_path))
+            if patch.status in ('M', 'R'):
+                paths = (patch.old_file_path, patch.new_file_path)
+            elif patch.status == 'A':
+                paths = (None, patch.new_file_path)
+            elif patch.status == 'D':
+                paths = (patch.old_file_path, None)
+            texts = [self._object_text(blob_id)
+                     for blob_id in (patch.old_id, patch.new_id)]
+            self._diff_window.diff_documents(paths, texts, workdir=repository.workdir)
+        else:
+            self._logger.info('revision {} Binary '.format(self._current_revision) + patch.new_file_path)
         # else not implemented
         # show highlighted added/removed document
         # show image pdf ...

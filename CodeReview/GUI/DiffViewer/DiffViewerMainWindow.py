@@ -19,11 +19,12 @@
 ####################################################################################################
 
 import logging
+import os
 
 import pygments.lexers as pygments_lexers
 
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSignal
 
 ####################################################################################################
 
@@ -45,6 +46,8 @@ _module_logger = logging.getLogger(__name__)
 class DiffViewerMainWindow(MainWindowBase):
 
     _logger = _module_logger.getChild('DiffViewerMainWindow')
+
+    closed = pyqtSignal()
 
     ##############################################
 
@@ -101,7 +104,7 @@ class DiffViewerMainWindow(MainWindowBase):
                               self,
                               toolTip='refresh',
                               shortcut='Ctrl+R',
-                              # triggered=lambda: self._(),
+                              triggered=lambda: self._refresh,
             )
         
         self._complete_action = \
@@ -113,6 +116,15 @@ class DiffViewerMainWindow(MainWindowBase):
                               triggered=self._set_document_models,
             )
 
+        self._highlight_action = \
+            QtWidgets.QAction('Highlight',
+                              self,
+                              toolTip='Highlight text',
+                              shortcut='Ctrl+H',
+                              checkable=True,
+                              triggered=self._on_highlight_action,
+            )
+
     ##############################################
 
     def _create_toolbar(self):
@@ -121,6 +133,7 @@ class DiffViewerMainWindow(MainWindowBase):
         for action in (self._previous_file_action,
                        self._next_file_action,
                        self._complete_action,
+                       self._highlight_action,
                        self._refresh_action,
                       ):
             self._tool_bar.addAction(action)
@@ -130,6 +143,15 @@ class DiffViewerMainWindow(MainWindowBase):
     def init_menu(self):
 
         super(DiffViewerMainWindow, self).init_menu()
+
+    ##############################################
+
+    def closeEvent(self, event):
+
+        if self._application.main_window is not self:
+            self.closed.emit()
+        
+        super(DiffViewerMainWindow, self).closeEvent(event)
 
     ##############################################
 
@@ -158,16 +180,25 @@ class DiffViewerMainWindow(MainWindowBase):
     def open_files(self, file1, file2, show=False):
 
         paths = (file1, file2)
-        texts = []
-        for file_name in paths:
-            with open(file_name) as f:
-                texts.append(f.read())
-        self.diff_documents(texts, paths, show)
+        texts = (None, None)
+        self.diff_documents(paths, texts, show=show)
 
     ##############################################
 
-    def _get_lexer(self, path, text):
+    def _read_file(self, path):
 
+        with open(os.path.join(self._workdir, path)) as f:
+            text = f.read()
+        return text
+
+    ##############################################
+
+    @staticmethod
+    def _get_lexer(path, text):
+
+        if path is None:
+            return None
+        
         try:
             # get_lexer_for_filename(filename)
             return pygments_lexers.guess_lexer_for_filename(path, text, stripnl=False)
@@ -179,10 +210,20 @@ class DiffViewerMainWindow(MainWindowBase):
 
     ##############################################
 
-    def diff_documents(self, texts, paths, show=False, highlight=False):
+    def diff_documents(self, paths, texts, workdir='', show=False, highlight=False):
 
-        lexers = [self._get_lexer(path, text) for path, text in zip(paths, texts)]
-        raw_text_documents = [RawTextDocument(text) for text in texts]
+        self._paths = list(paths)
+        self._texts = list(texts)
+        self._workdir = workdir
+        
+        OLD, NEW = list(range(2))
+        for i in (OLD, NEW):
+            if self._paths[i] is None:
+                self._texts[i] = ''
+            elif self._texts[i] is None:
+                self._texts[i] = self._read_file(self._paths[i])
+        lexers = [self._get_lexer(path, text) for path, text in zip(self._paths, self._texts)]
+        raw_text_documents = [RawTextDocument(text) for text in self._texts]
         
         self._highlighted_documents = []
         if not show:
@@ -198,14 +239,14 @@ class DiffViewerMainWindow(MainWindowBase):
         else: # Only show the document
             # Fixme: broken, chunk_type is ???
             # self._diff_view.set_document_models(self._highlighted_documents, complete_mode)
-            # File "/home/gv/fabrice/unison-osiris/git-python/DiffViewer/DiffWidget.py", line 333, in set_document_models
+            # File "/home/gv/fabrice/unison-osiris/git-python/CodeReview/DiffWidget.py", line 333, in set_document_models
             # cursor.begin_block(side, text_block.frame_type)
-            # File "/home/gv/fabrice/unison-osiris/git-python/DiffViewer/DiffWidget.py", line 99, in begin_block
+            # File "/home/gv/fabrice/unison-osiris/git-python/CodeReview/DiffWidget.py", line 99, in begin_block
             # if ((side == LEFT and frame_type == chunk_type.insert) or
-            # File "/home/gv/fabrice/unison-osiris/git-python/DiffViewer/Tools/EnumFactory.py", line 107, in __eq__
+            # File "/home/gv/fabrice/unison-osiris/git-python/CodeReview/Tools/EnumFactory.py", line 107, in __eq__
             # return self._value == int(other)
             # TypeError: int() argument must be a string or a number, not 'NoneType'
-            for raw_text_document, lexer in zip(self._raw_text_documents, self._lexers):
+            for raw_text_document, lexer in zip(raw_text_documents, self._lexers):
                 highlighted_document = highlight_text(raw_text_document, lexer)
                 self._highlighted_documents.append(highlighted_document)
         
@@ -218,6 +259,19 @@ class DiffViewerMainWindow(MainWindowBase):
         complete_mode = self._complete_action.isChecked()
         # Fixme: right way ?
         self._diff_view.set_document_models(self._highlighted_documents, complete_mode)
+
+    ##############################################
+
+    def _refresh(self):
+
+        self.diff_documents(self._paths, self._texts, self._workdir)
+
+    ##############################################
+
+    def _on_highlight_action(self):
+
+        highlight = self._highlight_action.isChecked()
+        self.diff_documents(self._paths, self._texts, self._workdir, highlight=highlight)
 
     ##############################################
 
