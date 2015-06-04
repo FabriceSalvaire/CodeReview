@@ -3,5 +3,5 @@ mv .git .git-backup
 git init
 bzr fast-export --plain --git-branch=master | git fast-import
 git remote add origin git@github.com:FabriceSalvaire/CodeReview.git
-git push origin master # --force
+git push origin master --force
 # End
