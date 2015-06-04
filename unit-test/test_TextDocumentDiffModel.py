@@ -7,16 +7,17 @@
 
 ####################################################################################################
 
+import os
 import unittest
 
 from pygments.lexers import get_lexer_for_filename
 
 ####################################################################################################
 
-from DiffViewer.RawTextDocument import RawTextDocument
-from DiffViewer.RawTextDocumentDiff import TwoWayFileDiffFactory
-from DiffViewer.SyntaxHighlighter import HighlightedText
-from DiffViewer.TextDocumentDiffModel import TextDocumentDiffModelFactory, highlight_document
+from CodeReview.Diff.RawTextDocument import RawTextDocument
+from CodeReview.Diff.RawTextDocumentDiff import TwoWayFileDiffFactory
+from CodeReview.Diff.SyntaxHighlighter import HighlightedText
+from CodeReview.Diff.TextDocumentDiffModel import TextDocumentDiffModelFactory, highlight_document
 
 ####################################################################################################
 
@@ -24,12 +25,19 @@ class TestTextDocumentModel(unittest.TestCase):
 
     ##############################################
 
+    @staticmethod
+    def _join_data_path(filename):
+
+        return os.path.join(os.path.dirname(__file__), 'data', filename)
+
+    ##############################################
+
     def test(self):
 
-        with open('data/test_file1.py') as f:
+        with open(self._join_data_path('test_file1.py')) as f:
             text1 = f.read()
 
-        with open('data/test_file2.py') as f:
+        with open(self._join_data_path('test_file2.py')) as f:
             text2 = f.read()
 
         lexer = get_lexer_for_filename('data/test_file1.py', stripnl=False)

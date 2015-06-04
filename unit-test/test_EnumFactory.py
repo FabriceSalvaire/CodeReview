@@ -4,7 +4,7 @@ import unittest
 
 ####################################################################################################
 
-from DiffViewer.Tools.EnumFactory import EnumFactory, ExplicitEnumFactory
+from CodeReview.Tools.EnumFactory import EnumFactory, ExplicitEnumFactory
 
 ####################################################################################################
 
