@@ -47,7 +47,7 @@ class LogTableModel(QtCore.QAbstractTableModel):
         )
 
         self._commits = [None]
-        self._commit_datas = [None]
+        self._commit_datas = [('', 'Working directory changes', '', '')]
 
         head = repository.head
         head_commit = repository[head.target]
@@ -81,11 +81,8 @@ class LogTableModel(QtCore.QAbstractTableModel):
 
         if role == Qt.DisplayRole:
             commit = self._commit_datas[index.row()]
-            if commit is not None:
-                column = index.column()
-                return QtCore.QVariant(commit[column])
-            else:
-                return QtCore.QVariant()
+            column = index.column()
+            return QtCore.QVariant(commit[column])
 
         return QtCore.QVariant()
 
