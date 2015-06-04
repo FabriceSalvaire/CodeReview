@@ -184,8 +184,13 @@ class LogBrowserMainWindow(MainWindowBase):
             # for hunk in patch.hunks:
             #     print(hunk.old_start, hunk.old_lines, hunk.new_start, hunk.new_lines, hunk.lines)
             repository = self._application._repository
-            texts = [repository[blob_id].data.decode('utf-8')
-                     for blob_id in (patch.old_id, patch.new_id)]
+            old_text = repository[patch.old_id].data.decode('utf-8')
+            try:
+                new_text = repository[patch.new_id].data.decode('utf-8')
+            except KeyError:
+                with open(os.path.join(repository.workdir, patch.new_file_path)) as f:
+                    new_text = f.read()
+            texts = [old_text, new_text]
             self._diff_window.diff_documents(texts=texts, paths=(patch.old_file_path, patch.new_file_path))
         # else not implemented
         # show highlighted added/removed document
