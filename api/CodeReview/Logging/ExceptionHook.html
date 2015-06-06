@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>2.1.5.2. ExceptionHook &mdash; CodeReview 0.1.0 documentation</title>
+  <title>2.1.5.1. ExceptionHook &mdash; CodeReview 0.1.0 documentation</title>
   
 
   
@@ -32,8 +32,8 @@
   
     <link rel="top" title="CodeReview 0.1.0 documentation" href="../../../index.html"/>
         <link rel="up" title="2.1.5. Logging" href="../Logging.html"/>
-        <link rel="next" title="2.1.5.3. Logging" href="Logging.html"/>
-        <link rel="prev" title="2.1.5.1. Email" href="Email.html"/> 
+        <link rel="next" title="2.1.5.2. Logging" href="Logging.html"/>
+        <link rel="prev" title="2.1.5. Logging" href="../Logging.html"/> 
 
   
   <script src="static/js/modernizr.min.js"></script>
@@ -109,9 +109,8 @@
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="reference internal" href="../Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="Email.html">2.1.5.1. <code class="docutils literal"><span class="pre">Email</span></code></a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="">2.1.5.2. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="Logging.html">2.1.5.3. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">2.1.5.1. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Logging.html">2.1.5.2. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a><ul>
@@ -172,7 +171,7 @@
       
           <li><a href="../Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a> &raquo;</li>
       
-    <li>2.1.5.2. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></li>
+    <li>2.1.5.1. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -186,21 +185,7 @@
           <div role="main" class="document">
             
   <div class="section" id="module-CodeReview.Logging.ExceptionHook">
-<span id="exceptionhook"></span><h1>2.1.5.2. <code class="xref py py-mod docutils literal"><span class="pre">ExceptionHook</span></code><a class="headerlink" href="#module-CodeReview.Logging.ExceptionHook" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="CodeReview.Logging.ExceptionHook.EmailExceptionHook">
-<em class="property">class </em><code class="descclassname">CodeReview.Logging.ExceptionHook.</code><code class="descname">EmailExceptionHook</code><span class="sig-paren">(</span><em>context=''</em>, <em>recipients=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Logging/ExceptionHook.html#EmailExceptionHook"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Logging.ExceptionHook.EmailExceptionHook" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#CodeReview.Logging.ExceptionHook.ExceptionHook" title="CodeReview.Logging.ExceptionHook.ExceptionHook"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Logging.ExceptionHook.ExceptionHook</span></code></a></p>
-<p>Send per email exception.</p>
-<p>The mandatory recipient is set in <code class="xref py py-attr docutils literal"><span class="pre">Config.Email.to_address</span></code>. Additional recipients
-can be added using the list <em>recipients</em>. A context string can be set using <em>context</em>.</p>
-<dl class="method">
-<dt id="CodeReview.Logging.ExceptionHook.EmailExceptionHook.notify">
-<code class="descname">notify</code><span class="sig-paren">(</span><em>exception_type</em>, <em>exception_value</em>, <em>exception_traceback</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Logging/ExceptionHook.html#EmailExceptionHook.notify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Logging.ExceptionHook.EmailExceptionHook.notify" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<span id="exceptionhook"></span><h1>2.1.5.1. <code class="xref py py-mod docutils literal"><span class="pre">ExceptionHook</span></code><a class="headerlink" href="#module-CodeReview.Logging.ExceptionHook" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="CodeReview.Logging.ExceptionHook.ExceptionHook">
 <em class="property">class </em><code class="descclassname">CodeReview.Logging.ExceptionHook.</code><code class="descname">ExceptionHook</code><span class="sig-paren">(</span><em>context=''</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Logging/ExceptionHook.html#ExceptionHook"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Logging.ExceptionHook.ExceptionHook" title="Permalink to this definition">¶</a></dt>
@@ -243,10 +228,10 @@ can be added using the list <em>recipients</em>. A context string can be set usi
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Logging.html" class="btn btn-neutral float-right" title="2.1.5.3. Logging" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Logging.html" class="btn btn-neutral float-right" title="2.1.5.2. Logging" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Email.html" class="btn btn-neutral" title="2.1.5.1. Email" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../Logging.html" class="btn btn-neutral" title="2.1.5. Logging" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

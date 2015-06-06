@@ -107,9 +107,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/Email.html">2.1.5.1. <code class="docutils literal"><span class="pre">Email</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/ExceptionHook.html">2.1.5.2. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/Logging.html">2.1.5.3. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/ExceptionHook.html">2.1.5.1. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/Logging.html">2.1.5.2. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a><ul>
@@ -204,25 +203,16 @@
 
 <div class="viewcode-block" id="Path"><a class="viewcode-back" href="../../../api/CodeReview/Config/Config.html#CodeReview.Config.Config.Path">[docs]</a><span class="k">class</span> <span class="nc">Path</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="n">config_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;HOME&#39;</span><span class="p">],</span> <span class="s">&#39;.config&#39;</span><span class="p">,</span> <span class="s">&#39;pyqgit&#39;</span><span class="p">)</span>
+    <span class="n">config_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;HOME&#39;</span><span class="p">],</span> <span class="s">&#39;.config&#39;</span><span class="p">,</span> <span class="s">&#39;CodeReview&#39;</span><span class="p">)</span>
 
-    <span class="c"># data_directory = os.path.join(os.environ[&#39;HOME&#39;], &#39;.local&#39;, &#39;share&#39;, &#39;data&#39;, &#39;pyqgit&#39;)</span>
-    <span class="n">data_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;HOME&#39;</span><span class="p">],</span> <span class="s">&#39;.local&#39;</span><span class="p">,</span> <span class="s">&#39;pyqgit&#39;</span><span class="p">)</span>
-
-<span class="c">####################################################################################################</span>
-</div>
-<div class="viewcode-block" id="Email"><a class="viewcode-back" href="../../../api/CodeReview/Config/Config.html#CodeReview.Config.Config.Email">[docs]</a><span class="k">class</span> <span class="nc">Email</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
-    <span class="n">from_address</span> <span class="o">=</span> <span class="s">&#39;fabrice.salvaire@orange.fr&#39;</span>
-    <span class="n">to_address</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;fabrice.salvaire@orange.fr&#39;</span><span class="p">,]</span>
+    <span class="c"># data_directory = os.path.join(os.environ[&#39;HOME&#39;], &#39;.local&#39;, &#39;share&#39;, &#39;data&#39;, &#39;CodeReview&#39;)</span>
+    <span class="n">data_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;HOME&#39;</span><span class="p">],</span> <span class="s">&#39;.local&#39;</span><span class="p">,</span> <span class="s">&#39;CodeReview&#39;</span><span class="p">)</span>
 
 <span class="c">####################################################################################################</span>
 </div>
 <div class="viewcode-block" id="Help"><a class="viewcode-back" href="../../../api/CodeReview/Config/Config.html#CodeReview.Config.Config.Help">[docs]</a><span class="k">class</span> <span class="nc">Help</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="n">host</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
-    <span class="n">url_scheme</span> <span class="o">=</span> <span class="s">&#39;http&#39;</span>
-    <span class="n">url_path_pattern</span> <span class="o">=</span> <span class="s">&#39;/&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://fabricesalvaire.github.io/CodeReview&#39;</span>
 
 <span class="c">####################################################################################################</span>
 </div>

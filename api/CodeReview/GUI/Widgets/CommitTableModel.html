@@ -109,9 +109,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../Logging/Email.html">2.1.5.1. <code class="docutils literal"><span class="pre">Email</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../Logging/ExceptionHook.html">2.1.5.2. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../Logging/Logging.html">2.1.5.3. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Logging/ExceptionHook.html">2.1.5.1. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Logging/Logging.html">2.1.5.2. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a><ul>
@@ -193,6 +192,11 @@
 <dt id="CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel">
 <em class="property">class </em><code class="descclassname">CodeReview.GUI.Widgets.CommitTableModel.</code><code class="descname">CommitTableModel</code><span class="sig-paren">(</span><em>repository</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Widgets/CommitTableModel.html#CommitTableModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtCore.QAbstractTableModel</span></code></p>
+<dl class="attribute">
+<dt id="CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel._logger">
+<code class="descname">_logger</code><em class="property"> = &lt;logging.Logger object&gt;</em><a class="headerlink" href="#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel._logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.columnCount">
 <code class="descname">columnCount</code><span class="sig-paren">(</span><em>index=&lt;PyQt5.QtCore.QModelIndex object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Widgets/CommitTableModel.html#CommitTableModel.columnCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.columnCount" title="Permalink to this definition">¶</a></dt>
@@ -226,7 +230,7 @@
 
 <dl class="method">
 <dt id="CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>commit1=None</em>, <em>commit2=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Widgets/CommitTableModel.html#CommitTableModel.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>commit1=None</em>, <em>commit2=None</em>, <em>path_filter=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Widgets/CommitTableModel.html#CommitTableModel.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.update" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

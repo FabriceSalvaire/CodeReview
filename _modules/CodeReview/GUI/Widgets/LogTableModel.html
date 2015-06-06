@@ -107,9 +107,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/CodeReview/Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../../api/CodeReview/Logging/Email.html">2.1.5.1. <code class="docutils literal"><span class="pre">Email</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../../api/CodeReview/Logging/ExceptionHook.html">2.1.5.2. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../../api/CodeReview/Logging/Logging.html">2.1.5.3. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/CodeReview/Logging/ExceptionHook.html">2.1.5.1. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/CodeReview/Logging/Logging.html">2.1.5.2. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/CodeReview/Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a><ul>
@@ -227,7 +226,7 @@
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_commits</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_commit_datas</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_commit_datas</span> <span class="o">=</span> <span class="p">[(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;Working directory changes&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)]</span>
 
         <span class="n">head</span> <span class="o">=</span> <span class="n">repository</span><span class="o">.</span><span class="n">head</span>
         <span class="n">head_commit</span> <span class="o">=</span> <span class="n">repository</span><span class="p">[</span><span class="n">head</span><span class="o">.</span><span class="n">target</span><span class="p">]</span>
@@ -261,11 +260,8 @@
 
         <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
             <span class="n">commit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_commit_datas</span><span class="p">[</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()]</span>
-            <span class="k">if</span> <span class="n">commit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">column</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
-                <span class="k">return</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QVariant</span><span class="p">(</span><span class="n">commit</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QVariant</span><span class="p">()</span>
+            <span class="n">column</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QVariant</span><span class="p">(</span><span class="n">commit</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
 
         <span class="k">return</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QVariant</span><span class="p">()</span>
 

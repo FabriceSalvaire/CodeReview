@@ -15,7 +15,7 @@ Welcome to the CodeReview documentation!
     git repository after each commit.
 
     As opposite the |CodeReviewHomePage|_ is built manually and is thus less prone to errors.
-	     
+
 .. include:: introduction.txt
 
 ==============

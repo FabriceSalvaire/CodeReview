@@ -107,9 +107,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/CodeReview/Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../../api/CodeReview/Logging/Email.html">2.1.5.1. <code class="docutils literal"><span class="pre">Email</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../../api/CodeReview/Logging/ExceptionHook.html">2.1.5.2. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../../api/CodeReview/Logging/Logging.html">2.1.5.3. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/CodeReview/Logging/ExceptionHook.html">2.1.5.1. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/CodeReview/Logging/Logging.html">2.1.5.2. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/CodeReview/Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a><ul>
@@ -198,6 +197,10 @@
 
 <span class="c">####################################################################################################</span>
 
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="c">####################################################################################################</span>
+
 <span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtWidgets</span>
 <span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span>
 
@@ -207,8 +210,14 @@
 
 <span class="c">####################################################################################################</span>
 
+<span class="n">_module_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="c">####################################################################################################</span>
+
 <div class="viewcode-block" id="CommitTableModel"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/Widgets/CommitTableModel.html#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel">[docs]</a><span class="k">class</span> <span class="nc">CommitTableModel</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QAbstractTableModel</span><span class="p">):</span>
 
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s">&#39;CommitTableModel&#39;</span><span class="p">)</span>
+    
     <span class="n">column_enum</span> <span class="o">=</span> <span class="n">EnumFactory</span><span class="p">(</span><span class="s">&#39;ColumnEnum&#39;</span><span class="p">,</span> <span class="p">(</span>
         <span class="s">&#39;modification&#39;</span><span class="p">,</span>
         <span class="s">&#39;old_path&#39;</span><span class="p">,</span>
@@ -237,7 +246,7 @@
 
     <span class="c">##############################################</span>
 
-<div class="viewcode-block" id="CommitTableModel.update"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/Widgets/CommitTableModel.html#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commit1</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">commit2</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CommitTableModel.update"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/Widgets/CommitTableModel.html#CodeReview.GUI.Widgets.CommitTableModel.CommitTableModel.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commit1</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">commit2</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">path_filter</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_patch_datas</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_number_of_patches</span> <span class="o">=</span> <span class="mi">0</span>
@@ -247,6 +256,10 @@
         <span class="n">diff</span><span class="o">.</span><span class="n">find_similar</span><span class="p">()</span>
         <span class="c"># flags, rename_threshold, copy_threshold, rename_from_rewrite_threshold, break_rewrite_threshold, rename_limit</span>
         <span class="k">for</span> <span class="n">patch</span> <span class="ow">in</span> <span class="n">diff</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">path_filter</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">path_filter</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">patch</span><span class="o">.</span><span class="n">old_file_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">path_filter</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Skip &#39;</span> <span class="o">+</span> <span class="n">patch</span><span class="o">.</span><span class="n">old_file_path</span><span class="p">)</span>
+                <span class="k">continue</span>
             <span class="k">if</span> <span class="n">patch</span><span class="o">.</span><span class="n">new_file_path</span> <span class="o">!=</span> <span class="n">patch</span><span class="o">.</span><span class="n">old_file_path</span><span class="p">:</span>
                 <span class="n">new_file_path</span> <span class="o">=</span> <span class="n">patch</span><span class="o">.</span><span class="n">new_file_path</span>
                 <span class="n">similarity</span> <span class="o">=</span> <span class="s">&#39; {} %&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">patch</span><span class="o">.</span><span class="n">similarity</span><span class="p">)</span>
@@ -255,8 +268,8 @@
                 <span class="n">similarity</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
             <span class="n">patch_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">patch</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">patch</span><span class="o">.</span><span class="n">old_file_path</span><span class="p">,</span> <span class="n">new_file_path</span><span class="p">,</span> <span class="n">similarity</span><span class="p">,</span> <span class="n">patch</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_patch_datas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">patch_data</span><span class="p">)</span>
-            
-        <span class="bp">self</span><span class="o">.</span><span class="n">_number_of_patches</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_number_of_patches</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_patch_datas</span><span class="p">)</span>
         
         <span class="bp">self</span><span class="o">.</span><span class="n">modelReset</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
 

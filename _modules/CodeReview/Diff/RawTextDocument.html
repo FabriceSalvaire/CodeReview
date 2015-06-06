@@ -107,9 +107,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/Email.html">2.1.5.1. <code class="docutils literal"><span class="pre">Email</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/ExceptionHook.html">2.1.5.2. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/Logging.html">2.1.5.3. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/ExceptionHook.html">2.1.5.1. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/Logging.html">2.1.5.2. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a><ul>
@@ -405,6 +404,9 @@
 
         <span class="sd">&quot;&quot;&quot;Convert a flat slice to a line slice and return it.&quot;&quot;&quot;</span>
 
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">flat_slice</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">LineSlice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        
         <span class="n">start_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_of</span><span class="p">(</span><span class="n">flat_slice</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">flat_slice</span><span class="p">:</span>
             <span class="n">upper_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_of</span><span class="p">(</span><span class="n">flat_slice</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>

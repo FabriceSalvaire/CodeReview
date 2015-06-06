@@ -107,9 +107,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/CodeReview/Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../../api/CodeReview/Logging/Email.html">2.1.5.1. <code class="docutils literal"><span class="pre">Email</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../../api/CodeReview/Logging/ExceptionHook.html">2.1.5.2. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../../api/CodeReview/Logging/Logging.html">2.1.5.3. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/CodeReview/Logging/ExceptionHook.html">2.1.5.1. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/CodeReview/Logging/Logging.html">2.1.5.2. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/CodeReview/Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a><ul>
@@ -218,21 +217,6 @@
 
 <span class="c">####################################################################################################</span>
 
-<div class="viewcode-block" id="get_monospaced_font"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffWidget.html#CodeReview.GUI.DiffViewer.DiffWidget.get_monospaced_font">[docs]</a><span class="k">def</span> <span class="nf">get_monospaced_font</span><span class="p">():</span>
-
-    <span class="c"># Get the defaul font size</span>
-    <span class="n">size</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="o">.</span><span class="n">font</span><span class="p">()</span><span class="o">.</span><span class="n">pointSize</span><span class="p">()</span>
-    
-    <span class="n">font</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QFont</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
-    <span class="n">font</span><span class="o">.</span><span class="n">setFixedPitch</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">font</span><span class="o">.</span><span class="n">setStyleHint</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QFont</span><span class="o">.</span><span class="n">TypeWriter</span><span class="p">)</span>
-    
-    <span class="n">_module_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Monospaced Font familly is &#39;</span> <span class="o">+</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QFontInfo</span><span class="p">(</span><span class="n">font</span><span class="p">)</span><span class="o">.</span><span class="n">family</span><span class="p">())</span>
-    
-    <span class="k">return</span> <span class="n">font</span>
-
-<span class="c">####################################################################################################</span>
-</div>
 <span class="n">LEFT</span><span class="p">,</span> <span class="n">RIGHT</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 
 <span class="c">####################################################################################################</span>
@@ -276,9 +260,9 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">text_blocks</span><span class="p">):</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="n">cursor</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span> <span class="o">=</span> <span class="n">text_blocks</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">insert</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="n">cursor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_text_blocks</span> <span class="o">=</span> <span class="n">text_blocks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_insert</span> <span class="o">=</span> <span class="bp">True</span>
 
     <span class="c">##############################################</span>
 
@@ -286,20 +270,20 @@
 
         <span class="sd">&quot;&quot;&quot;Return the top position of the current block.&quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">block</span><span class="p">()</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span><span class="o">.</span><span class="n">position</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="o">.</span><span class="n">block</span><span class="p">()</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span><span class="o">.</span><span class="n">position</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">()</span>
 
     <span class="c">##############################################</span>
 </div>
 <div class="viewcode-block" id="DiffViewerCursor.begin_block"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffWidget.html#CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.begin_block">[docs]</a>    <span class="k">def</span> <span class="nf">begin_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">frame_type</span><span class="p">):</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">insert</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">insertBlock</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frame_type</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_insert</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="o">.</span><span class="n">insertBlock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_text_blocks</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frame_type</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">((</span><span class="n">side</span> <span class="o">==</span> <span class="n">LEFT</span> <span class="ow">and</span> <span class="n">frame_type</span> <span class="o">==</span> <span class="n">chunk_type</span><span class="o">.</span><span class="n">insert</span><span class="p">)</span> <span class="ow">or</span>
             <span class="p">(</span><span class="n">side</span> <span class="o">==</span> <span class="n">RIGHT</span> <span class="ow">and</span> <span class="n">frame_type</span> <span class="o">==</span> <span class="n">chunk_type</span><span class="o">.</span><span class="n">delete</span><span class="p">)):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">insert</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_insert</span> <span class="o">=</span> <span class="bp">False</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">insert</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_insert</span> <span class="o">=</span> <span class="bp">True</span>
 
     <span class="c">##############################################</span>
 </div>
@@ -308,15 +292,15 @@
         <span class="k">if</span> <span class="n">last_text_fragment</span><span class="p">:</span>
             <span class="n">text</span> <span class="o">=</span> <span class="n">remove_trailing_newline</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">insertText</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">text_format</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="o">.</span><span class="n">insertText</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">text_format</span><span class="p">)</span>
 
     <span class="c">##############################################</span>
 </div>
 <div class="viewcode-block" id="DiffViewerCursor.end"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffWidget.html#CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor.end">[docs]</a>    <span class="k">def</span> <span class="nf">end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">insertBlock</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">y_bottom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">text_block0</span><span class="p">,</span> <span class="n">text_block1</span> <span class="ow">in</span> <span class="n">pairwise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="o">.</span><span class="n">insertBlock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_text_blocks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">y_bottom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">text_block0</span><span class="p">,</span> <span class="n">text_block1</span> <span class="ow">in</span> <span class="n">pairwise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_text_blocks</span><span class="p">):</span>
             <span class="n">text_block0</span><span class="o">.</span><span class="n">y_bottom</span> <span class="o">=</span> <span class="n">text_block1</span><span class="o">.</span><span class="n">y_top</span>
 
 <span class="c">####################################################################################################</span>
@@ -329,7 +313,7 @@
 
         <span class="nb">super</span><span class="p">(</span><span class="n">TextBrowser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
         
-        <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span> <span class="o">=</span> <span class="n">text_blocks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_text_blocks</span> <span class="o">=</span> <span class="n">text_blocks</span>
         
         <span class="c"># Truncate long lines</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setLineWrapMode</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTextEdit</span><span class="o">.</span><span class="n">NoWrap</span><span class="p">)</span>
@@ -353,7 +337,7 @@
         <span class="n">pen</span><span class="o">.</span><span class="n">setWidth</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">pen</span><span class="p">)</span>
         
-        <span class="k">for</span> <span class="n">text_block</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">text_block</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text_blocks</span><span class="p">:</span>
             
             <span class="c"># print text_block</span>
             
@@ -390,7 +374,7 @@
 
         <span class="nb">super</span><span class="p">(</span><span class="n">SplitterHandle</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         
-        <span class="bp">self</span><span class="o">.</span><span class="n">frame_width</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">pixelMetric</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QStyle</span><span class="o">.</span><span class="n">PM_DefaultFrameWidth</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_frame_width</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="o">.</span><span class="n">style</span><span class="p">()</span><span class="o">.</span><span class="n">pixelMetric</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QStyle</span><span class="o">.</span><span class="n">PM_DefaultFrameWidth</span><span class="p">)</span>
 
     <span class="c">##############################################</span>
 
@@ -404,16 +388,16 @@
         <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
         <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
 
-        <span class="n">y_correction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_width</span> <span class="o">+</span> <span class="mi">2</span> <span class="c"># Fixme: ?</span>
+        <span class="n">y_correction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frame_width</span> <span class="o">+</span> <span class="mi">2</span> <span class="c"># Fixme: ?</span>
         <span class="n">y_left</span><span class="p">,</span> <span class="n">y_right</span> <span class="o">=</span> <span class="p">[</span><span class="n">browser</span><span class="o">.</span><span class="n">verticalScrollBar</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="o">-</span> <span class="n">y_correction</span>
-                           <span class="k">for</span> <span class="n">browser</span> <span class="ow">in</span> <span class="n">diff_view</span><span class="o">.</span><span class="n">browsers</span><span class="p">]</span>
+                           <span class="k">for</span> <span class="n">browser</span> <span class="ow">in</span> <span class="n">diff_view</span><span class="o">.</span><span class="n">_browsers</span><span class="p">]</span>
         
         <span class="n">pen</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">black</span><span class="p">)</span>
         <span class="n">pen</span><span class="o">.</span><span class="n">setWidth</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">pen</span><span class="p">)</span>
         
         <span class="c"># print &#39;Paint Handle:&#39;</span>
-        <span class="k">for</span> <span class="n">text_block_left</span><span class="p">,</span> <span class="n">text_block_right</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span> <span class="n">diff_view</span><span class="o">.</span><span class="n">text_blocks</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">text_block_left</span><span class="p">,</span> <span class="n">text_block_right</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">diff_view</span><span class="o">.</span><span class="n">_text_blocks</span><span class="p">):</span>
             <span class="c"># print text_block_left, text_block_right</span>
             
             <span class="k">if</span> <span class="n">text_block_left</span><span class="o">.</span><span class="n">frame_type</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">text_block_left</span><span class="o">.</span><span class="n">frame_type</span> <span class="o">==</span> <span class="n">chunk_type</span><span class="o">.</span><span class="n">equal</span><span class="p">:</span>
@@ -451,6 +435,8 @@
 
     <span class="sd">&quot;&quot;&quot;Widget to show differences in side-by-side format.&quot;&quot;&quot;</span>
 
+    <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s">&#39;DiffView&#39;</span><span class="p">)</span>
+    
     <span class="c">##############################################</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
@@ -459,29 +445,45 @@
         
         <span class="bp">self</span><span class="o">.</span><span class="n">setHandleWidth</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
         
-        <span class="bp">self</span><span class="o">.</span><span class="n">monospaced_font</span> <span class="o">=</span> <span class="n">get_monospaced_font</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">syntax_highlighter_style</span> <span class="o">=</span> <span class="n">SyntaxHighlighterStyle</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_syntax_highlighter_style</span> <span class="o">=</span> <span class="n">SyntaxHighlighterStyle</span><span class="p">()</span>
         
-        <span class="bp">self</span><span class="o">.</span><span class="n">documents</span> <span class="o">=</span> <span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QTextDocument</span><span class="p">(),</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QTextDocument</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span> <span class="o">=</span> <span class="p">(</span><span class="n">TextBlocks</span><span class="p">(),</span> <span class="n">TextBlocks</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">browsers</span> <span class="o">=</span> <span class="p">[</span><span class="n">TextBrowser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_block</span><span class="p">)</span> <span class="k">for</span> <span class="n">text_block</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursors</span> <span class="o">=</span> <span class="p">[</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QTextCursor</span><span class="p">(</span><span class="n">document</span><span class="p">)</span> <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">documents</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_documents</span> <span class="o">=</span> <span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QTextDocument</span><span class="p">(),</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QTextDocument</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_text_blocks</span> <span class="o">=</span> <span class="p">(</span><span class="n">TextBlocks</span><span class="p">(),</span> <span class="n">TextBlocks</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_browsers</span> <span class="o">=</span> <span class="p">[</span><span class="n">TextBrowser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_block</span><span class="p">)</span> <span class="k">for</span> <span class="n">text_block</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text_blocks</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursors</span> <span class="o">=</span> <span class="p">[</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QTextCursor</span><span class="p">(</span><span class="n">document</span><span class="p">)</span> <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_documents</span><span class="p">]</span>
         
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="n">document</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">browsers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">documents</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="n">document</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_browsers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_documents</span><span class="p">)):</span>
             <span class="n">document</span><span class="o">.</span><span class="n">setUndoRedoEnabled</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-            <span class="n">document</span><span class="o">.</span><span class="n">setDefaultFont</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">monospaced_font</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setCollapsible</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
             <span class="n">browser</span><span class="o">.</span><span class="n">setDocument</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">browser</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_font</span><span class="p">()</span>
         
-        <span class="bp">self</span><span class="o">.</span><span class="n">ignore_scroll_bar_update_signal</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="k">for</span> <span class="n">browser</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">browsers</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_scroll_bar_update_signal</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">for</span> <span class="n">browser</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_browsers</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">scroll_bar</span> <span class="ow">in</span> <span class="n">browser</span><span class="o">.</span><span class="n">horizontalScrollBar</span><span class="p">(),</span> <span class="n">browser</span><span class="o">.</span><span class="n">verticalScrollBar</span><span class="p">():</span>
                 <span class="n">callback</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">value</span><span class="p">,</span> <span class="n">scroll_bar</span><span class="o">=</span><span class="n">scroll_bar</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_scroll_bar</span><span class="p">(</span><span class="n">scroll_bar</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
                 <span class="n">scroll_bar</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
 
     <span class="c">##############################################</span>
 
+<div class="viewcode-block" id="DiffView.set_font"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffWidget.html#CodeReview.GUI.DiffViewer.DiffWidget.DiffView.set_font">[docs]</a>    <span class="k">def</span> <span class="nf">set_font</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">font_size</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c"># Get the defaul font size</span>
+            <span class="n">font_size</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="o">.</span><span class="n">font</span><span class="p">()</span><span class="o">.</span><span class="n">pointSize</span><span class="p">()</span>
+        
+        <span class="n">font</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QFont</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">font_size</span><span class="p">)</span>
+        <span class="n">font</span><span class="o">.</span><span class="n">setFixedPitch</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">font</span><span class="o">.</span><span class="n">setStyleHint</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QFont</span><span class="o">.</span><span class="n">TypeWriter</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Monospaced Font familly is &#39;</span> <span class="o">+</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QFontInfo</span><span class="p">(</span><span class="n">font</span><span class="p">)</span><span class="o">.</span><span class="n">family</span><span class="p">())</span>
+        
+        <span class="k">for</span> <span class="n">browser</span><span class="p">,</span> <span class="n">document</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_browsers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_documents</span><span class="p">):</span>
+            <span class="n">document</span><span class="o">.</span><span class="n">setDefaultFont</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
+
+    <span class="c">##############################################</span>
+</div>
 <div class="viewcode-block" id="DiffView.createHandle"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffWidget.html#CodeReview.GUI.DiffViewer.DiffWidget.DiffView.createHandle">[docs]</a>    <span class="k">def</span> <span class="nf">createHandle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">return</span> <span class="n">SplitterHandle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -490,23 +492,23 @@
 </div>
 <div class="viewcode-block" id="DiffView.update_scroll_bar"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffWidget.html#CodeReview.GUI.DiffViewer.DiffWidget.DiffView.update_scroll_bar">[docs]</a>    <span class="k">def</span> <span class="nf">update_scroll_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scroll_bar</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ignore_scroll_bar_update_signal</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_scroll_bar_update_signal</span><span class="p">:</span>
             <span class="k">return</span>
         
         <span class="k">if</span> <span class="n">scroll_bar</span><span class="o">.</span><span class="n">orientation</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">:</span>
             <span class="n">method</span> <span class="o">=</span> <span class="n">TextBrowser</span><span class="o">.</span><span class="n">horizontalScrollBar</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">method</span> <span class="o">=</span> <span class="n">TextBrowser</span><span class="o">.</span><span class="n">verticalScrollBar</span>
-        <span class="n">scroll_bar1</span><span class="p">,</span> <span class="n">scroll_bar2</span> <span class="o">=</span> <span class="p">[</span><span class="n">method</span><span class="p">(</span><span class="n">browser</span><span class="p">)</span> <span class="k">for</span> <span class="n">browser</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">browsers</span><span class="p">]</span>
+        <span class="n">scroll_bar1</span><span class="p">,</span> <span class="n">scroll_bar2</span> <span class="o">=</span> <span class="p">[</span><span class="n">method</span><span class="p">(</span><span class="n">browser</span><span class="p">)</span> <span class="k">for</span> <span class="n">browser</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_browsers</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">scroll_bar</span> <span class="ow">is</span> <span class="n">scroll_bar2</span><span class="p">:</span>
             <span class="n">scroll_bar1</span><span class="p">,</span> <span class="n">scroll_bar2</span> <span class="o">=</span> <span class="n">scroll_bar2</span><span class="p">,</span> <span class="n">scroll_bar1</span>
         
         <span class="n">maximum1</span> <span class="o">=</span> <span class="n">scroll_bar1</span><span class="o">.</span><span class="n">maximum</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">maximum1</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">scroll_bar2</span><span class="o">.</span><span class="n">minimum</span><span class="p">()</span> <span class="o">+</span> <span class="n">scroll_bar2</span><span class="o">.</span><span class="n">maximum</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="n">scroll_bar1</span><span class="o">.</span><span class="n">minimum</span><span class="p">())</span> <span class="o">/</span> <span class="n">maximum1</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ignore_scroll_bar_update_signal</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_scroll_bar_update_signal</span> <span class="o">=</span> <span class="bp">True</span>
             <span class="n">scroll_bar2</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ignore_scroll_bar_update_signal</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_scroll_bar_update_signal</span> <span class="o">=</span> <span class="bp">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 
     <span class="c">##############################################</span>
@@ -514,9 +516,9 @@
 <div class="viewcode-block" id="DiffView.clear"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffWidget.html#CodeReview.GUI.DiffViewer.DiffWidget.DiffView.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">browsers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">documents</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_browsers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_documents</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_text_blocks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 
     <span class="c">##############################################</span>
@@ -526,12 +528,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         
         <span class="k">for</span> <span class="n">side</span><span class="p">,</span> <span class="n">document_model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">document_models</span><span class="p">):</span>
-            <span class="n">cursor</span> <span class="o">=</span> <span class="n">DiffViewerCursor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursors</span><span class="p">[</span><span class="n">side</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_blocks</span><span class="p">[</span><span class="n">side</span><span class="p">])</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">DiffViewerCursor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cursors</span><span class="p">[</span><span class="n">side</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text_blocks</span><span class="p">[</span><span class="n">side</span><span class="p">])</span>
             <span class="k">for</span> <span class="n">text_block</span> <span class="ow">in</span> <span class="n">document_model</span><span class="p">:</span>
                 <span class="n">cursor</span><span class="o">.</span><span class="n">begin_block</span><span class="p">(</span><span class="n">side</span><span class="p">,</span> <span class="n">text_block</span><span class="o">.</span><span class="n">frame_type</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">text_block</span><span class="o">.</span><span class="n">frame_type</span> <span class="o">!=</span> <span class="n">chunk_type</span><span class="o">.</span><span class="n">equal_block</span> <span class="ow">or</span> <span class="n">complete_mode</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">text_fragment</span><span class="p">,</span> <span class="n">last_text_fragment</span> <span class="ow">in</span> <span class="n">iter_with_last_flag</span><span class="p">(</span><span class="n">text_block</span><span class="p">):</span>
-                        <span class="n">text_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">syntax_highlighter_style</span><span class="p">[</span><span class="n">text_fragment</span><span class="o">.</span><span class="n">token_type</span><span class="p">]</span>
+                        <span class="n">text_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_syntax_highlighter_style</span><span class="p">[</span><span class="n">text_fragment</span><span class="o">.</span><span class="n">token_type</span><span class="p">]</span>
                         <span class="k">if</span> <span class="p">(</span><span class="n">text_block</span><span class="o">.</span><span class="n">frame_type</span> <span class="o">==</span> <span class="n">chunk_type</span><span class="o">.</span><span class="n">replace</span> <span class="ow">and</span>
                             <span class="n">text_fragment</span><span class="o">.</span><span class="n">frame_type</span> <span class="o">!=</span> <span class="n">chunk_type</span><span class="o">.</span><span class="n">equal</span><span class="p">):</span>
                             <span class="n">text_format</span><span class="o">.</span><span class="n">setBackground</span><span class="p">(</span><span class="n">DiffWidgetConfig</span><span class="o">.</span><span class="n">intra_difference_background_colour</span><span class="p">)</span>

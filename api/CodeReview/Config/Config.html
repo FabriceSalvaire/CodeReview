@@ -109,9 +109,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../Logging/Email.html">2.1.5.1. <code class="docutils literal"><span class="pre">Email</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Logging/ExceptionHook.html">2.1.5.2. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Logging/Logging.html">2.1.5.3. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Logging/ExceptionHook.html">2.1.5.1. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Logging/Logging.html">2.1.5.2. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a><ul>
@@ -188,38 +187,12 @@
   <div class="section" id="module-CodeReview.Config.Config">
 <span id="config"></span><h1>2.1.2.1. <code class="xref py py-mod docutils literal"><span class="pre">Config</span></code><a class="headerlink" href="#module-CodeReview.Config.Config" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="CodeReview.Config.Config.Email">
-<em class="property">class </em><code class="descclassname">CodeReview.Config.Config.</code><code class="descname">Email</code><a class="reference internal" href="../../../_modules/CodeReview/Config/Config.html#Email"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Config.Config.Email" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<dl class="attribute">
-<dt id="CodeReview.Config.Config.Email.from_address">
-<code class="descname">from_address</code><em class="property"> = 'fabrice.salvaire&#64;orange.fr'</em><a class="headerlink" href="#CodeReview.Config.Config.Email.from_address" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="CodeReview.Config.Config.Email.to_address">
-<code class="descname">to_address</code><em class="property"> = ['fabrice.salvaire&#64;orange.fr']</em><a class="headerlink" href="#CodeReview.Config.Config.Email.to_address" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
 <dt id="CodeReview.Config.Config.Help">
 <em class="property">class </em><code class="descclassname">CodeReview.Config.Config.</code><code class="descname">Help</code><a class="reference internal" href="../../../_modules/CodeReview/Config/Config.html#Help"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Config.Config.Help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
-<dt id="CodeReview.Config.Config.Help.host">
-<code class="descname">host</code><em class="property"> = 'localhost'</em><a class="headerlink" href="#CodeReview.Config.Config.Help.host" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="CodeReview.Config.Config.Help.url_path_pattern">
-<code class="descname">url_path_pattern</code><em class="property"> = '/'</em><a class="headerlink" href="#CodeReview.Config.Config.Help.url_path_pattern" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="CodeReview.Config.Config.Help.url_scheme">
-<code class="descname">url_scheme</code><em class="property"> = 'http'</em><a class="headerlink" href="#CodeReview.Config.Config.Help.url_scheme" title="Permalink to this definition">¶</a></dt>
+<dt id="CodeReview.Config.Config.Help.url">
+<code class="descname">url</code><em class="property"> = 'https://fabricesalvaire.github.io/CodeReview'</em><a class="headerlink" href="#CodeReview.Config.Config.Help.url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -230,12 +203,12 @@
 <dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="CodeReview.Config.Config.Path.config_directory">
-<code class="descname">config_directory</code><em class="property"> = '/home/gv/sys/fc14/fabrice/.config/pyqgit'</em><a class="headerlink" href="#CodeReview.Config.Config.Path.config_directory" title="Permalink to this definition">¶</a></dt>
+<code class="descname">config_directory</code><em class="property"> = '/home/gv/sys/fc14/fabrice/.config/CodeReview'</em><a class="headerlink" href="#CodeReview.Config.Config.Path.config_directory" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="CodeReview.Config.Config.Path.data_directory">
-<code class="descname">data_directory</code><em class="property"> = '/home/gv/sys/fc14/fabrice/.local/pyqgit'</em><a class="headerlink" href="#CodeReview.Config.Config.Path.data_directory" title="Permalink to this definition">¶</a></dt>
+<code class="descname">data_directory</code><em class="property"> = '/home/gv/sys/fc14/fabrice/.local/CodeReview'</em><a class="headerlink" href="#CodeReview.Config.Config.Path.data_directory" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

@@ -107,9 +107,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/Email.html">2.1.5.1. <code class="docutils literal"><span class="pre">Email</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/ExceptionHook.html">2.1.5.2. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/Logging.html">2.1.5.3. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/ExceptionHook.html">2.1.5.1. <code class="docutils literal"><span class="pre">ExceptionHook</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/CodeReview/Logging/Logging.html">2.1.5.2. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/CodeReview/Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a><ul>
@@ -205,7 +204,6 @@
 
 <span class="c">####################################################################################################</span>
 
-<span class="kn">from</span> <span class="nn">CodeReview.Logging.Email</span> <span class="kn">import</span> <span class="n">Email</span>
 <span class="kn">from</span> <span class="nn">CodeReview.Tools.Platform</span> <span class="kn">import</span> <span class="n">Platform</span>
 <span class="kn">from</span> <span class="nn">CodeReview.Tools.Singleton</span> <span class="kn">import</span> <span class="n">singleton</span>
 
@@ -306,62 +304,6 @@
         <span class="c"># traceback.print_exc()</span>
         <span class="n">traceback</span><span class="o">.</span><span class="n">print_exception</span><span class="p">(</span><span class="n">exception_type</span><span class="p">,</span> <span class="n">exception_value</span><span class="p">,</span> <span class="n">exception_traceback</span><span class="p">)</span>
         <span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_line</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span> 
-
-<span class="c">####################################################################################################</span>
-</div></div>
-<div class="viewcode-block" id="EmailExceptionHook"><a class="viewcode-back" href="../../../api/CodeReview/Logging/ExceptionHook.html#CodeReview.Logging.ExceptionHook.EmailExceptionHook">[docs]</a><span class="k">class</span> <span class="nc">EmailExceptionHook</span><span class="p">(</span><span class="n">ExceptionHook</span><span class="p">):</span>
-
-    <span class="sd">&quot;&quot;&quot; Send per email exception. &quot;&quot;&quot;</span>
-
-    <span class="c">##############################################</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">recipients</span><span class="o">=</span><span class="p">[]):</span>
-
-        <span class="sd">&quot;&quot;&quot; The mandatory recipient is set in :attr:`Config.Email.to_address`. Additional recipients</span>
-<span class="sd">        can be added using the list *recipients*. A context string can be set using *context*.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_recipients</span> <span class="o">=</span> <span class="n">recipients</span>
-
-        <span class="nb">super</span><span class="p">(</span><span class="n">EmailExceptionHook</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
-
-    <span class="c">##############################################</span>
-
-<div class="viewcode-block" id="EmailExceptionHook.notify"><a class="viewcode-back" href="../../../api/CodeReview/Logging/ExceptionHook.html#CodeReview.Logging.ExceptionHook.EmailExceptionHook.notify">[docs]</a>    <span class="k">def</span> <span class="nf">notify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception_type</span><span class="p">,</span> <span class="n">exception_value</span><span class="p">,</span> <span class="n">exception_traceback</span><span class="p">):</span>
-
-        <span class="n">template_message</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
-<span class="s">Object: An exception occurred in CodeReview software on </span><span class="si">%(date)s</span><span class="s"> UTC</span>
-
-<span class="s">---------------------------------------------------------------------------------</span>
-
-<span class="s">Context:</span>
-<span class="si">%(context)s</span><span class="s"></span>
-
-<span class="s">---------------------------------------------------------------------------------</span>
-<span class="si">%(platform)s</span><span class="s"></span>
-<span class="s">---------------------------------------------------------------------------------</span>
-
-<span class="si">%(traceback)s</span><span class="s"></span>
-
-<span class="s">---------------------------------------------------------------------------------</span>
-<span class="s">&#39;&#39;&#39;</span>
-
-        <span class="n">traceback</span> <span class="o">=</span> <span class="n">format_exception</span><span class="p">(</span><span class="n">exception_type</span><span class="p">,</span> <span class="n">exception_value</span><span class="p">,</span> <span class="n">exception_traceback</span><span class="p">)</span>
-        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
-        <span class="n">platform</span> <span class="o">=</span> <span class="n">Platform</span><span class="p">()</span>
-
-        <span class="n">message</span> <span class="o">=</span> <span class="n">template_message</span> <span class="o">%</span> <span class="p">{</span><span class="s">&#39;date&#39;</span><span class="p">:</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&#39;%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M&#39;</span><span class="p">),</span>
-                                      <span class="s">&#39;context&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">),</span>
-                                      <span class="s">&#39;platform&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">platform</span><span class="p">),</span>
-                                      <span class="s">&#39;traceback&#39;</span><span class="p">:</span> <span class="n">traceback</span><span class="p">,</span>
-                                      <span class="p">}</span>
-
-        <span class="n">email</span> <span class="o">=</span> <span class="n">Email</span><span class="p">(</span><span class="n">subject</span><span class="o">=</span><span class="s">&#39;An exception occurred in CodeReview software&#39;</span><span class="p">,</span>
-                      <span class="n">recipients</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">Email</span><span class="o">.</span><span class="n">to_address</span><span class="p">,</span>
-                      <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span>
-                      <span class="p">)</span>
-        <span class="n">email</span><span class="o">.</span><span class="n">add_recipients</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_recipients</span><span class="p">)</span>
-        <span class="n">email</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
 
 <span class="c">####################################################################################################</span>
 <span class="c">#</span>
