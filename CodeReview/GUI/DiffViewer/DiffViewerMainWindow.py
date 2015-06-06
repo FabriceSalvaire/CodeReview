@@ -59,6 +59,9 @@ class DiffViewerMainWindow(MainWindowBase):
         self._init_ui()
         self._create_actions()
         self._create_toolbar()
+
+        icon_loader = IconLoader()
+        self.setWindowIcon(icon_loader['code-review@svg'])
         
     ##############################################
 
@@ -102,41 +105,81 @@ class DiffViewerMainWindow(MainWindowBase):
             QtWidgets.QAction(icon_loader['view-refresh'],
                               'Refresh',
                               self,
-                              toolTip='refresh',
+                              toolTip='Refresh',
                               shortcut='Ctrl+R',
                               triggered=lambda: self._refresh,
             )
         
         self._complete_action = \
-            QtWidgets.QAction('Complete',
+            QtWidgets.QAction(icon_loader['complete-mode@svg'],
+                              'Complete',
                               self,
                               toolTip='Complete view',
                               shortcut='Ctrl+A',
                               checkable=True,
                               triggered=self._set_document_models,
             )
-
+        
         self._highlight_action = \
-            QtWidgets.QAction('Highlight',
+            QtWidgets.QAction(icon_loader['highlight@svg'],
+                              'Highlight',
                               self,
                               toolTip='Highlight text',
                               shortcut='Ctrl+H',
                               checkable=True,
-                              triggered=self._on_highlight_action,
+                              triggered=self._refresh,
             )
 
     ##############################################
 
     def _create_toolbar(self):
 
+        self._algorithm_combobox = QtWidgets.QComboBox(self)
+        for algorithm in ('Patience',):
+            self._algorithm_combobox.addItem(algorithm, algorithm)
+        self._algorithm_combobox.currentIndexChanged.connect(self._refresh)
+        
+        self._lines_of_context_combobox = QtWidgets.QComboBox(self)
+        for number_of_lines_of_context in (3, 6, 12):
+            self._lines_of_context_combobox.addItem(str(number_of_lines_of_context),
+                                                    number_of_lines_of_context)
+        self._lines_of_context_combobox.currentIndexChanged.connect(self._refresh)
+        
+        self._font_size_combobox = QtWidgets.QComboBox(self)
+        min_font_size, max_font_size = 4, 20
+        application_font_size = QtWidgets.QApplication.font().pointSize()
+        min_font_size = min(min_font_size, application_font_size)
+        max_font_size = max(max_font_size, application_font_size)
+        for font_size in range(min_font_size, max_font_size +1):
+            self._font_size_combobox.addItem(str(font_size), font_size)
+        self._font_size_combobox.setCurrentIndex(application_font_size - min_font_size)
+        self._font_size_combobox.currentIndexChanged.connect(self._on_font_size_change)
+        self._on_font_size_change(refresh=False)
+        
+        items = [
+            self._algorithm_combobox,
+            QtWidgets.QLabel(' '), # Fixme
+            QtWidgets.QLabel('Context:'),
+            self._lines_of_context_combobox,
+            QtWidgets.QLabel(' '), # Fixme
+            QtWidgets.QLabel('Font Size:'),
+            self._font_size_combobox,
+            self._complete_action,
+            self._highlight_action,
+            self._refresh_action,
+        ]
+        if self._application._main_window is not None:
+            items.extend((
+                self._previous_file_action,
+                self._next_file_action,
+            ))
+        
         self._tool_bar = self.addToolBar('Diff Viewer')
-        for action in (self._previous_file_action,
-                       self._next_file_action,
-                       self._complete_action,
-                       self._highlight_action,
-                       self._refresh_action,
-                      ):
-            self._tool_bar.addAction(action)
+        for item in items:
+            if isinstance(item, QtWidgets.QAction):
+                self._tool_bar.addAction(item)
+            else:
+                self._tool_bar.addWidget(item)
 
     ##############################################
 
@@ -210,7 +253,7 @@ class DiffViewerMainWindow(MainWindowBase):
 
     ##############################################
 
-    def diff_documents(self, paths, texts, workdir='', show=False, highlight=False):
+    def diff_documents(self, paths, texts, workdir='', show=False):
 
         self._paths = list(paths)
         self._texts = list(texts)
@@ -225,9 +268,13 @@ class DiffViewerMainWindow(MainWindowBase):
         lexers = [self._get_lexer(path, text) for path, text in zip(self._paths, self._texts)]
         raw_text_documents = [RawTextDocument(text) for text in self._texts]
         
+        highlight = self._highlight_action.isChecked()
+        number_of_lines_of_context = self._lines_of_context_combobox.currentData()
+        
         self._highlighted_documents = []
         if not show:
-            file_diff = TwoWayFileDiffFactory().process(* raw_text_documents)
+            file_diff = TwoWayFileDiffFactory().process(* raw_text_documents,
+                                                        number_of_lines_of_context=number_of_lines_of_context)
             document_models = TextDocumentDiffModelFactory().process(file_diff)
             for raw_text_document, document_model, lexer in zip(raw_text_documents, document_models, lexers):
                 if lexer is not None and highlight:
@@ -262,16 +309,17 @@ class DiffViewerMainWindow(MainWindowBase):
 
     ##############################################
 
-    def _refresh(self):
+    def _on_font_size_change(self, index=None, refresh=True):
 
-        self.diff_documents(self._paths, self._texts, self._workdir)
+        self._diff_view.set_font(self._font_size_combobox.currentData())
+        if refresh:
+            self._refresh() # Fixme: block position are not updated
 
     ##############################################
 
-    def _on_highlight_action(self):
+    def _refresh(self):
 
-        highlight = self._highlight_action.isChecked()
-        self.diff_documents(self._paths, self._texts, self._workdir, highlight=highlight)
+        self.diff_documents(self._paths, self._texts, self._workdir)
 
     ##############################################
 
