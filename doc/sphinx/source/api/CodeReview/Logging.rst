@@ -3,7 +3,6 @@
 ****************
 
 .. toctree::
-  Logging/Email
   Logging/ExceptionHook
   Logging/Logging
 

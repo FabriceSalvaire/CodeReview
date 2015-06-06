@@ -4,7 +4,6 @@
 
 .. toctree::
   Forms/CriticalErrorForm
-  Forms/EmailBugForm
 
 .. automodule:: CodeReview.GUI.Forms
    :members:
