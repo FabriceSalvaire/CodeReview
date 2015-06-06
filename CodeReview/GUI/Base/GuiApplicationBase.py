@@ -41,7 +41,7 @@ import CodeReview.Config.Messages as Messages
 import CodeReview.Version as Version
 
 # Load RC
-#import CodeReview.gui.ui.pyqgit_rc
+#import CodeReview.gui.ui.CodeReview_rc
 
 ####################################################################################################
 
@@ -89,7 +89,7 @@ class GuiApplicationBase(ApplicationBase, QtWidgets.QApplication):
         pixmap = QtGui.QPixmap(':/splash screen/images/splash_screen.png')
         self._splash = QtWidgets.QSplashScreen(pixmap)
         self._splash.show()
-        self._splash.showMessage('<h2>CodeReview %(version)s</h2>' % {'version':str(Version.pyqgit)})
+        self._splash.showMessage('<h2>CodeReview %(version)s</h2>' % {'version':str(Version.CodeReview)})
         self.processEvents()
 
     ##############################################
@@ -125,7 +125,7 @@ class GuiApplicationBase(ApplicationBase, QtWidgets.QApplication):
         del self._splash
         
         QtCore.QTimer.singleShot(0, self.execute_given_user_script)
-
+        
         self.show_message('Welcome to CodeReview')
 
         # return to main and then enter to event loop
@@ -153,17 +153,14 @@ class GuiApplicationBase(ApplicationBase, QtWidgets.QApplication):
 
     def open_help(self):
 
-        url = QtCore.QUrl()
-        url.setScheme(Config.Help.url_scheme)
-        url.setHost(Config.Help.host)
-        url.setPath(Config.Help.url_path_pattern) # % str(Version.pyqgit))
-        # X.QDesktopServices.openUrl(url) # Fixme
+        url = QtCore.QUrl(Config.Help.url)
+        QtGui.QDesktopServices.openUrl(url)
 
     ##############################################
 
     def about(self):
 
-        message = Messages.about_pyqgit % {'version':str(Version.pyqgit)}
+        message = Messages.about_CodeReview.format(version=str(Version.CodeReview))
         QtWidgets.QMessageBox.about(self.main_window, 'About CodeReview', message)
 
     ##############################################
@@ -172,9 +169,9 @@ class GuiApplicationBase(ApplicationBase, QtWidgets.QApplication):
 
         fields = dict(self._platform.__dict__)
         fields.update({
-                'pyqgit_version': str(Version.pyqgit),
-                })
-        message = Messages.system_information_message_pattern % fields
+            'version': str(Version.CodeReview),
+        })
+        message = Messages.system_information_message_pattern.format(**fields)
         QtWidgets.QMessageBox.about(self.main_window, 'System Information', message)
 
 ####################################################################################################

@@ -26,11 +26,11 @@ from CodeReview.Tools.RevisionVersion import RevisionVersion
 
 ####################################################################################################
 
-pyqgit = RevisionVersion({'major':0,
-                         'minor':1,
-                         'revision':0,
-                         'suffix':'',
-                         })
+CodeReview = RevisionVersion({'major':0,
+                              'minor':1,
+                              'revision':0,
+                              'suffix':'',
+                             })
 
 ####################################################################################################
 #

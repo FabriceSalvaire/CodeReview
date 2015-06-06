@@ -24,18 +24,16 @@ import os
 
 class Path(object):
 
-    config_directory = os.path.join(os.environ['HOME'], '.config', 'pyqgit')
+    config_directory = os.path.join(os.environ['HOME'], '.config', 'CodeReview')
 
-    # data_directory = os.path.join(os.environ['HOME'], '.local', 'share', 'data', 'pyqgit')
-    data_directory = os.path.join(os.environ['HOME'], '.local', 'pyqgit')
+    # data_directory = os.path.join(os.environ['HOME'], '.local', 'share', 'data', 'CodeReview')
+    data_directory = os.path.join(os.environ['HOME'], '.local', 'CodeReview')
 
 ####################################################################################################
 
 class Help(object):
 
-    host = 'localhost'
-    url_scheme = 'http'
-    url_path_pattern = '/'
+    url = 'https://fabricesalvaire.github.io/CodeReview'
 
 ####################################################################################################
 

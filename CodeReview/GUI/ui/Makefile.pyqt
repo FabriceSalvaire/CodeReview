@@ -6,13 +6,13 @@ py_files := $(patsubst %.ui, %_ui.py, $(wildcard *.ui))
 
 ####################################################################################################
 
-#all: pyqgit_rc.py $(py_files)
+#all: CodeReview_rc.py $(py_files)
 all: $(py_files)
 
 ####################################################################################################
 
-#pyqgit_rc.py : pyqgit.qrc
-#	 pyrcc5 pyqgit.qrc -o pyqgit_rc.py
+#CodeReview_rc.py : CodeReview.qrc
+#	 pyrcc5 CodeReview.qrc -o CodeReview_rc.py
 
 ####################################################################################################
 

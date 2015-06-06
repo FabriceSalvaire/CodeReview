@@ -18,7 +18,7 @@ _this_file = PathTools.to_absolute_path(__file__)
 
 class Path(object):
 
-    pyqgit_module_directory = PathTools.parent_directory_of(_this_file, step=2)
+    CodeReview_module_directory = PathTools.parent_directory_of(_this_file, step=2)
     config_directory = os.path.dirname(_this_file)
     share_directory = os.path.realpath(os.path.join(config_directory, '..', '..', 'share'))
 
@@ -45,9 +45,14 @@ class Icon(object):
     ##############################################
 
     @staticmethod
-    def find(file_name, size):
+    def find(file_name, icon_size):
 
-        icon_directory = os.path.join(Icon.icon_directory, '%ux%u' % (size, size))
+        if icon_size == 'svg':
+            size_directory = icon_size
+        else:
+            size_directory = '{0}x{0}'.format(icon_size)
+        
+        icon_directory = os.path.join(Icon.icon_directory, size_directory)
         return PathTools.find(file_name, (icon_directory,))
 
 ####################################################################################################

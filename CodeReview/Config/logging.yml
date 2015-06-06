@@ -48,6 +48,12 @@ loggers:
     handlers: [console]
     propagate: no
 
+  diff-viewer:
+    level: DEBUG
+    #level: INFO
+    handlers: [console]
+    propagate: no
+
 ##################################################
 #
 # Modules

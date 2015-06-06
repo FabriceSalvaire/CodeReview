@@ -44,7 +44,7 @@ class IconLoader(object, metaclass=SingletonMetaClass):
 
     def _mangle_icon_name(self, icon_name, icon_size):
 
-        return icon_name + '@%u' % icon_size
+        return icon_name + '@' + str(icon_size)
 
     ##############################################
 
@@ -52,7 +52,8 @@ class IconLoader(object, metaclass=SingletonMetaClass):
 
         if '@' in icon_name:
             icon_name, icon_size = icon_name.split('@')
-            icon_size = int(icon_size)
+            if icon_size != 'svg':
+                icon_size = int(icon_size)
         else:
             icon_size = self.icon_size
 
@@ -78,8 +79,13 @@ class IconLoader(object, metaclass=SingletonMetaClass):
 
     ##############################################
 
-    def _find(self, file_name, icon_size, extension='.png'):
+    def _find(self, file_name, icon_size):
 
+        if icon_size == 'svg':
+            extension = '.svg'
+        else:
+            extension = '.png'
+        
         return ConfigInstall.Icon.find(file_name + extension, icon_size)
 
 ####################################################################################################

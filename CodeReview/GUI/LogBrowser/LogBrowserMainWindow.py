@@ -53,6 +53,9 @@ class LogBrowserMainWindow(MainWindowBase):
         self._diff_window = None
         
         self._init_ui()
+        
+        icon_loader = IconLoader()
+        self.setWindowIcon(icon_loader['code-review@svg'])
 
     ##############################################
 
