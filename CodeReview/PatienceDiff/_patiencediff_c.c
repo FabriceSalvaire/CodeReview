@@ -22,13 +22,11 @@
    Copyright (C) 2005 Bram Cohen, Copyright (C) 2005, 2006 Canonical Ltd
 */
 
-
 #include <stdlib.h>
 #include <string.h>
 #include <Python.h>
 
 #include "python-compat.h"
-
 
 #if defined(__GNUC__)
 #   define inline __inline__
@@ -38,18 +36,14 @@
 #   define inline
 #endif
 
-
 #define MIN(a, b) (((a) > (b)) ? (b) : (a))
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
-
 #define SENTINEL -1
 
-
-/* malloc returns NULL on some platforms if you try to allocate nothing,
- * causing <https://bugs.launchpad.net/bzr/+bug/511267> and
- * <https://bugs.launchpad.net/bzr/+bug/331095>.  On glibc it passes, but
- * let's make it fail to aid testing. */
+/* malloc returns NULL on some platforms if you try to allocate nothing, causing
+ * <https://bugs.launchpad.net/bzr/+bug/511267> and <https://bugs.launchpad.net/bzr/+bug/331095>.
+ * On glibc it passes, but let's make it fail to aid testing. */
 #define guarded_malloc(x) ( (x) ? malloc(x) : NULL )
 
 enum {
@@ -59,7 +53,6 @@ enum {
     OP_REPLACE
 };
 
-
 /* values from this array need to correspont to the order of the enum above */
 static char *opcode_names[] = {
     "equal",
@@ -68,14 +61,12 @@ static char *opcode_names[] = {
     "replace",
 };
 
-
 struct line {
     long hash;         /* hash code of the string/object */
     Py_ssize_t next;   /* next line from the same equivalence class */
     Py_ssize_t equiv;  /* equivalence class */
     PyObject *data;
 };
-
 
 struct bucket {
     Py_ssize_t a_head;  /* first item in `a` from this equivalence class */
@@ -85,7 +76,6 @@ struct bucket {
     Py_ssize_t a_pos;
     Py_ssize_t b_pos;
 };
-
 
 struct hashtable {
     Py_ssize_t last_a_pos;
@@ -99,19 +89,16 @@ struct matching_line {
     Py_ssize_t b;     /* index of the line in `b` */
 };
 
-
 struct matching_block {
     Py_ssize_t a;     /* index of the first line in `a` */
     Py_ssize_t b;     /* index of the first line in `b` */
     Py_ssize_t len;   /* length of the block */
 };
 
-
 struct matching_blocks {
     struct matching_block *matches;
     Py_ssize_t count;
 };
-
 
 struct opcode {
     int tag;
@@ -120,7 +107,6 @@ struct opcode {
     Py_ssize_t j1;
     Py_ssize_t j2;
 };
-
 
 typedef struct {
     PyObject_HEAD
@@ -131,7 +117,6 @@ typedef struct {
     struct hashtable hashtable;
     Py_ssize_t *backpointers;
 } PatienceSequenceMatcher;
-
 
 static inline Py_ssize_t
 bisect_left(Py_ssize_t *list, Py_ssize_t item, Py_ssize_t lo, Py_ssize_t hi)
@@ -146,14 +131,12 @@ bisect_left(Py_ssize_t *list, Py_ssize_t item, Py_ssize_t lo, Py_ssize_t hi)
     return lo;
 }
 
-
 static inline int
 compare_lines(struct line *a, struct line *b)
 {
     return ((a->hash != b->hash)
             || PyObject_RichCompareBool(a->data, b->data, Py_NE)); // Py3 update
 }
-
 
 static inline int
 find_equivalence_class(struct bucket *hashtable, Py_ssize_t hsize,
@@ -168,7 +151,6 @@ find_equivalence_class(struct bucket *hashtable, Py_ssize_t hsize,
     }
     return j;
 }
-
 
 static int
 equate_lines(struct hashtable *result,
@@ -205,13 +187,12 @@ equate_lines(struct hashtable *result,
     }
     hsize--;
 
-    /* add lines from lines_b to the hash table chains. iterating
-       backwards so the matching lines are sorted to the linked list
-       by the line number (because we are adding new lines to the
-       head of the list) */
+    /* add lines from lines_b to the hash table chains. iterating backwards so the matching lines
+       are sorted to the linked list by the line number (because we are adding new lines to the head
+       of the list) */
     for (i = bsize - 1; i >= 0; i--) {
-        /* find the first hashtable entry, which is either empty or contains
-           the same line as lines_b[i] */
+        /* find the first hashtable entry, which is either empty or contains the same line as
+           lines_b[i] */
         j = find_equivalence_class(hashtable, hsize, lines_b, lines_b, i);
 
         /* set the equivalence class */
@@ -223,15 +204,15 @@ equate_lines(struct hashtable *result,
         hashtable[j].b_count++;
     }
 
-    /* match items from lines_a to their equivalence class in lines_b.
-       again, iterating backwards for the right order of the linked lists */
+    /* match items from lines_a to their equivalence class in lines_b.  again, iterating backwards
+       for the right order of the linked lists */
     for (i = asize - 1; i >= 0; i--) {
-        /* find the first hash entry, which is either empty or contains
-           the same line as lines_a[i] */
+        /* find the first hash entry, which is either empty or contains the same line as
+           lines_a[i] */
         j = find_equivalence_class(hashtable, hsize, lines_a, lines_b, i);
 
-        /* set the equivalence class, even if we are not interested in this
-           line, because the values are not pre-filled */
+        /* set the equivalence class, even if we are not interested in this line, because the values
+           are not pre-filled */
         lines_a[i].equiv = j;
 
         /* we are not interested in lines which are not also in lines_b */
@@ -252,12 +233,9 @@ equate_lines(struct hashtable *result,
     return 1;
 }
 
-
-
-/* Finds longest common subsequence of unique lines in a[alo:ahi] and
-   b[blo:bhi].
-   Parameter backpointers must have allocated memory for at least
-   4 * (bhi - blo) ints. */
+/* Finds longest common subsequence of unique lines in a[alo:ahi] and b[blo:bhi].
+   Parameter backpointers must have allocated memory for at least 4 * (bhi - blo) ints.
+ */
 Py_ssize_t
 unique_lcs(struct matching_line *answer,
            struct hashtable *hashtable, Py_ssize_t *backpointers,
@@ -299,9 +277,8 @@ unique_lcs(struct matching_line *answer,
         if (h[equiv].a_count == 0 || h[equiv].b_count == 0)
             continue;
 
-        /* find an unique line in lines_a that matches lines_b[bpos]
-           if we find more than one line within the range alo:ahi,
-           jump to the next line from lines_b immediately */
+        /* find an unique line in lines_a that matches lines_b[bpos] if we find more than one line
+           within the range alo:ahi, jump to the next line from lines_b immediately */
         apos = SENTINEL;
         /* loop through all lines in the linked list */
         for (i = h[equiv].a_pos; i != SENTINEL; i = lines_a[i].next) {
@@ -334,14 +311,14 @@ unique_lcs(struct matching_line *answer,
             /* the index is higher than bhi, stop searching */
             if (i >= bhi)
                 break;
-            /* if this isn't the line with started with and it's within
-               our range, it's a duplicate */
+            /* if this isn't the line with started with and it's within our range, it's a
+               duplicate */
             if (i != bpos)
                 goto nextb;
         }
 
-        /* use normalised indexes ([0,ahi-alo) instead of [alo,ahi))
-           for the patience sorting algorithm */
+        /* use normalised indexes ([0,ahi-alo) instead of [alo,ahi)) for the patience sorting
+           algorithm */
         norm_bpos = bpos - blo;
         norm_apos = apos - alo;
         btoa[norm_bpos] = norm_apos;
@@ -349,39 +326,34 @@ unique_lcs(struct matching_line *answer,
         /*
         Ok, how does this work...
 
-        We have a list of matching lines from two lists, a and b. These
-        matches are stored in variable `btoa`. As we are iterating over this
-        table by bpos, the lines from b already form an increasing sequence.
-        We need to "sort" also the lines from a using the patience sorting
+        We have a list of matching lines from two lists, a and b. These matches are stored in
+        variable `btoa`. As we are iterating over this table by bpos, the lines from b already form
+        an increasing sequence.  We need to "sort" also the lines from a using the patience sorting
         algorithm, ignoring the lines which would need to be swapped.
 
           http://en.wikipedia.org/wiki/Patience_sorting
 
-        For each pair of lines, we need to place the line from a on either
-        an existing pile that has higher value on the top or create a new
-        pile. Variable `stacks` represents the tops of these piles and in
-        variable `lasts` we store the lines from b, that correspond to the
-        lines from a in `stacks`.
+        For each pair of lines, we need to place the line from a on either an existing pile that has
+        higher value on the top or create a new pile. Variable `stacks` represents the tops of these
+        piles and in variable `lasts` we store the lines from b, that correspond to the lines from a
+        in `stacks`.
 
-        Whenever we place a new line on top of a pile, we store a
-        backpointer to the line (b) from top of the previous pile. This means
-        that after the loop, variable `backpointers` will contain an index
-        to the previous matching lines that forms an increasing sequence
-        (over both indexes a and b) with the current matching lines. If
-        either index a or b of the previous matching lines would be higher
-        than indexes of the current one or if the indexes of the current
-        one are 0, it will contain SENTINEL.
+        Whenever we place a new line on top of a pile, we store a backpointer to the line (b) from
+        top of the previous pile. This means that after the loop, variable `backpointers` will
+        contain an index to the previous matching lines that forms an increasing sequence (over both
+        indexes a and b) with the current matching lines. If either index a or b of the previous
+        matching lines would be higher than indexes of the current one or if the indexes of the
+        current one are 0, it will contain SENTINEL.
 
         To construct the LCS, we will just need to follow these backpointers
         from the top of the last pile and stop when we reach SENTINEL.
         */
 
-        /* as an optimization, check if the next line comes at the end,
-           because it usually does */
+        /* as an optimization, check if the next line comes at the end, because it usually does */
         if (stacksize && stacks[stacksize - 1] < norm_apos)
             k = stacksize;
-        /* as an optimization, check if the next line comes right after
-           the previous line, because usually it does */
+        /* as an optimization, check if the next line comes right after the previous line, because
+           usually it does */
         else if (stacksize && (stacks[k] < norm_apos) &&
                  (k == stacksize - 1 || stacks[k + 1] > norm_apos))
             k += 1;
@@ -400,7 +372,6 @@ unique_lcs(struct matching_line *answer,
             lasts[stacksize] = norm_bpos;
             stacksize += 1;
         }
-
 
 nextb:
         ;
@@ -422,8 +393,8 @@ nextb:
     return i;
 }
 
-/* Adds a new line to the list of matching blocks, either extending the
-   current block or adding a new one. */
+/* Adds a new line to the list of matching blocks, either extending the current block or adding a
+   new one. */
 static inline void
 add_matching_line(struct matching_blocks *answer, Py_ssize_t a, Py_ssize_t b)
 {
@@ -504,7 +475,6 @@ recurse_matches(struct matching_blocks *answer, struct hashtable *hashtable,
             goto error;
     }
 
-
     /* find matching lines at the very beginning */
     else if (a[alo].equiv == b[blo].equiv) {
         while (alo < ahi && blo < bhi && a[alo].equiv == b[blo].equiv)
@@ -541,7 +511,6 @@ error:
     return 0;
 }
 
-
 static void
 delete_lines(struct line *lines, Py_ssize_t size)
 {
@@ -552,7 +521,6 @@ delete_lines(struct line *lines, Py_ssize_t size)
     }
     free(lines);
 }
-
 
 static Py_ssize_t
 load_lines(PyObject *orig, struct line **lines)
@@ -603,7 +571,6 @@ load_lines(PyObject *orig, struct line **lines)
     }
     return size;
 }
-
 
 static PyObject *
 py_unique_lcs(PyObject *self, PyObject *args)
@@ -667,7 +634,6 @@ error:
     delete_lines(a, asize);
     return NULL;
 }
-
 
 static PyObject *
 py_recurse_matches(PyObject *self, PyObject *args)
@@ -752,7 +718,6 @@ error:
     return NULL;
 }
 
-
 static PyObject *
 PatienceSequenceMatcher_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
 {
@@ -796,7 +761,6 @@ PatienceSequenceMatcher_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
     return (PyObject *)self;
 }
 
-
 static void
 PatienceSequenceMatcher_dealloc(PatienceSequenceMatcher* self)
 {
@@ -806,7 +770,6 @@ PatienceSequenceMatcher_dealloc(PatienceSequenceMatcher* self)
     delete_lines(self->a, self->asize);
     Py_TYPE(self)->tp_free((PyObject *)self); // Py3 update
 }
-
 
 static char PatienceSequenceMatcher_get_matching_blocks_doc[] =
     "Return list of triples describing matching subsequences.\n"
@@ -884,7 +847,6 @@ error:
     Py_DECREF(answer);
     return NULL;
 }
-
 
 static char PatienceSequenceMatcher_get_opcodes_doc[] =
     "Return list of 5-tuples describing how to turn a into b.\n"
@@ -995,7 +957,6 @@ error:
     Py_DECREF(answer);
     return NULL;
 }
-
 
 static char PatienceSequenceMatcher_get_grouped_opcodes_doc[] =
     "Isolate change clusters by eliminating ranges with no changes.\n"
@@ -1134,8 +1095,8 @@ PatienceSequenceMatcher_get_grouped_opcodes(PatienceSequenceMatcher* self,
         i2 = codes[i].i2;
         j1 = codes[i].j1;
         j2 = codes[i].j2;
-        /* end the current group and start a new one whenever
-           there is a large range with no changes. */
+        /* end the current group and start a new one whenever there is a large range with no
+           changes. */
         if (tag == OP_EQUAL && i2 - i1 > nn) {
 #if PY_VERSION_HEX < 0x02050000
             item = Py_BuildValue("siiii", opcode_names[tag],
@@ -1186,7 +1147,6 @@ error:
     return NULL;
 }
 
-
 static PyMethodDef PatienceSequenceMatcher_methods[] = {
     {"get_matching_blocks",
      (PyCFunction)PatienceSequenceMatcher_get_matching_blocks,
@@ -1203,10 +1163,8 @@ static PyMethodDef PatienceSequenceMatcher_methods[] = {
     {NULL}
 };
 
-
 static char PatienceSequenceMatcher_doc[] =
     "C implementation of PatienceSequenceMatcher";
-
 
 static PyTypeObject PatienceSequenceMatcherType = {
     PyVarObject_HEAD_INIT(NULL, 0) // Py3 update
@@ -1249,13 +1207,11 @@ static PyTypeObject PatienceSequenceMatcherType = {
     PatienceSequenceMatcher_new,                 /* tp_new */
 };
 
-
 static PyMethodDef cpatiencediff_methods[] = {
     {"unique_lcs_c", py_unique_lcs, METH_VARARGS},
     {"recurse_matches_c", py_recurse_matches, METH_VARARGS},
     {NULL, NULL}
 };
-
 
 // Py3 update
 static struct PyModuleDef moduledef = {
