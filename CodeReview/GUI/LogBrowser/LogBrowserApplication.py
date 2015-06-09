@@ -21,16 +21,15 @@
 import logging
 import os
 
-import pygit2 as git
-
 from PyQt5 import QtCore, QtWidgets
 
 ####################################################################################################
 
-from CodeReview.GUI.Base.GuiApplicationBase import GuiApplicationBase
 from CodeReview.Application.ApplicationBase import ApplicationBase
-from CodeReview.GUI.Widgets.LogTableModel import LogTableModel
+from CodeReview.GUI.Base.GuiApplicationBase import GuiApplicationBase
 from CodeReview.GUI.Widgets.CommitTableModel import CommitTableModel
+from CodeReview.GUI.Widgets.LogTableModel import LogTableModel
+from CodeReview.Repository.Git import RepositoryNotFound, GitRepository
 
 ####################################################################################################
 
@@ -88,14 +87,8 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
         else:
             path = self._args.path
         try:
-            repository_path = git.discover_repository(path)
-            self._repository = git.Repository(repository_path)
-            workdir = self._repository.workdir
-            if os.path.isdir(path) and not path.endswith(os.sep):
-                path += os.sep
-            self.path_filter = path.replace(workdir, '')
-            print(path, workdir, self.path_filter)
-        except KeyError:
+            self._repository = GitRepository(path)
+        except RepositoryNotFound:
             self.show_message("Any Git repository was found in path {}".format(path), warn=True)
             self._repository = None
             return
@@ -105,9 +98,15 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
         log_table.setModel(self._log_table_model)
         log_table.resizeColumnsToContents()
 
-        self._commit_table_model = CommitTableModel(self._repository)
+        self._commit_table_model = CommitTableModel()
         commit_table = self._main_window._commit_table
         commit_table.setModel(self._commit_table_model)
+
+    ##############################################
+
+    @property
+    def repository(self):
+        return self._repository
 
 ####################################################################################################
 #

@@ -19,8 +19,7 @@
 ####################################################################################################
 
 import datetime
-
-import pygit2 as git
+fromtimestamp = datetime.datetime.fromtimestamp
 
 ####################################################################################################
 
@@ -31,58 +30,58 @@ from PyQt5.QtCore import Qt
 
 class LogTableModel(QtCore.QAbstractTableModel):
 
+    __titles__ = (
+        # 'Hex',
+        'Revision',
+        'Message',
+        'Date',
+        # 'Author',
+        'Comitter',
+    )
+
     ##############################################
 
     def __init__(self, repository):
 
         super(LogTableModel, self).__init__()
 
-        self._column_names = (
-            # 'Hex',
-            'Revision',
-            'Message',
-            'Date',
-            # 'Author',
-            'Comitter',
+        commits = repository.commits()
+        self._number_of_rows = len(commits)
+        self._rows = [('', 'Working directory changes', '', '', None)]
+        self._rows.extend([self._commit_data(i, commit)
+                           for i, commit in enumerate(commits)])
+
+    ##############################################
+
+    def _commit_data(self, i, commit):
+
+        return (
+            # commit.hex,
+            self._number_of_rows - i -1,
+            commit.message,
+            fromtimestamp(commit.commit_time).strftime('%Y-%m-%d %H:%M:%S'),
+            # commit.author.name,
+            commit.committer.name,
+            commit,
         )
-
-        self._commits = [None]
-        self._commit_datas = [('', 'Working directory changes', '', '')]
-
-        head = repository.head
-        head_commit = repository[head.target]
-        fromtimestamp = datetime.datetime.fromtimestamp
-        for commit in repository.walk(head_commit.id, git.GIT_SORT_TIME):
-            self._commits.append(commit)
-        self._number_of_commits = len(self._commits)
-        for i, commit in enumerate(self._commits[1:]):
-            commit_data = (
-                # commit.hex,
-                self._number_of_commits - i -1,
-                commit.message,
-                fromtimestamp(commit.commit_time).strftime('%Y-%m-%d %H:%M:%S'),
-                # commit.author.name,
-                commit.committer.name,
-            )
-            self._commit_datas.append(commit_data)
 
     ##############################################
 
     def __getitem__(self, i):
 
-        return self._commits[i]
+        return self._rows[i][-1]
 
     ##############################################
 
     def data(self, index, role=Qt.DisplayRole):
 
-        if not index.isValid(): # or not(0 <= index.row() < self._number_of_commits):
+        if not index.isValid(): # or not(0 <= index.row() < self._number_of_rows):
             return QtCore.QVariant()
 
         if role == Qt.DisplayRole:
-            commit = self._commit_datas[index.row()]
+            row = self._rows[index.row()]
             column = index.column()
-            return QtCore.QVariant(commit[column])
+            return QtCore.QVariant(row[column])
 
         return QtCore.QVariant()
 
@@ -98,10 +97,9 @@ class LogTableModel(QtCore.QAbstractTableModel):
         
         if role == Qt.DisplayRole:
             if orientation == Qt.Horizontal:
-                column_name = self._column_names[section]
-                return QtCore.QVariant(column_name)
+                return QtCore.QVariant(self.__titles__[section])
             else:
-                return QtCore.QVariant(self._number_of_commits - section)
+                return QtCore.QVariant(self._number_of_rows - section)
         
         return QtCore.QVariant()
 
@@ -109,13 +107,13 @@ class LogTableModel(QtCore.QAbstractTableModel):
 
     def columnCount(self, index=QtCore.QModelIndex()):
 
-        return len(self._column_names)
+        return len(self.__titles__)
 
     ##############################################
 
     def rowCount(self, index=QtCore.QModelIndex()):
 
-        return self._number_of_commits
+        return self._number_of_rows
 
 ####################################################################################################
 #

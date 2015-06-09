@@ -19,8 +19,6 @@
 ####################################################################################################
 
 import logging
-import os
-import subprocess
 
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
@@ -48,7 +46,7 @@ class LogBrowserMainWindow(MainWindowBase):
         super(LogBrowserMainWindow, self).__init__(title='CodeReview Log Browser', parent=parent)
         
         self._current_revision = None
-        self._patches = []
+        self._diff = None
         self._current_patch = None
         self._diff_window = None
         
@@ -152,17 +150,13 @@ class LogBrowserMainWindow(MainWindowBase):
                 commit2 = None
         else:
             self._current_revision = None
-            print("\nStatus:")
-            git_status = self._application._repository.status()
-            for filepath, status in git_status.items():
-                print(filepath, status)
             commit1 = commit2 = None
-
-        commit_table_model = self._commit_table.model()
-        commit_table_model.update(commit1, commit2, self._application.path_filter)
-        self._commit_table.resizeColumnsToContents()
         
-        self._patches = [patch for patch in commit_table_model] # Fixme:
+        self._diff = self._application.repository.diff(commit1, commit2)
+        
+        commit_table_model = self._commit_table.model()
+        commit_table_model.update(self._diff)
+        self._commit_table.resizeColumnsToContents()
 
     ##############################################
 
@@ -170,16 +164,6 @@ class LogBrowserMainWindow(MainWindowBase):
 
         self._current_patch = index.row()
         self._show_current_patch()
-
-    ##############################################
-
-    def _object_text(self, oid):
-
-        repository = self._application._repository
-        try:
-            return repository[oid].data.decode('utf-8')
-        except KeyError:
-            return None
 
     ##############################################
 
@@ -197,20 +181,20 @@ class LogBrowserMainWindow(MainWindowBase):
             self._diff_window.closed.connect(self._on_diff_window_closed)
             self._diff_window.showMaximized()
         
-        patch = self._patches[self._current_patch]
+        patch = self._diff[self._current_patch]
         if not patch.is_binary:
             self._logger.info('revision {} '.format(self._current_revision) + patch.new_file_path)
             # print(patch.status, patch.similarity, patch.additions, patch.deletions, patch.is_binary)
             # for hunk in patch.hunks:
             #     print(hunk.old_start, hunk.old_lines, hunk.new_start, hunk.new_lines, hunk.lines)
-            repository = self._application._repository
+            repository = self._application.repository
             if patch.status in ('M', 'R'):
                 paths = (patch.old_file_path, patch.new_file_path)
             elif patch.status == 'A':
                 paths = (None, patch.new_file_path)
             elif patch.status == 'D':
                 paths = (patch.old_file_path, None)
-            texts = [self._object_text(blob_id)
+            texts = [repository.file_content(blob_id)
                      for blob_id in (patch.old_id, patch.new_id)]
             self._diff_window.diff_documents(paths, texts, workdir=repository.workdir)
         else:
@@ -230,7 +214,7 @@ class LogBrowserMainWindow(MainWindowBase):
 
     def next_patch(self):
 
-        if self._current_patch < (len(self._patches) -1):
+        if self._current_patch < (len(self._diff) -1):
             self._current_patch += 1
             self._show_current_patch()
 

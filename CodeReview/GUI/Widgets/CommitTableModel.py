@@ -45,52 +45,41 @@ class CommitTableModel(QtCore.QAbstractTableModel):
         'new_path',
         'similarity',
         ))
+    
+    __titles__ = (
+        'Modification',
+        'Old Path',
+        'New Path',
+        'Similarity',
+    )
 
     ##############################################
 
-    def __init__(self, repository):
+    def __init__(self):
 
         super(CommitTableModel, self).__init__()
         
-        # Fixme: enum
-        self._column_names = (
-            'Modification',
-            'Old Path',
-            'New Path',
-            'Similarity',
-        )
-        
-        self._repository = repository
-        
-        self._patch_datas = []
-        self._number_of_patches = 0
+        self._rows = []
+        self._number_of_rows = 0
 
     ##############################################
 
-    def update(self, commit1=None, commit2=None, path_filter=None):
+    def update(self, diff):
 
-        self._patch_datas = []
-        self._number_of_patches = 0
+        self._rows = []
+        self._number_of_rows = 0
         
-        # GIT_DIFF_PATIENCE
-        diff = self._repository.diff(commit1, commit2)
-        diff.find_similar()
-        # flags, rename_threshold, copy_threshold, rename_from_rewrite_threshold, break_rewrite_threshold, rename_limit
         for patch in diff:
-            print(path_filter)
-            if path_filter and not patch.old_file_path.startswith(path_filter):
-                self._logger.info('Skip ' + patch.old_file_path)
-                continue
             if patch.new_file_path != patch.old_file_path:
                 new_file_path = patch.new_file_path
                 similarity = ' {} %'.format(patch.similarity)
             else:
                 new_file_path = ''
                 similarity = ''
-            patch_data = (patch.status, patch.old_file_path, new_file_path, similarity, patch)
-            self._patch_datas.append(patch_data)
+            row = (patch.status, patch.old_file_path, new_file_path, similarity, patch)
+            self._rows.append(row)
         
-        self._number_of_patches = len(self._patch_datas)
+        self._number_of_rows = len(self._rows)
         
         self.modelReset.emit()
 
@@ -98,15 +87,14 @@ class CommitTableModel(QtCore.QAbstractTableModel):
 
     def __iter__(self):
 
-        # Fixme:
-        for patch_data in self._patch_datas:
-            yield patch_data[-1]
+        for row in self._rows:
+            yield row[-1]
 
     ##############################################
 
     def __getitem__(self, i):
 
-        return self._patch_datas[i][-1]
+        return self._rows[i][-1]
 
     ##############################################
 
@@ -115,12 +103,12 @@ class CommitTableModel(QtCore.QAbstractTableModel):
         if not index.isValid():
             return QtCore.QVariant()
         column = index.column()
-        patch = self._patch_datas[index.row()]
+        row = self._rows[index.row()]
         
         if role == Qt.DisplayRole:
-            return QtCore.QVariant(patch[column])
+            return QtCore.QVariant(row[column])
         elif role == Qt.ForegroundRole and column == self.column_enum.old_path:
-            modification = patch[int(self.column_enum.modification)]
+            modification = row[int(self.column_enum.modification)]
             if modification == 'D':
                 return QtGui.QColor(Qt.red)
             elif modification == 'M':
@@ -146,8 +134,7 @@ class CommitTableModel(QtCore.QAbstractTableModel):
         
         if role == Qt.DisplayRole:
             if orientation == Qt.Horizontal:
-                column_name = self._column_names[section]
-                return QtCore.QVariant(column_name)
+                return QtCore.QVariant(self.__titles__[section])
         
         return QtCore.QVariant()
 
@@ -155,20 +142,20 @@ class CommitTableModel(QtCore.QAbstractTableModel):
 
     def columnCount(self, index=QtCore.QModelIndex()):
 
-        return len(self._column_names)
+        return len(self.__titles__)
 
     ##############################################
 
     def rowCount(self, index=QtCore.QModelIndex()):
 
-        return self._number_of_patches
+        return self._number_of_rows
 
     ##############################################
 
     def sort(self, column, order):
 
        reverse = order == Qt.DescendingOrder
-       self._patch_datas.sort(key=lambda x:x[column], reverse=reverse)
+       self._rows.sort(key=lambda x:x[column], reverse=reverse)
        self.modelReset.emit()
 
 ####################################################################################################
