@@ -72,6 +72,17 @@ class TextBlockDiff(TextBlock):
 
         self.other_side = other_side
 
+    ##############################################
+
+    def alignment_padding(self):
+
+        number_of_lines1 = len(self.line_slice)
+        number_of_lines2 = len(self.other_side.line_slice)
+        if number_of_lines1 < number_of_lines2:
+            return number_of_lines2 - number_of_lines1
+        else:
+            return 0
+
 ####################################################################################################
 
 class TextDocumentDiffModelFactory(object):

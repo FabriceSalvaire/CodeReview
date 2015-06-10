@@ -115,8 +115,10 @@ class DiffViewerCursor(object):
 
     ##############################################
 
-    def insert_text(self, text, text_format, last_text_fragment=False):
+    def insert_text(self, text, text_format=None, last_text_fragment=False):
 
+        if text_format is None:
+            text_format = QtGui.QTextCharFormat()
         if last_text_fragment:
             text = remove_trailing_newline(text)
         if text:
@@ -366,7 +368,10 @@ class DiffView(QtWidgets.QSplitter):
 
     ##############################################
 
-    def append_document_models(self, document_models, aligned_mode=True, complete_mode=True):
+    def append_document_models(self, document_models,
+                               aligned_mode=True,
+                               complete_mode=True,
+                               line_number_mode=True):
 
         for side, document_model in enumerate(document_models):
             cursor = self._cursors[side]
@@ -381,13 +386,10 @@ class DiffView(QtWidgets.QSplitter):
                         if (text_block.frame_type == chunk_type.replace and
                             text_fragment.frame_type != chunk_type.equal):
                             text_format.setBackground(DiffWidgetConfig.intra_difference_background_colour)
-                        text = str(text_fragment)
-                        if aligned_mode:
-                            number_of_lines1 = len(text_block.line_slice)
-                            number_of_lines2 = len(text_block.other_side.line_slice)
-                            if number_of_lines1 < number_of_lines2:
-                                text += '\n'*(number_of_lines2 - number_of_lines1)
-                        cursor.insert_text(text, text_format, last_text_fragment)
+                        cursor.insert_text(str(text_fragment), text_format, last_text_fragment)
+                    if aligned_mode:
+                        padding = '\n'*(text_block.alignment_padding() -1) # same as last_text_fragment=True
+                        cursor.insert_text(padding)
 
     ##############################################
 
