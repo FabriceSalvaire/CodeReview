@@ -28,6 +28,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 from .SyntaxHighlighterStyle import SyntaxHighlighterStyle
 from CodeReview.Diff.RawTextDocumentDiff import chunk_type
+from CodeReview.Math.Functions import number_of_digits
 from CodeReview.Tools.IteratorTools import pairwise, iter_with_last_flag
 from CodeReview.Tools.StringTools import remove_trailing_newline
 import CodeReview.GUI.DiffViewer.DiffWidgetConfig as DiffWidgetConfig
@@ -368,35 +369,68 @@ class DiffView(QtWidgets.QSplitter):
 
     ##############################################
 
-    def append_document_models(self, document_models,
-                               aligned_mode=True,
-                               complete_mode=True,
-                               line_number_mode=True):
+    def _append_document_on_side(self, side, document_model,
+                                 aligned_mode,
+                                 complete_mode,
+                                 line_number_mode,
+                                ):
 
-        for side, document_model in enumerate(document_models):
-            cursor = self._cursors[side]
-            if document_model.metadata is not None:
-                cursor.begin_block(side, chunk_type.header)
-                self._insert_metadata(cursor, document_model)
-            for text_block in document_model:
-                cursor.begin_block(side, text_block.frame_type, aligned_mode)
-                if text_block.frame_type != chunk_type.equal_block or complete_mode:
-                    for text_fragment, last_text_fragment in iter_with_last_flag(text_block):
-                        text_format = self._syntax_highlighter_style[text_fragment.token_type]
-                        if (text_block.frame_type == chunk_type.replace and
-                            text_fragment.frame_type != chunk_type.equal):
-                            text_format.setBackground(DiffWidgetConfig.intra_difference_background_colour)
+        cursor = self._cursors[side]
+        
+        if line_number_mode:
+            previous_line_number = -1
+            last_line_number = document_model[-1].line_slice.upper
+            line_number_pattern = '{:' + str(number_of_digits(last_line_number)) + '} | '
+        
+        if document_model.metadata is not None:
+            cursor.begin_block(side, chunk_type.header)
+            self._insert_metadata(cursor, document_model)
+        
+        for text_block in document_model:
+            cursor.begin_block(side, text_block.frame_type, aligned_mode)
+            if text_block.frame_type != chunk_type.equal_block or complete_mode:
+                for text_fragment, last_text_fragment in iter_with_last_flag(text_block):
+                    text_format = self._syntax_highlighter_style[text_fragment.token_type]
+                    if (text_block.frame_type == chunk_type.replace and
+                        text_fragment.frame_type != chunk_type.equal):
+                        text_format.setBackground(DiffWidgetConfig.intra_difference_background_colour)
+                    if line_number_mode:
+                        line_slice = text_block.line_slice
+                        line_number = line_slice.start
+                        for line in text_fragment.text.line_iterator():
+                            if line_number > previous_line_number:
+                                cursor.insert_text(line_number_pattern.format(line_number +1))
+                            cursor.insert_text(str(line), text_format, line_number == line_slice.upper)
+                            previous_line_number = line_number
+                            line_number += 1
+                    else:
                         cursor.insert_text(str(text_fragment), text_format, last_text_fragment)
-                    if aligned_mode:
-                        padding = '\n'*(text_block.alignment_padding() -1) # same as last_text_fragment=True
-                        cursor.insert_text(padding)
+                if aligned_mode:
+                    padding = '\n'*(text_block.alignment_padding() -1) # same as last_text_fragment=True
+                    cursor.insert_text(padding)
 
     ##############################################
 
-    def set_document_models(self, document_models, aligned_mode=True, complete_mode=True):
+    def append_document_models(self, document_models,
+                               aligned_mode=True,
+                               complete_mode=True,
+                               line_number_mode=True,
+                              ):
+
+        for side, document_model in enumerate(document_models):
+            self._append_document_on_side(side, document_model,
+                                          aligned_mode, complete_mode, line_number_mode)
+
+    ##############################################
+
+    def set_document_models(self, document_models,
+                            aligned_mode=True,
+                            complete_mode=True,
+                            line_number_mode=True,
+                           ):
 
         self.clear()
-        self.append_document_models(document_models, aligned_mode, complete_mode)
+        self.append_document_models(document_models, aligned_mode, complete_mode, line_number_mode)
         for cursor in self._cursors:
             cursor.end()
 

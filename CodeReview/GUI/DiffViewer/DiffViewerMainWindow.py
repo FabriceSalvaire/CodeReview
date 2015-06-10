@@ -109,12 +109,22 @@ class DiffViewerMainWindow(MainWindowBase):
                               shortcut='Ctrl+R',
                               triggered=lambda: self._refresh,
             )
-
+        
+        self._line_number_action = \
+            QtWidgets.QAction(icon_loader['line-number-mode@svg'],
+                              'Line Number Mode',
+                              self,
+                              toolTip='Line Number Mode',
+                              shortcut='Ctrl+N',
+                              checkable=True,
+                              triggered=self._set_document_models,
+            )
+        
         self._align_action = \
             QtWidgets.QAction(icon_loader['align-mode@svg'],
-                              'Align',
+                              'Align Mode',
                               self,
-                              toolTip='Align view',
+                              toolTip='Align Mode',
                               shortcut='Ctrl+L',
                               checkable=True,
                               triggered=self._set_document_models,
@@ -122,9 +132,9 @@ class DiffViewerMainWindow(MainWindowBase):
         
         self._complete_action = \
             QtWidgets.QAction(icon_loader['complete-mode@svg'],
-                              'Complete',
+                              'Complete Mode',
                               self,
-                              toolTip='Complete view',
+                              toolTip='Complete Mode',
                               shortcut='Ctrl+A',
                               checkable=True,
                               triggered=self._set_document_models,
@@ -174,6 +184,7 @@ class DiffViewerMainWindow(MainWindowBase):
             QtWidgets.QLabel(' '), # Fixme
             QtWidgets.QLabel('Font Size:'),
             self._font_size_combobox,
+            self._line_number_action,
             self._align_action,
             self._complete_action,
             self._highlight_action,
@@ -326,8 +337,10 @@ class DiffViewerMainWindow(MainWindowBase):
 
         aligned_mode = self._align_action.isChecked()
         complete_mode = self._complete_action.isChecked()
+        line_number_mode = self._line_number_action.isChecked()
         # Fixme: right way ?
-        self._diff_view.set_document_models(self._highlighted_documents, aligned_mode, complete_mode)
+        self._diff_view.set_document_models(self._highlighted_documents,
+                                            aligned_mode, complete_mode, line_number_mode)
 
     ##############################################
 

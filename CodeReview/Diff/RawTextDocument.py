@@ -233,7 +233,7 @@ class RawTextDocumentAbc(object):
             upper_line = self.line_of(flat_slice.upper)
         else:
             upper_line= start_line
-
+        
         return LineSlice(start_line, upper_line +1)
 
     ##############################################
@@ -339,7 +339,7 @@ class RawTextDocument(RawTextDocumentAbc):
             elif char == '\n':
                 line_separator_length = 1
             if line_separator_length:
-                new_line_location = i + line_separator_length 
+                new_line_location = i + line_separator_length
                 line_start_locations.append(new_line_location)
                 line_separators.append(text_buffer[i:new_line_location])
                 i = new_line_location
