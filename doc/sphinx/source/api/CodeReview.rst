@@ -10,6 +10,7 @@
   CodeReview/Logging
   CodeReview/Math
   CodeReview/PatienceDiff
+  CodeReview/Repository
   CodeReview/Tools
   CodeReview/Version
 

@@ -3,6 +3,7 @@
 **************
 
 .. toctree::
+  Tools/AttributeDictionaryInterface
   Tools/BackTrace
   Tools/EnumFactory
   Tools/IteratorTools
