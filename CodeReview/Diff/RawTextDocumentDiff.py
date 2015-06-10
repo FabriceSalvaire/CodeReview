@@ -66,8 +66,9 @@ from CodeReview.Tools.Slice import FlatSlice, LineSlice
 
 #: Defines the type of chunks
 # Fixme: poorly formated by sphinx, name ?
+# Fixme: header should not be there
 chunk_type = EnumFactory('TwoWayChunkTypes', ('equal', 'insert', 'delete', 'replace',
-                                              'equal_block'))
+                                              'equal_block', 'header'))
 
 ####################################################################################################
 

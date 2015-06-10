@@ -107,8 +107,27 @@ class TextFragment(object):
 ####################################################################################################
 
 class TextDocumentModel(list):
+
     """This class implements an ordered list of text blocks."""
-    pass
+
+    ##############################################
+
+    def __init__(self, metadata=None):
+
+        super(TextDocumentModel, self).__init__()
+        self._metadata = None
+
+    ##############################################
+
+    @property
+    def metadata(self):
+        return self._metadata
+
+    ##############################################
+
+    @metadata.setter
+    def metadata(self, metadata):
+        self._metadata = metadata
 
 ####################################################################################################
 #

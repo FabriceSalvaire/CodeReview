@@ -59,10 +59,10 @@ class DiffViewerMainWindow(MainWindowBase):
         self._init_ui()
         self._create_actions()
         self._create_toolbar()
-
+        
         icon_loader = IconLoader()
         self.setWindowIcon(icon_loader['code-review@svg'])
-        
+
     ##############################################
 
     def _init_ui(self):
@@ -73,7 +73,7 @@ class DiffViewerMainWindow(MainWindowBase):
         
         self._message_box = MessageBox(self)
         self._diff_view = DiffView()
-
+        
         for widget in (self._message_box, self._diff_view):
             self._vertical_layout.addWidget(widget)
 
@@ -108,6 +108,16 @@ class DiffViewerMainWindow(MainWindowBase):
                               toolTip='Refresh',
                               shortcut='Ctrl+R',
                               triggered=lambda: self._refresh,
+            )
+
+        self._align_action = \
+            QtWidgets.QAction(icon_loader['align-mode@svg'],
+                              'Align',
+                              self,
+                              toolTip='Align view',
+                              shortcut='Ctrl+L',
+                              checkable=True,
+                              triggered=self._set_document_models,
             )
         
         self._complete_action = \
@@ -164,13 +174,17 @@ class DiffViewerMainWindow(MainWindowBase):
             QtWidgets.QLabel(' '), # Fixme
             QtWidgets.QLabel('Font Size:'),
             self._font_size_combobox,
+            self._align_action,
             self._complete_action,
             self._highlight_action,
             self._refresh_action,
         ]
         if self._application._main_window is not None:
+            self._patch_index_label = QtWidgets.QLabel()
+            self._update_patch_index()
             items.extend((
                 self._previous_file_action,
+                self._patch_index_label,
                 self._next_file_action,
             ))
         
@@ -224,7 +238,9 @@ class DiffViewerMainWindow(MainWindowBase):
 
         paths = (file1, file2)
         texts = (None, None)
-        self.diff_documents(paths, texts, show=show)
+        metadatas = [dict(path=file1, document_type='file', last_modification_date=None),
+                     dict(path=file2, document_type='file', last_modification_date=None)]
+        self.diff_documents(paths, texts, metadatas, show=show)
 
     ##############################################
 
@@ -253,10 +269,11 @@ class DiffViewerMainWindow(MainWindowBase):
 
     ##############################################
 
-    def diff_documents(self, paths, texts, workdir='', show=False):
+    def diff_documents(self, paths, texts, metadatas=None, workdir='', show=False):
 
         self._paths = list(paths)
         self._texts = list(texts)
+        self._metadatas = metadatas
         self._workdir = workdir
         
         OLD, NEW = list(range(2))
@@ -296,16 +313,21 @@ class DiffViewerMainWindow(MainWindowBase):
             for raw_text_document, lexer in zip(raw_text_documents, self._lexers):
                 highlighted_document = highlight_text(raw_text_document, lexer)
                 self._highlighted_documents.append(highlighted_document)
-        
+
+        if metadatas is not None:
+            for highlighted_document, metadata in zip(self._highlighted_documents, metadatas):
+                highlighted_document.metadata = metadata
+
         self._set_document_models()
 
     ################################################
 
     def _set_document_models(self):
 
+        aligned_mode = self._align_action.isChecked()
         complete_mode = self._complete_action.isChecked()
         # Fixme: right way ?
-        self._diff_view.set_document_models(self._highlighted_documents, complete_mode)
+        self._diff_view.set_document_models(self._highlighted_documents, aligned_mode, complete_mode)
 
     ##############################################
 
@@ -319,7 +341,15 @@ class DiffViewerMainWindow(MainWindowBase):
 
     def _refresh(self):
 
-        self.diff_documents(self._paths, self._texts, self._workdir)
+        self.diff_documents(self._paths, self._texts, self._metadatas, self._workdir)
+
+    ##############################################
+
+    def _update_patch_index(self):
+
+        main_window = self.parent()
+        self._patch_index_label.setText('{}/{}'.format(main_window.current_patch +1,
+                                                       main_window.number_of_patches))
 
     ##############################################
 
@@ -328,6 +358,7 @@ class DiffViewerMainWindow(MainWindowBase):
         main_window = self.parent()
         if main_window is not None:
             main_window.previous_patch()
+            self._update_patch_index()
 
     ##############################################
 
@@ -336,6 +367,7 @@ class DiffViewerMainWindow(MainWindowBase):
         main_window = self.parent()
         if main_window is not None:
             main_window.next_patch()
+            self._update_patch_index()
 
 ####################################################################################################
 #

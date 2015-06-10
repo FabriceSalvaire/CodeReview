@@ -40,9 +40,14 @@ _module_logger = logging.getLogger(__name__)
 
 LEFT, RIGHT = list(range(2))
 
+def side_iterator():
+    return range(2)
+
 ####################################################################################################
 
 class TextBlock(object):
+
+    """This class stores the y top and bottom positions of a text block and the frame type.""" 
 
     ##############################################
 
@@ -61,11 +66,7 @@ class TextBlock(object):
 
 class TextBlocks(list):
 
-    ##############################################
-
-    def clear(self):
-
-        del self[:]
+    """This class represents a list of text blocks."""
 
     ##############################################
 
@@ -95,20 +96,26 @@ class DiffViewerCursor(object):
 
     ##############################################
 
-    def begin_block(self, side, frame_type):
+    def begin_block(self, side, frame_type, aligned_mode=False):
 
+        block_format = QtGui.QTextBlockFormat()
+        if frame_type == chunk_type.header:
+            block_format.setBottomMargin(20)
         if self._insert:
-            self._cursor.insertBlock()
+            self._cursor.insertBlock(block_format)
         self._text_blocks.add(self.y(), 0, frame_type)
-        if ((side == LEFT and frame_type == chunk_type.insert) or
-            (side == RIGHT and frame_type == chunk_type.delete)):
+        if (not aligned_mode
+            and ((side == LEFT and frame_type == chunk_type.insert) or
+                 (side == RIGHT and frame_type == chunk_type.delete))):
+            # Fixme: check
+            # then it is an empty block, the inserted block will be used later
             self._insert = False
         else:
             self._insert = True
 
     ##############################################
 
-    def insert_text(self, text, text_format, last_text_fragment):
+    def insert_text(self, text, text_format, last_text_fragment=False):
 
         if last_text_fragment:
             text = remove_trailing_newline(text)
@@ -118,6 +125,8 @@ class DiffViewerCursor(object):
     ##############################################
 
     def end(self):
+
+        """Insert a block and set the y positions."""
 
         self._cursor.insertBlock()
         self._text_blocks[-1].y_bottom = self.y()
@@ -131,6 +140,8 @@ class TextBrowser(QtWidgets.QTextBrowser):
     ##############################################
 
     def __init__(self, parent, text_blocks):
+
+        # Fixme: text_blocks should not be passed like this
 
         super(TextBrowser, self).__init__(parent)
         
@@ -149,22 +160,12 @@ class TextBrowser(QtWidgets.QTextBrowser):
         y_min = event.rect().top()
         y_max = event.rect().bottom()
         
-        # print 'y, y_min, y_max:', y, y_min, y_max
-        
         painter = QtGui.QPainter(self.viewport())
         painter.setClipRect(event.rect())
 
-        pen = QtGui.QPen(QtCore.Qt.black)
-        pen.setWidth(1)
-        painter.setPen(pen)
-        
         for text_block in self._text_blocks:
-            
-            # print text_block
-            
             if text_block.frame_type is None or text_block.frame_type == chunk_type.equal:
                 continue
-            
             # Shift text block in the viewport
             y_top = text_block.y_top - y -1
             y_bottom = text_block.y_bottom - y +1
@@ -172,13 +173,19 @@ class TextBrowser(QtWidgets.QTextBrowser):
                 continue
             if y_top > y_max:
                 break
-            text_block_style = DiffWidgetConfig.text_block_styles[text_block.frame_type]
-            # Paint the background
-            painter.fillRect(0,  y_top, width, y_bottom - y_top, text_block_style.background_colour)
-            # Paint horizontal lines
-            painter.setPen(text_block_style.line_colour)
-            painter.drawLine(0, y_top, width, y_top)
-            painter.drawLine(0, y_bottom - 1, width, y_bottom - 1)
+            if text_block.frame_type == chunk_type.header:
+                pen = QtGui.QPen(QtCore.Qt.black)
+                pen.setWidth(10)
+                painter.setPen(pen)
+                painter.drawLine(0, y_bottom - 1, width, y_bottom - 1)
+            else:
+                text_block_style = DiffWidgetConfig.text_block_styles[text_block.frame_type]
+                # Paint the background
+                painter.fillRect(0,  y_top, width, y_bottom - y_top, text_block_style.background_colour)
+                # Paint horizontal lines
+                painter.setPen(text_block_style.line_colour)
+                painter.drawLine(0, y_top, width, y_top)
+                painter.drawLine(0, y_bottom - 1, width, y_bottom - 1)
         
         del painter
         
@@ -195,7 +202,8 @@ class SplitterHandle(QtWidgets.QSplitterHandle):
 
         super(SplitterHandle, self).__init__(QtCore.Qt.Horizontal, parent)
         
-        self._frame_width = QtWidgets.QApplication.style().pixelMetric(QtWidgets.QStyle.PM_DefaultFrameWidth)
+        application_style = QtWidgets.QApplication.style()
+        self._frame_width = application_style.pixelMetric(QtWidgets.QStyle.PM_DefaultFrameWidth)
 
     ##############################################
 
@@ -217,11 +225,11 @@ class SplitterHandle(QtWidgets.QSplitterHandle):
         pen.setWidth(2)
         painter.setPen(pen)
         
-        # print 'Paint Handle:'
         for text_block_left, text_block_right in zip(*diff_view._text_blocks):
             # print text_block_left, text_block_right
             
-            if text_block_left.frame_type is None or text_block_left.frame_type == chunk_type.equal:
+            if (text_block_left.frame_type is None
+                or text_block_left.frame_type in (chunk_type.equal, chunk_type.header)):
                 continue
             
             y_top_left = text_block_left.y_top - y_left -1
@@ -271,7 +279,9 @@ class DiffView(QtWidgets.QSplitter):
         self._documents = (QtGui.QTextDocument(), QtGui.QTextDocument())
         self._text_blocks = (TextBlocks(), TextBlocks())
         self._browsers = [TextBrowser(self, text_block) for text_block in self._text_blocks]
-        self._cursors = [QtGui.QTextCursor(document) for document in self._documents]
+        cursors = [QtGui.QTextCursor(document) for document in self._documents]
+        self._cursors = [DiffViewerCursor(cursors[side], self._text_blocks[side])
+                         for side in side_iterator()]
         
         for i, (browser, document) in enumerate(zip(self._browsers, self._documents)):
             document.setUndoRedoEnabled(False)
@@ -327,6 +337,7 @@ class DiffView(QtWidgets.QSplitter):
         maximum1 = scroll_bar1.maximum()
         if maximum1:
             value = scroll_bar2.minimum() + scroll_bar2.maximum() * (value - scroll_bar1.minimum()) / maximum1
+            # cannot use blockSignals
             self._ignore_scroll_bar_update_signal = True
             scroll_bar2.setValue(value)
             self._ignore_scroll_bar_update_signal = False
@@ -344,21 +355,47 @@ class DiffView(QtWidgets.QSplitter):
 
     ##############################################
 
-    def set_document_models(self, document_models, complete_mode=True):
+    def _insert_metadata(self, cursor, document_model):
 
-        self.clear()
-        
+        metadata = document_model.metadata
+        bold_text_format = QtGui.QTextCharFormat()
+        # Fixme: font looks bad
+        # bold_text_format.setFontWeight(QtGui.QFont.Bold)
+        # Fixme: metadata.path
+        cursor.insert_text(metadata['path'], bold_text_format, chunk_type.header)
+
+    ##############################################
+
+    def append_document_models(self, document_models, aligned_mode=True, complete_mode=True):
+
         for side, document_model in enumerate(document_models):
-            cursor = DiffViewerCursor(self._cursors[side], self._text_blocks[side])
+            cursor = self._cursors[side]
+            if document_model.metadata is not None:
+                cursor.begin_block(side, chunk_type.header)
+                self._insert_metadata(cursor, document_model)
             for text_block in document_model:
-                cursor.begin_block(side, text_block.frame_type)
+                cursor.begin_block(side, text_block.frame_type, aligned_mode)
                 if text_block.frame_type != chunk_type.equal_block or complete_mode:
                     for text_fragment, last_text_fragment in iter_with_last_flag(text_block):
                         text_format = self._syntax_highlighter_style[text_fragment.token_type]
                         if (text_block.frame_type == chunk_type.replace and
                             text_fragment.frame_type != chunk_type.equal):
                             text_format.setBackground(DiffWidgetConfig.intra_difference_background_colour)
-                        cursor.insert_text(str(text_fragment), text_format, last_text_fragment)
+                        text = str(text_fragment)
+                        if aligned_mode:
+                            number_of_lines1 = len(text_block.line_slice)
+                            number_of_lines2 = len(text_block.other_side.line_slice)
+                            if number_of_lines1 < number_of_lines2:
+                                text += '\n'*(number_of_lines2 - number_of_lines1)
+                        cursor.insert_text(text, text_format, last_text_fragment)
+
+    ##############################################
+
+    def set_document_models(self, document_models, aligned_mode=True, complete_mode=True):
+
+        self.clear()
+        self.append_document_models(document_models, aligned_mode, complete_mode)
+        for cursor in self._cursors:
             cursor.end()
 
 ####################################################################################################

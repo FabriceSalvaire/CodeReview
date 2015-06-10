@@ -173,6 +173,18 @@ class LogBrowserMainWindow(MainWindowBase):
 
     ##############################################
 
+    @property
+    def current_patch(self):
+        return self._current_patch
+
+    ##############################################
+
+    @property
+    def number_of_patches(self):
+        return len(self._diff)
+
+    ##############################################
+
     def _show_current_patch(self):
 
         if self._diff_window is None:
@@ -196,7 +208,9 @@ class LogBrowserMainWindow(MainWindowBase):
                 paths = (patch.old_file_path, None)
             texts = [repository.file_content(blob_id)
                      for blob_id in (patch.old_id, patch.new_id)]
-            self._diff_window.diff_documents(paths, texts, workdir=repository.workdir)
+            metadatas = [dict(path=patch.old_file_path, document_type='file', last_modification_date=None),
+                         dict(path=patch.new_file_path, document_type='file', last_modification_date=None)]
+            self._diff_window.diff_documents(paths, texts, metadatas, workdir=repository.workdir)
         else:
             self._logger.info('revision {} Binary '.format(self._current_revision) + patch.new_file_path)
         # Fixme: show image pdf ...

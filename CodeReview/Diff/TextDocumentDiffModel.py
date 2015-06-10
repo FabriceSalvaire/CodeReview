@@ -93,20 +93,20 @@ class TextDocumentDiffModelFactory(object):
         document_model2 = TextDocumentModel()
         current_line1 = 0
         current_line2 = 0
-
+        
         def add_equal_contents(stop_line1, stop_line2):
             line_slice1 = LineSlice(current_line1, stop_line1)
             line_slice2 = LineSlice(current_line2, stop_line2)
             text_block1 = self._complete_one_side(document1, line_slice1, document_model1)
             text_block2 = self._complete_one_side(document2, line_slice2, document_model2)
             self._link(text_block1, text_block2)
-
+        
         for group in file_diff:
-
+            
             # Inter-group lines corresponds to equal contents
             if current_line1 < group.slice1.start or current_line2 < group.slice2.start:
                 add_equal_contents(group.slice1.start, group.slice2.start)
-
+            
             for chunk in group:
                 frame_type = chunk.chunk_type
                 text_block1 = TextBlockDiff(chunk.chunk1.slice, frame_type)
@@ -121,14 +121,14 @@ class TextDocumentDiffModelFactory(object):
                 
                 document_model1.append(text_block1)
                 document_model2.append(text_block2)
-
+            
             current_line1 = group.slice1.stop
             current_line2 = group.slice2.stop
-
+        
         # Last group lines corresponds to equal contents
         if current_line1 < document1.line_slice.stop or current_line2 < document2.line_slice.stop:
             add_equal_contents(document1.line_slice.stop, document2.line_slice.stop)
-
+        
         return document_model1, document_model2
 
     ###############################################
@@ -185,7 +185,7 @@ def highlight_document(document_model, highlighted_text):
     highlighted_fragment = next(highlighted_text_iterator)
     highlighted_slice= highlighted_fragment.slice
     
-    highlighted_document = TextDocumentModel()
+    highlighted_document = TextDocumentModel(metadata=document_model.metadata)
     for text_block in document_model:
         highlighted_text_block = text_block.copy()
         highlighted_document.append(highlighted_text_block)
