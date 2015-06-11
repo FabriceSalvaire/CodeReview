@@ -36,9 +36,13 @@ class RepositoryNotFound(Exception):
 
 class GitRepository(object):
 
+    _logger = _module_logger.getChild('GitRepository')
+
     ##############################################
 
     def __init__(self, path):
+
+        path = os.path.realpath(path)
 
         try:
             repository_path = git.discover_repository(path)
@@ -47,7 +51,8 @@ class GitRepository(object):
             if os.path.isdir(path) and not path.endswith(os.sep):
                 path += os.sep
             self._path_filter = path.replace(workdir, '')
-            print(path, workdir, self._path_filter)
+            self._logger.info('\nPath %s\nWork Dir: %s\nPath Filter: %s',
+                              path, workdir, self._path_filter)
         except KeyError:
             raise RepositoryNotFound
 
