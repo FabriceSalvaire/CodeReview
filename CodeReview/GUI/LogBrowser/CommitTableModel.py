@@ -39,7 +39,7 @@ class CommitTableModel(QtCore.QAbstractTableModel):
 
     _logger = _module_logger.getChild('CommitTableModel')
     
-    column_enum = EnumFactory('ColumnEnum', (
+    column_enum = EnumFactory('CommitColumnEnum', (
         'modification',
         'old_path',
         'new_path',

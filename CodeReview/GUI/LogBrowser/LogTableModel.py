@@ -28,8 +28,19 @@ from PyQt5.QtCore import Qt
 
 ####################################################################################################
 
+from CodeReview.Tools.EnumFactory import EnumFactory
+
+####################################################################################################
+
 class LogTableModel(QtCore.QAbstractTableModel):
 
+    column_enum = EnumFactory('LogColumnEnum', (
+        'revision',
+        'message',
+        'date',
+        'comitter',
+        ))
+    
     __titles__ = (
         # 'Hex',
         'Revision',

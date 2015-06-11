@@ -25,10 +25,10 @@ from PyQt5 import QtCore, QtWidgets
 
 ####################################################################################################
 
+from .CommitTableModel import CommitTableModel
+from .LogTableModel import LogTableModel
 from CodeReview.Application.ApplicationBase import ApplicationBase
 from CodeReview.GUI.Base.GuiApplicationBase import GuiApplicationBase
-from CodeReview.GUI.Widgets.CommitTableModel import CommitTableModel
-from CodeReview.GUI.Widgets.LogTableModel import LogTableModel
 from CodeReview.Repository.Git import RepositoryNotFound, GitRepository
 
 ####################################################################################################
@@ -96,8 +96,21 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
         self._log_table_model = LogTableModel(self._repository)
         log_table = self._main_window._log_table
         log_table.setModel(self._log_table_model)
-        log_table.resizeColumnsToContents()
-
+        # Set the column widths
+        column_enum = self._log_table_model.column_enum
+        width = 0
+        for column in (
+            column_enum.revision,
+            # column_enum.message,
+            column_enum.date,
+            column_enum.comitter,
+        ):
+            log_table.resizeColumnToContents(int(column))
+            width += log_table.columnWidth(int(column))
+        width = log_table.width() - width
+        width *= .9 # Fixme: subtract spaces ...
+        log_table.setColumnWidth(int(column_enum.message), width)
+        
         self._commit_table_model = CommitTableModel()
         commit_table = self._main_window._commit_table
         commit_table.setModel(self._commit_table_model)
