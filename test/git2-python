@@ -92,13 +92,13 @@ repository_path = git.discover_repository(source_path)
 repository = git.Repository(repository_path)
 
 # head = repository.lookup_reference('HEAD').resolve()
-head = repository.head
-head_commit = repository[head.target]
+# head = repository.head
+# head_commit = repository[head.target]
 
-pretty_print_commit(head_commit)
+# pretty_print_commit(head_commit)
 
-for commit in repository.walk(head_commit.id, git.GIT_SORT_TIME):
-    pretty_print_commit(commit)
+# for commit in repository.walk(head_commit.id, git.GIT_SORT_TIME):
+#     pretty_print_commit(commit)
 
 # walk_from_commit(head_commit)
 # walk_from_tree(head_commit.tree)
@@ -117,13 +117,20 @@ translate_status = {
 print("\nStatus:")
 git_status = repository.status()
 for filepath, status in git_status.items():
-    print(filepath, translate_status.get(status, status))
+    print(translate_status.get(status, status), filepath)
 
 print("\nDiff:")
-commit = repository.revparse_single('HEAD^')
-diff = repository.diff(head_commit, commit)
+#diff = repository.diff() # not stagged
+#diff = repository.diff('HEAD', cached=True) # stagged
+diff = repository.diff('HEAD') # all
 for patch in diff:
     print(patch.old_file_path, patch.new_file_path, patch.status)
+    
+# print("\nDiff:")
+# commit = repository.revparse_single('HEAD^')
+# diff = repository.diff(head_commit, commit)
+# for patch in diff:
+#     print(patch.old_file_path, patch.new_file_path, patch.status)
 
 ####################################################################################################
 #
