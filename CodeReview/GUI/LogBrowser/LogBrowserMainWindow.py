@@ -272,20 +272,30 @@ class LogBrowserMainWindow(MainWindowBase):
 
     ##############################################
 
+    @property
+    def _last_path_index(self):
+
+        return len(self._diff) -1
+
+    ##############################################
+
     def previous_patch(self):
 
-        # Fixme: else notify
         if self._current_patch >= 1:
             self._current_patch -= 1
-            self._show_current_patch()
+        else:
+            self._current_patch = self._last_path_index
+        self._show_current_patch()
 
     ##############################################
 
     def next_patch(self):
 
-        if self._current_patch < (len(self._diff) -1):
+        if self._current_patch < self._last_path_index:
             self._current_patch += 1
-            self._show_current_patch()
+        else:
+            self._current_patch = 0
+        self._show_current_patch()
 
 ####################################################################################################
 #
