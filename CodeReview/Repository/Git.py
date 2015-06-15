@@ -75,15 +75,15 @@ class GitRepository(object):
 
     ##############################################
 
-    def diff(self, commit1=None, commit2=None, path_filter=None):
+    def diff(self, a=None, b=None, cached=False, path_filter=None):
 
         if path_filter is None:
             path_filter = self._path_filter
-
+        
         patches = []
         
         # GIT_DIFF_PATIENCE
-        diff = self._repository.diff(commit1, commit2)
+        diff = self._repository.diff(a=a, b=b, cached=cached)
         diff.find_similar()
         # flags, rename_threshold, copy_threshold, rename_from_rewrite_threshold, break_rewrite_threshold, rename_limit
         for patch in diff:

@@ -51,6 +51,8 @@ class LogBrowserMainWindow(MainWindowBase):
         self._diff_window = None
         
         self._init_ui()
+        self._create_actions()
+        self._create_toolbar()
         
         icon_loader = IconLoader()
         self.setWindowIcon(icon_loader['code-review@svg'])
@@ -97,14 +99,48 @@ class LogBrowserMainWindow(MainWindowBase):
 
     def _create_actions(self):
 
-        pass
         # icon_loader = IconLoader()
+        
+        self._stagged_mode_action = \
+            QtWidgets.QAction('Stagged',
+                              self,
+                              toolTip='Stagged Mode',
+                              shortcut='Ctrl+1',
+                              checkable=True,
+            )
+        
+        self._not_stagged_mode_action = \
+            QtWidgets.QAction('Not Stagged',
+                              self,
+                              toolTip='Not Stagged Mode',
+                              shortcut='Ctrl+2',
+                              checkable=True,
+            )
+        
+        self._all_change_mode_action = \
+            QtWidgets.QAction('All',
+                              self,
+                              toolTip='All Mode',
+                              shortcut='Ctrl+3',
+                              checkable=True,
+            )
+        
+        self._action_group = QtWidgets.QActionGroup(self)
+        self._action_group.triggered.connect(self._update_working_tree_diff)
+        for action in (self._all_change_mode_action,
+                       self._stagged_mode_action,
+                       self._not_stagged_mode_action,
+                       ):
+            self._action_group.addAction(action)
+        self._all_change_mode_action.setChecked(True)
 
     ##############################################
 
     def _create_toolbar(self):
 
-        pass
+        self._tool_bar = self.addToolBar('Diff on Working Tree')
+        for item in self._action_group.actions():
+            self._tool_bar.addAction(item)
 
     ##############################################
 
@@ -136,23 +172,42 @@ class LogBrowserMainWindow(MainWindowBase):
 
     ##############################################
 
-    def _update_commit_table(self, index):
+    def _update_working_tree_diff(self):
 
-        index = index.row()
+        if self._log_table.currentIndex().row() == 0:
+            self._update_commit_table()
+
+    ##############################################
+
+    def _update_commit_table(self, index=None):
+
+        if index is not None:
+            index = index.row()
+        else:
+            index = 0
+        
         if index:
             self._current_revision = index
             log_table_model = self._log_table.model()
             commit1 = log_table_model[index]
             try:
                 commit2 = log_table_model[index +1]
-                commit1, commit2 = commit2, commit1 # Fixme:
+                kwargs = dict(a=commit2, b=commit1) # Fixme:
             except IndexError:
-                commit2 = None
-        else:
+                kwargs = dict(a=commit1)
+        else: # working directory
             self._current_revision = None
-            commit1 = commit2 = None
+            if self._stagged_mode_action.isChecked():
+                # Changes between the index and your last commit
+                kwargs = dict(a='HEAD', cached=True)
+            elif self._not_stagged_mode_action.isChecked():
+                # Changes in the working tree not yet staged for the next commit
+                kwargs = {}
+            elif self._all_change_mode_action.isChecked():
+                # Changes in the working tree since your last commit
+                kwargs = dict(a='HEAD')
         
-        self._diff = self._application.repository.diff(commit1, commit2)
+        self._diff = self._application.repository.diff(**kwargs)
         
         commit_table_model = self._commit_table.model()
         commit_table_model.update(self._diff)
