@@ -20,6 +20,7 @@
 
 ####################################################################################################
 
+import glob
 import os
 
 from distutils.core import Extension
@@ -97,14 +98,18 @@ setup_dict = dict(
               'CodeReview.Logging',
               'CodeReview.Math',
               'CodeReview.PatienceDiff',
+              'CodeReview.Repository',
               'CodeReview.Tools',
           ],
     ext_modules=[Extension('CodeReview.PatienceDiff._patiencediff_c',
                            ['CodeReview/PatienceDiff/_patiencediff_c.c'])],
     # package_dir = {'CodeReview': 'CodeReview'},
     data_files=[
-        (os.path.join(CodeReview_path, 'Config'),
-         [os.path.join('CodeReview', 'Config', 'logging.yml')]),
+        (os.path.join(CodeReview_path, 'Config'), [os.path.join('CodeReview', 'Config', 'logging.yml')]),
+        ('share/CodeReview/icons', glob.glob('share/icons/*.png')),
+        ('share/CodeReview/icons/32x32', glob.glob('share/icons/32x32/*.png')),
+        ('share/CodeReview/icons/48x48', glob.glob('share/icons/48x48/*.png')),
+        ('share/CodeReview/icons/svg', glob.glob('share/icons/svg/*.svg')),
     ],
     long_description=long_description,
     # cf. http://pypi.python.org/pypi?%3Aaction=list_classifiers
