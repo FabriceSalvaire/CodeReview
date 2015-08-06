@@ -48,7 +48,7 @@ def side_iterator():
 
 class TextBlock(object):
 
-    """This class stores the y top and bottom positions of a text block and the frame type.""" 
+    """This class stores the y top and bottom positions of a text block and the frame type."""
 
     ##############################################
 
@@ -101,7 +101,10 @@ class DiffViewerCursor(object):
 
         block_format = QtGui.QTextBlockFormat()
         if frame_type == chunk_type.header:
-            block_format.setBottomMargin(20)
+            block_format.setBottomMargin(20) # Fixme: font size
+        else:
+            block_format.setTopMargin(3)
+            block_format.setBottomMargin(3)
         if self._insert:
             self._cursor.insertBlock(block_format)
         self._text_blocks.add(self.y(), 0, frame_type)
@@ -165,30 +168,37 @@ class TextBrowser(QtWidgets.QTextBrowser):
         
         painter = QtGui.QPainter(self.viewport())
         painter.setClipRect(event.rect())
-
+        
         for text_block in self._text_blocks:
             if text_block.frame_type is None or text_block.frame_type == chunk_type.equal:
                 continue
             # Shift text block in the viewport
-            y_top = text_block.y_top - y -1
-            y_bottom = text_block.y_bottom - y +1
+            y_top = text_block.y_top - y
+            y_bottom = text_block.y_bottom - y
             if y_bottom < y_min:
                 continue
             if y_top > y_max:
                 break
             if text_block.frame_type == chunk_type.header:
                 pen = QtGui.QPen(QtCore.Qt.black)
-                pen.setWidth(10)
+                pen_width = 3
+                pen.setWidth(pen_width)
                 painter.setPen(pen)
-                painter.drawLine(0, y_bottom - 1, width, y_bottom - 1)
+                yy = y_bottom - 2*pen_width
+                painter.drawLine(0, yy, width, yy)
             else:
+                y_top -= 1
+                y_bottom += 1
                 text_block_style = DiffWidgetConfig.text_block_styles[text_block.frame_type]
                 # Paint the background
                 painter.fillRect(0,  y_top, width, y_bottom - y_top, text_block_style.background_colour)
                 # Paint horizontal lines
-                painter.setPen(text_block_style.line_colour)
+                pen = QtGui.QPen(text_block_style.line_colour)
+                pen_width = 1
+                pen.setWidth(pen_width)
+                painter.setPen(pen)
                 painter.drawLine(0, y_top, width, y_top)
-                painter.drawLine(0, y_bottom - 1, width, y_bottom - 1)
+                painter.drawLine(0, y_bottom, width, y_bottom)
         
         del painter
         
@@ -219,7 +229,7 @@ class SplitterHandle(QtWidgets.QSplitterHandle):
         
         width = self.width()
         height = self.height()
-
+        
         y_correction = self._frame_width + 2 # Fixme: ?
         y_left, y_right = [browser.verticalScrollBar().value() - y_correction
                            for browser in diff_view._browsers]
@@ -268,7 +278,7 @@ class DiffView(QtWidgets.QSplitter):
     """Widget to show differences in side-by-side format."""
 
     _logger = _module_logger.getChild('DiffView')
-    
+
     ##############################################
 
     def __init__(self, parent=None):
