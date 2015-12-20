@@ -76,7 +76,7 @@ CodeReview_path = os.path.join(site_packages_path, 'CodeReview')
 
 setup_dict = dict(
     name='CodeReview',
-    version='0.1.1',
+    version='0.2.0',
     author='Fabrice Salvaire',
     author_email='fabrice.salvaire@orange.fr',
     description='CodeReview is a Python 3 / Qt5 GUI to perform code review on files and Git repositories.',
