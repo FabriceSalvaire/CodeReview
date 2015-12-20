@@ -23,6 +23,8 @@ import logging
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 
+import pygit2 as git
+
 ####################################################################################################
 
 from CodeReview.GUI.Base.MainWindowBase import MainWindowBase
@@ -249,25 +251,26 @@ class LogBrowserMainWindow(MainWindowBase):
             self._diff_window.showMaximized()
         
         patch = self._diff[self._current_patch]
-        if not patch.is_binary:
-            self._logger.info('revision {} '.format(self._current_revision) + patch.new_file_path)
-            # print(patch.status, patch.similarity, patch.additions, patch.deletions, patch.is_binary)
-            # for hunk in patch.hunks:
+        delta = patch.delta
+        if not delta.is_binary:
+            self._logger.info('revision {} '.format(self._current_revision) + delta.new_file.path)
+            # print(delta.status, delta.similarity, delta.additions, delta.deletions, delta.is_binary)
+            # for hunk in delta.hunks:
             #     print(hunk.old_start, hunk.old_lines, hunk.new_start, hunk.new_lines, hunk.lines)
             repository = self._application.repository
-            if patch.status in ('M', 'R'):
-                paths = (patch.old_file_path, patch.new_file_path)
-            elif patch.status == 'A':
-                paths = (None, patch.new_file_path)
-            elif patch.status == 'D':
-                paths = (patch.old_file_path, None)
+            if delta.status in (git.GIT_DELTA_MODIFIED, git.GIT_DELTA_RENAMED):
+                paths = (delta.old_file.path, delta.new_file.path)
+            elif delta.status == git.GIT_DELTA_ADDED:
+                paths = (None, delta.new_file.path)
+            elif delta.status == git.GIT_DELTA_DELETED:
+                paths = (delta.old_file.path, None)
             texts = [repository.file_content(blob_id)
-                     for blob_id in (patch.old_id, patch.new_id)]
-            metadatas = [dict(path=patch.old_file_path, document_type='file', last_modification_date=None),
-                         dict(path=patch.new_file_path, document_type='file', last_modification_date=None)]
+                     for blob_id in (delta.old_file.id, delta.new_file.id)]
+            metadatas = [dict(path=delta.old_file.path, document_type='file', last_modification_date=None),
+                         dict(path=delta.new_file.path, document_type='file', last_modification_date=None)]
             self._diff_window.diff_documents(paths, texts, metadatas, workdir=repository.workdir)
         else:
-            self._logger.info('revision {} Binary '.format(self._current_revision) + patch.new_file_path)
+            self._logger.info('revision {} Binary '.format(self._current_revision) + delta.new_file.path)
         # Fixme: show image pdf ...
 
     ##############################################

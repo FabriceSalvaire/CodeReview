@@ -87,8 +87,9 @@ class GitRepository(object):
         diff.find_similar()
         # flags, rename_threshold, copy_threshold, rename_from_rewrite_threshold, break_rewrite_threshold, rename_limit
         for patch in diff:
-            if path_filter and not patch.old_file_path.startswith(path_filter):
-                # self._logger.info('Skip ' + patch.old_file_path)
+            delta = patch.delta
+            if path_filter and not delta.old_file.path.startswith(path_filter):
+                # self._logger.info('Skip ' + delta.old_file.path)
                 continue
             patches.append(patch)
         

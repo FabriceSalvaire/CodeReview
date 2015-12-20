@@ -20,7 +20,7 @@
 
 import logging
 
-####################################################################################################
+import pygit2 as git
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
@@ -53,6 +53,13 @@ class CommitTableModel(QtCore.QAbstractTableModel):
         'Similarity',
     )
 
+    __status_to_letter__ = {
+        git.GIT_DELTA_DELETED: 'D',
+        git.GIT_DELTA_MODIFIED: 'M',
+        git.GIT_DELTA_ADDED: 'A',
+        git.GIT_DELTA_RENAMED: 'R',
+    }
+
     ##############################################
 
     def __init__(self):
@@ -70,13 +77,15 @@ class CommitTableModel(QtCore.QAbstractTableModel):
         self._number_of_rows = 0
         
         for patch in diff:
-            if patch.new_file_path != patch.old_file_path:
-                new_file_path = patch.new_file_path
-                similarity = ' {} %'.format(patch.similarity)
+            delta = patch.delta
+            if delta.new_file.path != delta.old_file.path:
+                new_file_path = delta.new_file.path
+                similarity = ' {} %'.format(delta.similarity)
             else:
                 new_file_path = ''
                 similarity = ''
-            row = (patch.status, patch.old_file_path, new_file_path, similarity, patch)
+            status = self.__status_to_letter__[delta.status]
+            row = (status, delta.old_file.path, new_file_path, similarity, patch)
             self._rows.append(row)
         
         self._number_of_rows = len(self._rows)
