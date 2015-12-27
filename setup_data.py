@@ -22,6 +22,7 @@
 
 import glob
 import os
+import sys
 
 from distutils.core import Extension
 from distutils.sysconfig import get_python_lib
@@ -60,11 +61,14 @@ def read(file_name):
     doc_path = os.path.join(source_path, 'doc', 'sphinx', 'source')
 
     # Read and merge includes
-    with open(absolut_file_name) as f:
-        lines = f.readlines()
-    text = merge_include(lines, doc_path)
-
-    return text
+    if os.path.exists(absolut_file_name):
+        with open(absolut_file_name) as f:
+            lines = f.readlines()
+        text = merge_include(lines, doc_path)
+        return text
+    else:
+        sys.stderr.write("WARNING: README {} not found\n".format(absolut_file_name))
+        return ''
 
 ####################################################################################################
 
@@ -115,7 +119,7 @@ setup_dict = dict(
     # cf. http://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         "Topic :: Software Development :: Version Control",
-        "Intended Audience ::  Developers",
+        "Intended Audience :: Developers",
         "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Operating System :: OS Independent",
