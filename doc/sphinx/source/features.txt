@@ -10,6 +10,7 @@ The main features of CodeReview are:
  * diff side by side using Patience algorithm
 
 Diff viewer features:
+
  * number of context lines
  * font size
  * line number mode
