@@ -68,9 +68,9 @@
  CodeReview
 ============
 
-The official CodeReview Home Page is located at |CodeReviewUrl|
+The official CodeReview home page is located at |CodeReviewUrl|
 
-The latest documentation build from the git repository is available at readthedocs.org |CodeReview@readthedocs-badge|
+The latest documentation built from the git repository is available at readthedocs.org |CodeReview@readthedocs-badge|
 
 Written by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_.
 
@@ -104,6 +104,32 @@ CodeReview is written in Python 3 and the GUI is based on the Qt5 framework.  Th
 |pygit2|_ provides a Python API to deal with Git repositories.  I tried to achieve a clever design
 and to write a clean code.
 
+.. -*- Mode: rst -*-
+
+==========
+ Features
+==========
+
+The main features of CodeReview are:
+
+ * display and browse the log and paches of a Git repository
+ * diff side by side using Patience algorithm
+
+Diff viewer features:
+ * number of context lines
+ * font size
+ * line number mode
+ * align mode
+ * complete mode
+ * highlight mode
+
+.. end
+.. -*- Mode: rst -*-
+
+===============================
+ Ideas for Additional Features
+===============================
+
 Actually CodeReview has a limited number of features.  The followings list gives some ideas to extend its
 features:
 
@@ -127,17 +153,6 @@ features:
  * Implement comments and maybe as a client-server architecture.
 
  * look https://docs.python.org/3.4/library/difflib.html
-
-.. -*- Mode: rst -*-
-
-==========
- Features
-==========
-
-The main features of CodeReview are:
-
- * display and browse the log and paches of a Git repository
- * diff side by side using Patience algorithm
 
 .. end
 
