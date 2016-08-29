@@ -117,6 +117,12 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
 
     ##############################################
 
+    def reload_repository(self):
+
+        self._init_repository()
+
+    ##############################################
+
     @property
     def repository(self):
         return self._repository

@@ -126,7 +126,7 @@ class LogBrowserMainWindow(MainWindowBase):
                               shortcut='Ctrl+3',
                               checkable=True,
             )
-        
+
         self._action_group = QtWidgets.QActionGroup(self)
         self._action_group.triggered.connect(self._update_working_tree_diff)
         for action in (self._all_change_mode_action,
@@ -136,12 +136,22 @@ class LogBrowserMainWindow(MainWindowBase):
             self._action_group.addAction(action)
         self._all_change_mode_action.setChecked(True)
 
+        self._reload_action = \
+            QtWidgets.QAction('Reload',
+                              self,
+                              toolTip='Reload',
+                              shortcut='Ctrl+4'
+            )
+        self._reload_action.triggered.connect(self._reload_repository)
+
     ##############################################
 
     def _create_toolbar(self):
 
         self._tool_bar = self.addToolBar('Diff on Working Tree')
         for item in self._action_group.actions():
+            self._tool_bar.addAction(item)
+        for item in (self._reload_action,):
             self._tool_bar.addAction(item)
 
     ##############################################
@@ -171,6 +181,13 @@ class LogBrowserMainWindow(MainWindowBase):
                 status_bar.clearMessage()
             else:
                 status_bar.showMessage(message, timeout)
+
+    ##############################################
+
+    def _reload_repository(self):
+
+        self._application.reload_repository()
+        self._update_working_tree_diff()
 
     ##############################################
 
