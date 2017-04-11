@@ -108,7 +108,7 @@ class DiffViewerMainWindow(MainWindowBase):
                               self,
                               toolTip='Refresh',
                               shortcut='Ctrl+R',
-                              triggered=lambda: self._refresh,
+                              triggered=self._refresh,
             )
 
         self._line_number_action = \
@@ -311,7 +311,6 @@ class DiffViewerMainWindow(MainWindowBase):
 
         self._set_document_models()
 
-
     ##############################################
 
     def diff_text_documents(self, show=False):
@@ -381,7 +380,13 @@ class DiffViewerMainWindow(MainWindowBase):
 
     def _refresh(self):
 
-        self.diff_documents(self._paths, self._texts, self._metadatas, self._workdir)
+        main_window = self.parent()
+        if main_window is not None:
+            main_window.reload_current_patch()
+        else:
+            # Fixme: better way ???
+            texts = (None, None) # to force to reread files
+            self.diff_documents(self._paths, texts, self._metadatas, self._workdir) # Fixme: show ???
 
     ##############################################
 

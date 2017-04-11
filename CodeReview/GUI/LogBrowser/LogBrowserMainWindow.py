@@ -46,16 +46,16 @@ class LogBrowserMainWindow(MainWindowBase):
     def __init__(self, parent=None):
 
         super(LogBrowserMainWindow, self).__init__(title='CodeReview Log Browser', parent=parent)
-        
+
         self._current_revision = None
         self._diff = None
         self._current_patch = None
         self._diff_window = None
-        
+
         self._init_ui()
         self._create_actions()
         self._create_toolbar()
-        
+
         icon_loader = IconLoader()
         self.setWindowIcon(icon_loader['code-review@svg'])
 
@@ -65,19 +65,19 @@ class LogBrowserMainWindow(MainWindowBase):
 
         self._central_widget = QtWidgets.QWidget(self)
         self.setCentralWidget(self._central_widget)
-        
+
         self._vertical_layout = QtWidgets.QVBoxLayout(self._central_widget)
         self._message_box = MessageBox(self)
         splitter = QtWidgets.QSplitter()
         splitter.setOrientation(Qt.Vertical)
         self._log_table = QtWidgets.QTableView()
         self._commit_table = QtWidgets.QTableView()
-        
+
         for widget in (self._message_box, splitter):
             self._vertical_layout.addWidget(widget)
         for widget in (self._log_table, self._commit_table):
             splitter.addWidget(widget)
-        
+
         table = self._log_table
         table.setSelectionMode(QtWidgets.QTableView.SingleSelection)
         table.setSelectionBehavior(QtWidgets.QTableView.SelectRows)
@@ -85,7 +85,7 @@ class LogBrowserMainWindow(MainWindowBase):
         table.setShowGrid(False)
         # table.setSortingEnabled(True)
         table.clicked.connect(self._update_commit_table)
-        
+
         table = self._commit_table
         table.setSelectionMode(QtWidgets.QTableView.SingleSelection)
         table.setSelectionBehavior(QtWidgets.QTableView.SelectRows)
@@ -93,7 +93,7 @@ class LogBrowserMainWindow(MainWindowBase):
         table.setShowGrid(False)
         table.setSortingEnabled(True)
         table.clicked.connect(self._show_patch)
-        
+
         # horizontal_header = table_view.horizontalHeader()
         # horizontal_header.setMovable(True)
 
@@ -102,7 +102,7 @@ class LogBrowserMainWindow(MainWindowBase):
     def _create_actions(self):
 
         # icon_loader = IconLoader()
-        
+
         self._stagged_mode_action = \
             QtWidgets.QAction('Stagged',
                               self,
@@ -110,7 +110,7 @@ class LogBrowserMainWindow(MainWindowBase):
                               shortcut='Ctrl+1',
                               checkable=True,
             )
-        
+
         self._not_stagged_mode_action = \
             QtWidgets.QAction('Not Stagged',
                               self,
@@ -118,7 +118,7 @@ class LogBrowserMainWindow(MainWindowBase):
                               shortcut='Ctrl+2',
                               checkable=True,
             )
-        
+
         self._all_change_mode_action = \
             QtWidgets.QAction('All',
                               self,
@@ -186,7 +186,9 @@ class LogBrowserMainWindow(MainWindowBase):
 
     def _reload_repository(self):
 
+        # index = self._log_table.currentIndex()
         self._application.reload_repository()
+        # self._log_table.setCurrentIndex(index)
         self._update_working_tree_diff()
 
     ##############################################
@@ -204,7 +206,7 @@ class LogBrowserMainWindow(MainWindowBase):
             index = index.row()
         else:
             index = 0
-        
+
         if index:
             self._current_revision = index
             log_table_model = self._log_table.model()
@@ -225,9 +227,9 @@ class LogBrowserMainWindow(MainWindowBase):
             elif self._all_change_mode_action.isChecked():
                 # Changes in the working tree since your last commit
                 kwargs = dict(a='HEAD')
-        
+
         self._diff = self._application.repository.diff(**kwargs)
-        
+
         commit_table_model = self._commit_table.model()
         commit_table_model.update(self._diff)
         self._commit_table.resizeColumnsToContents()
@@ -266,7 +268,7 @@ class LogBrowserMainWindow(MainWindowBase):
             self._diff_window = DiffViewerMainWindow(self)
             self._diff_window.closed.connect(self._on_diff_window_closed)
             self._diff_window.showMaximized()
-        
+
         patch = self._diff[self._current_patch]
         delta = patch.delta
         if not delta.is_binary:
@@ -315,6 +317,12 @@ class LogBrowserMainWindow(MainWindowBase):
             self._current_patch += 1
         else:
             self._current_patch = 0
+        self._show_current_patch()
+
+    ##############################################
+
+    def reload_current_patch(self):
+
         self._show_current_patch()
 
 ####################################################################################################
