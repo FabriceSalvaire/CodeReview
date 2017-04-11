@@ -115,7 +115,7 @@ class TextDocumentModel(list):
     def __init__(self, metadata=None):
 
         super(TextDocumentModel, self).__init__()
-        self._metadata = None
+        self._metadata = metadata
 
     ##############################################
 

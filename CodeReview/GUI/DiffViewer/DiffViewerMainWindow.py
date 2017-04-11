@@ -32,6 +32,7 @@ from CodeReview.Diff.RawTextDocument import RawTextDocument
 from CodeReview.Diff.RawTextDocumentDiff import TwoWayFileDiffFactory
 from CodeReview.Diff.SyntaxHighlighter import HighlightedText, highlight_text
 from CodeReview.Diff.TextDocumentDiffModel import TextDocumentDiffModelFactory, highlight_document
+from CodeReview.Diff.TextDocumentModel import TextDocumentModel
 from CodeReview.GUI.Base.MainWindowBase import MainWindowBase
 from CodeReview.GUI.DiffViewer.DiffWidget import DiffView
 from CodeReview.GUI.Widgets.IconLoader import IconLoader
@@ -54,12 +55,12 @@ class DiffViewerMainWindow(MainWindowBase):
     def __init__(self, parent=None):
 
         super(DiffViewerMainWindow, self).__init__(title='CodeReview Diff Viewer', parent=parent)
-        
+
         self._current_path = None
         self._init_ui()
         self._create_actions()
         self._create_toolbar()
-        
+
         icon_loader = IconLoader()
         self.setWindowIcon(icon_loader['code-review@svg'])
 
@@ -70,10 +71,10 @@ class DiffViewerMainWindow(MainWindowBase):
         self._central_widget = QtWidgets.QWidget(self)
         self.setCentralWidget(self._central_widget)
         self._vertical_layout = QtWidgets.QVBoxLayout(self._central_widget)
-        
+
         self._message_box = MessageBox(self)
         self._diff_view = DiffView()
-        
+
         for widget in (self._message_box, self._diff_view):
             self._vertical_layout.addWidget(widget)
 
@@ -82,7 +83,7 @@ class DiffViewerMainWindow(MainWindowBase):
     def _create_actions(self):
 
         icon_loader = IconLoader()
-        
+
         self._previous_file_action = \
             QtWidgets.QAction(icon_loader['go-previous'],
                               'Previous',
@@ -91,7 +92,7 @@ class DiffViewerMainWindow(MainWindowBase):
                               shortcut='Ctrl+P',
                               triggered=self._previous_file,
             )
-        
+
         self._next_file_action = \
             QtWidgets.QAction(icon_loader['go-next'],
                               'Next',
@@ -100,7 +101,7 @@ class DiffViewerMainWindow(MainWindowBase):
                               shortcut='Ctrl+N',
                               triggered=self._next_file,
             )
-        
+
         self._refresh_action = \
             QtWidgets.QAction(icon_loader['view-refresh'],
                               'Refresh',
@@ -109,7 +110,7 @@ class DiffViewerMainWindow(MainWindowBase):
                               shortcut='Ctrl+R',
                               triggered=lambda: self._refresh,
             )
-        
+
         self._line_number_action = \
             QtWidgets.QAction(icon_loader['line-number-mode@svg'],
                               'Line Number Mode',
@@ -119,7 +120,7 @@ class DiffViewerMainWindow(MainWindowBase):
                               checkable=True,
                               triggered=self._set_document_models,
             )
-        
+
         self._align_action = \
             QtWidgets.QAction(icon_loader['align-mode@svg'],
                               'Align Mode',
@@ -129,7 +130,7 @@ class DiffViewerMainWindow(MainWindowBase):
                               checkable=True,
                               triggered=self._set_document_models,
             )
-        
+
         self._complete_action = \
             QtWidgets.QAction(icon_loader['complete-mode@svg'],
                               'Complete Mode',
@@ -139,7 +140,7 @@ class DiffViewerMainWindow(MainWindowBase):
                               checkable=True,
                               triggered=self._set_document_models,
             )
-        
+
         self._highlight_action = \
             QtWidgets.QAction(icon_loader['highlight@svg'],
                               'Highlight',
@@ -158,13 +159,13 @@ class DiffViewerMainWindow(MainWindowBase):
         for algorithm in ('Patience',):
             self._algorithm_combobox.addItem(algorithm, algorithm)
         self._algorithm_combobox.currentIndexChanged.connect(self._refresh)
-        
+
         self._lines_of_context_combobox = QtWidgets.QComboBox(self)
         for number_of_lines_of_context in (3, 6, 12):
             self._lines_of_context_combobox.addItem(str(number_of_lines_of_context),
                                                     number_of_lines_of_context)
         self._lines_of_context_combobox.currentIndexChanged.connect(self._refresh)
-        
+
         self._font_size_combobox = QtWidgets.QComboBox(self)
         min_font_size, max_font_size = 4, 20
         application_font_size = QtWidgets.QApplication.font().pointSize()
@@ -175,7 +176,7 @@ class DiffViewerMainWindow(MainWindowBase):
         self._font_size_combobox.setCurrentIndex(application_font_size - min_font_size)
         self._font_size_combobox.currentIndexChanged.connect(self._on_font_size_change)
         self._on_font_size_change(refresh=False)
-        
+
         items = [
             self._algorithm_combobox,
             QtWidgets.QLabel(' '), # Fixme
@@ -198,7 +199,7 @@ class DiffViewerMainWindow(MainWindowBase):
                 self._patch_index_label,
                 self._next_file_action,
             ))
-        
+
         self._tool_bar = self.addToolBar('Diff Viewer')
         for item in items:
             if isinstance(item, QtWidgets.QAction):
@@ -218,7 +219,7 @@ class DiffViewerMainWindow(MainWindowBase):
 
         if self._application.main_window is not self:
             self.closed.emit()
-        
+
         super(DiffViewerMainWindow, self).closeEvent(event)
 
     ##############################################
@@ -255,11 +256,26 @@ class DiffViewerMainWindow(MainWindowBase):
 
     ##############################################
 
+    def _absolute_path(self, path):
+
+        return os.path.join(self._workdir, path)
+
+    ##############################################
+
     def _read_file(self, path):
 
-        with open(os.path.join(self._workdir, path)) as f:
+        with open(self._absolute_path(path)) as f:
             text = f.read()
         return text
+
+    ##############################################
+
+    def _is_directory(self, path):
+
+        if path is None:
+            return False
+        else:
+            return os.path.isdir(self._absolute_path(path))
 
     ##############################################
 
@@ -268,7 +284,7 @@ class DiffViewerMainWindow(MainWindowBase):
 
         if path is None:
             return None
-        
+
         try:
             # get_lexer_for_filename(filename)
             return pygments_lexers.guess_lexer_for_filename(path, text, stripnl=False)
@@ -286,7 +302,20 @@ class DiffViewerMainWindow(MainWindowBase):
         self._texts = list(texts)
         self._metadatas = metadatas
         self._workdir = workdir
-        
+
+        file1, file2 = self._paths
+        if self._is_directory(file1) or self._is_directory(file2):
+            self._highlighted_documents = [TextDocumentModel(metadata) for metadata in self._metadatas]
+        else:
+            self.diff_text_documents(show)
+
+        self._set_document_models()
+
+
+    ##############################################
+
+    def diff_text_documents(self, show=False):
+
         OLD, NEW = list(range(2))
         for i in (OLD, NEW):
             if self._paths[i] is None:
@@ -295,10 +324,10 @@ class DiffViewerMainWindow(MainWindowBase):
                 self._texts[i] = self._read_file(self._paths[i])
         lexers = [self._get_lexer(path, text) for path, text in zip(self._paths, self._texts)]
         raw_text_documents = [RawTextDocument(text) for text in self._texts]
-        
+
         highlight = self._highlight_action.isChecked()
         number_of_lines_of_context = self._lines_of_context_combobox.currentData()
-        
+
         self._highlighted_documents = []
         if not show:
             file_diff = TwoWayFileDiffFactory().process(* raw_text_documents,
@@ -325,11 +354,9 @@ class DiffViewerMainWindow(MainWindowBase):
                 highlighted_document = highlight_text(raw_text_document, lexer)
                 self._highlighted_documents.append(highlighted_document)
 
-        if metadatas is not None:
-            for highlighted_document, metadata in zip(self._highlighted_documents, metadatas):
+        if self._metadatas is not None:
+            for highlighted_document, metadata in zip(self._highlighted_documents, self._metadatas):
                 highlighted_document.metadata = metadata
-
-        self._set_document_models()
 
     ################################################
 
