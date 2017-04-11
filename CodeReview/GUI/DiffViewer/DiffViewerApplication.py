@@ -37,11 +37,11 @@ class DiffViewerApplication(GuiApplicationBase, ApplicationBase):
 
         super(DiffViewerApplication, self).__init__(args=args)
         self._logger.debug(str(args))
-        
+
         from .DiffViewerMainWindow import DiffViewerMainWindow
         self._main_window = DiffViewerMainWindow()
         self._main_window.showMaximized()
-        
+
         self.post_init()
 
     ##############################################
