@@ -439,6 +439,8 @@ class DiffViewerMainWindow(MainWindowBase):
 
     def _stage(self):
 
+        pass
+
         # Fixme:
         # if self._git_repository is not None:
         #     file_path = self._paths[1]
@@ -450,9 +452,3 @@ class DiffViewerMainWindow(MainWindowBase):
         #     action = 'Unstage' if self._stagged else 'Stage'
         #     self._logger.info("{} {}".format(action, file_path))
         #     self._stagged = not self._stagged
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################
