@@ -52,11 +52,15 @@ class DiffViewerMainWindow(MainWindowBase):
 
     ##############################################
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, git_repository=None):
 
         super(DiffViewerMainWindow, self).__init__(title='CodeReview Diff Viewer', parent=parent)
 
+        self._git_repository = git_repository
+        self._stagged = False
+
         self._current_path = None
+
         self._init_ui()
         self._create_actions()
         self._create_toolbar()
@@ -151,6 +155,16 @@ class DiffViewerMainWindow(MainWindowBase):
                               triggered=self._refresh,
             )
 
+        if self._git_repository:
+            self._stage_action = \
+                                 QtWidgets.QAction('Stage',
+                                                   self,
+                                                   toolTip='Stage file',
+                                                   shortcut='Ctrl+S',
+                                                   checkable=True,
+                                                   triggered=self._stage,
+                                 )
+
     ##############################################
 
     def _create_toolbar(self):
@@ -190,6 +204,7 @@ class DiffViewerMainWindow(MainWindowBase):
             self._complete_action,
             self._highlight_action,
             self._refresh_action,
+            self._stage_action,
         ]
         if self._application._main_window is not None:
             self._patch_index_label = QtWidgets.QLabel()
@@ -311,6 +326,12 @@ class DiffViewerMainWindow(MainWindowBase):
 
         self._set_document_models()
 
+        # self._stagged = file2 ... ???
+        # self._logger.info("file {} is stagged".format(file2, self._stagged))
+        # self._stage_action.blockSignals(True)
+        # self._stage_action.setChecked(self._stagged)
+        # self._stage_action.blockSignals(False)
+
     ##############################################
 
     def diff_text_documents(self, show=False):
@@ -413,6 +434,22 @@ class DiffViewerMainWindow(MainWindowBase):
         if main_window is not None:
             main_window.next_patch()
             self._update_patch_index()
+
+    ##############################################
+
+    def _stage(self):
+
+        # Fixme:
+        # if self._git_repository is not None:
+        #     file_path = self._paths[1]
+        #     index = self._git_repository.index
+        #     if self._stagged:
+        #         pass # Fixme: ???
+        #     else:
+        #         pass # index.add(file_path)
+        #     action = 'Unstage' if self._stagged else 'Stage'
+        #     self._logger.info("{} {}".format(action, file_path))
+        #     self._stagged = not self._stagged
 
 ####################################################################################################
 #

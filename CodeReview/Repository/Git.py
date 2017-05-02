@@ -62,6 +62,10 @@ class GitRepository(object):
     def workdir(self):
         return self._repository.workdir
 
+    @property
+    def index(self):
+        return self._repository.index
+
     ##############################################
 
     def commits(self):
@@ -70,7 +74,7 @@ class GitRepository(object):
         head_commit = self._repository[head.target]
         commits = [commit
                    for commit in self._repository.walk(head_commit.id, git.GIT_SORT_TIME)]
-        
+
         return commits
 
     ##############################################
@@ -79,9 +83,9 @@ class GitRepository(object):
 
         if path_filter is None:
             path_filter = self._path_filter
-        
+
         patches = []
-        
+
         # GIT_DIFF_PATIENCE
         diff = self._repository.diff(a=a, b=b, cached=cached)
         diff.find_similar()
@@ -92,7 +96,7 @@ class GitRepository(object):
                 # self._logger.info('Skip ' + delta.old_file.path)
                 continue
             patches.append(patch)
-        
+
         return Diff(diff, patches)
 
     ##############################################
@@ -128,9 +132,3 @@ class Diff(object):
 
     def __getitem__(self, i):
         return self._patches[i]
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

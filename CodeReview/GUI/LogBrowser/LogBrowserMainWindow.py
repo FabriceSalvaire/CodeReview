@@ -263,9 +263,11 @@ class LogBrowserMainWindow(MainWindowBase):
 
     def _show_current_patch(self):
 
+        repository = self._application.repository
+
         if self._diff_window is None:
             from CodeReview.GUI.DiffViewer.DiffViewerMainWindow import DiffViewerMainWindow
-            self._diff_window = DiffViewerMainWindow(self)
+            self._diff_window = DiffViewerMainWindow(self, git_repository=repository)
             self._diff_window.closed.connect(self._on_diff_window_closed)
             self._diff_window.showMaximized()
 
@@ -276,7 +278,6 @@ class LogBrowserMainWindow(MainWindowBase):
             # print(delta.status, delta.similarity, delta.additions, delta.deletions, delta.is_binary)
             # for hunk in delta.hunks:
             #     print(hunk.old_start, hunk.old_lines, hunk.new_start, hunk.new_lines, hunk.lines)
-            repository = self._application.repository
             if delta.status in (git.GIT_DELTA_MODIFIED, git.GIT_DELTA_RENAMED):
                 paths = (delta.old_file.path, delta.new_file.path)
             elif delta.status == git.GIT_DELTA_ADDED:
