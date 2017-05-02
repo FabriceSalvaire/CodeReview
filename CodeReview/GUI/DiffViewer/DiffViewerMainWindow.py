@@ -44,6 +44,75 @@ _module_logger = logging.getLogger(__name__)
 
 ####################################################################################################
 
+class LexerCache:
+
+    _logger = _module_logger.getChild('LexerCache')
+
+    ##############################################
+
+    def __init__(self):
+
+        self._extension_cache = {}
+        self._mode_cache = {}
+
+    ##############################################
+
+    @staticmethod
+    def find_mode(text):
+
+        start_pattern = '-*- mode:'
+        start = text.find(start_pattern)
+        if start != -1:
+            stop = text.find('-*-', start)
+            if stop != -1:
+                return text[start + len(start_pattern):stop].strip()
+        return None
+
+    ##############################################
+
+    def guess(self, filename, text):
+
+        # This request is slow !
+        # try:
+        #     # get_lexer_for_filename(filename)
+        #     return pygments_lexers.guess_lexer_for_filename(path, text, stripnl=False)
+        # except pygments_lexers.ClassNotFound:
+        #     try:
+        #         return pygments_lexers.guess_lexer(text, stripnl=False)
+        #     except pygments_lexers.ClassNotFound:
+        #         return None
+
+        extension = os.path.splitext(filename)[-1]
+        if extension:
+            # Try to find lexer from extension
+            if extension in self._extension_cache:
+                return self._extension_cache[extension]
+            else:
+                try:
+                    lexer = pygments_lexers.get_lexer_for_filename(filename)
+                    self._extension_cache[extension] = lexer
+                    return lexer
+                except pygments_lexers.ClassNotFound:
+                    pass
+
+        # Try to find lexer from -*- mode: MODE -*-
+        mode = self.find_mode(text)
+        if mode is not None:
+            if mode in self._mode_cache:
+                return self._mode_cache[mode]
+            else:
+                try:
+                    lexer = pygments_lexers.get_lexer_by_name(mode)
+                    self._mode_cache[mode] = lexer
+                    return lexer
+                except pygments_lexers.ClassNotFound:
+                    pass
+
+        self._logger.warn("Cannot found lexer for {}".format(filename))
+        return None
+
+####################################################################################################
+
 class DiffViewerMainWindow(MainWindowBase):
 
     _logger = _module_logger.getChild('DiffViewerMainWindow')
@@ -67,6 +136,8 @@ class DiffViewerMainWindow(MainWindowBase):
 
         icon_loader = IconLoader()
         self.setWindowIcon(icon_loader['code-review@svg'])
+
+        self._lexer_cache = LexerCache()
 
     ##############################################
 
@@ -294,20 +365,12 @@ class DiffViewerMainWindow(MainWindowBase):
 
     ##############################################
 
-    @staticmethod
-    def _get_lexer(path, text):
+    def _get_lexer(self, path, text):
 
         if path is None:
             return None
 
-        try:
-            # get_lexer_for_filename(filename)
-            return pygments_lexers.guess_lexer_for_filename(path, text, stripnl=False)
-        except pygments_lexers.ClassNotFound:
-            try:
-                return pygments_lexers.guess_lexer(text, stripnl=False)
-            except pygments_lexers.ClassNotFound:
-                return None
+        return self._lexer_cache.guess(path, text)
 
     ##############################################
 
