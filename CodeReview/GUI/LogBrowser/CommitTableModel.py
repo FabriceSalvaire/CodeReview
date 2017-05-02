@@ -38,14 +38,14 @@ _module_logger = logging.getLogger(__name__)
 class CommitTableModel(QtCore.QAbstractTableModel):
 
     _logger = _module_logger.getChild('CommitTableModel')
-    
+
     column_enum = EnumFactory('CommitColumnEnum', (
         'modification',
         'old_path',
         'new_path',
         'similarity',
         ))
-    
+
     __titles__ = (
         'Modification',
         'Old Path',
@@ -65,7 +65,7 @@ class CommitTableModel(QtCore.QAbstractTableModel):
     def __init__(self):
 
         super(CommitTableModel, self).__init__()
-        
+
         self._rows = []
         self._number_of_rows = 0
 
@@ -75,7 +75,7 @@ class CommitTableModel(QtCore.QAbstractTableModel):
 
         self._rows = []
         self._number_of_rows = 0
-        
+
         for patch in diff:
             delta = patch.delta
             if delta.new_file.path != delta.old_file.path:
@@ -87,9 +87,9 @@ class CommitTableModel(QtCore.QAbstractTableModel):
             status = self.__status_to_letter__[delta.status]
             row = (status, delta.old_file.path, new_file_path, similarity, patch)
             self._rows.append(row)
-        
+
         self._number_of_rows = len(self._rows)
-        
+
         self.modelReset.emit()
 
     ##############################################
@@ -113,7 +113,7 @@ class CommitTableModel(QtCore.QAbstractTableModel):
             return QtCore.QVariant()
         column = index.column()
         row = self._rows[index.row()]
-        
+
         if role == Qt.DisplayRole:
             return QtCore.QVariant(row[column])
         elif role == Qt.ForegroundRole and column == self.column_enum.old_path:
@@ -128,7 +128,7 @@ class CommitTableModel(QtCore.QAbstractTableModel):
                 return QtGui.QColor(Qt.black)
             else:
                 return QtCore.QVariant()
-        
+
         return QtCore.QVariant()
 
     ##############################################
@@ -140,11 +140,11 @@ class CommitTableModel(QtCore.QAbstractTableModel):
                 return QtCore.QVariant(int(Qt.AlignHCenter|Qt.AlignVCenter))
             else:
                 return QtCore.QVariant(int(Qt.AlignRight|Qt.AlignVCenter))
-        
+
         if role == Qt.DisplayRole:
             if orientation == Qt.Horizontal:
                 return QtCore.QVariant(self.__titles__[section])
-        
+
         return QtCore.QVariant()
 
     ##############################################

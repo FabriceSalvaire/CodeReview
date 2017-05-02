@@ -40,7 +40,7 @@ class LogTableModel(QtCore.QAbstractTableModel):
         'date',
         'comitter',
         ))
-    
+
     __titles__ = (
         # 'Hex',
         'Revision',
@@ -105,13 +105,13 @@ class LogTableModel(QtCore.QAbstractTableModel):
                 return QtCore.QVariant(int(Qt.AlignHCenter|Qt.AlignVCenter))
             else:
                 return QtCore.QVariant(int(Qt.AlignRight|Qt.AlignVCenter))
-        
+
         if role == Qt.DisplayRole:
             if orientation == Qt.Horizontal:
                 return QtCore.QVariant(self.__titles__[section])
             else:
                 return QtCore.QVariant(self._number_of_rows - section)
-        
+
         return QtCore.QVariant()
 
     ##############################################

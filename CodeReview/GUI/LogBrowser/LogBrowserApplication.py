@@ -43,11 +43,11 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
 
         super(LogBrowserApplication, self).__init__(args=args)
         self._logger.debug(str(args))
-        
+
         from .LogBrowserMainWindow import LogBrowserMainWindow
         self._main_window = LogBrowserMainWindow()
         self._main_window.showMaximized()
-        
+
         self.post_init()
 
     ##############################################
@@ -82,6 +82,8 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
 
     def _init_repository(self):
 
+        self._logger.info('Init Repository')
+
         if self._args.path is None:
             path = os.getcwd()
         else:
@@ -110,7 +112,7 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
         width = log_table.width() - width
         width *= .9 # Fixme: subtract spaces ...
         log_table.setColumnWidth(int(column_enum.message), width)
-        
+
         self._commit_table_model = CommitTableModel()
         commit_table = self._main_window._commit_table
         commit_table.setModel(self._commit_table_model)
