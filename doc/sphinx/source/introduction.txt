@@ -9,17 +9,17 @@
 I started to write some pieces of code of CodeReview at the end of 2011, as a port of the Bzr Qt
 plugin `QBzr <http://wiki.bazaar.canonical.com/QBzr>`_ for Git when Bzr started to seriously fall
 down.  I am an addict of code review and I cannot work without it.  QBzr features two nice tools,
-qlog and qdiff for this task.  It was the main reason why I am still using Bzr in 2015.  But now I
-succeed to release an alternative.
+qlog and qdiff for this task.  It was the main reason why I used Bzr until 2015 and didn't switched
+to Git before this date.  But I succeed to release an alternative.
 
 The aim of CodeReview is to provide tools for code review tasks, like to show the difference between
-two versions.  However I am not a fan of any GUI that aims to deal with Git with only a mouse and
-one finger.  Thus CodeReview is not intended to compete with a "power" IDE like eclipse, idea,
-pycharm, kate ...  But just to provide features not available in Emacs (my editor) or github like a
-diff side-by-side on local changes.
+two versions.  However I am not a fan of GUI softwares that aim to deal with Git with only a mouse
+and one finger.  Thus CodeReview is not intended to compete with a "power" IDE like eclipse, idea,
+pycharm, kate ...  But just to provide features not available in Emacs and `Magit Mode
+<https://magit.vc/>`_ (my editor) or github like a diff side-by-side on local changes.
 
 CodeReview is written in Python 3 and the GUI is based on the Qt5 framework.  The libgit2 and
-|pygit2|_ provides a Python API to deal with Git repositories.  I tried to achieve a clever design
+|pygit2|_ provides the Python API to deal with Git repositories.  I tried to achieve a clever design
 and to write a clean code.
 
 .. include:: features.txt
