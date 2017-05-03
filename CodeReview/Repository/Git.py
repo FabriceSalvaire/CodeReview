@@ -66,6 +66,14 @@ class GitRepository(object):
     def index(self):
         return self._repository.index
 
+    @property
+    def head(self):
+        return self._repository.revparse_single('HEAD')
+
+    @property
+    def repository_status(self):
+        return self._repository.status()
+
     ##############################################
 
     def commits(self):
@@ -106,6 +114,73 @@ class GitRepository(object):
             return self._repository[oid].data.decode('utf-8')
         except KeyError:
             return None
+
+    ##############################################
+
+    __STATUS_TEXT__ = {
+        git.GIT_STATUS_CONFLICTED: 'conflicted',
+        git.GIT_STATUS_CURRENT: 'current',
+        git.GIT_STATUS_IGNORED: 'ignored',
+        git.GIT_STATUS_INDEX_DELETED: 'index deleted',
+        git.GIT_STATUS_INDEX_MODIFIED: 'index modified',
+        git.GIT_STATUS_INDEX_NEW: 'index new',
+        git.GIT_STATUS_WT_DELETED: 'working tree deleted',
+        git.GIT_STATUS_WT_MODIFIED: 'working tree modified',
+        git.GIT_STATUS_WT_NEW: 'working tree new',
+    }
+
+    def status(self, path):
+
+        status = self.repository_status[path]
+        status_text = ' | '.join([self.__STATUS_TEXT__[bit]
+                                  for bit in self.__STATUS_TEXT__
+                                  if status & bit])
+        self._logger.info("File {} has status {} / {}".format(path, status, status_text))
+        return status
+
+    ##############################################
+
+    def is_staged(self, path):
+
+        # index = self._repository.index
+        # head_tree = self._repository.revparse_single('HEAD').tree
+        # try:
+        #     head_oid = head_tree[path].oid
+        #     index_oid = index[path].oid
+        #     return index_oid != head_oid
+        # except KeyError:
+        #     return False # untracked file
+        return self.status(path) == git.GIT_STATUS_INDEX_MODIFIED
+
+    ##############################################
+
+    def is_modified(self, path):
+
+        return self.status(path) == git.GIT_STATUS_WT_MODIFIED
+
+    ##############################################
+
+    def stage(self, path):
+
+        index = self.index
+        index.add(path)
+        index.write()
+
+    ##############################################
+
+    def unstage(self, path):
+
+        self._logger.info("Unstage {}".format(path))
+        index = self.index
+        index.remove(path)
+        head_tree = self.head.tree
+        if path in head_tree:
+            # Restore index to HEAD
+            tree_entry = head_tree[path]
+            index_entry = git.IndexEntry(path, tree_entry.oid, tree_entry.filemode)
+            self._logger.info("Reset index to HEAD for {}".format(path))
+            index.add(index_entry)
+        index.write()
 
 ####################################################################################################
 

@@ -267,7 +267,7 @@ class LogBrowserMainWindow(MainWindowBase):
 
         if self._diff_window is None:
             from CodeReview.GUI.DiffViewer.DiffViewerMainWindow import DiffViewerMainWindow
-            self._diff_window = DiffViewerMainWindow(self, git_repository=repository)
+            self._diff_window = DiffViewerMainWindow(self, repository=repository)
             self._diff_window.closed.connect(self._on_diff_window_closed)
             self._diff_window.showMaximized()
 

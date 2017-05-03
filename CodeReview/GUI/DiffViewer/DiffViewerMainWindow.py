@@ -121,12 +121,12 @@ class DiffViewerMainWindow(MainWindowBase):
 
     ##############################################
 
-    def __init__(self, parent=None, git_repository=None):
+    def __init__(self, parent=None, repository=None):
 
         super(DiffViewerMainWindow, self).__init__(title='CodeReview Diff Viewer', parent=parent)
 
-        self._git_repository = git_repository
-        self._stagged = False
+        self._repository = repository
+        self._staged = False
 
         self._current_path = None
 
@@ -226,7 +226,7 @@ class DiffViewerMainWindow(MainWindowBase):
                               triggered=self._refresh,
             )
 
-        if self._git_repository:
+        if self._repository:
             self._stage_action = \
                                  QtWidgets.QAction('Stage',
                                                    self,
@@ -262,6 +262,8 @@ class DiffViewerMainWindow(MainWindowBase):
         self._font_size_combobox.currentIndexChanged.connect(self._on_font_size_change)
         self._on_font_size_change(refresh=False)
 
+        self._status_label = QtWidgets.QLabel('Status: ???')
+
         items = [
             self._algorithm_combobox,
             QtWidgets.QLabel(' '), # Fixme
@@ -276,6 +278,7 @@ class DiffViewerMainWindow(MainWindowBase):
             self._highlight_action,
             self._refresh_action,
             self._stage_action,
+            self._status_label,
         ]
         if self._application._main_window is not None:
             self._patch_index_label = QtWidgets.QLabel()
@@ -389,11 +392,15 @@ class DiffViewerMainWindow(MainWindowBase):
 
         self._set_document_models()
 
-        # self._stagged = file2 ... ???
-        # self._logger.info("file {} is stagged".format(file2, self._stagged))
-        # self._stage_action.blockSignals(True)
-        # self._stage_action.setChecked(self._stagged)
-        # self._stage_action.blockSignals(False)
+        self._staged = self._repository.is_staged(file2)
+        self._status_label.clear()
+        if self._repository.is_modified(file2):
+            self._status_label.setText('<font color="red">Modified !</font>')
+        if self._staged:
+            self._logger.info("File {} is staged".format(file2))
+        self._stage_action.blockSignals(True)
+        self._stage_action.setChecked(self._staged)
+        self._stage_action.blockSignals(False)
 
     ##############################################
 
@@ -502,16 +509,12 @@ class DiffViewerMainWindow(MainWindowBase):
 
     def _stage(self):
 
-        pass
-
-        # Fixme:
-        # if self._git_repository is not None:
-        #     file_path = self._paths[1]
-        #     index = self._git_repository.index
-        #     if self._stagged:
-        #         pass # Fixme: ???
-        #     else:
-        #         pass # index.add(file_path)
-        #     action = 'Unstage' if self._stagged else 'Stage'
-        #     self._logger.info("{} {}".format(action, file_path))
-        #     self._stagged = not self._stagged
+        file_path = self._paths[1]
+        if self._staged:
+            self._repository.unstage(file_path)
+            action = 'Unstage'
+        else:
+            self._repository.stage(file_path)
+            action = 'Stage'
+        self._logger.info("{} {}".format(action, file_path))
+        self._staged = not self._staged
