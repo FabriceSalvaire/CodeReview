@@ -131,12 +131,15 @@ class GitRepository(object):
 
     def status(self, path):
 
-        status = self.repository_status[path]
-        status_text = ' | '.join([self.__STATUS_TEXT__[bit]
-                                  for bit in self.__STATUS_TEXT__
-                                  if status & bit])
-        self._logger.info("File {} has status {} / {}".format(path, status, status_text))
-        return status
+        try:
+            status = self.repository_status[path]
+            status_text = ' | '.join([self.__STATUS_TEXT__[bit]
+                                      for bit in self.__STATUS_TEXT__
+                                      if status & bit])
+            self._logger.info("File {} has status {} / {}".format(path, status, status_text))
+            return status
+        except KeyError:
+            return 0 # Fixxme:
 
     ##############################################
 
