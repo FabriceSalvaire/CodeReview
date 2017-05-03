@@ -117,6 +117,7 @@ The main features of CodeReview are:
 
 Diff viewer features:
 
+ * stage/unstage file
  * number of context lines
  * font size
  * line number mode
