@@ -85,7 +85,7 @@ class TextBlockDiff(TextBlock):
 
 ####################################################################################################
 
-class TextDocumentDiffModelFactory(object):
+class TextDocumentDiffModelFactory:
 
     ###############################################
 

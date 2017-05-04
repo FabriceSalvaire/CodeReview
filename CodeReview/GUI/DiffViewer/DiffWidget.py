@@ -46,7 +46,7 @@ def side_iterator():
 
 ####################################################################################################
 
-class TextBlock(object):
+class TextBlock:
 
     """This class stores the y top and bottom positions of a text block and the frame type."""
 
@@ -77,7 +77,7 @@ class TextBlocks(list):
 
 ####################################################################################################
 
-class DiffViewerCursor(object):
+class DiffViewerCursor:
 
     ##############################################
 

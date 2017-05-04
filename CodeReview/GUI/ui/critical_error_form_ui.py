@@ -9,7 +9,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Ui_critical_error_form(object):
+class Ui_critical_error_form:
     def setupUi(self, critical_error_form):
         critical_error_form.setObjectName("critical_error_form")
         critical_error_form.setWindowModality(QtCore.Qt.ApplicationModal)

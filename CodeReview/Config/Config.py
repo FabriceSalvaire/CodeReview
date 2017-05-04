@@ -22,7 +22,7 @@ import os
 
 ####################################################################################################
 
-class Path(object):
+class Path:
 
     config_directory = os.path.join(os.environ['HOME'], '.config', 'CodeReview')
 
@@ -31,12 +31,12 @@ class Path(object):
 
 ####################################################################################################
 
-class Help(object):
+class Help:
 
     url = 'https://fabricesalvaire.github.io/CodeReview'
 
 ####################################################################################################
 
-class Shortcut(object):
+class Shortcut:
 
     pass

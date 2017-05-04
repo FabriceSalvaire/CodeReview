@@ -61,7 +61,7 @@ from CodeReview.Tools.IteratorTools import pairwise
 
 ####################################################################################################
 
-class RawTextDocumentAbc(object):
+class RawTextDocumentAbc:
 
     """This class implements the basic function for a Text Chunk.
 
@@ -485,7 +485,7 @@ class RawTextDocumentView(RawTextDocumentAbc):
 
 ####################################################################################################
 
-class RawTextDocumentLightView(object):
+class RawTextDocumentLightView:
 
     """This class implements a light view on a Text Document.
 

@@ -34,7 +34,7 @@ class RepositoryNotFound(Exception):
 
 ####################################################################################################
 
-class GitRepository(object):
+class GitRepository:
 
     _logger = _module_logger.getChild('GitRepository')
 
@@ -187,7 +187,7 @@ class GitRepository(object):
 
 ####################################################################################################
 
-class Diff(object):
+class Diff:
 
     ##############################################
 

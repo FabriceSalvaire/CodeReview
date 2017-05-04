@@ -72,7 +72,7 @@ chunk_type = EnumFactory('TwoWayChunkTypes', ('equal', 'insert', 'delete', 'repl
 
 ####################################################################################################
 
-class TwoWayChunk(object):
+class TwoWayChunk:
 
     """This class implements a two way chunk.
 
@@ -178,7 +178,7 @@ class TwoWayLineChunkReplace(TwoWayChunk):
 
 ####################################################################################################
 
-class TwoWayGroup(object):
+class TwoWayGroup:
 
     """This class implements a group of contiguous line changes between two files.
 
@@ -234,7 +234,7 @@ class TwoWayGroup(object):
 
 ####################################################################################################
 
-class TwoWayFileDiff(object):
+class TwoWayFileDiff:
 
     """This class stores the difference between two files."""
 
@@ -333,7 +333,7 @@ class TwoWayFileDiff(object):
 
 ####################################################################################################
 
-class TwoWayFileDiffFactory(object):
+class TwoWayFileDiffFactory:
 
     """This class implements a factory to compute file differences."""
 

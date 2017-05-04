@@ -24,7 +24,7 @@
 
 ####################################################################################################
 
-class Slice(object):
+class Slice:
 
     """This class implements a generic slice.
 

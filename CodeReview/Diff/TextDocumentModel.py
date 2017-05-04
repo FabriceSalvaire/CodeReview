@@ -52,7 +52,7 @@ class TextBlock(list):
 
 ####################################################################################################
 
-class TextFragment(object):
+class TextFragment:
 
     """This class implements a text fragment."""
 

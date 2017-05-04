@@ -31,7 +31,7 @@ from CodeReview.Tools.Platform import Platform
 
 ####################################################################################################
 
-class ApplicationBase(object):
+class ApplicationBase:
 
     _logger = logging.getLogger(__name__)
 

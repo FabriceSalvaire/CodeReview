@@ -31,7 +31,7 @@ import CodeReview.Config.ConfigInstall as ConfigInstall
 ####################################################################################################
 
 @singleton
-class ExceptionHookInitialiser(object):
+class ExceptionHookInitialiser:
 
     ##############################################
 

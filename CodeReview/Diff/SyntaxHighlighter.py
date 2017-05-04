@@ -38,7 +38,7 @@ from CodeReview.Diff.TextDocumentModel import TextDocumentModel, TextBlock, Text
 
 ####################################################################################################
 
-class HighlightedTextFragment(object):
+class HighlightedTextFragment:
 
     """ This class implements an highlighted text fragment. """
 

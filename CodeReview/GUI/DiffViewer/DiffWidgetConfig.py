@@ -28,7 +28,7 @@ from CodeReview.Diff.RawTextDocumentDiff import chunk_type
 
 ####################################################################################################
 
-class TextBlockStyle(object):
+class TextBlockStyle:
 
     """This class defines colour style for a text block.
 

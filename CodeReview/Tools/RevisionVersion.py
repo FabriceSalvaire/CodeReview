@@ -26,7 +26,7 @@ import re
 
 ####################################################################################################
 
-class RevisionVersion(object):
+class RevisionVersion:
 
     scale = 10**3 # 32 bits
     # scale = 10**6 # 64 bits

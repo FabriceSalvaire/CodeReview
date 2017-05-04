@@ -52,7 +52,7 @@ PlusInfinity = float('+inf')
 
 ####################################################################################################
 
-class Interval(object):
+class Interval:
 
     """ One-dimension Interval
     """
@@ -438,7 +438,7 @@ class IntervalInt(Interval):
 
 #################################################################################
 
-class Interval2D(object):
+class Interval2D:
 
     """ Two-dimension Interval
     """
