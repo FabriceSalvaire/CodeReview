@@ -71,9 +71,3 @@ class DiffViewerApplication(GuiApplicationBase, ApplicationBase):
         """
 
         self._main_window.show_message(message, timeout, warn)
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

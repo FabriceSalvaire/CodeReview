@@ -125,9 +125,3 @@ class LogTableModel(QtCore.QAbstractTableModel):
     def rowCount(self, index=QtCore.QModelIndex()):
 
         return self._number_of_rows
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

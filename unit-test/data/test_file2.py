@@ -78,9 +78,3 @@ tamque multiplici fertilitate abundat rerum omnium eadem Cyprus ut nullius exter
 adminiculi indigenis viribus a fundamento ipso carinae ad supremos usque carbasos aedificet
 onerariam navem omnibusque armamentis instructam mari committat.
 """
-
-####################################################################################################
-# 
-# End
-# 
-####################################################################################################

@@ -128,9 +128,3 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
     @property
     def repository(self):
         return self._repository
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

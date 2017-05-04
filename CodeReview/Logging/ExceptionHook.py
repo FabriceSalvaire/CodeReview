@@ -125,9 +125,3 @@ class StderrExceptionHook(ExceptionHook):
         # traceback.print_exc()
         traceback.print_exception(exception_type, exception_value, exception_traceback)
         print('\n', self._line, file=sys.stderr) 
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

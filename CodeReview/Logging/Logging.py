@@ -60,9 +60,3 @@ def setup_logging(application_name, config_file=ConfigInstall.Logging.default_co
     logger.info('Start %s' % (application_name))
 
     return logger
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

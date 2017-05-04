@@ -166,9 +166,3 @@ class CommitTableModel(QtCore.QAbstractTableModel):
        reverse = order == Qt.DescendingOrder
        self._rows.sort(key=lambda x:x[column], reverse=reverse)
        self.modelReset.emit()
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

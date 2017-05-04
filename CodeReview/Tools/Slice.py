@@ -76,10 +76,10 @@ class Slice(object):
         array = self._check_arguments(args)
         start = array[0]
         stop = array[1]
-        
+
         if stop < start:
             raise ValueError('stop < start')
-        
+
         self._start = start
         self._stop = stop
 
@@ -96,7 +96,7 @@ class Slice(object):
             array = args
         else:
             raise ValueError
-        
+
         return array
 
     ###############################################
@@ -132,7 +132,7 @@ class Slice(object):
             string_interval = '[%u, %u]' % (self.lower, self.upper)
         else:
             string_interval = '[]@%u' % (self.start)
-        
+
         return self.__class__.__name__ + ' ' + string_interval
 
     ###############################################
@@ -218,7 +218,7 @@ class Slice(object):
 
         if stop > self._stop:
             raise IndexError
-        
+
         return self.__class__(start, stop)
 
     ###############################################
@@ -229,7 +229,7 @@ class Slice(object):
 
         self._start //= scale
         self._stop //= scale
-        
+
         return self
 
     ###############################################
@@ -317,9 +317,3 @@ class FlatSlice(Slice):
 class LineSlice(Slice):
     """This class defines a line slice."""
     pass
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

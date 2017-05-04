@@ -151,7 +151,7 @@ class TwoWayLineChunkReplace(TwoWayChunk):
     def __init__(self, chunk1, chunk2, chunks):
 
         super(TwoWayLineChunkReplace, self).__init__(chunk1, chunk2)
-        
+
         self._chunks = chunks
 
     ##############################################
@@ -292,7 +292,7 @@ class TwoWayFileDiff(object):
             print(' '*level + chunk.__class__.__name__)
             for chunk_slice in chunk.chunk1, chunk.chunk2:
                 print(' '*2*(level+1) + repr(chunk_slice))
-        
+
         for group in self:
             print('='*80)
             print('@', group.slice1, group.slice2, '@')
@@ -310,7 +310,7 @@ class TwoWayFileDiff(object):
 
         def pretty_print_chunk_lines(chunk, prefix):
             print(prefix + prefix.join(chunk.lines()).rstrip())
-        
+
         def pretty_print_chunk(chunk):
             if isinstance(chunk, TwoWayLineChunkEqual):
                 pretty_print_chunk_lines(chunk.chunk1, prefix=' ')
@@ -321,7 +321,7 @@ class TwoWayFileDiff(object):
             elif isinstance(chunk, TwoWayLineChunkReplace):
                 pretty_print_chunk_lines(chunk.chunk1, prefix='-')
                 pretty_print_chunk_lines(chunk.chunk2, prefix='+')
-        
+
         for group in self:
             print('='*80)
             print('@', group.slice1, group.slice2, '@')
@@ -348,12 +348,12 @@ class TwoWayFileDiffFactory(object):
         """
 
         file_diff = TwoWayFileDiff(document1, document2)
-        
+
         sequence_matcher = PatienceSequenceMatcher(None, document1.lines(), document2.lines())
         sequence_matcher_groups = sequence_matcher.get_grouped_opcodes(number_of_lines_of_context)
         for opcodes in sequence_matcher_groups:
             self._process_group(file_diff, opcodes)
-        
+
         return file_diff
 
     ###############################################
@@ -409,11 +409,5 @@ class TwoWayFileDiffFactory(object):
             elif tag == 'replace':
                 sub_chunk_diff = TwoWayChunkReplace(sub_chunk1, sub_chunk2)
             sub_chunks.append(sub_chunk_diff)
-        
-        return sub_chunks
 
-####################################################################################################
-#
-# End
-#
-####################################################################################################
+        return sub_chunks

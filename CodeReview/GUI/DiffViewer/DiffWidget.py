@@ -443,9 +443,3 @@ class DiffView(QtWidgets.QSplitter):
         self.append_document_models(document_models, aligned_mode, complete_mode, line_number_mode)
         for cursor in self._cursors:
             cursor.end()
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

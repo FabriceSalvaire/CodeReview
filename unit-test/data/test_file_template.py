@@ -25,5 +25,5 @@ def function2(x):
 
 var1 = function2(10)
 var2 = function2(20)
-    
+
 # this is the End

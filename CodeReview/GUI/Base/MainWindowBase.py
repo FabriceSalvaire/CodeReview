@@ -33,9 +33,9 @@ class MainWindowBase(QtWidgets.QMainWindow):
     def __init__(self, title='', parent=None):
 
         super(MainWindowBase, self).__init__(parent)
-        
+
         self.setWindowTitle(title)
-        
+
         self._application = QtWidgets.QApplication.instance()
         self.init_menu()
 
@@ -62,10 +62,10 @@ class MainWindowBase(QtWidgets.QMainWindow):
     def init_menu(self):
 
         application = self._application
-        
+
         self._file_menu = file_menu = self.menu_bar.addMenu('File')
         file_menu.addAction(application.exit_action) # Fixme: At the end
-        
+
         self._help_menu = help_menu = self.menu_bar.addMenu('Help')
         help_menu.addAction(application.help_action)
         help_menu.addSeparator()
@@ -99,9 +99,3 @@ class MainWindowBase(QtWidgets.QMainWindow):
     def translate(self, text):
 
         return self._application.translate(self.__class__.__name__, text)
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

@@ -43,7 +43,7 @@ class SingletonMetaClass(type):
         # print('MetaSingleton __init__:', cls, class_name, super_classes, class_attribute_dict, sep='\n... ')
 
         type.__init__(cls, class_name, super_classes, class_attribute_dict)
-        
+
         cls._instance = None
         cls._rlock = threading.RLock() # A factory function that returns a new reentrant lock object.
 
@@ -59,7 +59,7 @@ class SingletonMetaClass(type):
         with cls._rlock:
             if cls._instance is None:
                 cls._instance = type.__call__(cls, *args, **kwargs)
-        
+
         return cls._instance
 
 ####################################################################################################
@@ -89,7 +89,7 @@ class singleton(object):
 
         if self._instance is None:
             self._instance = self._cls(*args, **kwargs)
-        
+
         return self._instance
 
 ####################################################################################################
@@ -110,7 +110,7 @@ def singleton_func(cls):
         if cls not in instances:
             instances[cls] = cls(*args, **kwargs)
         return instances[cls]
-    
+
     return get_instance
 
 ####################################################################################################
@@ -130,11 +130,5 @@ class monostate(object):
 
         obj = super(monostate, cls).__new__(cls, *args, **kwargs)
         obj.__dict__ = cls._shared_state
-        
-        return obj
 
-####################################################################################################
-#
-# End
-#
-####################################################################################################
+        return obj

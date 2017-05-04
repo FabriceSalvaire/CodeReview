@@ -56,11 +56,11 @@ class Platform(object):
         self.number_of_cores = self._get_number_of_cores()
         self.cpu_khz = self._get_cpu_khz()
         self.cpu_mhz = rint(self._get_cpu_khz()/float(1000))
-        
+
         # RAM
         self.memory_size_kb = self._get_memory_size_kb()
         self.memory_size_mb = rint(self.memory_size_kb/float(1024))
-        
+
         # Screen
         try:
             application = QtWidgets.QApplication.instance()
@@ -145,7 +145,7 @@ class Platform(object):
     ##############################################
 
     def __str__(self):
-      
+
         message_template = '''
 Platform %(node)s
   Hardware:
@@ -161,7 +161,7 @@ Platform %(node)s
 
         for screen in self.screens:
             message += str(screen)
-        
+
         message_template = '''
   Software Versions:
     OS: %(os)s
@@ -171,7 +171,7 @@ Platform %(node)s
     PyQt: %(pyqt_version)s
 '''
         message += message_template % self.__dict__
-        
+
         return message
 
 ####################################################################################################
@@ -201,11 +201,5 @@ class Screen(object):
      geometry   %(screen_width)ux%(screen_height)u px
      resolution %(dpi)s dpi
 """
-        
-        return message_template % self.__dict__
 
-####################################################################################################
-#
-# End
-#
-####################################################################################################
+        return message_template % self.__dict__

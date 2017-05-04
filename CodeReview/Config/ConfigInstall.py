@@ -56,12 +56,6 @@ class Icon(object):
             size_directory = icon_size
         else:
             size_directory = '{0}x{0}'.format(icon_size)
-        
+
         icon_directory = os.path.join(Icon.icon_directory, size_directory)
         return PathTools.find(file_name, (icon_directory,))
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

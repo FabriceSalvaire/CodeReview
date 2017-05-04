@@ -23,7 +23,7 @@ class TestSyntaxHighlighter(unittest.TestCase):
             text = f.read()
 
         raw_text_document = RawTextDocument(text)
-        
+
         lexer = get_lexer_for_filename(test_file_path, stripnl=False)
         highlighted_text = HighlightedText(raw_text_document, lexer)
 
@@ -35,9 +35,3 @@ class TestSyntaxHighlighter(unittest.TestCase):
 if __name__ == '__main__':
 
     unittest.main()
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

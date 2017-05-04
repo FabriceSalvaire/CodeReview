@@ -60,9 +60,3 @@ def find_alias(directory, file_names):
             return absolut_file_name
 
     raise NameError("Any file in %s found in directory %s" % (str(file_names), directory))
-            
-####################################################################################################
-#
-# End
-#
-####################################################################################################

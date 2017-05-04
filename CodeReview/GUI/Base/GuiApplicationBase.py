@@ -60,9 +60,9 @@ class GuiApplicationBase(ApplicationBase, QtWidgets.QApplication):
         self._logger.debug("QtWidgets.QApplication " + str(sys.argv))
         QtWidgets.QApplication.__init__(self, sys.argv)
         self._logger.debug('GuiApplicationBase ' + str(args) + ' ' + str(kwargs))
-        
+
         self._display_splash_screen()
-        
+
         self._main_window = None
         self._init_actions()
 
@@ -100,17 +100,17 @@ class GuiApplicationBase(ApplicationBase, QtWidgets.QApplication):
             QtWidgets.QAction('About CodeReview',
                           self,
                           triggered=self.about)
-        
+
         self.exit_action = \
             QtWidgets.QAction('Exit',
                           self,
                           triggered=self.exit)
-        
+
         self.help_action = \
             QtWidgets.QAction('Help',
                           self,
                           triggered=self.open_help)
-        
+
         self.show_system_information_action = \
             QtWidgets.QAction('System Information',
                           self,
@@ -123,9 +123,9 @@ class GuiApplicationBase(ApplicationBase, QtWidgets.QApplication):
         self._splash.finish(self._main_window)
         self.processEvents()
         del self._splash
-        
+
         QtCore.QTimer.singleShot(0, self.execute_given_user_script)
-        
+
         self.show_message('Welcome to CodeReview')
 
         # return to main and then enter to event loop
@@ -145,7 +145,7 @@ class GuiApplicationBase(ApplicationBase, QtWidgets.QApplication):
     def critical_error(self, title='CodeReview Critical Error', message=''):
 
         QtWidgets.QMessageBox.critical(None, title, message)
-        
+
         # Fixme: qt close?
         sys.exit(1)
 
@@ -173,9 +173,3 @@ class GuiApplicationBase(ApplicationBase, QtWidgets.QApplication):
         })
         message = Messages.system_information_message_pattern.format(**fields)
         QtWidgets.QMessageBox.about(self.main_window, 'System Information', message)
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

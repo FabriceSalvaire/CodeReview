@@ -85,11 +85,5 @@ class IconLoader(object, metaclass=SingletonMetaClass):
             extension = '.svg'
         else:
             extension = '.png'
-        
-        return ConfigInstall.Icon.find(file_name + extension, icon_size)
 
-####################################################################################################
-#
-# End
-#
-####################################################################################################
+        return ConfigInstall.Icon.find(file_name + extension, icon_size)

@@ -84,9 +84,3 @@ class SyntaxHighlighterStyle(dict):
         else:
             text_char_format = super(SyntaxHighlighterStyle, self).__getitem__(key)
             return QtGui.QTextCharFormat(text_char_format)
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

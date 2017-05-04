@@ -193,7 +193,7 @@ class RawTextDocumentAbc(object):
 
         if location >= self._flat_slice.stop:
             raise IndexError
-        
+
         # Return the index j where location < _line_start_locations[j]
         return bisect.bisect_right(self._line_start_locations, location) -1
 
@@ -227,13 +227,13 @@ class RawTextDocumentAbc(object):
 
         if not bool(flat_slice):
             return LineSlice(0, 0)
-        
+
         start_line = self.line_of(flat_slice.start)
         if flat_slice:
             upper_line = self.line_of(flat_slice.upper)
         else:
             upper_line= start_line
-        
+
         return LineSlice(start_line, upper_line +1)
 
     ##############################################
@@ -295,7 +295,7 @@ class RawTextDocument(RawTextDocumentAbc):
         super(RawTextDocument, self). __init__(text_buffer,
                                                FlatSlice(0, len(text_buffer)),
                                                *self._split_lines(text_buffer))
-        
+
         self.line_slice = self.flat_to_line_slice(self._flat_slice)
 
     ##############################################
@@ -345,9 +345,9 @@ class RawTextDocument(RawTextDocumentAbc):
                 i = new_line_location
             else:
                 i += 1
-        
+
         self._append_sentinel(line_start_locations, line_separators, buffer_length)
-        
+
         return line_start_locations, line_separators
 
     ###############################################
@@ -361,14 +361,14 @@ class RawTextDocument(RawTextDocumentAbc):
             line_slice = slice_
         else:
             line_slice = self.flat_to_line_slice(slice_)
-        
+
         # line_start_locations ...
         line_start_locations = [flat_slice.start]
         line_start_locations += self._line_start_locations[line_slice()][1:]
         # line_separators is a subset
         line_separators = self._line_separators[line_slice()][:-1]
         self._append_sentinel(line_start_locations, line_separators, flat_slice.stop)
-        
+
         return RawTextDocumentView(self,
                                    slice_,
                                    self._text_buffer,
@@ -413,7 +413,7 @@ class RawTextDocumentView(RawTextDocumentAbc):
         # Fixme: raw_text_document has text_buffer
 
         super(RawTextDocumentView, self).__init__(*args)
-        
+
         self._raw_text_document = raw_text_document
         self.slice = slice_
 
@@ -456,7 +456,7 @@ class RawTextDocumentView(RawTextDocumentAbc):
         string_slice = str(self.slice)
         if isinstance(self.slice, LineSlice):
             string_slice += '/' + str(self._flat_slice)
-        
+
         return self.__class__.__name__ + ' ' + string_slice
 
     ##############################################
@@ -553,7 +553,7 @@ class RawTextDocumentLightView(object):
     def __repr__(self):
 
         string_slice = str(self.flat_slice)
-        
+
         return self.__class__.__name__ + ' ' + string_slice
 
     ##############################################
@@ -571,7 +571,7 @@ class RawTextDocumentLightView(object):
         """Return the sub-string corresponding to the local slice in the view."""
 
         flat_slice = self.to_document_flat_slice(flat_slice)
-        
+
         return self._raw_text_document.substring(flat_slice)
 
     ###############################################
@@ -585,9 +585,3 @@ class RawTextDocumentLightView(object):
     ###############################################
 
     __getitem__  = view
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

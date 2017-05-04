@@ -51,7 +51,7 @@ class CriticalErrorForm(QtWidgets.QDialog, Ui_critical_error_form):
         self._backtrace = format_exception(self._exception_type,
                                            self._exception_value,
                                            self._exception_backtrace)
-        
+
         # Fixme: call critical exit
         self.exit_button.clicked.connect(lambda : sys.exit(1))
         self.show_backtrace_button.clicked.connect(self.show_backtrace)
@@ -73,9 +73,3 @@ class CriticalErrorForm(QtWidgets.QDialog, Ui_critical_error_form):
 
         # print trace_back_text_highlighted
         self.back_trace_text_browser.setHtml(self._trace_back_text_highlighted)
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

@@ -147,7 +147,7 @@ def EnumFactory(enum_name, enum_tuple):
     obj_dict['_size'] = len(enum_tuple)
     for value, name in enumerate(enum_tuple):
         obj_dict[name] = EnumConstant(name, value)
-    
+
     return EnumMetaClass(enum_name, (), obj_dict)
 
 ####################################################################################################
@@ -162,11 +162,5 @@ def ExplicitEnumFactory(enum_name, enum_dict):
     obj_dict['constants'] = list(enum_dict.values())
     for name, value in enum_dict.items():
         obj_dict[name] = EnumConstant(name, value)
-    
-    return ExplicitEnumMetaClass(enum_name, (), obj_dict)
 
-####################################################################################################
-#
-# End
-#
-####################################################################################################
+    return ExplicitEnumMetaClass(enum_name, (), obj_dict)
