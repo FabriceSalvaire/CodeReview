@@ -31,6 +31,8 @@ class DiffViewerApplication(GuiApplicationBase, ApplicationBase):
 
     _logger = logging.getLogger(__name__)
 
+    file_system_changed = QtCore.pyqtSignal(str)
+
     ###############################################
 
     def __init__(self, args):
@@ -56,6 +58,7 @@ class DiffViewerApplication(GuiApplicationBase, ApplicationBase):
 
         super(DiffViewerApplication, self).post_init()
         self._main_window.open_files(self._args.file1, self._args.file2, self._args.show)
+        self._init_file_system_watcher()
 
     ##############################################
 
@@ -71,3 +74,17 @@ class DiffViewerApplication(GuiApplicationBase, ApplicationBase):
         """
 
         self._main_window.show_message(message, timeout, warn)
+
+    ##############################################
+
+    def _init_file_system_watcher(self):
+
+        self._file_system_watcher = QtCore.QFileSystemWatcher()
+        self._file_system_watcher.directoryChanged.connect(self.file_system_changed)
+        self._file_system_watcher.fileChanged.connect(self.file_system_changed)
+
+    ##############################################
+
+    @property
+    def file_system_watcher(self):
+        return self._file_system_watcher

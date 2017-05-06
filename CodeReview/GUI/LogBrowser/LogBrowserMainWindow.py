@@ -47,6 +47,9 @@ class LogBrowserMainWindow(MainWindowBase):
 
         super(LogBrowserMainWindow, self).__init__(title='CodeReview Log Browser', parent=parent)
 
+        icon_loader = IconLoader()
+        self.setWindowIcon(icon_loader['code-review@svg'])
+
         self._current_revision = None
         self._diff = None
         self._current_patch = None
@@ -56,12 +59,13 @@ class LogBrowserMainWindow(MainWindowBase):
         self._create_actions()
         self._create_toolbar()
 
-        icon_loader = IconLoader()
-        self.setWindowIcon(icon_loader['code-review@svg'])
+        self._application.file_system_changed.connect(self._on_file_system_changed)
 
     ##############################################
 
     def _init_ui(self):
+
+        # Table models are set in application
 
         self._central_widget = QtWidgets.QWidget(self)
         self.setCentralWidget(self._central_widget)
@@ -101,7 +105,7 @@ class LogBrowserMainWindow(MainWindowBase):
 
     def _create_actions(self):
 
-        # icon_loader = IconLoader()
+        icon_loader = IconLoader()
 
         self._stagged_mode_action = \
             QtWidgets.QAction('Stagged',
@@ -137,12 +141,13 @@ class LogBrowserMainWindow(MainWindowBase):
         self._all_change_mode_action.setChecked(True)
 
         self._reload_action = \
-            QtWidgets.QAction('Reload',
+            QtWidgets.QAction(icon_loader['view-refresh@svg'],
+                              'Refresh',
                               self,
-                              toolTip='Reload',
-                              shortcut='Ctrl+4'
+                              toolTip='Refresh',
+                              shortcut='Ctrl+R',
+                              triggered=self._reload_repository,
             )
-        self._reload_action.triggered.connect(self._reload_repository)
 
     ##############################################
 
@@ -184,17 +189,43 @@ class LogBrowserMainWindow(MainWindowBase):
 
     ##############################################
 
+    def _on_file_system_changed(self, path):
+
+        self._logger.info('File system changed {}'.format(path))
+        self._reload_repository()
+
+    ##############################################
+
     def _reload_repository(self):
 
-        # index = self._log_table.currentIndex()
+        self._logger.info('Reload signal')
+        index = self._log_table.currentIndex()
         self._application.reload_repository()
-        # self._log_table.setCurrentIndex(index)
-        self._update_working_tree_diff()
+        if index.row() != -1:
+            self._logger.info("Index is {}".format(index.row()))
+            self._log_table.setCurrentIndex(index)
+            # Fixme: ???
+            # self._update_working_tree_diff()
+            self.show_working_tree_diff()
+        else:
+            self.show_working_tree_diff()
+
+    ##############################################
+
+    def show_working_tree_diff(self):
+
+        self._logger.info('Show WT')
+        log_model = self._log_table.model()
+        if log_model.rowCount():
+            top_index = log_model.index(0, 0)
+            self._log_table.setCurrentIndex(top_index)
+            self._update_working_tree_diff()
 
     ##############################################
 
     def _update_working_tree_diff(self):
 
+        # Check log table is on working tree
         if self._log_table.currentIndex().row() == 0:
             self._update_commit_table()
 

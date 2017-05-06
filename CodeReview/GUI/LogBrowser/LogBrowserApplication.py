@@ -37,6 +37,8 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
 
     _logger = logging.getLogger(__name__)
 
+    file_system_changed = QtCore.pyqtSignal(str)
+
     ###############################################
 
     def __init__(self, args):
@@ -62,6 +64,8 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
 
         super(LogBrowserApplication, self).post_init()
         self._init_repository()
+        self._init_file_system_watcher()
+        self._main_window.show_working_tree_diff()
 
     ##############################################
 
@@ -116,6 +120,30 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
         self._commit_table_model = CommitTableModel()
         commit_table = self._main_window._commit_table
         commit_table.setModel(self._commit_table_model)
+
+    ##############################################
+
+    def _init_file_system_watcher(self):
+
+        self._file_system_watcher = QtCore.QFileSystemWatcher()
+        self._setup_file_system_watcher()
+        self._file_system_watcher.directoryChanged.connect(self.file_system_changed)
+        self._file_system_watcher.fileChanged.connect(self.file_system_changed)
+        self.file_system_changed.connect(self._setup_file_system_watcher)
+
+    ##############################################
+
+    def _setup_file_system_watcher(self):
+
+        path = self._repository.workdir
+        self._logger.info("Monitor {}".format(path))
+        paths = []
+        for root, dirs, files in os.walk(path):
+            paths.append(root)
+        directories = self._file_system_watcher.directories()
+        if directories:
+            self._file_system_watcher.removePaths(directories)
+        self._file_system_watcher.addPaths(paths)
 
     ##############################################
 

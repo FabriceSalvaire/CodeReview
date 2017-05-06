@@ -71,6 +71,8 @@ class DiffViewerMainWindow(MainWindowBase):
 
         self._lexer_cache = LexerCache()
 
+        self._application.file_system_changed.connect(self._refresh)
+
     ##############################################
 
     def _init_ui(self):
@@ -333,6 +335,14 @@ class DiffViewerMainWindow(MainWindowBase):
         self._stage_action.blockSignals(True)
         self._stage_action.setChecked(self._staged)
         self._stage_action.blockSignals(False)
+
+        # Useless if application is LogBrowserApplication
+        # file_system_watcher = self._application.file_system_watcher
+        # files = file_system_watcher.files()
+        # if files:
+        #     file_system_watcher.removePaths(files)
+        # self._logger.info("Monitor {}".format(file2))
+        # file_system_watcher.addPath(file2)
 
     ##############################################
 
