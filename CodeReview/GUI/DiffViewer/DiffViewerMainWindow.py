@@ -92,7 +92,7 @@ class DiffViewerMainWindow(MainWindowBase):
         icon_loader = IconLoader()
 
         self._previous_file_action = \
-            QtWidgets.QAction(icon_loader['go-previous'],
+            QtWidgets.QAction(icon_loader['go-previous@svg'],
                               'Previous',
                               self,
                               toolTip='Previous file',
@@ -101,7 +101,7 @@ class DiffViewerMainWindow(MainWindowBase):
             )
 
         self._next_file_action = \
-            QtWidgets.QAction(icon_loader['go-next'],
+            QtWidgets.QAction(icon_loader['go-next@svg'],
                               'Next',
                               self,
                               toolTip='Next file',
@@ -110,7 +110,7 @@ class DiffViewerMainWindow(MainWindowBase):
             )
 
         self._refresh_action = \
-            QtWidgets.QAction(icon_loader['view-refresh'],
+            QtWidgets.QAction(icon_loader['view-refresh@svg'],
                               'Refresh',
                               self,
                               toolTip='Refresh',
