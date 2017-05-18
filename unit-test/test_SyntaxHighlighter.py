@@ -9,6 +9,7 @@ from pygments.lexers import get_lexer_for_filename
 
 from CodeReview.Diff.RawTextDocument import RawTextDocument
 from CodeReview.Diff.SyntaxHighlighter import HighlightedText
+import six
 
 ####################################################################################################
 
@@ -28,7 +29,7 @@ class TestSyntaxHighlighter(unittest.TestCase):
         highlighted_text = HighlightedText(raw_text_document, lexer)
 
         for fragment in highlighted_text:
-            print(repr(fragment), '[' + raw_text_document.substring(fragment.slice) + ']')
+            six.print_((repr(fragment), '[' + raw_text_document.substring(fragment.slice) + ']'))
 
 ####################################################################################################
 

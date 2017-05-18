@@ -61,6 +61,7 @@ from CodeReview.PatienceDiff import PatienceSequenceMatcher
 
 from CodeReview.Tools.EnumFactory import EnumFactory
 from CodeReview.Tools.Slice import FlatSlice, LineSlice
+import six
 
 ####################################################################################################
 
@@ -289,13 +290,13 @@ class TwoWayFileDiff:
         """Pretty-print the file differences."""
 
         def pretty_print_chunk(chunk, level=0):
-            print(' '*level + chunk.__class__.__name__)
+            six.print_((' '*level + chunk.__class__.__name__))
             for chunk_slice in chunk.chunk1, chunk.chunk2:
-                print(' '*2*(level+1) + repr(chunk_slice))
+                six.print_((' '*2*(level+1) + repr(chunk_slice)))
 
         for group in self:
-            print('='*80)
-            print('@', group.slice1, group.slice2, '@')
+            six.print_(('='*80))
+            six.print_(('@', group.slice1, group.slice2, '@'))
             for chunk in group:
                 pretty_print_chunk(chunk, level=0)
                 if isinstance(chunk, TwoWayLineChunkReplace):
@@ -309,7 +310,7 @@ class TwoWayFileDiff:
         """Pretty-print the file differences using unidiff format."""
 
         def pretty_print_chunk_lines(chunk, prefix):
-            print(prefix + prefix.join(chunk.lines()).rstrip())
+            six.print_((prefix + prefix.join(chunk.lines()).rstrip()))
 
         def pretty_print_chunk(chunk):
             if isinstance(chunk, TwoWayLineChunkEqual):
@@ -323,8 +324,8 @@ class TwoWayFileDiff:
                 pretty_print_chunk_lines(chunk.chunk2, prefix='+')
 
         for group in self:
-            print('='*80)
-            print('@', group.slice1, group.slice2, '@')
+            six.print_(('='*80))
+            six.print_(('@', group.slice1, group.slice2, '@'))
             for chunk in group:
                 pretty_print_chunk(chunk)
                 if isinstance(chunk, TwoWayLineChunkReplace):

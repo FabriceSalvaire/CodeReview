@@ -42,7 +42,7 @@ _module_logger = logging.getLogger(__name__)
 LEFT, RIGHT = list(range(2))
 
 def side_iterator():
-    return range(2)
+    return list(range(2))
 
 ####################################################################################################
 
