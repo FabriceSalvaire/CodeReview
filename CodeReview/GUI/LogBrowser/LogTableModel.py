@@ -37,16 +37,16 @@ class LogTableModel(QtCore.QAbstractTableModel):
     column_enum = EnumFactory('LogColumnEnum', (
         'revision',
         'message',
+        'sha',
         'date',
         'comitter',
         ))
 
     __titles__ = (
-        # 'Hex',
         'Revision',
         'Message',
+        'Id SH1',
         'Date',
-        # 'Author',
         'Comitter',
     )
 
@@ -67,12 +67,11 @@ class LogTableModel(QtCore.QAbstractTableModel):
     def _commit_data(self, i, commit):
 
         return (
-            # commit.hex,
             self._number_of_rows - i -1,
             commit.message,
+            commit.hex,
             fromtimestamp(commit.commit_time).strftime('%Y-%m-%d %H:%M:%S'),
-            # commit.author.name,
-            commit.committer.name,
+            commit.committer.name, # author
             commit,
         )
 
