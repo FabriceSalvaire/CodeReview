@@ -240,6 +240,9 @@ class DiffViewerMainWindow(MainWindowBase):
 
     def closeEvent(self, event):
 
+        # Fixme: else the window is reopened
+        self._application.file_system_changed.disconnect(self._refresh)
+
         if self._application.main_window is not self:
             self.closed.emit()
 
