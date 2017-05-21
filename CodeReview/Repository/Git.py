@@ -80,8 +80,10 @@ class GitRepository:
 
         head = self._repository.head
         head_commit = self._repository[head.target]
-        commits = [commit
-                   for commit in self._repository.walk(head_commit.id, git.GIT_SORT_TIME)]
+        # GIT_SORT_TOPOLOGICAL. Sort the repository contents in topological order (parents before children);
+        # this sorting mode can be combined with time sorting.
+        sorting = git.GIT_SORT_TOPOLOGICAL # git.GIT_SORT_TIME
+        commits = [commit for commit in self._repository.walk(head_commit.id, sorting)]
 
         return commits
 
