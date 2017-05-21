@@ -121,6 +121,8 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
         commit_table = self._main_window._commit_table
         commit_table.setModel(self._commit_table_model)
 
+        self._main_window.finish_table_connections()
+
     ##############################################
 
     def _init_file_system_watcher(self):

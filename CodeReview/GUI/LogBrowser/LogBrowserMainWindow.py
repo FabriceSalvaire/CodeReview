@@ -103,6 +103,13 @@ class LogBrowserMainWindow(MainWindowBase):
 
     ##############################################
 
+    def finish_table_connections(self):
+
+        self._log_table.selectionModel().currentRowChanged.connect(self._update_commit_table)
+        self._commit_table.selectionModel().currentRowChanged.connect(self._show_patch)
+
+    ##############################################
+
     def _create_actions(self):
 
         icon_loader = IconLoader()
