@@ -39,4 +39,16 @@
    :target: https://travis-ci.org/FabriceSalvaire/CodeReview
    :alt: CodeReview build status @travis-ci.org
 
+.. |Pypi Version| image:: https://img.shields.io/pypi/v/CodeReview.svg
+   :target: https://pypi.python.org/pypi/CodeReview
+   :alt: CodeReview last version
+
+.. |Pypi License| image:: https://img.shields.io/pypi/l/CodeReview.svg
+   :target: https://pypi.python.org/pypi/CodeReview
+   :alt: CodeReview license
+
+.. |Pypi Python Version| image:: https://img.shields.io/pypi/pyversions/CodeReview.svg
+   :target: https://pypi.python.org/pypi/CodeReview
+   :alt: CodeReview python version
+
 .. End
