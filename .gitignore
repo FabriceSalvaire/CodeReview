@@ -1,5 +1,6 @@
 *~
 __pycache__
+.directory
 build
 doc/sphinx/build
 #
