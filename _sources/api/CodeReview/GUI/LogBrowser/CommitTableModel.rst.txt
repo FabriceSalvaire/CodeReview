@@ -2,7 +2,7 @@
  :mod:`CommitTableModel`
 *************************
 
-.. automodule:: CodeReview.GUI.Widgets.CommitTableModel
+.. automodule:: CodeReview.GUI.LogBrowser.CommitTableModel
    :members:
    :show-inheritance:
 

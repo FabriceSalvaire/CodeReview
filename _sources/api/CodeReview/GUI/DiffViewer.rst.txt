@@ -7,6 +7,7 @@
   DiffViewer/DiffViewerMainWindow
   DiffViewer/DiffWidget
   DiffViewer/DiffWidgetConfig
+  DiffViewer/LexerCache
   DiffViewer/SyntaxHighlighterStyle
 
 .. automodule:: CodeReview.GUI.DiffViewer

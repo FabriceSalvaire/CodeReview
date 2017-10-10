@@ -17,14 +17,14 @@ Dependencies
 CodeReview requires the following dependencies:
 
  * |Python|_ v3.4
- * |PyQt5|_ v5.4
  * libgit2 see `link <http://www.pygit2.org/install.html#quick-install>`_  for installation instruction
 
 Theses packages are available via |pip|_:
 
- * |pygit2|_
- * Pygments
  * PyYAML
+ * Pygments
+ * |PyQt5|_
+ * |pygit2|_
 
 For development, you will need in addition:
 
@@ -44,7 +44,7 @@ Run this command to install the last release:
 Installation from Source
 ------------------------
 
-The CodeReview source code is hosted at |CodeReview@github|
+CodeReview source code is hosted at |CodeReview@github|
 
 To clone the Git repository, run this command in a terminal:
 
@@ -58,5 +58,10 @@ Then to build and install CodeReview run these commands:
 
   python setup.py build
   python setup.py install
+
+How to use CodeReview ?
+-----------------------
+
+CodeReview provides to executable *pyqgit* and *diff-viewer*.
 
 .. End
