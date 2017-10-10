@@ -19,6 +19,7 @@
 ####################################################################################################
 
 import logging
+import os
 
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
@@ -198,7 +199,13 @@ class LogBrowserMainWindow(MainWindowBase):
 
     def _on_file_system_changed(self, path):
 
-        self._logger.info('File system changed {}'.format(path))
+        if os.path.isdir(path):
+            file_type = 'Directory'
+        else:
+            file_type = 'File'
+        message = '{} {} changed'.format(file_type,path)
+        self.show_message(message)
+        self._logger.info(message)
         self._reload_repository()
 
     ##############################################
@@ -276,6 +283,8 @@ class LogBrowserMainWindow(MainWindowBase):
 
     def _show_patch(self, index):
 
+        self._logger.info("")
+        # called when a commit row is clicked
         self._current_patch = index.row()
         self._show_current_patch()
 
@@ -283,6 +292,7 @@ class LogBrowserMainWindow(MainWindowBase):
 
     def _on_diff_window_closed(self):
 
+        self._logger.info("Diff window closed")
         self._diff_window = None
 
     ##############################################
@@ -301,9 +311,11 @@ class LogBrowserMainWindow(MainWindowBase):
 
     def _show_current_patch(self):
 
+        self._logger.info("")
         repository = self._application.repository
 
         if self._diff_window is None:
+            self._logger.info("Open Diff Viewer Window")
             from CodeReview.GUI.DiffViewer.DiffViewerMainWindow import DiffViewerMainWindow
             self._diff_window = DiffViewerMainWindow(self, repository=repository)
             self._diff_window.closed.connect(self._on_diff_window_closed)
