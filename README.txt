@@ -12,8 +12,9 @@
 
 |Pypi Version|
 
-* Quick Link to `Production Branch <https://github.com/FabriceSalvaire/CodeReview/tree/master>`_
-* Quick Link to `Devel Branch <https://github.com/FabriceSalvaire/CodeReview/tree/devel>`_
+..
+  * Quick Link to `Production Branch <https://github.com/FabriceSalvaire/CodeReview/tree/master>`_
+  * Quick Link to `Devel Branch <https://github.com/FabriceSalvaire/CodeReview/tree/devel>`_
 
 CodeReview Home Page is located at |CodeReviewUrl|
 
@@ -21,7 +22,8 @@ CodeReview Home Page is located at |CodeReviewUrl|
 
 Authored by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_
 
-|Build Status|
+..
+  |Build Status|
 
 .. image:: https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-log.png
 .. image:: https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-diff.png
