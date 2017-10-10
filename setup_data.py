@@ -80,7 +80,7 @@ CodeReview_path = os.path.join(site_packages_path, 'CodeReview')
 
 setup_dict = dict(
     name='CodeReview',
-    version='0.3.0',
+    version='0.3.1',
     author='Fabrice Salvaire',
     author_email='fabrice.salvaire@orange.fr',
     description='CodeReview is a Python 3 / Qt5 GUI to perform code review on files and Git repositories.',
@@ -110,8 +110,10 @@ setup_dict = dict(
                  Extension('CodeReview.TextDistance.levenshtein_distance_c',
                            ['CodeReview/TextDistance/levenshtein_distance.c'])],
     # package_dir = {'CodeReview': 'CodeReview'},
+    package_data={
+        'CodeReview.Config': ['logging.yml'],
+    },
     data_files=[
-        (os.path.join(CodeReview_path, 'Config'), [os.path.join('CodeReview', 'Config', 'logging.yml')]),
         ('share/CodeReview/icons', glob.glob('share/icons/*.png')),
         ('share/CodeReview/icons/32x32', glob.glob('share/icons/32x32/*.png')),
         ('share/CodeReview/icons/48x48', glob.glob('share/icons/48x48/*.png')),
@@ -128,10 +130,10 @@ setup_dict = dict(
         "Programming Language :: Python :: 3.4",
         ],
     requires=[
-        'Pygments',
+        'PyQt5',
         'PyYAML',
+        'Pygments',
         'pygit2',
-        # 'PyQt5',
     ],
     )
 
