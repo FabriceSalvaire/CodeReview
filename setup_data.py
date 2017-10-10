@@ -106,7 +106,9 @@ setup_dict = dict(
               'CodeReview.Tools',
           ],
     ext_modules=[Extension('CodeReview.PatienceDiff._patiencediff_c',
-                           ['CodeReview/PatienceDiff/_patiencediff_c.c'])],
+                           ['CodeReview/PatienceDiff/_patiencediff_c.c']),
+                 Extension('CodeReview.TextDistance.levenshtein_distance_c',
+                           ['CodeReview/TextDistance/levenshtein_distance.c'])],
     # package_dir = {'CodeReview': 'CodeReview'},
     data_files=[
         (os.path.join(CodeReview_path, 'Config'), [os.path.join('CodeReview', 'Config', 'logging.yml')]),
