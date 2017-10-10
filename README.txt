@@ -7,11 +7,11 @@
  CodeReview
 ============
 
-The official CodeReview home page is located at |CodeReviewUrl|
+CodeReview Home Page is located at |CodeReviewUrl|
 
-The latest documentation built from the git repository is available at readthedocs.org |CodeReview@readthedocs-badge|
+.. The latest documentation built from the git repository is available at readthedocs.org |CodeReview@readthedocs-badge|
 
-Written by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_.
+Authored by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_.
 
 |Build Status|
 

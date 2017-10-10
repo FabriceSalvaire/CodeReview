@@ -380,9 +380,9 @@ ul.auto-toc {
 <!-- End -->
 <div class="section" id="codereview">
 <h1>CodeReview</h1>
-<p>The official CodeReview home page is located at <a class="reference external" href="http://fabricesalvaire.github.io/CodeReview">http://fabricesalvaire.github.io/CodeReview</a></p>
-<p>The latest documentation built from the git repository is available at readthedocs.org <a class="reference external" href="http://CodeReview.readthedocs.org/en/latest"><img alt="CodeReview&#64;readthedocs-badge" src="https://readthedocs.org/projects/CodeReview/badge/?version=latest" /></a></p>
-<p>Written by <a class="reference external" href="http://fabrice-salvaire.pagesperso-orange.fr">Fabrice Salvaire</a>.</p>
+<p>CodeReview Home Page is located at <a class="reference external" href="http://fabricesalvaire.github.io/CodeReview">http://fabricesalvaire.github.io/CodeReview</a></p>
+<!-- The latest documentation built from the git repository is available at readthedocs.org |CodeReview@readthedocs-badge| -->
+<p>Authored by <a class="reference external" href="http://fabrice-salvaire.pagesperso-orange.fr">Fabrice Salvaire</a>.</p>
 <p><a class="reference external" href="https://travis-ci.org/FabriceSalvaire/CodeReview"><img alt="CodeReview build status &#64;travis-ci.org" src="https://travis-ci.org/FabriceSalvaire/CodeReview.svg?branch=master" /></a></p>
 <img alt="https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-log.png" src="https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-log.png" />
 <img alt="https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-diff.png" src="https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-diff.png" />
@@ -393,9 +393,9 @@ ul.auto-toc {
 <h1>Introduction</h1>
 <p>I started to write some pieces of code of CodeReview at the end of 2011, as a port of the Bzr Qt
 plugin <a class="reference external" href="http://wiki.bazaar.canonical.com/QBzr">QBzr</a> for Git when Bzr started to seriously fall
-down.  I am an addict of code review and I cannot work without it.  QBzr features two nice tools,
-qlog and qdiff for this task.  It was the main reason why I used Bzr until 2015 and didn't switched
-to Git before this date.  But I succeed to release an alternative.</p>
+down.  I am an addict of code review and I cannot work without it.  QBzr features two nice tools for
+this task: qlog and qdiff.  It was the main reason why I used Bzr until 2015 and didn't switched to
+Git before this date.  But I succeed to release an alternative.</p>
 <p>The aim of CodeReview is to provide tools for code review tasks, like to show the difference between
 two versions.  However I am not a fan of GUI softwares that aim to deal with Git with only a mouse
 and one finger.  Thus CodeReview is not intended to compete with a &quot;power&quot; IDE like eclipse, idea,
@@ -465,16 +465,16 @@ in C, but it can be a regression in Python where the indentation is part of the 
 <blockquote>
 <ul class="simple">
 <li><a class="reference external" href="http://python.org">Python</a> v3.4</li>
-<li><a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a> v5.4</li>
 <li>libgit2 see <a class="reference external" href="http://www.pygit2.org/install.html#quick-install">link</a>  for installation instruction</li>
 </ul>
 </blockquote>
 <p>Theses packages are available via <a class="reference external" href="https://python-packaging-user-guide.readthedocs.org/en/latest/projects.html#pip">pip</a>:</p>
 <blockquote>
 <ul class="simple">
-<li><a class="reference external" href="http://www.pygit2.org/install.html">pygit2</a></li>
-<li>Pygments</li>
 <li>PyYAML</li>
+<li>Pygments</li>
+<li><a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a></li>
+<li><a class="reference external" href="http://www.pygit2.org/install.html">pygit2</a></li>
 </ul>
 </blockquote>
 <p>For development, you will need in addition:</p>
@@ -494,7 +494,7 @@ pip install CodeReview
 </div>
 <div class="section" id="installation-from-source">
 <h2>Installation from Source</h2>
-<p>The CodeReview source code is hosted at <a class="reference external" href="https://github.com/FabriceSalvaire/CodeReview">https://github.com/FabriceSalvaire/CodeReview</a></p>
+<p>CodeReview source code is hosted at <a class="reference external" href="https://github.com/FabriceSalvaire/CodeReview">https://github.com/FabriceSalvaire/CodeReview</a></p>
 <p>To clone the Git repository, run this command in a terminal:</p>
 <pre class="code sh literal-block">
 git clone git&#64;github.com:FabriceSalvaire/CodeReview.git
@@ -504,6 +504,10 @@ git clone git&#64;github.com:FabriceSalvaire/CodeReview.git
 python setup.py build
 python setup.py install
 </pre>
+</div>
+<div class="section" id="how-to-use-codereview">
+<h2>How to use CodeReview ?</h2>
+<p>CodeReview provides to executable <em>pyqgit</em> and <em>diff-viewer</em>.</p>
 <!-- End -->
 <!-- End -->
 </div>

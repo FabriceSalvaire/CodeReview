@@ -11,6 +11,7 @@
   CodeReview/Math
   CodeReview/PatienceDiff
   CodeReview/Repository
+  CodeReview/TextDistance
   CodeReview/Tools
   CodeReview/Version
 

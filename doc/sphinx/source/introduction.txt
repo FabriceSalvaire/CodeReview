@@ -8,9 +8,9 @@
 
 I started to write some pieces of code of CodeReview at the end of 2011, as a port of the Bzr Qt
 plugin `QBzr <http://wiki.bazaar.canonical.com/QBzr>`_ for Git when Bzr started to seriously fall
-down.  I am an addict of code review and I cannot work without it.  QBzr features two nice tools,
-qlog and qdiff for this task.  It was the main reason why I used Bzr until 2015 and didn't switched
-to Git before this date.  But I succeed to release an alternative.
+down.  I am an addict of code review and I cannot work without it.  QBzr features two nice tools for
+this task: qlog and qdiff.  It was the main reason why I used Bzr until 2015 and didn't switched to
+Git before this date.  But I succeed to release an alternative.
 
 The aim of CodeReview is to provide tools for code review tasks, like to show the difference between
 two versions.  However I am not a fan of GUI softwares that aim to deal with Git with only a mouse
