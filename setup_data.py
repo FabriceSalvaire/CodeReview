@@ -24,9 +24,7 @@ import glob
 import os
 import sys
 
-from distutils.core import Extension
-from distutils.sysconfig import get_python_lib
-site_packages_path = get_python_lib()
+from setuptools import Extension
 
 ####################################################################################################
 
@@ -76,8 +74,6 @@ long_description = read('README.txt')
 
 ####################################################################################################
 
-CodeReview_path = os.path.join(site_packages_path, 'CodeReview')
-
 setup_dict = dict(
     name='CodeReview',
     version='0.3.1',
@@ -85,7 +81,7 @@ setup_dict = dict(
     author_email='fabrice.salvaire@orange.fr',
     description='CodeReview is a Python 3 / Qt5 GUI to perform code review on files and Git repositories.',
     license="GPLv3",
-    keywords="code, review, diff, viewer, git",
+    keywords="code review diff viewer git",
     url='https://github.com/FabriceSalvaire/CodeReview',
     scripts=['bin/pyqgit', 'bin/diff-viewer'],
     packages=['CodeReview', # Fixme:
@@ -103,6 +99,7 @@ setup_dict = dict(
               'CodeReview.Math',
               'CodeReview.PatienceDiff',
               'CodeReview.Repository',
+              'CodeReview.TextDistance',
               'CodeReview.Tools',
           ],
     ext_modules=[Extension('CodeReview.PatienceDiff._patiencediff_c',
@@ -136,9 +133,3 @@ setup_dict = dict(
         'pygit2',
     ],
     )
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################
