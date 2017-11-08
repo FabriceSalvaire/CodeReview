@@ -76,7 +76,7 @@ long_description = read('README.txt')
 
 setup_dict = dict(
     name='CodeReview',
-    version='0.3.1',
+    version='0.3.2',
     author='Fabrice Salvaire',
     author_email='fabrice.salvaire@orange.fr',
     description='CodeReview is a Python 3 / Qt5 GUI to perform code review on files and Git repositories.',
@@ -126,7 +126,7 @@ setup_dict = dict(
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3.4",
         ],
-    requires=[
+    install_requires=[
         'PyQt5',
         'PyYAML',
         'Pygments',
