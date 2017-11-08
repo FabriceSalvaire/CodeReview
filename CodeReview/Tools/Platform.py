@@ -31,7 +31,7 @@ from CodeReview.Math.Functions import rint
 
 ####################################################################################################
 
-platform_enum = EnumFactory('PlatformEnum', ('linux', 'windows', 'macosx'))
+platform_enum = EnumFactory('PlatformEnum', ('linux', 'windows', 'osx', 'unknown'))
 
 ####################################################################################################
 
@@ -65,7 +65,7 @@ class Platform:
         try:
             application = QtWidgets.QApplication.instance()
             self.desktop = application.desktop()
-            self.number_of_screens = self.desktop.screenCount() 
+            self.number_of_screens = self.desktop.screenCount()
         except:
             self.desktop = None
             self.number_of_screens = 0
@@ -77,12 +77,15 @@ class Platform:
 
     def _get_os(self):
 
-        if os.name in 'nt':
-            return platform_enum.windows
-        elif sys.platform in 'linux2':
+        if sys.platform.startswith('linux'):
             return platform_enum.linux
+        elif sys.platform.startswith('win'):
+            return platform_enum.windows
+        elif sys.platform.startswith('darwin'):
+            return platform_enum.osx
         else:
             raise RuntimeError('unknown platform')
+            # return platform_enum.unknown
 
     ##############################################
 
@@ -96,7 +99,10 @@ class Platform:
                         return s.strip().rstrip()
 
         elif self.os == platform_enum.windows:
-            raise NotImplementedError
+            return 'unimplemented'
+
+        elif self.os == platform_enum.osx:
+            return 'unimplemented'
 
     ##############################################
 
@@ -111,8 +117,11 @@ class Platform:
             return number_of_cores
 
         elif self.os == platform_enum.windows:
-
             return int(os.getenv('NUMBER_OF_PROCESSORS'))
+
+        elif self.os == platform_enum.osx:
+            # raise NotImplementedError
+            return 0
 
     ##############################################
 
@@ -125,8 +134,13 @@ class Platform:
                         s = line.split(':')[1]
                         return int(1000 * float(s))
 
-        if self.os == platform_enum.windows:
-            raise NotImplementedError
+        elif self.os == platform_enum.windows:
+            # raise NotImplementedError
+            return 0
+
+        elif self.os == platform_enum.osx:
+            # raise NotImplementedError
+            return 0
 
     ##############################################
 
@@ -139,8 +153,13 @@ class Platform:
                         s = line.split(':')[1][:-3]
                         return int(s)
 
-        if self.os == platform_enum.windows:
-            raise NotImplementedError
+        elif self.os == platform_enum.windows:
+            # raise NotImplementedError
+            return 0
+
+        elif self.os == platform_enum.osx:
+            # raise NotImplementedError
+            return 0
 
     ##############################################
 
