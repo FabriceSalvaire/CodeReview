@@ -76,7 +76,7 @@ long_description = read('README.txt')
 
 setup_dict = dict(
     name='CodeReview',
-    version='0.3.2',
+    version='0.3.3',
     author='Fabrice Salvaire',
     author_email='fabrice.salvaire@orange.fr',
     description='CodeReview is a Python 3 / Qt5 GUI to perform code review on files and Git repositories.',
