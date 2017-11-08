@@ -30,6 +30,14 @@ Authored by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_
 
 -----
 
+=============
+ How to help
+=============
+
+* test it on Windows and OSX
+* fix bugs: look at issues
+* sometime pyqgit is slow: profile code to find issues
+
 .. include:: introduction.txt
 
 .. include:: installation.rst
