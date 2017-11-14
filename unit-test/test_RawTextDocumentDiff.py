@@ -7,6 +7,7 @@ import unittest
 
 from CodeReview.Diff.RawTextDocument import RawTextDocument
 from CodeReview.Diff.RawTextDocumentDiff import TwoWayFileDiffFactory
+import six
 
 ####################################################################################################
 
@@ -39,13 +40,13 @@ class TestRawTextDocumentDiff(unittest.TestCase):
         file_diff.pretty_print()
         file_diff.print_unidiff()
 
-        print('='*10)
+        six.print_(('='*10))
         replace_group = file_diff[1]
         print(replace_group)
-        print(replace_group[1].chunk1)
-        print(list(replace_group[1].chunk1.line_iterator()))
-        print(list(replace_group[1].chunk2.line_iterator()))
-        print(list(replace_group[1].chunk1.line_slice_iterator()))
+        six.print_((replace_group[1].chunk1))
+        six.print_((list(replace_group[1].chunk1.line_iterator())))
+        six.print_((list(replace_group[1].chunk2.line_iterator())))
+        six.print_((list(replace_group[1].chunk1.line_slice_iterator())))
 
     ##############################################
 

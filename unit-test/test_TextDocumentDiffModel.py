@@ -18,6 +18,7 @@ from CodeReview.Diff.RawTextDocument import RawTextDocument
 from CodeReview.Diff.RawTextDocumentDiff import TwoWayFileDiffFactory
 from CodeReview.Diff.SyntaxHighlighter import HighlightedText
 from CodeReview.Diff.TextDocumentDiffModel import TextDocumentDiffModelFactory, highlight_document
+import six
 
 ####################################################################################################
 
@@ -62,16 +63,16 @@ class TestTextDocumentModel(unittest.TestCase):
     def _pretty_print(self, document_model):
 
         for text_block in document_model:
-            print('='*100)
+            six.print_(('='*100))
             print(text_block)
             for text_fragment in text_block:
                 margin = ' '*2
-                print(margin + '-'*48)
-                print(margin + ('\n' + margin).join(repr(text_fragment).splitlines()))
+                six.print_((margin + '-'*48))
+                six.print_((margin + ('\n' + margin).join(repr(text_fragment).splitlines())))
                 if bool(text_fragment):
                     line = '#'*100
                     print(line)
-                    print(str(text_fragment).rstrip())
+                    six.print_((str(text_fragment).rstrip()))
                     print(line)
 
 ####################################################################################################

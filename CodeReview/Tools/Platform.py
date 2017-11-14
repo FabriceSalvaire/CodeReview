@@ -19,7 +19,7 @@
 ####################################################################################################
 
 import os
-import platform
+from . import platform
 import sys
 
 from PyQt5 import QtCore, QtWidgets
