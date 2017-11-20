@@ -1,0 +1,17 @@
+#! /usr/bin/bash
+
+find CodeReview -name "flycheck*.py" -exec rm {} \;
+find CodeReview -name "parsetab.py" -exec rm {} \;
+
+api=doc/sphinx/source/api
+rm -rf ${api}
+
+echo
+echo Generate RST API files
+generate-rst-api CodeReview
+
+echo
+echo Run Sphinx
+pushd doc/sphinx/
+./make-html #--clean
+popd
