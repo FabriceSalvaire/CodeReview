@@ -22,10 +22,11 @@ import unittest
 
 ####################################################################################################
 
-from Babel.Tools.AttributeDictionaryInterface import (ExtendedDictionaryInterface,
-                                                      ReadOnlyAttributeDictionaryInterface,
-                                                      AttributeDictionaryInterface,
-                                                      AttributeDictionaryInterfaceDescriptor)
+from CodeReview.Tools.AttributeDictionaryInterface import (
+    ExtendedDictionaryInterface,
+    ReadOnlyAttributeDictionaryInterface,
+    AttributeDictionaryInterface,
+    AttributeDictionaryInterfaceDescriptor)
 
 ####################################################################################################
 
