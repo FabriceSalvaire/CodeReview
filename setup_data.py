@@ -1,7 +1,7 @@
 ####################################################################################################
 #
-# CodeReview - A Python/Qt Git GUI
-# Copyright (C) 2015 Fabrice Salvaire
+# CodeReview - A Code Review GUI
+# Copyright (C) 2017 Fabrice Salvaire
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,11 +20,7 @@
 
 ####################################################################################################
 
-import glob
 import os
-import sys
-
-from setuptools import Extension
 
 ####################################################################################################
 
@@ -48,7 +44,7 @@ def merge_include(src_lines, doc_path, included_rst_files=None):
 
 # Utility function to read the README file.
 # Used for the long_description.
-def read(file_name):
+def read_readme(file_name):
 
     source_path = os.path.dirname(os.path.realpath(__file__))
     if os.path.basename(source_path) == 'tools':
@@ -59,77 +55,29 @@ def read(file_name):
     doc_path = os.path.join(source_path, 'doc', 'sphinx', 'source')
 
     # Read and merge includes
-    if os.path.exists(absolut_file_name):
-        with open(absolut_file_name) as f:
-            lines = f.readlines()
-        text = merge_include(lines, doc_path)
-        return text
-    else:
-        sys.stderr.write("WARNING: README {} not found\n".format(absolut_file_name))
-        return ''
+    with open(absolut_file_name) as f:
+        lines = f.readlines()
+    text = merge_include(lines, doc_path)
+
+    return text
 
 ####################################################################################################
 
-long_description = read('README.txt')
+if not __file__.endswith('conf.py'):
+    long_description = read_readme('README.txt')
+else:
+    long_description = ''
 
 ####################################################################################################
 
 setup_dict = dict(
     name='CodeReview',
-    version='0.3.3',
+    version='0.3.4',
     author='Fabrice Salvaire',
     author_email='fabrice.salvaire@orange.fr',
     description='CodeReview is a Python 3 / Qt5 GUI to perform code review on files and Git repositories.',
-    license="GPLv3",
+    license='GPLv3',
     keywords="code review diff viewer git",
     url='https://github.com/FabriceSalvaire/CodeReview',
-    scripts=['bin/pyqgit', 'bin/diff-viewer'],
-    packages=['CodeReview', # Fixme:
-              'CodeReview.Application',
-              'CodeReview.Config',
-              'CodeReview.Diff',
-              'CodeReview.GUI',
-              'CodeReview.GUI.Base',
-              'CodeReview.GUI.DiffViewer',
-              'CodeReview.GUI.Forms',
-              'CodeReview.GUI.LogBrowser',
-              'CodeReview.GUI.Widgets',
-              'CodeReview.GUI.ui',
-              'CodeReview.Logging',
-              'CodeReview.Math',
-              'CodeReview.PatienceDiff',
-              'CodeReview.Repository',
-              'CodeReview.TextDistance',
-              'CodeReview.Tools',
-          ],
-    ext_modules=[Extension('CodeReview.PatienceDiff._patiencediff_c',
-                           ['CodeReview/PatienceDiff/_patiencediff_c.c']),
-                 Extension('CodeReview.TextDistance.levenshtein_distance_c',
-                           ['CodeReview/TextDistance/levenshtein_distance.c'])],
-    # package_dir = {'CodeReview': 'CodeReview'},
-    package_data={
-        'CodeReview.Config': ['logging.yml'],
-    },
-    data_files=[
-        ('share/CodeReview/icons', glob.glob('share/icons/*.png')),
-        ('share/CodeReview/icons/32x32', glob.glob('share/icons/32x32/*.png')),
-        ('share/CodeReview/icons/48x48', glob.glob('share/icons/48x48/*.png')),
-        ('share/CodeReview/icons/svg', glob.glob('share/icons/svg/*.svg')),
-    ],
     long_description=long_description,
-    # cf. http://pypi.python.org/pypi?%3Aaction=list_classifiers
-    classifiers=[
-        "Topic :: Software Development :: Version Control",
-        "Intended Audience :: Developers",
-        "Development Status :: 5 - Production/Stable",
-        "License :: OSI Approved :: GNU General Public License (GPL)",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3.4",
-        ],
-    install_requires=[
-        'PyQt5',
-        'PyYAML',
-        'Pygments',
-        'pygit2',
-    ],
-    )
+)
