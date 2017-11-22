@@ -28,4 +28,3 @@ test/test-levenshtein-distance.py
 test/test-repo/
 test/token.txt
 tools/rsync-vps.sh
-tools/upload-to-pypi
