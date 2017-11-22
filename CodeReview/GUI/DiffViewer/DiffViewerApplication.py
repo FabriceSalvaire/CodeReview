@@ -20,6 +20,8 @@
 
 import logging
 
+from PyQt5 import QtCore
+
 ####################################################################################################
 
 from CodeReview.GUI.Base.GuiApplicationBase import GuiApplicationBase
