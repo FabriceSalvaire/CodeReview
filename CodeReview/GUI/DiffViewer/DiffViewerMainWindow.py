@@ -169,6 +169,8 @@ class DiffViewerMainWindow(MainWindowBase):
                                                    checkable=True,
                                                    triggered=self._stage,
                                  )
+        else:
+            self._stage_action = None
 
     ##############################################
 
@@ -196,7 +198,10 @@ class DiffViewerMainWindow(MainWindowBase):
         self._font_size_combobox.currentIndexChanged.connect(self._on_font_size_change)
         self._on_font_size_change(refresh=False)
 
-        self._status_label = QtWidgets.QLabel('Status: ???')
+        if self._repository:
+            self._status_label = QtWidgets.QLabel('Status: ???')
+        else:
+            self._status_label = None
 
         items = [
             self._algorithm_combobox,
@@ -225,10 +230,11 @@ class DiffViewerMainWindow(MainWindowBase):
 
         self._tool_bar = self.addToolBar('Diff Viewer')
         for item in items:
-            if isinstance(item, QtWidgets.QAction):
-                self._tool_bar.addAction(item)
-            else:
-                self._tool_bar.addWidget(item)
+            if item is not None: # for self._stage_action
+                if isinstance(item, QtWidgets.QAction):
+                    self._tool_bar.addAction(item)
+                else:
+                    self._tool_bar.addWidget(item)
 
     ##############################################
 
@@ -329,15 +335,16 @@ class DiffViewerMainWindow(MainWindowBase):
 
         self._set_document_models()
 
-        self._staged = self._repository.is_staged(file2)
-        self._status_label.clear()
-        if self._repository.is_modified(file2):
-            self._status_label.setText('<font color="red">Modified !</font>')
-        if self._staged:
-            self._logger.info("File {} is staged".format(file2))
-        self._stage_action.blockSignals(True)
-        self._stage_action.setChecked(self._staged)
-        self._stage_action.blockSignals(False)
+        if self._repository:
+            self._staged = self._repository.is_staged(file2)
+            self._status_label.clear()
+            if self._repository.is_modified(file2):
+                self._status_label.setText('<font color="red">Modified !</font>')
+            if self._staged:
+                self._logger.info("File {} is staged".format(file2))
+            self._stage_action.blockSignals(True)
+            self._stage_action.setChecked(self._staged)
+            self._stage_action.blockSignals(False)
 
         # Useless if application is LogBrowserApplication
         # file_system_watcher = self._application.file_system_watcher

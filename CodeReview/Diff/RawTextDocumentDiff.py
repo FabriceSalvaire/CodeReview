@@ -57,6 +57,10 @@ chunks.  And *replaced* chunks are made of any combination of *removed*, *insert
 
 from CodeReview.PatienceDiff import PatienceSequenceMatcher
 
+# Fixme: here ???
+if PatienceSequenceMatcher is None:
+    raise RuntimeError('Missing PatienceSequenceMatcher library')
+
 ####################################################################################################
 
 from CodeReview.Tools.EnumFactory import EnumFactory
