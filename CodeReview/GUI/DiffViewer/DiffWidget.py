@@ -416,8 +416,10 @@ class DiffView(QtWidgets.QSplitter):
                     else:
                         cursor.insert_text(str(text_fragment), text_format, last_text_fragment)
                 if aligned_mode:
-                    padding = '\n'*(text_block.alignment_padding() -1) # same as last_text_fragment=True
-                    cursor.insert_text(padding)
+                    delta = text_block.alignment_padding()
+                    if delta:
+                        padding = '\n'*delta # same as last_text_fragment=True
+                        cursor.insert_text(padding)
 
     ##############################################
 

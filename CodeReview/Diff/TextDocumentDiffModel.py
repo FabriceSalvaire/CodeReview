@@ -79,9 +79,12 @@ class TextBlockDiff(TextBlock):
         number_of_lines1 = len(self.line_slice)
         number_of_lines2 = len(self.other_side.line_slice)
         if number_of_lines1 < number_of_lines2:
-            return number_of_lines2 - number_of_lines1
+            delta = number_of_lines2 - number_of_lines1
         else:
-            return 0
+            delta = 0
+        if delta and not number_of_lines1:
+            delta -= 1 # padding is dine using \n
+        return delta
 
 ####################################################################################################
 
