@@ -74,8 +74,6 @@
 .. |PyQt5| replace:: PyQt5
 .. _PyQt5: http://www.riverbankcomputing.com/software/pyqt/download5
 
-.. End
-
 ============
  CodeReview
 ============
@@ -91,48 +89,28 @@
 
 CodeReview Home Page is located at |CodeReviewUrl|
 
-.. The latest documentation built from the git repository is available at readthedocs.org |CodeReview@readthedocs-badge|
-
 Authored by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_
 
-..
-  |Build Status|
 
 .. image:: https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-log.png
 .. image:: https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-diff.png
 
------
-
-=============
- How to help
-=============
-
-* test it on Windows and OSX
-* fix bugs: look at issues
-* sometime pyqgit is slow: profile code to find issues
-
 .. -*- Mode: rst -*-
-
 
 ==============
  Introduction
 ==============
 
-I started to write some pieces of code of CodeReview at the end of 2011, as a port of the Bzr Qt
-plugin `QBzr <http://wiki.bazaar.canonical.com/QBzr>`_ for Git when Bzr started to seriously fall
-down.  I am an addict of code review and I cannot work without it.  QBzr features two nice tools for
-this task: qlog and qdiff.  It was the main reason why I used Bzr until 2015 and didn't switched to
-Git before this date.  But I succeed to release an alternative.
+The aim of CodeReview is to provide tools for code review tasks on local Git repositories.  As
+opposite to software like `Gerrit <https://www.gerritcodereview.com>`_ for example, CodeReview is
+not designed to perform code review at a team level, but to check the stage before a commit and show
+the difference between two versions.  In particular, CodeReview fills the gap with IDEs that don't
+provide efficiently these features.
 
-The aim of CodeReview is to provide tools for code review tasks, like to show the difference between
-two versions.  However I am not a fan of GUI softwares that aim to deal with Git with only a mouse
-and one finger.  Thus CodeReview is not intended to compete with a "power" IDE like eclipse, idea,
-pycharm, kate ...  But just to provide features not available in Emacs and `Magit Mode
-<https://magit.vc/>`_ (my editor) or github like a diff side-by-side on local changes.
+How to use CodeReview ?
+-----------------------
 
-CodeReview is written in Python 3 and the GUI is based on the Qt5 framework.  The libgit2 and
-|pygit2|_ provides the Python API to deal with Git repositories.  I tried to achieve a clever design
-and to write a clean code.
+CodeReview provides two applications *pyqgit* and *diff-viewer*.
 
 .. -*- Mode: rst -*-
 
@@ -156,75 +134,29 @@ Diff viewer features:
  * complete mode
  * highlight mode
 
-.. end
-.. -*- Mode: rst -*-
-
-===============================
- Ideas for Additional Features
-===============================
-
-Actually CodeReview has a limited number of features.  The followings list gives some ideas to extend its
-features:
-
- * Add Mercurial support. (Git and Mercurial are actually the most cool VCS)
-
- * Add a graphical representation of the branches.  I don't understand the crappy code of qlog and I
-   don't know any algorithm on this topic (graphviz, qgit ?).  To summarize I don't what and how to do.
-
- * Implement the detection of code translocations.  Sometimes we move code within a file or a
-   project.  Such changes are related as deletion and addition in the code, which don't help to
-   review code.  We can do something clever by computing a distance between all the added and
-   deleted chuncks.  The distance could be computed using a Levenshtein, Damerau–Levenshtein,
-   Needleman–Wunsch or Smith–Waterman algorithm (DNA alignment algorithms).
-
- * Implement code analyser/validator as language plugins.  The idea is to annotate change as
-   cosmetic or dangerous modifications.  For example a deleted or added space is a cosmetic change
-   in C, but it can be a regression in Python where the indentation is part of the grammar.
-
- * Implement blame wich is another important feature.
-
- * Implement comments and maybe as a client-server architecture.
-
- * look https://docs.python.org/3.4/library/difflib.html
-
-.. end
-
-.. End
-
-.. -*- Mode: rst -*-
 
 .. _installation-page:
-
 
 ==============
  Installation
 ==============
 
-CodeReview requires some dependencies wich are easier to install on a Linux distribution.
+On Fedora
+---------
 
-Dependencies
-------------
+RPM packages are available for the Fedora distribution on https://copr.fedorainfracloud.org/coprs/fabricesalvaire/code-review
 
-CodeReview requires the following dependencies:
+Run these commands to enable the copr repository and install the last release:
 
- * |Python|_ v3.4
- * libgit2 see `link <http://www.pygit2.org/install.html#quick-install>`_  for installation instruction
+.. code-block:: sh
 
-Theses packages are available via |pip|_:
+  dnf copr enable fabricesalvaire/code-review
+  dnf install CodeReview
 
- * PyYAML
- * Pygments
- * |PyQt5|_
- * |pygit2|_
+From PyPi Repository
+--------------------
 
-For development, you will need in addition:
-
- * |Sphinx|_
-
-Installation from PyPi Repository
----------------------------------
-
-CodeReview is made available on the |Pypi|_ repository at |CodeReview@pypi|
+CodeReview is available on |Pypi|_ repository: |CodeReview@pypi|
 
 Run this command to install the last release:
 
@@ -232,29 +164,43 @@ Run this command to install the last release:
 
   pip install CodeReview
 
-Installation from Source
-------------------------
+Notice, it requires Python 3 and a C compiler.
+
+From source
+------------
 
 CodeReview source code is hosted at |CodeReview@github|
 
-To clone the Git repository, run this command in a terminal:
+Clone the Git repository using this command:
 
 .. code-block:: sh
 
   git clone git@github.com:FabriceSalvaire/CodeReview.git
 
-Then to build and install CodeReview run these commands:
+Then build and install CodeReview using these commands:
 
 .. code-block:: sh
 
   python setup.py build
   python setup.py install
 
-How to use CodeReview ?
------------------------
+Dependencies
+------------
 
-CodeReview provides to executable *pyqgit* and *diff-viewer*.
+CodeReview requires the following dependencies:
 
-.. End
+* |Python|_ 3 (at least v3.4)
+* |pygit2|_ and libgit2 see `link <http://www.pygit2.org/install.html#quick-install>`_  for installation instruction
+* Pygments
+* |PyQt5|_
+* PyYAML
+* A C compiler to compile a module
 
-.. End
+=============
+ How to help
+=============
+
+* test it on Windows and OSX
+* fix bugs: look at issues
+* sometime pyqgit is slow: profile code to find issues
+

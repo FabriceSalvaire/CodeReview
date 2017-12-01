@@ -1,0 +1,4 @@
+How to use CodeReview ?
+-----------------------
+
+CodeReview provides two applications *pyqgit* and *diff-viewer*.

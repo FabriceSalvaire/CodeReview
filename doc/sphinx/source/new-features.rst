@@ -1,5 +1,3 @@
-.. -*- Mode: rst -*-
-
 ===============================
  Ideas for Additional Features
 ===============================
@@ -27,5 +25,3 @@ features:
  * Implement comments and maybe as a client-server architecture.
 
  * look https://docs.python.org/3.4/library/difflib.html
-
-.. end

@@ -8,7 +8,7 @@ rm -rf ${api}
 
 echo
 echo Generate RST API files
-generate-rst-api CodeReview
+pyterate-rst-api CodeReview
 
 echo
 echo Run Sphinx

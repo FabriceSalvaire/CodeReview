@@ -19,5 +19,3 @@ Diff viewer features:
  * align mode
  * complete mode
  * highlight mode
-
-.. end

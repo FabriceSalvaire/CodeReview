@@ -377,7 +377,6 @@ ul.auto-toc {
 <!-- .. _CodeReview@pypi: https://pypi.python.org/pypi/CodeReview -->
 <!-- End -->
 <!-- -*- Mode: rst -*- -->
-<!-- End -->
 <div class="section" id="codereview">
 <h1>CodeReview</h1>
 <p><a class="reference external" href="https://pypi.python.org/pypi/CodeReview"><object data="https://img.shields.io/pypi/l/CodeReview.svg" type="image/svg+xml">CodeReview license</object></a>
@@ -386,37 +385,23 @@ ul.auto-toc {
 <!-- * Quick Link to `Production Branch <https://github.com/FabriceSalvaire/CodeReview/tree/master>`_
 * Quick Link to `Devel Branch <https://github.com/FabriceSalvaire/CodeReview/tree/devel>`_ -->
 <p>CodeReview Home Page is located at <a class="reference external" href="http://fabricesalvaire.github.io/CodeReview">http://fabricesalvaire.github.io/CodeReview</a></p>
-<!-- The latest documentation built from the git repository is available at readthedocs.org |CodeReview@readthedocs-badge| -->
 <p>Authored by <a class="reference external" href="http://fabrice-salvaire.pagesperso-orange.fr">Fabrice Salvaire</a></p>
-<!-- |Build Status| -->
 <img alt="https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-log.png" src="https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-log.png" />
 <img alt="https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-diff.png" src="https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-diff.png" />
-</div>
-<hr class="docutils" />
-<div class="section" id="how-to-help">
-<h1>How to help</h1>
-<ul class="simple">
-<li>test it on Windows and OSX</li>
-<li>fix bugs: look at issues</li>
-<li>sometime pyqgit is slow: profile code to find issues</li>
-</ul>
 <!-- -*- Mode: rst -*- -->
 </div>
 <div class="section" id="introduction">
 <h1>Introduction</h1>
-<p>I started to write some pieces of code of CodeReview at the end of 2011, as a port of the Bzr Qt
-plugin <a class="reference external" href="http://wiki.bazaar.canonical.com/QBzr">QBzr</a> for Git when Bzr started to seriously fall
-down.  I am an addict of code review and I cannot work without it.  QBzr features two nice tools for
-this task: qlog and qdiff.  It was the main reason why I used Bzr until 2015 and didn't switched to
-Git before this date.  But I succeed to release an alternative.</p>
-<p>The aim of CodeReview is to provide tools for code review tasks, like to show the difference between
-two versions.  However I am not a fan of GUI softwares that aim to deal with Git with only a mouse
-and one finger.  Thus CodeReview is not intended to compete with a &quot;power&quot; IDE like eclipse, idea,
-pycharm, kate ...  But just to provide features not available in Emacs and <a class="reference external" href="https://magit.vc/">Magit Mode</a> (my editor) or github like a diff side-by-side on local changes.</p>
-<p>CodeReview is written in Python 3 and the GUI is based on the Qt5 framework.  The libgit2 and
-<a class="reference external" href="http://www.pygit2.org/install.html">pygit2</a> provides the Python API to deal with Git repositories.  I tried to achieve a clever design
-and to write a clean code.</p>
+<p>The aim of CodeReview is to provide tools for code review tasks on local Git repositories.  As
+opposite to software like <a class="reference external" href="https://www.gerritcodereview.com">Gerrit</a> for example, CodeReview is
+not designed to perform code review at a team level, but to check the stage before a commit and show
+the difference between two versions.  In particular, CodeReview fills the gap with IDEs that don't
+provide efficiently these features.</p>
+<div class="section" id="how-to-use-codereview">
+<h2>How to use CodeReview ?</h2>
+<p>CodeReview provides two applications <em>pyqgit</em> and <em>diff-viewer</em>.</p>
 <!-- -*- Mode: rst -*- -->
+</div>
 </div>
 <div class="section" id="features">
 <h1>Features</h1>
@@ -440,90 +425,60 @@ and to write a clean code.</p>
 <li>highlight mode</li>
 </ul>
 </blockquote>
-<!-- end -->
-<!-- -*- Mode: rst -*- -->
-</div>
-<div class="section" id="ideas-for-additional-features">
-<h1>Ideas for Additional Features</h1>
-<p>Actually CodeReview has a limited number of features.  The followings list gives some ideas to extend its
-features:</p>
-<blockquote>
-<ul class="simple">
-<li>Add Mercurial support. (Git and Mercurial are actually the most cool VCS)</li>
-<li>Add a graphical representation of the branches.  I don't understand the crappy code of qlog and I
-don't know any algorithm on this topic (graphviz, qgit ?).  To summarize I don't what and how to do.</li>
-<li>Implement the detection of code translocations.  Sometimes we move code within a file or a
-project.  Such changes are related as deletion and addition in the code, which don't help to
-review code.  We can do something clever by computing a distance between all the added and
-deleted chuncks.  The distance could be computed using a Levenshtein, Damerau–Levenshtein,
-Needleman–Wunsch or Smith–Waterman algorithm (DNA alignment algorithms).</li>
-<li>Implement code analyser/validator as language plugins.  The idea is to annotate change as
-cosmetic or dangerous modifications.  For example a deleted or added space is a cosmetic change
-in C, but it can be a regression in Python where the indentation is part of the grammar.</li>
-<li>Implement blame wich is another important feature.</li>
-<li>Implement comments and maybe as a client-server architecture.</li>
-<li>look <a class="reference external" href="https://docs.python.org/3.4/library/difflib.html">https://docs.python.org/3.4/library/difflib.html</a></li>
-</ul>
-</blockquote>
-<!-- end -->
-<!-- End -->
-<!-- -*- Mode: rst -*- -->
 </div>
 <div class="section" id="installation">
 <span id="installation-page"></span><h1>Installation</h1>
-<p>CodeReview requires some dependencies wich are easier to install on a Linux distribution.</p>
-<div class="section" id="dependencies">
-<h2>Dependencies</h2>
-<p>CodeReview requires the following dependencies:</p>
-<blockquote>
-<ul class="simple">
-<li><a class="reference external" href="http://python.org">Python</a> v3.4</li>
-<li>libgit2 see <a class="reference external" href="http://www.pygit2.org/install.html#quick-install">link</a>  for installation instruction</li>
-</ul>
-</blockquote>
-<p>Theses packages are available via <a class="reference external" href="https://python-packaging-user-guide.readthedocs.org/en/latest/projects.html#pip">pip</a>:</p>
-<blockquote>
-<ul class="simple">
-<li>PyYAML</li>
-<li>Pygments</li>
-<li><a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a></li>
-<li><a class="reference external" href="http://www.pygit2.org/install.html">pygit2</a></li>
-</ul>
-</blockquote>
-<p>For development, you will need in addition:</p>
-<blockquote>
-<ul class="simple">
-<li><a class="reference external" href="http://sphinx-doc.org">Sphinx</a></li>
-</ul>
-</blockquote>
+<div class="section" id="on-fedora">
+<h2>On Fedora</h2>
+<p>RPM packages are available for the Fedora distribution on <a class="reference external" href="https://copr.fedorainfracloud.org/coprs/fabricesalvaire/code-review">https://copr.fedorainfracloud.org/coprs/fabricesalvaire/code-review</a></p>
+<p>Run these commands to enable the copr repository and install the last release:</p>
+<pre class="code sh literal-block">
+dnf copr <span class="name builtin">enable</span> fabricesalvaire/code-review
+dnf install CodeReview
+</pre>
 </div>
-<div class="section" id="installation-from-pypi-repository">
-<h2>Installation from PyPi Repository</h2>
-<p>CodeReview is made available on the <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a> repository at <a class="reference external" href="https://pypi.python.org/pypi/CodeReview">https://pypi.python.org/pypi/CodeReview</a></p>
+<div class="section" id="from-pypi-repository">
+<h2>From PyPi Repository</h2>
+<p>CodeReview is available on <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a> repository: <a class="reference external" href="https://pypi.python.org/pypi/CodeReview">https://pypi.python.org/pypi/CodeReview</a></p>
 <p>Run this command to install the last release:</p>
 <pre class="code sh literal-block">
 pip install CodeReview
 </pre>
+<p>Notice, it requires Python 3 and a C compiler.</p>
 </div>
-<div class="section" id="installation-from-source">
-<h2>Installation from Source</h2>
+<div class="section" id="from-source">
+<h2>From source</h2>
 <p>CodeReview source code is hosted at <a class="reference external" href="https://github.com/FabriceSalvaire/CodeReview">https://github.com/FabriceSalvaire/CodeReview</a></p>
-<p>To clone the Git repository, run this command in a terminal:</p>
+<p>Clone the Git repository using this command:</p>
 <pre class="code sh literal-block">
 git clone git&#64;github.com:FabriceSalvaire/CodeReview.git
 </pre>
-<p>Then to build and install CodeReview run these commands:</p>
+<p>Then build and install CodeReview using these commands:</p>
 <pre class="code sh literal-block">
 python setup.py build
 python setup.py install
 </pre>
 </div>
-<div class="section" id="how-to-use-codereview">
-<h2>How to use CodeReview ?</h2>
-<p>CodeReview provides to executable <em>pyqgit</em> and <em>diff-viewer</em>.</p>
-<!-- End -->
-<!-- End -->
+<div class="section" id="dependencies">
+<h2>Dependencies</h2>
+<p>CodeReview requires the following dependencies:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://python.org">Python</a> 3 (at least v3.4)</li>
+<li><a class="reference external" href="http://www.pygit2.org/install.html">pygit2</a> and libgit2 see <a class="reference external" href="http://www.pygit2.org/install.html#quick-install">link</a>  for installation instruction</li>
+<li>Pygments</li>
+<li><a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a></li>
+<li>PyYAML</li>
+<li>A C compiler to compile a module</li>
+</ul>
 </div>
+</div>
+<div class="section" id="how-to-help">
+<h1>How to help</h1>
+<ul class="simple">
+<li>test it on Windows and OSX</li>
+<li>fix bugs: look at issues</li>
+<li>sometime pyqgit is slow: profile code to find issues</li>
+</ul>
 </div>
 </div>
 </body>

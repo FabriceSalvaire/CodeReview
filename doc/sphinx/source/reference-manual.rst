@@ -1,6 +1,6 @@
-.. _reference-manual-page:
-
 .. include:: abbreviation.txt
+
+.. _reference-manual-page:
 
 ===================
  API Documentation
@@ -12,7 +12,8 @@ This is the auto-generated API documentation for the CodeReview library.
   using the |Sphinx| tool.  This way to produce the documentation is know to be perfectible
   actually, but not too bad.
 
-Contents:
+Contents
+--------
 
 .. toctree::
   :maxdepth: 2
@@ -25,6 +26,3 @@ Indexes
   * :ref:`genindex`
   * :ref:`modindex`
   * :ref:`search`
-
-.. End
-

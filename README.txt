@@ -18,17 +18,18 @@
 
 CodeReview Home Page is located at |CodeReviewUrl|
 
-.. The latest documentation built from the git repository is available at readthedocs.org |CodeReview@readthedocs-badge|
-
-Authored by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_
-
-..
-  |Build Status|
-
 .. image:: https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-log.png
 .. image:: https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-diff.png
 
------
+Authored by `Fabrice Salvaire <http://fabrice-salvaire.fr>`_
+
+.. include:: introduction.txt
+
+.. include:: usage.txt
+
+.. include:: features.txt
+
+.. include:: installation.rst
 
 =============
  How to help
@@ -38,8 +39,3 @@ Authored by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_
 * fix bugs: look at issues
 * sometime pyqgit is slow: profile code to find issues
 
-.. include:: introduction.txt
-
-.. include:: installation.rst
-
-.. End
