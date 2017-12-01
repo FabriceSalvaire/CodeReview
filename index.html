@@ -91,7 +91,9 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">1. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference-manual.html">2. API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="new-features.html">2. Ideas for Additional Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colophon.html">3. Colophon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference-manual.html">4. API Documentation</a></li>
 </ul>
 
             
@@ -155,29 +157,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <br/><p>Welcome to the CodeReview documentation!</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>The official Home Page of CodeReview is located at <a class="reference external" href="http://fabricesalvaire.github.io/CodeReview">http://fabricesalvaire.github.io/CodeReview</a></p>
-<p>If you are at <a class="reference external" href="http://readthedocs.org">http://readthedocs.org</a> then you are reading the so called <em>latest documentation</em>.</p>
-<p>The <em>latest documentation</em> <a class="reference external" href="http://CodeReview.readthedocs.org/en/latest"><img alt="CodeReview&#64;readthedocs-badge" src="https://readthedocs.org/projects/CodeReview/badge/?version=latest" /></a> is automatically built from the
-git repository after each commit.</p>
-<p class="last">As opposite the <a class="reference external" href="http://fabricesalvaire.github.io/CodeReview">CodeReview Home Page</a> is built manually and is thus less prone to errors.</p>
+  <p>Welcome to the CodeReview documentation !</p>
+<div class="figure" id="id1">
+<img alt="images/code-review-log.png" src="images/code-review-log.png" />
+<p class="caption"><span class="caption-text">Log Browser</span></p>
+</div>
+<div class="figure" id="id2">
+<img alt="images/code-review-diff.png" src="images/code-review-diff.png" />
+<p class="caption"><span class="caption-text">Diff Viewer</span></p>
 </div>
 <div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>I started to write some pieces of code of CodeReview at the end of 2011, as a port of the Bzr Qt
-plugin <a class="reference external" href="http://wiki.bazaar.canonical.com/QBzr">QBzr</a> for Git when Bzr started to seriously fall
-down.  I am an addict of code review and I cannot work without it.  QBzr features two nice tools for
-this task: qlog and qdiff.  It was the main reason why I used Bzr until 2015 and didn’t switched to
-Git before this date.  But I succeed to release an alternative.</p>
-<p>The aim of CodeReview is to provide tools for code review tasks, like to show the difference between
-two versions.  However I am not a fan of GUI softwares that aim to deal with Git with only a mouse
-and one finger.  Thus CodeReview is not intended to compete with a “power” IDE like eclipse, idea,
-pycharm, kate …  But just to provide features not available in Emacs and <a class="reference external" href="https://magit.vc/">Magit Mode</a> (my editor) or github like a diff side-by-side on local changes.</p>
-<p>CodeReview is written in Python 3 and the GUI is based on the Qt5 framework.  The libgit2 and
-<a class="reference external" href="http://www.pygit2.org/install.html">pygit2</a> provides the Python API to deal with Git repositories.  I tried to achieve a clever design
-and to write a clean code.</p>
+<p>The aim of CodeReview is to provide tools for code review tasks on local Git repositories.  As
+opposite to software like <a class="reference external" href="https://www.gerritcodereview.com">Gerrit</a> for example, CodeReview is
+not designed to perform code review at a team level, but to check the stage before a commit and show
+the difference between two versions.  In particular, CodeReview fills the gap with IDEs that don’t
+provide efficiently these features.</p>
+<div class="section" id="how-to-use-codereview">
+<h2>How to use CodeReview ?<a class="headerlink" href="#how-to-use-codereview" title="Permalink to this headline">¶</a></h2>
+<p>CodeReview provides two applications <em>pyqgit</em> and <em>diff-viewer</em>.</p>
+</div>
 </div>
 <div class="section" id="features">
 <h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
@@ -202,68 +201,25 @@ and to write a clean code.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="ideas-for-additional-features">
-<h1>Ideas for Additional Features<a class="headerlink" href="#ideas-for-additional-features" title="Permalink to this headline">¶</a></h1>
-<p>Actually CodeReview has a limited number of features.  The followings list gives some ideas to extend its
-features:</p>
-<blockquote>
-<div><ul class="simple">
-<li>Add Mercurial support. (Git and Mercurial are actually the most cool VCS)</li>
-<li>Add a graphical representation of the branches.  I don’t understand the crappy code of qlog and I
-don’t know any algorithm on this topic (graphviz, qgit ?).  To summarize I don’t what and how to do.</li>
-<li>Implement the detection of code translocations.  Sometimes we move code within a file or a
-project.  Such changes are related as deletion and addition in the code, which don’t help to
-review code.  We can do something clever by computing a distance between all the added and
-deleted chuncks.  The distance could be computed using a Levenshtein, Damerau–Levenshtein,
-Needleman–Wunsch or Smith–Waterman algorithm (DNA alignment algorithms).</li>
-<li>Implement code analyser/validator as language plugins.  The idea is to annotate change as
-cosmetic or dangerous modifications.  For example a deleted or added space is a cosmetic change
-in C, but it can be a regression in Python where the indentation is part of the grammar.</li>
-<li>Implement blame wich is another important feature.</li>
-<li>Implement comments and maybe as a client-server architecture.</li>
-<li>look <a class="reference external" href="https://docs.python.org/3.4/library/difflib.html">https://docs.python.org/3.4/library/difflib.html</a></li>
-</ul>
-</div></blockquote>
-</div>
-<div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>The procedure to install CodeReview is described in the <a class="reference internal" href="installation.html#installation-page"><span class="std std-ref">Installation Manual</span></a>.</p>
-</div>
-<div class="section" id="documentation">
-<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
-<p>The best way to know what we can do with CodeReview and learn it, is to start with the examples.</p>
-<blockquote>
-<div><ul class="simple">
-<li><a class="reference internal" href="reference-manual.html#reference-manual-page"><span class="std std-ref">CodeReview Reference Manual</span></a></li>
-</ul>
-</div></blockquote>
-</div>
 <div class="section" id="overview">
 <h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">1. Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#dependencies">1.1. Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-from-source">1.3. Installation from Source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#how-to-use-codereview">1.4. How to use CodeReview ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#on-fedora">1.1. On Fedora</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#from-pypi-repository">1.2. From PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#from-source">1.3. From source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#dependencies">1.4. Dependencies</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="reference-manual.html">2. API Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/CodeReview.html">2.1. <code class="docutils literal"><span class="pre">CodeReview</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/Application.html">2.1.1. <code class="docutils literal"><span class="pre">Application</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/Config.html">2.1.2. <code class="docutils literal"><span class="pre">Config</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/Diff.html">2.1.3. <code class="docutils literal"><span class="pre">Diff</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/GUI.html">2.1.4. <code class="docutils literal"><span class="pre">GUI</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/Logging.html">2.1.5. <code class="docutils literal"><span class="pre">Logging</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/Math.html">2.1.6. <code class="docutils literal"><span class="pre">Math</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/PatienceDiff.html">2.1.7. <code class="docutils literal"><span class="pre">PatienceDiff</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/Repository.html">2.1.8. <code class="docutils literal"><span class="pre">Repository</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/Tools.html">2.1.9. <code class="docutils literal"><span class="pre">Tools</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/CodeReview/Version.html">2.1.10. <code class="docutils literal"><span class="pre">Version</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="new-features.html">2. Ideas for Additional Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colophon.html">3. Colophon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference-manual.html">4. API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference-manual.html#contents">4.1. Contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/CodeReview.html">4.1.1. CodeReview</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="reference-manual.html#indexes">2.2. Indexes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-manual.html#indexes">4.2. Indexes</a></li>
 </ul>
 </li>
 </ul>

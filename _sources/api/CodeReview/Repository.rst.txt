@@ -1,12 +1,11 @@
-*******************
- :mod:`Repository`
-*******************
+
+============
+ Repository
+============
 
 .. toctree::
-  Repository/Git
+    Repository/Git
 
 .. automodule:: CodeReview.Repository
    :members:
    :show-inheritance:
-
-.. End

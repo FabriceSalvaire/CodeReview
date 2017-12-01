@@ -1,10 +1,8 @@
-**************************
- :mod:`SyntaxHighlighter`
-**************************
+
+===================
+ SyntaxHighlighter
+===================
 
 .. automodule:: CodeReview.Diff.SyntaxHighlighter
    :members:
    :show-inheritance:
-
-
-.. End

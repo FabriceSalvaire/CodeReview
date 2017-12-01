@@ -1,12 +1,11 @@
-********************
- :mod:`Application`
-********************
+
+=============
+ Application
+=============
 
 .. toctree::
-  Application/ApplicationBase
+    Application/ApplicationBase
 
 .. automodule:: CodeReview.Application
    :members:
    :show-inheritance:
-
-.. End

@@ -1,14 +1,13 @@
-***************
- :mod:`Config`
-***************
+
+========
+ Config
+========
 
 .. toctree::
-  Config/Config
-  Config/ConfigInstall
-  Config/Messages
+    Config/Config
+    Config/ConfigInstall
+    Config/Messages
 
 .. automodule:: CodeReview.Config
    :members:
    :show-inheritance:
-
-.. End

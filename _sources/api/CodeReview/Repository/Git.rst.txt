@@ -1,10 +1,8 @@
-************
- :mod:`Git`
-************
+
+=====
+ Git
+=====
 
 .. automodule:: CodeReview.Repository.Git
    :members:
    :show-inheritance:
-
-
-.. End

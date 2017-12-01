@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="CodeReview 0.1.0 documentation" href="index.html"/>
-        <link rel="next" title="2. API Documentation" href="reference-manual.html"/>
+        <link rel="next" title="2. Ideas for Additional Features" href="new-features.html"/>
         <link rel="prev" title="Introduction" href="index.html"/> 
 
   
@@ -92,13 +92,15 @@
             
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">1. Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#dependencies">1.1. Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installation-from-pypi-repository">1.2. Installation from PyPi Repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installation-from-source">1.3. Installation from Source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#how-to-use-codereview">1.4. How to use CodeReview ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#on-fedora">1.1. On Fedora</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#from-pypi-repository">1.2. From PyPi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#from-source">1.3. From source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">1.4. Dependencies</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="reference-manual.html">2. API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="new-features.html">2. Ideas for Additional Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colophon.html">3. Colophon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference-manual.html">4. API Documentation</a></li>
 </ul>
 
             
@@ -162,58 +164,50 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <span class="target" id="installation-page"></span><div class="section" id="installation">
-<h1>1. Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>CodeReview requires some dependencies wich are easier to install on a Linux distribution.</p>
-<div class="section" id="dependencies">
-<h2>1.1. Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
-<p>CodeReview requires the following dependencies:</p>
-<blockquote>
-<div><ul class="simple">
-<li><a class="reference external" href="http://python.org">Python</a> v3.4</li>
-<li>libgit2 see <a class="reference external" href="http://www.pygit2.org/install.html#quick-install">link</a>  for installation instruction</li>
-</ul>
-</div></blockquote>
-<p>Theses packages are available via <a class="reference external" href="https://python-packaging-user-guide.readthedocs.org/en/latest/projects.html#pip">pip</a>:</p>
-<blockquote>
-<div><ul class="simple">
-<li>PyYAML</li>
-<li>Pygments</li>
-<li><a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a></li>
-<li><a class="reference external" href="http://www.pygit2.org/install.html">pygit2</a></li>
-</ul>
-</div></blockquote>
-<p>For development, you will need in addition:</p>
-<blockquote>
-<div><ul class="simple">
-<li><a class="reference external" href="http://sphinx-doc.org">Sphinx</a></li>
-</ul>
-</div></blockquote>
+  <div class="section" id="installation">
+<span id="installation-page"></span><h1>1. Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="on-fedora">
+<h2>1.1. On Fedora<a class="headerlink" href="#on-fedora" title="Permalink to this headline">¶</a></h2>
+<p>RPM packages are available for the Fedora distribution on <a class="reference external" href="https://copr.fedorainfracloud.org/coprs/fabricesalvaire/code-review">https://copr.fedorainfracloud.org/coprs/fabricesalvaire/code-review</a></p>
+<p>Run these commands to enable the copr repository and install the last release:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>dnf copr <span class="nb">enable</span> fabricesalvaire/code-review
+dnf install CodeReview
+</pre></div>
 </div>
-<div class="section" id="installation-from-pypi-repository">
-<h2>1.2. Installation from PyPi Repository<a class="headerlink" href="#installation-from-pypi-repository" title="Permalink to this headline">¶</a></h2>
-<p>CodeReview is made available on the <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a> repository at <a class="reference external" href="https://pypi.python.org/pypi/CodeReview">https://pypi.python.org/pypi/CodeReview</a></p>
+</div>
+<div class="section" id="from-pypi-repository">
+<h2>1.2. From PyPi Repository<a class="headerlink" href="#from-pypi-repository" title="Permalink to this headline">¶</a></h2>
+<p>CodeReview is available on <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a> repository: <a class="reference external" href="https://pypi.python.org/pypi/CodeReview">https://pypi.python.org/pypi/CodeReview</a></p>
 <p>Run this command to install the last release:</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>pip install CodeReview
 </pre></div>
 </div>
+<p>Notice, it requires Python 3 and a C compiler.</p>
 </div>
-<div class="section" id="installation-from-source">
-<h2>1.3. Installation from Source<a class="headerlink" href="#installation-from-source" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="from-source">
+<h2>1.3. From source<a class="headerlink" href="#from-source" title="Permalink to this headline">¶</a></h2>
 <p>CodeReview source code is hosted at <a class="reference external" href="https://github.com/FabriceSalvaire/CodeReview">https://github.com/FabriceSalvaire/CodeReview</a></p>
-<p>To clone the Git repository, run this command in a terminal:</p>
+<p>Clone the Git repository using this command:</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>git clone git@github.com:FabriceSalvaire/CodeReview.git
 </pre></div>
 </div>
-<p>Then to build and install CodeReview run these commands:</p>
+<p>Then build and install CodeReview using these commands:</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>python setup.py build
 python setup.py install
 </pre></div>
 </div>
 </div>
-<div class="section" id="how-to-use-codereview">
-<h2>1.4. How to use CodeReview ?<a class="headerlink" href="#how-to-use-codereview" title="Permalink to this headline">¶</a></h2>
-<p>CodeReview provides to executable <em>pyqgit</em> and <em>diff-viewer</em>.</p>
+<div class="section" id="dependencies">
+<h2>1.4. Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>CodeReview requires the following dependencies:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://python.org">Python</a> 3 (at least v3.4)</li>
+<li><a class="reference external" href="http://www.pygit2.org/install.html">pygit2</a> and libgit2 see <a class="reference external" href="http://www.pygit2.org/install.html#quick-install">link</a>  for installation instruction</li>
+<li>Pygments</li>
+<li><a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a></li>
+<li>PyYAML</li>
+<li>A C compiler to compile a module</li>
+</ul>
 </div>
 </div>
 
@@ -227,7 +221,7 @@ python setup.py install
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="reference-manual.html" class="btn btn-neutral float-right" title="2. API Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="new-features.html" class="btn btn-neutral float-right" title="2. Ideas for Additional Features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

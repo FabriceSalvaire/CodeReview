@@ -91,7 +91,9 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">2. API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../new-features.html">2. Ideas for Additional Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../colophon.html">3. Colophon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">4. API Documentation</a></li>
 </ul>
 
             
@@ -237,9 +239,12 @@
         <span class="n">number_of_lines1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_slice</span><span class="p">)</span>
         <span class="n">number_of_lines2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">other_side</span><span class="o">.</span><span class="n">line_slice</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">number_of_lines1</span> <span class="o">&lt;</span> <span class="n">number_of_lines2</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">number_of_lines2</span> <span class="o">-</span> <span class="n">number_of_lines1</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="n">number_of_lines2</span> <span class="o">-</span> <span class="n">number_of_lines1</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">0</span></div></div>
+            <span class="n">delta</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">delta</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">number_of_lines1</span><span class="p">:</span>
+            <span class="n">delta</span> <span class="o">-=</span> <span class="mi">1</span> <span class="c1"># padding is dine using \n</span>
+        <span class="k">return</span> <span class="n">delta</span></div></div>
 
 <span class="c1">####################################################################################################</span>
 

@@ -91,7 +91,9 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">2. API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../new-features.html">2. Ideas for Additional Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../colophon.html">3. Colophon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">4. API Documentation</a></li>
 </ul>
 
             
@@ -214,6 +216,10 @@
 <span class="c1">####################################################################################################</span>
 
 <span class="kn">from</span> <span class="nn">CodeReview.PatienceDiff</span> <span class="k">import</span> <span class="n">PatienceSequenceMatcher</span>
+
+<span class="c1"># Fixme: here ???</span>
+<span class="k">if</span> <span class="n">PatienceSequenceMatcher</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Missing PatienceSequenceMatcher library&#39;</span><span class="p">)</span>
 
 <span class="c1">####################################################################################################</span>
 

@@ -1,36 +1,20 @@
 .. include:: project-links.txt
 
-.. hack to move down the next note block
-.. raw:: html
+Welcome to the CodeReview documentation !
 
-   <br/>
+.. figure:: /images/code-review-log.png
 
-Welcome to the CodeReview documentation!
+    Log Browser
 
-.. note:: The official Home Page of CodeReview is located at |CodeReviewUrl|
+.. figure:: /images/code-review-diff.png
 
-    If you are at http://readthedocs.org then you are reading the so called *latest documentation*.
-
-    The *latest documentation* |CodeReview@readthedocs-badge| is automatically built from the
-    git repository after each commit.
-
-    As opposite the |CodeReviewHomePage|_ is built manually and is thus less prone to errors.
+    Diff Viewer
 
 .. include:: introduction.txt
 
-==============
- Installation
-==============
+.. include:: usage.txt
 
-The procedure to install CodeReview is described in the :ref:`Installation Manual <installation-page>`.
-
-===============
- Documentation
-===============
-
-The best way to know what we can do with CodeReview and learn it, is to start with the examples.
-
- * :ref:`CodeReview Reference Manual <reference-manual-page>`
+.. include:: features.txt
 
 ==========
  Overview
@@ -41,6 +25,6 @@ The best way to know what we can do with CodeReview and learn it, is to start wi
   :numbered:
 
   installation.rst
+  new-features.rst
+  colophon.rst
   reference-manual.rst
-
-.. End

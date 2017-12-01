@@ -1,12 +1,11 @@
-***********
- :mod:`ui`
-***********
+
+====
+ ui
+====
 
 .. toctree::
-  ui/critical_error_form_ui
+    ui/critical_error_form_ui
 
 .. automodule:: CodeReview.GUI.ui
    :members:
    :show-inheritance:
-
-.. End

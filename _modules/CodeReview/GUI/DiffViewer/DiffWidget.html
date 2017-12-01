@@ -91,7 +91,9 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">1. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../reference-manual.html">2. API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../new-features.html">2. Ideas for Additional Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../colophon.html">3. Colophon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference-manual.html">4. API Documentation</a></li>
 </ul>
 
             
@@ -574,8 +576,10 @@
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">cursor</span><span class="o">.</span><span class="n">insert_text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">text_fragment</span><span class="p">),</span> <span class="n">text_format</span><span class="p">,</span> <span class="n">last_text_fragment</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">aligned_mode</span><span class="p">:</span>
-                    <span class="n">padding</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">*</span><span class="p">(</span><span class="n">text_block</span><span class="o">.</span><span class="n">alignment_padding</span><span class="p">()</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># same as last_text_fragment=True</span>
-                    <span class="n">cursor</span><span class="o">.</span><span class="n">insert_text</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span></div>
+                    <span class="n">delta</span> <span class="o">=</span> <span class="n">text_block</span><span class="o">.</span><span class="n">alignment_padding</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">delta</span><span class="p">:</span>
+                        <span class="n">padding</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">*</span><span class="n">delta</span> <span class="c1"># same as last_text_fragment=True</span>
+                        <span class="n">cursor</span><span class="o">.</span><span class="n">insert_text</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span></div>
 
     <span class="c1">##############################################</span>
 

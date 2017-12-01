@@ -1,13 +1,12 @@
-****************
- :mod:`Logging`
-****************
+
+=========
+ Logging
+=========
 
 .. toctree::
-  Logging/ExceptionHook
-  Logging/Logging
+    Logging/ExceptionHook
+    Logging/Logging
 
 .. automodule:: CodeReview.Logging
    :members:
    :show-inheritance:
-
-.. End

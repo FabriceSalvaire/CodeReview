@@ -91,7 +91,9 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">1. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../reference-manual.html">2. API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../new-features.html">2. Ideas for Additional Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../colophon.html">3. Colophon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference-manual.html">4. API Documentation</a></li>
 </ul>
 
             
@@ -326,7 +328,9 @@
                                                    <span class="n">shortcut</span><span class="o">=</span><span class="s1">&#39;Ctrl+S&#39;</span><span class="p">,</span>
                                                    <span class="n">checkable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                                    <span class="n">triggered</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">,</span>
-                                 <span class="p">)</span></div>
+                                 <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stage_action</span> <span class="o">=</span> <span class="kc">None</span></div>
 
     <span class="c1">##############################################</span>
 
@@ -354,7 +358,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_font_size_combobox</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_font_size_change</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_font_size_change</span><span class="p">(</span><span class="n">refresh</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_status_label</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Status: ???&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_status_label</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Status: ???&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_status_label</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="n">items</span> <span class="o">=</span> <span class="p">[</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_algorithm_combobox</span><span class="p">,</span>
@@ -383,10 +390,11 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_tool_bar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">addToolBar</span><span class="p">(</span><span class="s1">&#39;Diff Viewer&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QAction</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_tool_bar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_tool_bar</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
+            <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># for self._stage_action</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QAction</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_tool_bar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_tool_bar</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
 
     <span class="c1">##############################################</span>
 
@@ -487,15 +495,16 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_document_models</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_staged</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">is_staged</span><span class="p">(</span><span class="n">file2</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_status_label</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">is_modified</span><span class="p">(</span><span class="n">file2</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_status_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;&lt;font color=&quot;red&quot;&gt;Modified !&lt;/font&gt;&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staged</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;File </span><span class="si">{}</span><span class="s2"> is staged&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file2</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stage_action</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stage_action</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staged</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stage_action</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_staged</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">is_staged</span><span class="p">(</span><span class="n">file2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_status_label</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">is_modified</span><span class="p">(</span><span class="n">file2</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_status_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;&lt;font color=&quot;red&quot;&gt;Modified !&lt;/font&gt;&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staged</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;File </span><span class="si">{}</span><span class="s2"> is staged&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file2</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stage_action</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stage_action</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staged</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stage_action</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
 
         <span class="c1"># Useless if application is LogBrowserApplication</span>
         <span class="c1"># file_system_watcher = self._application.file_system_watcher</span>

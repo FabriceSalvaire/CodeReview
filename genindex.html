@@ -91,7 +91,9 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">1. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference-manual.html">2. API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="new-features.html">2. Ideas for Additional Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colophon.html">3. Colophon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference-manual.html">4. API Documentation</a></li>
 </ul>
 
             
@@ -249,11 +251,17 @@
       <li><a href="api/CodeReview/GUI/Base/GuiApplicationBase.html#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase._init_actions">_init_actions() (CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase method)</a>
 
       <ul>
+        <li><a href="api/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication._init_actions">(CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication method)</a>
+</li>
         <li><a href="api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication._init_actions">(CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication method)</a>
 </li>
       </ul></li>
-      <li><a href="api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication._init_file_system_watcher">_init_file_system_watcher() (CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication method)</a>
+      <li><a href="api/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication._init_file_system_watcher">_init_file_system_watcher() (CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication method)</a>
+
+      <ul>
+        <li><a href="api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication._init_file_system_watcher">(CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication method)</a>
 </li>
+      </ul></li>
       <li><a href="api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication._init_repository">_init_repository() (CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication method)</a>
 </li>
       <li><a href="api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._init_ui">_init_ui() (CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow method)</a>
@@ -292,6 +300,8 @@
         <li><a href="api/CodeReview/GUI/Base/GuiApplicationBase.html#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase._logger">(CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase attribute)</a>
 </li>
         <li><a href="api/CodeReview/GUI/Base/MainWindowBase.html#CodeReview.GUI.Base.MainWindowBase.MainWindowBase._logger">(CodeReview.GUI.Base.MainWindowBase.MainWindowBase attribute)</a>
+</li>
+        <li><a href="api/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication._logger">(CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication attribute)</a>
 </li>
         <li><a href="api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._logger">(CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow attribute)</a>
 </li>
@@ -482,6 +492,8 @@
 </li>
       <li><a href="api/CodeReview/GUI/DiffViewer.html#module-CodeReview.GUI.DiffViewer">CodeReview.GUI.DiffViewer (module)</a>
 </li>
+      <li><a href="api/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#module-CodeReview.GUI.DiffViewer.DiffViewerApplication">CodeReview.GUI.DiffViewer.DiffViewerApplication (module)</a>
+</li>
       <li><a href="api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#module-CodeReview.GUI.DiffViewer.DiffViewerMainWindow">CodeReview.GUI.DiffViewer.DiffViewerMainWindow (module)</a>
 </li>
       <li><a href="api/CodeReview/GUI/DiffViewer/DiffWidget.html#module-CodeReview.GUI.DiffViewer.DiffWidget">CodeReview.GUI.DiffViewer.DiffWidget (module)</a>
@@ -506,10 +518,10 @@
 </li>
       <li><a href="api/CodeReview/GUI/LogBrowser/LogTableModel.html#module-CodeReview.GUI.LogBrowser.LogTableModel">CodeReview.GUI.LogBrowser.LogTableModel (module)</a>
 </li>
-      <li><a href="api/CodeReview/GUI/ui.html#module-CodeReview.GUI.ui">CodeReview.GUI.ui (module)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/CodeReview/GUI/ui.html#module-CodeReview.GUI.ui">CodeReview.GUI.ui (module)</a>
+</li>
       <li><a href="api/CodeReview/GUI/ui/critical_error_form_ui.html#module-CodeReview.GUI.ui.critical_error_form_ui">CodeReview.GUI.ui.critical_error_form_ui (module)</a>
 </li>
       <li><a href="api/CodeReview/GUI/Widgets.html#module-CodeReview.GUI.Widgets">CodeReview.GUI.Widgets (module)</a>
@@ -624,15 +636,17 @@
 </li>
       <li><a href="api/CodeReview/Repository/Git.html#CodeReview.Repository.Git.Diff">Diff (class in CodeReview.Repository.Git)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/CodeReview/Repository/Git.html#CodeReview.Repository.Git.GitRepository.diff">diff() (CodeReview.Repository.Git.GitRepository method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow.diff_documents">diff_documents() (CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow method)</a>
 </li>
       <li><a href="api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow.diff_text_documents">diff_text_documents() (CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow method)</a>
 </li>
       <li><a href="api/CodeReview/GUI/DiffViewer/DiffWidget.html#CodeReview.GUI.DiffViewer.DiffWidget.DiffView">DiffView (class in CodeReview.GUI.DiffViewer.DiffWidget)</a>
+</li>
+      <li><a href="api/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication">DiffViewerApplication (class in CodeReview.GUI.DiffViewer.DiffViewerApplication)</a>
 </li>
       <li><a href="api/CodeReview/GUI/DiffViewer/DiffWidget.html#CodeReview.GUI.DiffViewer.DiffWidget.DiffViewerCursor">DiffViewerCursor (class in CodeReview.GUI.DiffViewer.DiffWidget)</a>
 </li>
@@ -686,7 +700,13 @@
 </li>
       <li><a href="api/CodeReview/GUI/Base/MainWindowBase.html#CodeReview.GUI.Base.MainWindowBase.MainWindowBase.file_menu">file_menu (CodeReview.GUI.Base.MainWindowBase.MainWindowBase attribute)</a>
 </li>
-      <li><a href="api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.file_system_changed">file_system_changed (CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication attribute)</a>
+      <li><a href="api/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication.file_system_changed">file_system_changed (CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication attribute)</a>
+
+      <ul>
+        <li><a href="api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.file_system_changed">(CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication.file_system_watcher">file_system_watcher (CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication attribute)</a>
 </li>
       <li><a href="api/CodeReview/Config/ConfigInstall.html#CodeReview.Config.ConfigInstall.Icon.find">find() (CodeReview.Config.ConfigInstall.Icon static method)</a>
 
@@ -696,10 +716,10 @@
         <li><a href="api/CodeReview/Tools/Path.html#CodeReview.Tools.Path.find">(in module CodeReview.Tools.Path)</a>
 </li>
       </ul></li>
-      <li><a href="api/CodeReview/Tools/Path.html#CodeReview.Tools.Path.find_alias">find_alias() (in module CodeReview.Tools.Path)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/CodeReview/Tools/Path.html#CodeReview.Tools.Path.find_alias">find_alias() (in module CodeReview.Tools.Path)</a>
+</li>
       <li><a href="api/CodeReview/GUI/DiffViewer/LexerCache.html#CodeReview.GUI.DiffViewer.LexerCache.LexerCache.find_mode">find_mode() (CodeReview.GUI.DiffViewer.LexerCache.LexerCache static method)</a>
 </li>
       <li><a href="api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow.finish_table_connections">finish_table_connections() (CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow method)</a>
@@ -992,13 +1012,15 @@
 </li>
       <li><a href="api/CodeReview/Tools/Platform.html#CodeReview.Tools.Platform.Platform">Platform (class in CodeReview.Tools.Platform)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/CodeReview/Application/ApplicationBase.html#CodeReview.Application.ApplicationBase.ApplicationBase.platform">platform (CodeReview.Application.ApplicationBase.ApplicationBase attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/CodeReview/GUI/Base/GuiApplicationBase.html#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.post_init">post_init() (CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase method)</a>
 
       <ul>
+        <li><a href="api/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication.post_init">(CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication method)</a>
+</li>
         <li><a href="api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.post_init">(CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication method)</a>
 </li>
       </ul></li>
@@ -1091,6 +1113,8 @@
 </li>
         <li><a href="api/CodeReview/GUI/Base/MainWindowBase.html#CodeReview.GUI.Base.MainWindowBase.MainWindowBase.show_message">(CodeReview.GUI.Base.MainWindowBase.MainWindowBase method)</a>
 </li>
+        <li><a href="api/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication.show_message">(CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication method)</a>
+</li>
         <li><a href="api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow.show_message">(CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow method)</a>
 </li>
         <li><a href="api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.show_message">(CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication method)</a>
@@ -1100,10 +1124,10 @@
       </ul></li>
       <li><a href="api/CodeReview/GUI/Base/GuiApplicationBase.html#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.show_system_information">show_system_information() (CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase method)</a>
 </li>
-      <li><a href="api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow.show_working_tree_diff">show_working_tree_diff() (CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow.show_working_tree_diff">show_working_tree_diff() (CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow method)</a>
+</li>
       <li><a href="api/CodeReview/GUI/DiffViewer/DiffWidget.html#CodeReview.GUI.DiffViewer.DiffWidget.side_iterator">side_iterator() (in module CodeReview.GUI.DiffViewer.DiffWidget)</a>
 </li>
       <li><a href="api/CodeReview/Tools/Singleton.html#CodeReview.Tools.Singleton.singleton">singleton (class in CodeReview.Tools.Singleton)</a>

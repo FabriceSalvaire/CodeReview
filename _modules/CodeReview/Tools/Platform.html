@@ -91,7 +91,9 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">2. API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../new-features.html">2. Ideas for Additional Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../colophon.html">3. Colophon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">4. API Documentation</a></li>
 </ul>
 
             
@@ -189,7 +191,7 @@
 
 <span class="c1">####################################################################################################</span>
 
-<span class="n">platform_enum</span> <span class="o">=</span> <span class="n">EnumFactory</span><span class="p">(</span><span class="s1">&#39;PlatformEnum&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;linux&#39;</span><span class="p">,</span> <span class="s1">&#39;windows&#39;</span><span class="p">,</span> <span class="s1">&#39;macosx&#39;</span><span class="p">))</span>
+<span class="n">platform_enum</span> <span class="o">=</span> <span class="n">EnumFactory</span><span class="p">(</span><span class="s1">&#39;PlatformEnum&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;linux&#39;</span><span class="p">,</span> <span class="s1">&#39;windows&#39;</span><span class="p">,</span> <span class="s1">&#39;osx&#39;</span><span class="p">,</span> <span class="s1">&#39;unknown&#39;</span><span class="p">))</span>
 
 <span class="c1">####################################################################################################</span>
 
@@ -223,7 +225,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">application</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">desktop</span> <span class="o">=</span> <span class="n">application</span><span class="o">.</span><span class="n">desktop</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">number_of_screens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">desktop</span><span class="o">.</span><span class="n">screenCount</span><span class="p">()</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">number_of_screens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">desktop</span><span class="o">.</span><span class="n">screenCount</span><span class="p">()</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">desktop</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">number_of_screens</span> <span class="o">=</span> <span class="mi">0</span>
@@ -235,12 +237,15 @@
 
 <div class="viewcode-block" id="Platform._get_os"><a class="viewcode-back" href="../../../api/CodeReview/Tools/Platform.html#CodeReview.Tools.Platform.Platform._get_os">[docs]</a>    <span class="k">def</span> <span class="nf">_get_os</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="s1">&#39;nt&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">platform_enum</span><span class="o">.</span><span class="n">windows</span>
-        <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="ow">in</span> <span class="s1">&#39;linux2&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;linux&#39;</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">platform_enum</span><span class="o">.</span><span class="n">linux</span>
+        <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;win&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">platform_enum</span><span class="o">.</span><span class="n">windows</span>
+        <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;darwin&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">platform_enum</span><span class="o">.</span><span class="n">osx</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;unknown platform&#39;</span><span class="p">)</span></div>
+            <span class="c1"># return platform_enum.unknown</span>
 
     <span class="c1">##############################################</span>
 
@@ -254,7 +259,10 @@
                         <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
 
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">platform_enum</span><span class="o">.</span><span class="n">windows</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+            <span class="k">return</span> <span class="s1">&#39;unimplemented&#39;</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">platform_enum</span><span class="o">.</span><span class="n">osx</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;unimplemented&#39;</span></div>
 
     <span class="c1">##############################################</span>
 
@@ -269,8 +277,11 @@
             <span class="k">return</span> <span class="n">number_of_cores</span>
 
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">platform_enum</span><span class="o">.</span><span class="n">windows</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NUMBER_OF_PROCESSORS&#39;</span><span class="p">))</span>
 
-            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NUMBER_OF_PROCESSORS&#39;</span><span class="p">))</span></div>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">platform_enum</span><span class="o">.</span><span class="n">osx</span><span class="p">:</span>
+            <span class="c1"># raise NotImplementedError</span>
+            <span class="k">return</span> <span class="mi">0</span></div>
 
     <span class="c1">##############################################</span>
 
@@ -283,8 +294,13 @@
                         <span class="n">s</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
                         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">platform_enum</span><span class="o">.</span><span class="n">windows</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">platform_enum</span><span class="o">.</span><span class="n">windows</span><span class="p">:</span>
+            <span class="c1"># raise NotImplementedError</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">platform_enum</span><span class="o">.</span><span class="n">osx</span><span class="p">:</span>
+            <span class="c1"># raise NotImplementedError</span>
+            <span class="k">return</span> <span class="mi">0</span></div>
 
     <span class="c1">##############################################</span>
 
@@ -297,8 +313,13 @@
                         <span class="n">s</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
                         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">platform_enum</span><span class="o">.</span><span class="n">windows</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">platform_enum</span><span class="o">.</span><span class="n">windows</span><span class="p">:</span>
+            <span class="c1"># raise NotImplementedError</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="n">platform_enum</span><span class="o">.</span><span class="n">osx</span><span class="p">:</span>
+            <span class="c1"># raise NotImplementedError</span>
+            <span class="k">return</span> <span class="mi">0</span></div>
 
     <span class="c1">##############################################</span>
 

@@ -1,39 +1,28 @@
-.. -*- Mode: rst -*-
-
-.. _installation-page:
-
 .. include:: project-links.txt
 .. include:: abbreviation.txt
+
+.. _installation-page:
 
 ==============
  Installation
 ==============
 
-CodeReview requires some dependencies wich are easier to install on a Linux distribution.
+On Fedora
+---------
 
-Dependencies
-------------
+RPM packages are available for the Fedora distribution on https://copr.fedorainfracloud.org/coprs/fabricesalvaire/code-review
 
-CodeReview requires the following dependencies:
+Run these commands to enable the copr repository and install the last release:
 
- * |Python|_ v3.4
- * libgit2 see `link <http://www.pygit2.org/install.html#quick-install>`_  for installation instruction
+.. code-block:: sh
 
-Theses packages are available via |pip|_:
+  dnf copr enable fabricesalvaire/code-review
+  dnf install CodeReview
 
- * PyYAML
- * Pygments
- * |PyQt5|_
- * |pygit2|_
+From PyPi Repository
+--------------------
 
-For development, you will need in addition:
-
- * |Sphinx|_
-
-Installation from PyPi Repository
----------------------------------
-
-CodeReview is made available on the |Pypi|_ repository at |CodeReview@pypi|
+CodeReview is available on |Pypi|_ repository: |CodeReview@pypi|
 
 Run this command to install the last release:
 
@@ -41,27 +30,34 @@ Run this command to install the last release:
 
   pip install CodeReview
 
-Installation from Source
-------------------------
+Notice, it requires Python 3 and a C compiler.
+
+From source
+------------
 
 CodeReview source code is hosted at |CodeReview@github|
 
-To clone the Git repository, run this command in a terminal:
+Clone the Git repository using this command:
 
 .. code-block:: sh
 
   git clone git@github.com:FabriceSalvaire/CodeReview.git
 
-Then to build and install CodeReview run these commands:
+Then build and install CodeReview using these commands:
 
 .. code-block:: sh
 
   python setup.py build
   python setup.py install
 
-How to use CodeReview ?
------------------------
+Dependencies
+------------
 
-CodeReview provides to executable *pyqgit* and *diff-viewer*.
+CodeReview requires the following dependencies:
 
-.. End
+* |Python|_ 3 (at least v3.4)
+* |pygit2|_ and libgit2 see `link <http://www.pygit2.org/install.html#quick-install>`_  for installation instruction
+* Pygments
+* |PyQt5|_
+* PyYAML
+* A C compiler to compile a module
