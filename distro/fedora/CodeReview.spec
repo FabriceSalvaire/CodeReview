@@ -3,11 +3,11 @@
 Name:           %{pypi_name}
 Version:        0.3.6
 Release:        1%{?dist}
-Summary:        CodeReview is a Python 3 / Qt5 application to perform code review on local Git repositories
+Summary:        Application to perform code review on local Git repositories
 License:        GPLv3
 URL:            https://github.com/FabriceSalvaire/CodeReview
 Source0:        https://files.pythonhosted.org/packages/source/C/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
-#               https://github.com/FabriceSalvaire/%{pypi_name}/archive/%{version}.tar.gz
+#               https://github.com/FabriceSalvaire/% {pypi_name}/archive/% {version}.tar.gz
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -19,7 +19,8 @@ Requires:       python3-pygit2
 Requires:       python3-pygments
 
 %description
-CodeReview provides two applications, 'diff-viewer', a standalone diff viewer  and 'pyqgit' for local Git repositories.
+CodeReview provides two applications, 'diff-viewer', a standalone diff
+viewer and 'pyqgit' a code reviewer for local Git repositories.
 
 The main features of CodeReview are:
 
@@ -37,6 +38,8 @@ Diff viewer features:
 - complete mode
 - highlight mode
 
+CodeReview is coded in Python 3 and use the Qt5 framework.
+
 %prep
 %autosetup -n %{pypi_name}-%{version}
 # Remove bundled egg-info
@@ -44,17 +47,11 @@ rm -rf %{pypi_name}.egg-info
 
 %build
 %py3_build
-# generate html docs
-# sphinx-build-3 doc/sphinx/source html
-# remove the sphinx-build leftovers
-# rm -rf html/.{doctrees,buildinfo}
 
 %install
 %py3_install
 
 %files
-# %license LICENSE.txt
-# %doc gh-pages/README.rst README.html README.rst README.txt
 %{_bindir}/diff-viewer
 %{_bindir}/pyqgit
 %{python3_sitearch}/%{pypi_name}
