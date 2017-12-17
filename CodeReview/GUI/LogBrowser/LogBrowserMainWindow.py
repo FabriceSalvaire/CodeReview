@@ -53,14 +53,15 @@ class LogBrowserMainWindow(MainWindowBase):
 
         self._current_revision = None
         self._diff = None
-        self._current_patch = None
+        self._current_patch_index = None
         self._diff_window = None
 
         self._init_ui()
         self._create_actions()
         self._create_toolbar()
 
-        self._application.file_system_changed.connect(self._on_file_system_changed)
+        self._application.directory_changed.connect(self._on_directory_changed)
+        self._application.file_changed.connect(self._on_file_changed)
 
     ##############################################
 
@@ -97,7 +98,7 @@ class LogBrowserMainWindow(MainWindowBase):
         table.verticalHeader().setVisible(False)
         table.setShowGrid(False)
         table.setSortingEnabled(True)
-        table.clicked.connect(self._show_patch)
+        table.clicked.connect(self._on_clicked_table)
 
         # horizontal_header = table_view.horizontalHeader()
         # horizontal_header.setMovable(True)
@@ -107,7 +108,7 @@ class LogBrowserMainWindow(MainWindowBase):
     def finish_table_connections(self):
 
         self._log_table.selectionModel().currentRowChanged.connect(self._update_commit_table)
-        self._commit_table.selectionModel().currentRowChanged.connect(self._show_patch)
+        self._commit_table.selectionModel().currentRowChanged.connect(self._on_clicked_table)
 
     ##############################################
 
@@ -197,16 +198,32 @@ class LogBrowserMainWindow(MainWindowBase):
 
     ##############################################
 
-    def _on_file_system_changed(self, path):
+    def _on_directory_changed(self, path):
 
-        if os.path.isdir(path):
-            file_type = 'Directory'
-        else:
-            file_type = 'File'
-        message = '{} {} changed'.format(file_type,path)
-        self.show_message(message)
-        self._logger.info(message)
+        self._logger.info(path)
+
         self._reload_repository()
+        self._diff = self._application.repository.diff(**self._diff_kwargs)
+
+        if self.number_of_patches:
+            self._current_patch_index = 0
+            self.reload_current_patch()
+        elif self._diff_window is not None:
+            self._diff_window.close()
+
+    ##############################################
+
+    def _on_file_changed(self, path):
+
+        self._logger.info(path)
+
+        repository = self._application.repository
+        if path == repository.join_repository_path(repository.INDEX_PATH):
+            self._diff = self._application.repository.diff(**self._diff_kwargs)
+        else:
+            message = 'File {} changed'.format(path)
+            self.show_message(message)
+            self.reload_current_patch()
 
     ##############################################
 
@@ -273,6 +290,7 @@ class LogBrowserMainWindow(MainWindowBase):
                 # Changes in the working tree since your last commit
                 kwargs = dict(a='HEAD')
 
+        self._diff_kwargs = kwargs
         self._diff = self._application.repository.diff(**kwargs)
 
         commit_table_model = self._commit_table.model()
@@ -281,25 +299,18 @@ class LogBrowserMainWindow(MainWindowBase):
 
     ##############################################
 
-    def _show_patch(self, index):
+    def _on_clicked_table(self, index):
 
-        self._logger.info("")
         # called when a commit row is clicked
-        self._current_patch = index.row()
-        self._show_current_patch()
-
-    ##############################################
-
-    def _on_diff_window_closed(self):
-
-        self._logger.info("Diff window closed")
-        self._diff_window = None
+        self._logger.info('')
+        self._current_patch_index = index.row()
+        self.reload_current_patch()
 
     ##############################################
 
     @property
-    def current_patch(self):
-        return self._current_patch
+    def current_patch_index(self):
+        return self._current_patch_index
 
     ##############################################
 
@@ -309,39 +320,62 @@ class LogBrowserMainWindow(MainWindowBase):
 
     ##############################################
 
-    def _show_current_patch(self):
+    def _create_diff_viewer_window(self):
+
+        self._logger.info("Open Diff Viewer")
+
+        from CodeReview.GUI.DiffViewer.DiffViewerMainWindow import DiffViewerMainWindow
+
+        repository = self._application.repository
+        self._diff_window = DiffViewerMainWindow(self, repository=repository)
+        self._diff_window.closed.connect(self._on_diff_window_closed)
+        self._diff_window.showMaximized()
+
+    ##############################################
+
+    def _on_diff_window_closed(self):
+
+        self._application.unwatch_files() # Fixme: only current patch !
+        self._diff_window = None
+        self._logger.info("Diff Viewer closed")
+
+    ##############################################
+
+    def _show_patch(self, patch):
 
         self._logger.info("")
-        repository = self._application.repository
+
+        self._application.unwatch_files()
 
         if self._diff_window is None:
-            self._logger.info("Open Diff Viewer Window")
-            from CodeReview.GUI.DiffViewer.DiffViewerMainWindow import DiffViewerMainWindow
-            self._diff_window = DiffViewerMainWindow(self, repository=repository)
-            self._diff_window.closed.connect(self._on_diff_window_closed)
-            self._diff_window.showMaximized()
+            self._create_diff_viewer_window()
 
-        patch = self._diff[self._current_patch]
         delta = patch.delta
+        old_path = delta.old_file.path
+        new_path = delta.new_file.path
         if not delta.is_binary:
-            self._logger.info('revision {} '.format(self._current_revision) + delta.new_file.path)
+            self._logger.info('revision {} '.format(self._current_revision) + new_path)
             # print(delta.status, delta.similarity, delta.additions, delta.deletions, delta.is_binary)
             # for hunk in delta.hunks:
             #     print(hunk.old_start, hunk.old_lines, hunk.new_start, hunk.new_lines, hunk.lines)
             if delta.status in (git.GIT_DELTA_MODIFIED, git.GIT_DELTA_RENAMED):
-                paths = (delta.old_file.path, delta.new_file.path)
+                paths = (old_path, new_path)
             elif delta.status == git.GIT_DELTA_ADDED:
-                paths = (None, delta.new_file.path)
+                paths = (None, new_path)
             elif delta.status == git.GIT_DELTA_DELETED:
-                paths = (delta.old_file.path, None)
+                paths = (old_path, None)
+            repository = self._application.repository
             texts = [repository.file_content(blob_id)
                      for blob_id in (delta.old_file.id, delta.new_file.id)]
-            metadatas = [dict(path=delta.old_file.path, document_type='file', last_modification_date=None),
-                         dict(path=delta.new_file.path, document_type='file', last_modification_date=None)]
+            metadatas = [dict(path=old_path, document_type='file', last_modification_date=None),
+                         dict(path=new_path, document_type='file', last_modification_date=None)]
             self._diff_window.diff_documents(paths, texts, metadatas, workdir=repository.workdir)
+            self._application.watch(new_path)
         else:
-            self._logger.info('revision {} Binary '.format(self._current_revision) + delta.new_file.path)
+            self._logger.info('revision {} Binary '.format(self._current_revision) + new_path)
         # Fixme: show image pdf ...
+
+        # Monitor file change
 
     ##############################################
 
@@ -352,26 +386,49 @@ class LogBrowserMainWindow(MainWindowBase):
 
     ##############################################
 
-    def previous_patch(self):
+    def _get_patch(self, forward):
 
-        if self._current_patch >= 1:
-            self._current_patch -= 1
+        if forward:
+            if self._current_patch_index < self._last_path_index:
+                patch_index = self._current_patch_index + 1
+            else:
+                patch_index = 0
         else:
-            self._current_patch = self._last_path_index
-        self._show_current_patch()
+            if self._current_patch_index >= 1:
+                patch_index = self._current_patch_index - 1
+            else:
+                patch_index = self._last_path_index
+
+        return patch_index, self._diff[patch_index]
+
+    ##############################################
+
+    def _next_previous_patch(self, forward):
+
+        try:
+            patch_index, patch = self._get_patch(forward)
+        except IndexError: # Fixme: still required ???
+            self._logger.info('Patch index error {}'.format(patch_index))
+            self._diff = self._application.repository.diff(**self._diff_kwargs)
+            patch_index, patch = self._get_patch(forward)
+
+        self._current_patch_index = patch_index
+        self._show_patch(patch)
+
+    ##############################################
+
+    def previous_patch(self):
+        self._next_previous_patch(forward=False)
 
     ##############################################
 
     def next_patch(self):
-
-        if self._current_patch < self._last_path_index:
-            self._current_patch += 1
-        else:
-            self._current_patch = 0
-        self._show_current_patch()
+        self._next_previous_patch(forward=True)
 
     ##############################################
 
     def reload_current_patch(self):
 
-        self._show_current_patch()
+        if self._current_patch_index is not None:
+            patch = self._diff[self._current_patch_index]
+            self._show_patch(patch)

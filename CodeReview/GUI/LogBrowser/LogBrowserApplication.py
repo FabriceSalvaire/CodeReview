@@ -25,11 +25,11 @@ from PyQt5 import QtCore, QtWidgets
 
 ####################################################################################################
 
-from .CommitTableModel import CommitTableModel
-from .LogTableModel import LogTableModel
 from CodeReview.Application.ApplicationBase import ApplicationBase
 from CodeReview.GUI.Base.GuiApplicationBase import GuiApplicationBase
 from CodeReview.Repository.Git import RepositoryNotFound, GitRepository
+from .CommitTableModel import CommitTableModel
+from .LogTableModel import LogTableModel
 
 ####################################################################################################
 
@@ -37,7 +37,8 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
 
     _logger = logging.getLogger(__name__)
 
-    file_system_changed = QtCore.pyqtSignal(str)
+    directory_changed = QtCore.pyqtSignal(str)
+    file_changed = QtCore.pyqtSignal(str)
 
     ###############################################
 
@@ -125,32 +126,7 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
 
     ##############################################
 
-    def _init_file_system_watcher(self):
-
-        self._file_system_watcher = QtCore.QFileSystemWatcher()
-        self._setup_file_system_watcher()
-        self._file_system_watcher.directoryChanged.connect(self.file_system_changed)
-        self._file_system_watcher.fileChanged.connect(self.file_system_changed)
-        self.file_system_changed.connect(self._setup_file_system_watcher)
-
-    ##############################################
-
-    def _setup_file_system_watcher(self):
-
-        path = self._repository.workdir
-        self._logger.info("Monitor {}".format(path))
-        paths = []
-        for root, dirs, files in os.walk(path):
-            paths.append(root)
-        directories = self._file_system_watcher.directories()
-        if directories:
-            self._file_system_watcher.removePaths(directories)
-        self._file_system_watcher.addPaths(paths)
-
-    ##############################################
-
     def reload_repository(self):
-
         self._init_repository()
 
     ##############################################
@@ -158,3 +134,86 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
     @property
     def repository(self):
         return self._repository
+
+    ##############################################
+
+    def _init_file_system_watcher(self):
+
+        self._logger.info("Monitor {}".format(self._repository.workdir))
+
+        self._file_system_watcher = QtCore.QFileSystemWatcher()
+        self._setup_file_system_watcher()
+
+        # Update registrations
+        #!# self._file_system_watcher.directoryChanged.connect(self._setup_file_system_watcher)
+
+        # Attention: a git command generate many successive events
+        self._file_system_watcher.directoryChanged.connect(self.directory_changed)
+        self._file_system_watcher.fileChanged.connect(self.file_changed)
+
+    ##############################################
+
+    def _setup_file_system_watcher(self):
+
+        self._logger.info('')
+
+        # Fixme: optimise for large repositories ?
+
+        # Clear
+        #! self.unwatch_directories() #! remove monitored files as well !
+        #! self.unwatch_files()
+        # Fixme: removed path ???
+
+        # Only monitor directories
+        self.watch_directories()
+        self.watch(self._repository.REFS_PATH) # monitor commit (directory)
+
+        self.watch(self._repository.INDEX_PATH) # monitor stage (file)
+
+    ##############################################
+
+    def watch_directories(self):
+
+        paths = []
+        git_path = self._repository.join_repository_path('.git')
+        for root, _, _ in os.walk(self._repository.workdir):
+            if not root.startswith(git_path):
+                paths.append(root)
+        self._logger.info('watch {}'.format(paths))
+        self._file_system_watcher.addPaths(paths)
+
+    ##############################################
+
+    def watch(self, path):
+
+        absolut_path = self._repository.join_repository_path(path)
+        self._logger.info(absolut_path)
+        self._file_system_watcher.addPath(absolut_path)
+
+    ##############################################
+
+    def unwatch(self, path):
+
+        absolut_path = self._repository.join_repository_path(path)
+        self._logger.info(absolut_path)
+        self._file_system_watcher.removePath(absolut_path)
+
+    ##############################################
+
+    def _unwatch_paths(self, paths):
+
+        # Fixme: code ???
+        if paths:
+            self._file_system_watcher.removePaths(paths)
+
+    ##############################################
+
+    def unwatch_directories(self):
+
+        self._unwatch_paths(self._file_system_watcher.directories())
+
+    ##############################################
+
+    def unwatch_files(self):
+
+        self._unwatch_paths(self._file_system_watcher.files())

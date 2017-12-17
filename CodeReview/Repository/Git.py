@@ -38,6 +38,9 @@ class GitRepository:
 
     _logger = _module_logger.getChild('GitRepository')
 
+    INDEX_PATH = os.path.join('.git', 'index')
+    REFS_PATH = os.path.join('.git', 'refs', 'heads')
+
     ##############################################
 
     def __init__(self, path):
@@ -73,6 +76,11 @@ class GitRepository:
     @property
     def repository_status(self):
         return self._repository.status()
+
+    ##############################################
+
+    def join_repository_path(self, path):
+        return os.path.join(self._repository.workdir, path)
 
     ##############################################
 
@@ -212,3 +220,9 @@ class Diff:
 
     def __getitem__(self, i):
         return self._patches[i]
+
+    ##############################################
+
+    def new_paths(self):
+
+        return [patch.delta.new_file.path for patch in self._patches]

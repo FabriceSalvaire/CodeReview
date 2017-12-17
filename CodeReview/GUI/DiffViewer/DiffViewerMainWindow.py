@@ -55,10 +55,13 @@ class DiffViewerMainWindow(MainWindowBase):
 
     def __init__(self, parent=None, repository=None):
 
-        super(DiffViewerMainWindow, self).__init__(title='CodeReview Diff Viewer', parent=parent)
+        # Note: parent is None when diff viewer is the main application
+        # Fixme: subclass standard and/ git diff
+
+        super().__init__(title='CodeReview Diff Viewer', parent=parent)
 
         self._repository = repository
-        self._staged = False
+        self._staged = False # Fixme: only git
 
         self._current_path = None
 
@@ -71,7 +74,9 @@ class DiffViewerMainWindow(MainWindowBase):
 
         self._lexer_cache = LexerCache()
 
-        self._application.file_system_changed.connect(self._refresh)
+        if self.is_main_window:
+            self._application.directory_changed.connect(self._on_file_system_changed)
+            self._application.file_changed.connect(self._on_file_system_changed)
 
     ##############################################
 
@@ -160,6 +165,7 @@ class DiffViewerMainWindow(MainWindowBase):
                               triggered=self._refresh,
             )
 
+        # Fixme: only git
         if self._repository:
             self._stage_action = \
                                  QtWidgets.QAction('Stage',
@@ -240,19 +246,32 @@ class DiffViewerMainWindow(MainWindowBase):
 
     def init_menu(self):
 
-        super(DiffViewerMainWindow, self).init_menu()
+        super().init_menu()
+
+    ##############################################
+
+    @property
+    def is_main_window(self):
+        return self.parent() is None
+        # return self._application.main_window is self
+
+    @property
+    def is_not_main_window(self):
+        return self.parent() is not None
+        # return self._application.main_window is self
 
     ##############################################
 
     def closeEvent(self, event):
 
-        # Fixme: else the window is reopened
-        self._application.file_system_changed.disconnect(self._refresh)
-
-        if self._application.main_window is not self:
+        # Fixme: else the window is reopened ???
+        if self.is_main_window:
+            self._application.directory_changed.disconnect(self._on_file_system_changed)
+            self._application.file_changed.disconnect(self._on_file_system_changed)
+        else:
             self.closed.emit()
 
-        super(DiffViewerMainWindow, self).closeEvent(event)
+        super().closeEvent(event)
 
     ##############################################
 
@@ -279,6 +298,8 @@ class DiffViewerMainWindow(MainWindowBase):
     ################################################
 
     def open_files(self, file1, file2, show=False):
+
+        # Fixme: Actually it only supports file diff
 
         paths = (file1, file2)
         texts = (None, None)
@@ -346,6 +367,7 @@ class DiffViewerMainWindow(MainWindowBase):
             self._stage_action.setChecked(self._staged)
             self._stage_action.blockSignals(False)
 
+        # Fixme:
         # Useless if application is LogBrowserApplication
         # file_system_watcher = self._application.file_system_watcher
         # files = file_system_watcher.files()
@@ -421,45 +443,62 @@ class DiffViewerMainWindow(MainWindowBase):
 
     ##############################################
 
+    def _on_file_system_changed(self, path):
+
+        # only used for main window
+
+        self._logger.info(path)
+        self._refresh()
+
+    ##############################################
+
     def _refresh(self):
 
-        main_window = self.parent()
-        if main_window is not None:
-            main_window.reload_current_patch()
-        else:
+        if self.is_main_window:
             # Fixme: better way ???
             texts = (None, None) # to force to reread files
             self.diff_documents(self._paths, texts, self._metadatas, self._workdir) # Fixme: show ???
+        else:
+            main_window = self.parent()
+            main_window.reload_current_patch()
 
     ##############################################
 
     def _update_patch_index(self):
 
         main_window = self.parent()
-        self._patch_index_label.setText('{}/{}'.format(main_window.current_patch +1,
+        self._patch_index_label.setText('{}/{}'.format(main_window.current_patch_index +1,
                                                        main_window.number_of_patches))
 
     ##############################################
 
-    def _previous_file(self):
+    def _previous_next_file(self, forward):
 
-        main_window = self.parent()
-        if main_window is not None:
-            main_window.previous_patch()
+        # Fixme: only for Git
+        if self.is_not_main_window:
+            main_window = self.parent()
+            if forward:
+                main_window.next_patch()
+            else:
+                main_window.previous_patch()
             self._update_patch_index()
+        # else: directory diff is not implemented
+
+    ##############################################
+
+    def _previous_file(self):
+        self._previous_next_file(False)
 
     ##############################################
 
     def _next_file(self):
-
-        main_window = self.parent()
-        if main_window is not None:
-            main_window.next_patch()
-            self._update_patch_index()
+        self._previous_next_file(True)
 
     ##############################################
 
     def _stage(self):
+
+        # Fixme: only for Git
 
         file_path = self._paths[1]
         if self._staged:

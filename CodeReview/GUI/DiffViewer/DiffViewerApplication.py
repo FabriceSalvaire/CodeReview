@@ -24,8 +24,8 @@ from PyQt5 import QtCore
 
 ####################################################################################################
 
-from CodeReview.GUI.Base.GuiApplicationBase import GuiApplicationBase
 from CodeReview.Application.ApplicationBase import ApplicationBase
+from ..Base.GuiApplicationBase import GuiApplicationBase
 
 ####################################################################################################
 
@@ -33,7 +33,8 @@ class DiffViewerApplication(GuiApplicationBase, ApplicationBase):
 
     _logger = logging.getLogger(__name__)
 
-    file_system_changed = QtCore.pyqtSignal(str)
+    directory_changed = QtCore.pyqtSignal(str)
+    file_changed = QtCore.pyqtSignal(str)
 
     ###############################################
 
@@ -81,9 +82,11 @@ class DiffViewerApplication(GuiApplicationBase, ApplicationBase):
 
     def _init_file_system_watcher(self):
 
+        # Fixme: catch all events
+
         self._file_system_watcher = QtCore.QFileSystemWatcher()
-        self._file_system_watcher.directoryChanged.connect(self.file_system_changed)
-        self._file_system_watcher.fileChanged.connect(self.file_system_changed)
+        self._file_system_watcher.directoryChanged.connect(self.directory_changed)
+        self._file_system_watcher.fileChanged.connect(self.file_changed)
 
     ##############################################
 
