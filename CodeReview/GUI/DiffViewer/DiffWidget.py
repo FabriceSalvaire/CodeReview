@@ -26,12 +26,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 ####################################################################################################
 
-from .SyntaxHighlighterStyle import SyntaxHighlighterStyle
 from CodeReview.Diff.RawTextDocumentDiff import chunk_type
 from CodeReview.Math.Functions import number_of_digits
 from CodeReview.Tools.IteratorTools import pairwise, iter_with_last_flag
 from CodeReview.Tools.StringTools import remove_trailing_newline
 import CodeReview.GUI.DiffViewer.DiffWidgetConfig as DiffWidgetConfig
+from .SyntaxHighlighterStyle import SyntaxHighlighterStyle
 
 ####################################################################################################
 

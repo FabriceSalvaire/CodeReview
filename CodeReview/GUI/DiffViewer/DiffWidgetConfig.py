@@ -71,23 +71,23 @@ for style in (
     {'frame_type':chunk_type.equal,
      'background_colour':QtGui.QColor(255, 255, 255),
      'line_colour':QtGui.QColor(0, 0, 0)},
-    
+
     {'frame_type':chunk_type.insert,
      'background_colour':QtGui.QColor(180, 255, 180),
      'line_colour':QtGui.QColor(80, 210, 80)},
-    
+
     {'frame_type':chunk_type.delete,
      'background_colour':QtGui.QColor(255, 160, 180),
      'line_colour':QtGui.QColor(200, 60, 90)},
-    
+
     {'frame_type':chunk_type.replace,
      'background_colour':QtGui.QColor(206, 226, 250),
      'line_colour':QtGui.QColor(90, 130, 180)},
-    
+
     {'frame_type':chunk_type.equal_block,
      'background_colour':QtGui.QColor(240, 240, 240),
      'line_colour':QtGui.QColor(171, 171, 171)},
-    
+
     ):
     text_block_styles.add(**style)
 
