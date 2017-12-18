@@ -389,7 +389,7 @@ class LogBrowserMainWindow(MainWindowBase):
 
     ##############################################
 
-    def _get_patch(self, forward):
+    def _next_previous_patch(self, forward):
 
         if forward:
             if self._current_patch_index < self._last_path_index:
@@ -402,20 +402,8 @@ class LogBrowserMainWindow(MainWindowBase):
             else:
                 patch_index = self._last_path_index
 
-        return patch_index, self._diff[patch_index]
-
-    ##############################################
-
-    def _next_previous_patch(self, forward):
-
-        try:
-            patch_index, patch = self._get_patch(forward)
-        except IndexError: # Fixme: still required ???
-            self._logger.info('Patch index error {}'.format(patch_index))
-            self._diff = self._application.repository.diff(**self._diff_kwargs)
-            patch_index, patch = self._get_patch(forward)
-
         self._current_patch_index = patch_index
+        patch = self._diff[patch_index]
         self._show_patch(patch)
 
     ##############################################
