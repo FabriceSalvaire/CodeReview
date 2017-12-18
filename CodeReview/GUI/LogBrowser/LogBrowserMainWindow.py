@@ -108,7 +108,8 @@ class LogBrowserMainWindow(MainWindowBase):
     def finish_table_connections(self):
 
         self._log_table.selectionModel().currentRowChanged.connect(self._update_commit_table)
-        self._commit_table.selectionModel().currentRowChanged.connect(self._on_clicked_table)
+        #!# Fixme: reopen diff viewer window when repository change
+        #!# self._commit_table.selectionModel().currentRowChanged.connect(self._on_clicked_table)
 
     ##############################################
 
@@ -205,11 +206,13 @@ class LogBrowserMainWindow(MainWindowBase):
         self._reload_repository()
         self._diff = self._application.repository.diff(**self._diff_kwargs)
 
-        if self.number_of_patches:
-            self._current_patch_index = 0
-            self.reload_current_patch()
-        elif self._diff_window is not None:
-            self._diff_window.close()
+        if self._diff_window is not None:
+            if self.number_of_patches:
+                self._current_patch_index = 0
+                self._diff_window.update_patch_index()
+                self.reload_current_patch()
+            else:
+                self._diff_window.close()
 
     ##############################################
 

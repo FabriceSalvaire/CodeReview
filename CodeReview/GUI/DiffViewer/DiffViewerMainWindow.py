@@ -227,7 +227,7 @@ class DiffViewerMainWindow(MainWindowBase):
         ]
         if self._application._main_window is not None:
             self._patch_index_label = QtWidgets.QLabel()
-            self._update_patch_index()
+            self.update_patch_index()
             items.extend((
                 self._previous_file_action,
                 self._patch_index_label,
@@ -464,11 +464,12 @@ class DiffViewerMainWindow(MainWindowBase):
 
     ##############################################
 
-    def _update_patch_index(self):
+    def update_patch_index(self):
 
         main_window = self.parent()
-        self._patch_index_label.setText('{}/{}'.format(main_window.current_patch_index +1,
-                                                       main_window.number_of_patches))
+        self._patch_index_label.setText('{}/{}'.format(
+            main_window.current_patch_index +1,
+            main_window.number_of_patches))
 
     ##############################################
 
@@ -481,7 +482,7 @@ class DiffViewerMainWindow(MainWindowBase):
                 main_window.next_patch()
             else:
                 main_window.previous_patch()
-            self._update_patch_index()
+            self.update_patch_index()
         # else: directory diff is not implemented
 
     ##############################################
