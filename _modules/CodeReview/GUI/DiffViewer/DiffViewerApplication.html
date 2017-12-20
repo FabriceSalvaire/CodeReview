@@ -91,9 +91,10 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">1. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../new-features.html">2. Ideas for Additional Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../colophon.html">3. Colophon</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../reference-manual.html">4. API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../news.html">2. News</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../roadmap.html">3. Ideas for Additional Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../colophon.html">4. Colophon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference-manual.html">5. API Documentation</a></li>
 </ul>
 
             
@@ -184,8 +185,8 @@
 
 <span class="c1">####################################################################################################</span>
 
-<span class="kn">from</span> <span class="nn">CodeReview.GUI.Base.GuiApplicationBase</span> <span class="k">import</span> <span class="n">GuiApplicationBase</span>
 <span class="kn">from</span> <span class="nn">CodeReview.Application.ApplicationBase</span> <span class="k">import</span> <span class="n">ApplicationBase</span>
+<span class="kn">from</span> <span class="nn">..Base.GuiApplicationBase</span> <span class="k">import</span> <span class="n">GuiApplicationBase</span>
 
 <span class="c1">####################################################################################################</span>
 
@@ -193,7 +194,8 @@
 
     <span class="n">_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-    <span class="n">file_system_changed</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">directory_changed</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">file_changed</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
 
     <span class="c1">###############################################</span>
 
@@ -241,9 +243,11 @@
 
 <div class="viewcode-block" id="DiffViewerApplication._init_file_system_watcher"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerApplication.html#CodeReview.GUI.DiffViewer.DiffViewerApplication.DiffViewerApplication._init_file_system_watcher">[docs]</a>    <span class="k">def</span> <span class="nf">_init_file_system_watcher</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
+        <span class="c1"># Fixme: catch all events</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QFileSystemWatcher</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">directoryChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_system_changed</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">fileChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_system_changed</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">directoryChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory_changed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">fileChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_changed</span><span class="p">)</span></div>
 
     <span class="c1">##############################################</span>
 

@@ -25,6 +25,7 @@ Welcome to the CodeReview documentation !
   :numbered:
 
   installation.rst
-  new-features.rst
+  news.rst
+  roadmap.rst
   colophon.rst
   reference-manual.rst

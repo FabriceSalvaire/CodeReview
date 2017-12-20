@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4. Colophon &mdash; CodeReview 0.1.0 documentation</title>
+  <title>3. Ideas for Additional Features &mdash; CodeReview 0.1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="CodeReview 0.1.0 documentation" href="index.html"/>
-        <link rel="next" title="5. API Documentation" href="reference-manual.html"/>
-        <link rel="prev" title="3. Ideas for Additional Features" href="roadmap.html"/> 
+        <link rel="next" title="4. Colophon" href="colophon.html"/>
+        <link rel="prev" title="2. News" href="news.html"/> 
 
   
   <script src="static/js/modernizr.min.js"></script>
@@ -93,8 +93,8 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">1. Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="news.html">2. News</a></li>
-<li class="toctree-l1"><a class="reference internal" href="roadmap.html">3. Ideas for Additional Features</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">4. Colophon</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Ideas for Additional Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colophon.html">4. Colophon</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference-manual.html">5. API Documentation</a></li>
 </ul>
 
@@ -140,13 +140,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>4. Colophon</li>
+      <li>3. Ideas for Additional Features</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/colophon.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/roadmap.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -159,21 +159,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="colophon">
-<h1>4. Colophon<a class="headerlink" href="#colophon" title="Permalink to this headline">¶</a></h1>
-<p>CodeReview is written in Python 3 and the GUI is based on the Qt5 framework.  The libgit2 and
-<a class="reference external" href="http://www.pygit2.org/install.html">pygit2</a> provides the Python API to deal with Git repositories.  I tried to achieve a clever design
-and to write a clean code.</p>
-<p>I am not a fan of GUI softwares that aim to deal with Git with only a mouse and one finger.  Thus
-CodeReview is not intended to compete with a “power” IDE like Eclipse, Idea, PyCharm, Kate …  But
-just to provide features which are not available in <a class="reference external" href="https://www.gnu.org/software/emacs">Emacs</a>
-and the <a class="reference external" href="https://magit.vc/">Magit Mode</a> (my editor) or Github like a diff side-by-side on local
-changes.</p>
-<p>I started to write some pieces of code of CodeReview at the end of 2011, as a port of the Bzr Qt
-plugin <a class="reference external" href="http://wiki.bazaar.canonical.com/QBzr">QBzr</a> for Git when Bzr started to seriously fall
-down.  I am an addict of code review and I cannot work without it.  QBzr features two nice tools for
-this task: qlog and qdiff.  It was the main reason why I used Bzr until 2015 and didn’t switched to
-Git before this date.  But I succeed to release an alternative.</p>
+  <div class="section" id="ideas-for-additional-features">
+<h1>3. Ideas for Additional Features<a class="headerlink" href="#ideas-for-additional-features" title="Permalink to this headline">¶</a></h1>
+<p>Actually CodeReview has a limited number of features.  The followings list gives some ideas to extend its
+features:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Add Mercurial support. (Git and Mercurial are actually the most cool VCS)</li>
+<li>Add a graphical representation of the branches.  I don’t understand the crappy code of qlog and I
+don’t know any algorithm on this topic (graphviz, qgit ?).  To summarize I don’t what and how to do.</li>
+<li>Implement the detection of code translocations.  Sometimes we move code within a file or a
+project.  Such changes are related as deletion and addition in the code, which don’t help to
+review code.  We can do something clever by computing a distance between all the added and
+deleted chuncks.  The distance could be computed using a Levenshtein, Damerau–Levenshtein,
+Needleman–Wunsch or Smith–Waterman algorithm (DNA alignment algorithms).</li>
+<li>Implement code analyser/validator as language plugins.  The idea is to annotate change as
+cosmetic or dangerous modifications.  For example a deleted or added space is a cosmetic change
+in C, but it can be a regression in Python where the indentation is part of the grammar.</li>
+<li>Implement blame wich is another important feature.</li>
+<li>Implement comments and maybe as a client-server architecture.</li>
+<li>look <a class="reference external" href="https://docs.python.org/3.4/library/difflib.html">https://docs.python.org/3.4/library/difflib.html</a></li>
+</ul>
+</div></blockquote>
 </div>
 
 
@@ -186,10 +193,10 @@ Git before this date.  But I succeed to release an alternative.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="reference-manual.html" class="btn btn-neutral float-right" title="5. API Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="colophon.html" class="btn btn-neutral float-right" title="4. Colophon" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="roadmap.html" class="btn btn-neutral" title="3. Ideas for Additional Features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="news.html" class="btn btn-neutral" title="2. News" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

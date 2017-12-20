@@ -91,9 +91,10 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">1. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../new-features.html">2. Ideas for Additional Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../colophon.html">3. Colophon</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../reference-manual.html">4. API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../news.html">2. News</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../roadmap.html">3. Ideas for Additional Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../colophon.html">4. Colophon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference-manual.html">5. API Documentation</a></li>
 </ul>
 
             
@@ -185,11 +186,11 @@
 
 <span class="c1">####################################################################################################</span>
 
-<span class="kn">from</span> <span class="nn">.CommitTableModel</span> <span class="k">import</span> <span class="n">CommitTableModel</span>
-<span class="kn">from</span> <span class="nn">.LogTableModel</span> <span class="k">import</span> <span class="n">LogTableModel</span>
 <span class="kn">from</span> <span class="nn">CodeReview.Application.ApplicationBase</span> <span class="k">import</span> <span class="n">ApplicationBase</span>
 <span class="kn">from</span> <span class="nn">CodeReview.GUI.Base.GuiApplicationBase</span> <span class="k">import</span> <span class="n">GuiApplicationBase</span>
 <span class="kn">from</span> <span class="nn">CodeReview.Repository.Git</span> <span class="k">import</span> <span class="n">RepositoryNotFound</span><span class="p">,</span> <span class="n">GitRepository</span>
+<span class="kn">from</span> <span class="nn">.CommitTableModel</span> <span class="k">import</span> <span class="n">CommitTableModel</span>
+<span class="kn">from</span> <span class="nn">.LogTableModel</span> <span class="k">import</span> <span class="n">LogTableModel</span>
 
 <span class="c1">####################################################################################################</span>
 
@@ -197,7 +198,8 @@
 
     <span class="n">_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-    <span class="n">file_system_changed</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">directory_changed</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">file_changed</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
 
     <span class="c1">###############################################</span>
 
@@ -285,39 +287,97 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserApplication._init_file_system_watcher"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication._init_file_system_watcher">[docs]</a>    <span class="k">def</span> <span class="nf">_init_file_system_watcher</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QFileSystemWatcher</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_file_system_watcher</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">directoryChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_system_changed</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">fileChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_system_changed</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">file_system_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_setup_file_system_watcher</span><span class="p">)</span></div>
-
-    <span class="c1">##############################################</span>
-
-<div class="viewcode-block" id="LogBrowserApplication._setup_file_system_watcher"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication._setup_file_system_watcher">[docs]</a>    <span class="k">def</span> <span class="nf">_setup_file_system_watcher</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">workdir</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Monitor </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
-        <span class="n">paths</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-            <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
-        <span class="n">directories</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">directories</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">directories</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">removePaths</span><span class="p">(</span><span class="n">directories</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">addPaths</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span></div>
-
-    <span class="c1">##############################################</span>
-
 <div class="viewcode-block" id="LogBrowserApplication.reload_repository"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.reload_repository">[docs]</a>    <span class="k">def</span> <span class="nf">reload_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">_init_repository</span><span class="p">()</span></div>
 
     <span class="c1">##############################################</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">repository</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="LogBrowserApplication._init_file_system_watcher"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication._init_file_system_watcher">[docs]</a>    <span class="k">def</span> <span class="nf">_init_file_system_watcher</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Monitor </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">workdir</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QFileSystemWatcher</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_file_system_watcher</span><span class="p">()</span>
+
+        <span class="c1"># Update registrations</span>
+        <span class="c1">#!# self._file_system_watcher.directoryChanged.connect(self._setup_file_system_watcher)</span>
+
+        <span class="c1"># Attention: a git command generate many successive events</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">directoryChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory_changed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">fileChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_changed</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="LogBrowserApplication._setup_file_system_watcher"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication._setup_file_system_watcher">[docs]</a>    <span class="k">def</span> <span class="nf">_setup_file_system_watcher</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Fixme: optimise for large repositories ?</span>
+
+        <span class="c1"># Clear</span>
+        <span class="c1">#! self.unwatch_directories() #! remove monitored files as well !</span>
+        <span class="c1">#! self.unwatch_files()</span>
+        <span class="c1"># Fixme: removed path ???</span>
+
+        <span class="c1"># Only monitor directories</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">watch_directories</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">REFS_PATH</span><span class="p">)</span> <span class="c1"># monitor commit (directory)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">INDEX_PATH</span><span class="p">)</span> <span class="c1"># monitor stage (file)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="LogBrowserApplication.watch_directories"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.watch_directories">[docs]</a>    <span class="k">def</span> <span class="nf">watch_directories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">paths</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">git_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">join_repository_path</span><span class="p">(</span><span class="s1">&#39;.git&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">workdir</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">root</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">git_path</span><span class="p">):</span>
+                <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;watch </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">paths</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">addPaths</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="LogBrowserApplication.watch"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.watch">[docs]</a>    <span class="k">def</span> <span class="nf">watch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+
+        <span class="n">absolut_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">join_repository_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">absolut_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">addPath</span><span class="p">(</span><span class="n">absolut_path</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="LogBrowserApplication.unwatch"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.unwatch">[docs]</a>    <span class="k">def</span> <span class="nf">unwatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+
+        <span class="n">absolut_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">join_repository_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">absolut_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">removePath</span><span class="p">(</span><span class="n">absolut_path</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="LogBrowserApplication._unwatch_paths"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication._unwatch_paths">[docs]</a>    <span class="k">def</span> <span class="nf">_unwatch_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paths</span><span class="p">):</span>
+
+        <span class="c1"># Fixme: code ???</span>
+        <span class="k">if</span> <span class="n">paths</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">removePaths</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="LogBrowserApplication.unwatch_directories"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.unwatch_directories">[docs]</a>    <span class="k">def</span> <span class="nf">unwatch_directories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_unwatch_paths</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">directories</span><span class="p">())</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="LogBrowserApplication.unwatch_files"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.unwatch_files">[docs]</a>    <span class="k">def</span> <span class="nf">unwatch_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_unwatch_paths</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">files</span><span class="p">())</span></div></div>
 </pre></div>
 
            </div>

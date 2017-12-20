@@ -91,9 +91,10 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">1. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../new-features.html">2. Ideas for Additional Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../colophon.html">3. Colophon</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">4. API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../news.html">2. News</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../roadmap.html">3. Ideas for Additional Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../colophon.html">4. Colophon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference-manual.html">5. API Documentation</a></li>
 </ul>
 
             
@@ -198,6 +199,9 @@
 
     <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;GitRepository&#39;</span><span class="p">)</span>
 
+    <span class="n">INDEX_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;.git&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">)</span>
+    <span class="n">REFS_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;.git&#39;</span><span class="p">,</span> <span class="s1">&#39;refs&#39;</span><span class="p">,</span> <span class="s1">&#39;heads&#39;</span><span class="p">)</span>
+
     <span class="c1">##############################################</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
@@ -233,6 +237,11 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">repository_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="GitRepository.join_repository_path"><a class="viewcode-back" href="../../../api/CodeReview/Repository/Git.html#CodeReview.Repository.Git.GitRepository.join_repository_path">[docs]</a>    <span class="k">def</span> <span class="nf">join_repository_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">workdir</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span></div>
 
     <span class="c1">##############################################</span>
 
@@ -371,7 +380,13 @@
     <span class="c1">##############################################</span>
 
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_patches</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_patches</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="Diff.new_paths"><a class="viewcode-back" href="../../../api/CodeReview/Repository/Git.html#CodeReview.Repository.Git.Diff.new_paths">[docs]</a>    <span class="k">def</span> <span class="nf">new_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">patch</span><span class="o">.</span><span class="n">delta</span><span class="o">.</span><span class="n">new_file</span><span class="o">.</span><span class="n">path</span> <span class="k">for</span> <span class="n">patch</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_patches</span><span class="p">]</span></div></div>
 </pre></div>
 
            </div>

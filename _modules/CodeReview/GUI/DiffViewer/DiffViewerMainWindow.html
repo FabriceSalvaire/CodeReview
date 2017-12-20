@@ -91,9 +91,10 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">1. Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../new-features.html">2. Ideas for Additional Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../colophon.html">3. Colophon</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../reference-manual.html">4. API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../news.html">2. News</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../roadmap.html">3. Ideas for Additional Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../colophon.html">4. Colophon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference-manual.html">5. API Documentation</a></li>
 </ul>
 
             
@@ -215,10 +216,13 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">repository</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">DiffViewerMainWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;CodeReview Diff Viewer&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">)</span>
+        <span class="c1"># Note: parent is None when diff viewer is the main application</span>
+        <span class="c1"># Fixme: subclass standard and/ git diff</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;CodeReview Diff Viewer&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span> <span class="o">=</span> <span class="n">repository</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_staged</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_staged</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Fixme: only git</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_path</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -231,7 +235,9 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_lexer_cache</span> <span class="o">=</span> <span class="n">LexerCache</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">file_system_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_refresh</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_main_window</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">directory_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_file_system_changed</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">file_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_file_system_changed</span><span class="p">)</span>
 
     <span class="c1">##############################################</span>
 
@@ -320,6 +326,7 @@
                               <span class="n">triggered</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_refresh</span><span class="p">,</span>
             <span class="p">)</span>
 
+        <span class="c1"># Fixme: only git</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_stage_action</span> <span class="o">=</span> \
                                  <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Stage&#39;</span><span class="p">,</span>
@@ -381,7 +388,7 @@
         <span class="p">]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">_main_window</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_patch_index_label</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLabel</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_patch_index</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_patch_index</span><span class="p">()</span>
             <span class="n">items</span><span class="o">.</span><span class="n">extend</span><span class="p">((</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_previous_file_action</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_patch_index_label</span><span class="p">,</span>
@@ -400,19 +407,32 @@
 
 <div class="viewcode-block" id="DiffViewerMainWindow.init_menu"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow.init_menu">[docs]</a>    <span class="k">def</span> <span class="nf">init_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">DiffViewerMainWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">init_menu</span><span class="p">()</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">init_menu</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_main_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="c1"># return self._application.main_window is self</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_not_main_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="c1"># return self._application.main_window is self</span>
 
     <span class="c1">##############################################</span>
 
 <div class="viewcode-block" id="DiffViewerMainWindow.closeEvent"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow.closeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 
-        <span class="c1"># Fixme: else the window is reopened</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">file_system_changed</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_refresh</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">main_window</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
+        <span class="c1"># Fixme: else the window is reopened ???</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_main_window</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">directory_changed</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_file_system_changed</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">file_changed</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_file_system_changed</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">closed</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">DiffViewerMainWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">closeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">closeEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
 
     <span class="c1">##############################################</span>
 
@@ -439,6 +459,8 @@
     <span class="c1">################################################</span>
 
 <div class="viewcode-block" id="DiffViewerMainWindow.open_files"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow.open_files">[docs]</a>    <span class="k">def</span> <span class="nf">open_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file1</span><span class="p">,</span> <span class="n">file2</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+        <span class="c1"># Fixme: Actually it only supports file diff</span>
 
         <span class="n">paths</span> <span class="o">=</span> <span class="p">(</span><span class="n">file1</span><span class="p">,</span> <span class="n">file2</span><span class="p">)</span>
         <span class="n">texts</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -506,6 +528,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_stage_action</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staged</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_stage_action</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
 
+        <span class="c1"># Fixme:</span>
         <span class="c1"># Useless if application is LogBrowserApplication</span>
         <span class="c1"># file_system_watcher = self._application.file_system_watcher</span>
         <span class="c1"># files = file_system_watcher.files()</span>
@@ -581,45 +604,63 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="DiffViewerMainWindow._refresh"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._refresh">[docs]</a>    <span class="k">def</span> <span class="nf">_refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DiffViewerMainWindow._on_file_system_changed"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._on_file_system_changed">[docs]</a>    <span class="k">def</span> <span class="nf">_on_file_system_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
 
-        <span class="n">main_window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">main_window</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">main_window</span><span class="o">.</span><span class="n">reload_current_patch</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Fixme: better way ???</span>
-            <span class="n">texts</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="c1"># to force to reread files</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">diff_documents</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_paths</span><span class="p">,</span> <span class="n">texts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadatas</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_workdir</span><span class="p">)</span> <span class="c1"># Fixme: show ???</span></div>
+        <span class="c1"># only used for main window</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh</span><span class="p">()</span></div>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="DiffViewerMainWindow._update_patch_index"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._update_patch_index">[docs]</a>    <span class="k">def</span> <span class="nf">_update_patch_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DiffViewerMainWindow._refresh"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._refresh">[docs]</a>    <span class="k">def</span> <span class="nf">_refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_main_window</span><span class="p">:</span>
+            <span class="c1"># Fixme: better way ???</span>
+            <span class="n">texts</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="c1"># to force to reread files</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">diff_documents</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_paths</span><span class="p">,</span> <span class="n">texts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadatas</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_workdir</span><span class="p">)</span> <span class="c1"># Fixme: show ???</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">main_window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+            <span class="n">main_window</span><span class="o">.</span><span class="n">reload_current_patch</span><span class="p">()</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="DiffViewerMainWindow.update_patch_index"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow.update_patch_index">[docs]</a>    <span class="k">def</span> <span class="nf">update_patch_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">main_window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_patch_index_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">main_window</span><span class="o">.</span><span class="n">current_patch</span> <span class="o">+</span><span class="mi">1</span><span class="p">,</span>
-                                                       <span class="n">main_window</span><span class="o">.</span><span class="n">number_of_patches</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_patch_index_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">main_window</span><span class="o">.</span><span class="n">current_patch_index</span> <span class="o">+</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">main_window</span><span class="o">.</span><span class="n">number_of_patches</span><span class="p">))</span></div>
+
+    <span class="c1">##############################################</span>
+
+<div class="viewcode-block" id="DiffViewerMainWindow._previous_next_file"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._previous_next_file">[docs]</a>    <span class="k">def</span> <span class="nf">_previous_next_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forward</span><span class="p">):</span>
+
+        <span class="c1"># Fixme: only for Git</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_not_main_window</span><span class="p">:</span>
+            <span class="n">main_window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">forward</span><span class="p">:</span>
+                <span class="n">main_window</span><span class="o">.</span><span class="n">next_patch</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">main_window</span><span class="o">.</span><span class="n">previous_patch</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_patch_index</span><span class="p">()</span></div>
+        <span class="c1"># else: directory diff is not implemented</span>
 
     <span class="c1">##############################################</span>
 
 <div class="viewcode-block" id="DiffViewerMainWindow._previous_file"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._previous_file">[docs]</a>    <span class="k">def</span> <span class="nf">_previous_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="n">main_window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">main_window</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">main_window</span><span class="o">.</span><span class="n">previous_patch</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_patch_index</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_previous_next_file</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
 
     <span class="c1">##############################################</span>
 
 <div class="viewcode-block" id="DiffViewerMainWindow._next_file"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._next_file">[docs]</a>    <span class="k">def</span> <span class="nf">_next_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="n">main_window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">main_window</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">main_window</span><span class="o">.</span><span class="n">next_patch</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_patch_index</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_previous_next_file</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
 
     <span class="c1">##############################################</span>
 
 <div class="viewcode-block" id="DiffViewerMainWindow._stage"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/DiffViewer/DiffViewerMainWindow.html#CodeReview.GUI.DiffViewer.DiffViewerMainWindow.DiffViewerMainWindow._stage">[docs]</a>    <span class="k">def</span> <span class="nf">_stage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># Fixme: only for Git</span>
 
         <span class="n">file_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paths</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staged</span><span class="p">:</span>
