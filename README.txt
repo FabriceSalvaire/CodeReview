@@ -21,7 +21,15 @@ CodeReview Home Page is located at |CodeReviewUrl|
 .. image:: https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-log.png
 .. image:: https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-diff.png
 
-Authored by `Fabrice Salvaire <http://fabrice-salvaire.fr>`_
+Credits
+-------
+
+Authors: `Fabrice Salvaire <http://fabrice-salvaire.fr>`_
+
+News
+----
+
+.. include:: news.txt
 
 .. include:: introduction.txt
 

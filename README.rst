@@ -89,11 +89,26 @@
 
 CodeReview Home Page is located at |CodeReviewUrl|
 
-Authored by `Fabrice Salvaire <http://fabrice-salvaire.pagesperso-orange.fr>`_
-
-
 .. image:: https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-log.png
 .. image:: https://raw.github.com/FabriceSalvaire/CodeReview/master/doc/sphinx/source/images/code-review-diff.png
+
+Credits
+-------
+
+Authors: `Fabrice Salvaire <http://fabrice-salvaire.fr>`_
+
+News
+----
+
+.. -*- Mode: rst -*-
+
+
+.. no title here
+
+V1 2017-12-20
+-------------
+
+- Redesigned INotify support
 
 .. -*- Mode: rst -*-
 
