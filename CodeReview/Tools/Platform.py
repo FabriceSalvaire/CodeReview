@@ -1,4 +1,4 @@
-####################################################################################################
+###################################################################################################
 #
 # CodeReview - A Code Review GUI
 # Copyright (C) 2015 Fabrice Salvaire
@@ -47,7 +47,10 @@ class Platform:
 
         self.os = self._get_os()
         self.node = platform.node()
-        self.distribution = ' '.join(platform.dist())
+        try:
+            self.distribution = ' '.join(platform.linux_distribution())
+        except:
+            self.distribution = ''
         self.machine = platform.machine()
         self.architecture = platform.architecture()[0]
 
