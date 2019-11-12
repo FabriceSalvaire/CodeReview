@@ -41,6 +41,7 @@ exec(compile(open('setup_data.py').read(), 'setup_data.py', 'exec'))
 setup_dict.update(dict(
     # include_package_data=True, # Look in MANIFEST.in
     scripts=['bin/pyqgit', 'bin/diff-viewer'],
+    console_scripts=['bin/pyqgit', 'bin/diff-viewer'],
     packages=find_packages(exclude=['unit-test']),
     ext_modules=[
         Extension('CodeReview.PatienceDiff._patiencediff_c',
@@ -69,7 +70,7 @@ setup_dict.update(dict(
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3.4",
-        ],
+    ],
 
     install_requires=[
         'PyQt5',

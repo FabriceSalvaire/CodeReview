@@ -16,7 +16,7 @@ include setenv.sh start.sh
 include setup_data.py
 include test-repository/git-repo/*.sh
 recursive-include CodeReview *.py *.yml *.c *.h *.ui Makefile.pyqt .in
-recursive-include bin
+recursive-include bin pyqgit diff-viewer
 recursive-include doc *
 recursive-include doc/sphinx/source/_static *
 recursive-include gh-pages *

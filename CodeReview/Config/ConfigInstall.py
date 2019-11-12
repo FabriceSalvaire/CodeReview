@@ -21,11 +21,12 @@ class Path:
     @staticmethod
     def share_directory():
 
+        # Fixme: use absolut
         path = os.path.dirname(Path.CodeReview_module_directory)
-        if path.startswith(sys.exec_prefix):
-            return os.path.join(sys.exec_prefix, 'share', 'CodeReview')
-        else:
-            return os.path.join(path, 'share')
+        # if path.startswith(sys.exec_prefix):
+        #     return os.path.join(sys.exec_prefix, 'share', 'CodeReview')
+        # else:
+        return os.path.join(path, 'share', 'CodeReview')
 
 ####################################################################################################
 
