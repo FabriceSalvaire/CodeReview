@@ -78,6 +78,10 @@ class LogBrowserMainWindow(MainWindowBase):
         self._message_box = MessageBox(self)
         self._vertical_layout.addWidget(self._message_box)
 
+        self._branch_name = QtWidgets.QLineEdit(self)
+        self._branch_name.setReadOnly(True)
+        self._vertical_layout.addWidget(self._branch_name)
+
         row = 0
         layout = QtWidgets.QGridLayout()
         self._vertical_layout.addLayout(layout)
@@ -112,10 +116,19 @@ class LogBrowserMainWindow(MainWindowBase):
         splitter = QtWidgets.QSplitter()
         self._vertical_layout.addWidget(splitter)
         splitter.setOrientation(Qt.Vertical)
+
         self._log_table = QtWidgets.QTableView()
+        splitter.addWidget(self._log_table)
+
+        widget = QtWidgets.QWidget()
+        vertical_layout = QtWidgets.QVBoxLayout()
+        widget.setLayout(vertical_layout)
+        splitter.addWidget(widget)
+        self._commit_sha = QtWidgets.QLineEdit()
+        self._commit_sha.setReadOnly(True)
+        vertical_layout.addWidget(self._commit_sha)
         self._commit_table = QtWidgets.QTableView()
-        for widget in (self._log_table, self._commit_table):
-            splitter.addWidget(widget)
+        vertical_layout.addWidget(self._commit_table)
 
         # self._vertical_layout.addLayout(horizontal_layout)
         # for widget in (self._message_box, splitter):
@@ -311,12 +324,16 @@ class LogBrowserMainWindow(MainWindowBase):
             # log_table_model = self._log_table.model()
             log_table_model = self._application.log_table_model
             commit1 = log_table_model[index]
+            sha = commit1.hex
+            self._commit_sha.setText('SHA   {}   /   {}'.format(sha[:8], sha))
             try:
                 commit2 = log_table_model[index +1]
                 kwargs = dict(a=commit2, b=commit1) # Fixme:
             except IndexError:
                 kwargs = dict(a=commit1)
+
         else: # working directory
+            self._commit_sha.setText('')
             self._current_revision = None
             if self._stagged_mode_action.isChecked():
                 # Changes between the index and your last commit
@@ -331,7 +348,7 @@ class LogBrowserMainWindow(MainWindowBase):
         self._diff_kwargs = kwargs
         self._logger.info('index {} kwargs {}'.format(index, kwargs))
         # Fixme:
-        if kwargs['a'] is not None:
+        if kwargs.get('a', None) is not None:
             self._diff = self._application.repository.diff(**kwargs)
 
         commit_table_model = self._commit_table.model()

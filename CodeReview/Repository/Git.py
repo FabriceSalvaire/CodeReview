@@ -78,6 +78,12 @@ class GitRepository:
     def repository_status(self):
         return self._repository.status()
 
+    @property
+    def branch_name(self):
+        # head = self._repository.lookup_reference('HEAD').resolve()
+        head = self._repository.head
+        return head.name
+
     ##############################################
 
     def join_repository_path(self, path):

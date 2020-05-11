@@ -104,6 +104,10 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
             self._repository = None
             return
 
+        branch_name = self._repository.branch_name
+        branch_name = branch_name.replace('refs/heads/', ' refs/heads/   ')
+        self._main_window._branch_name.setText('Branch:   {}'.format(branch_name))
+
         self._log_table_model = LogTableModel(self._repository)
         self._log_table_filter = LogTableFilterProxyModel()
         self._log_table_filter.setSourceModel(self._log_table_model)
