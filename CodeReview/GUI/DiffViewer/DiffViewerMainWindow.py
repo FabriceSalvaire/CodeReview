@@ -168,13 +168,13 @@ class DiffViewerMainWindow(MainWindowBase):
         # Fixme: only git
         if self._repository:
             self._stage_action = \
-                                 QtWidgets.QAction('Stage',
-                                                   self,
-                                                   toolTip='Stage file',
-                                                   shortcut='Ctrl+S',
-                                                   checkable=True,
-                                                   triggered=self._stage,
-                                 )
+                QtWidgets.QAction('Stage',
+                                  self,
+                                  toolTip='Stage file',
+                                  shortcut='Ctrl+S',
+                                  checkable=True,
+                                  triggered=self._stage,
+                )
         else:
             self._stage_action = None
 
@@ -245,7 +245,6 @@ class DiffViewerMainWindow(MainWindowBase):
     ##############################################
 
     def init_menu(self):
-
         super().init_menu()
 
     ##############################################
@@ -303,20 +302,20 @@ class DiffViewerMainWindow(MainWindowBase):
 
         paths = (file1, file2)
         texts = (None, None)
-        metadatas = [dict(path=file1, document_type='file', last_modification_date=None),
-                     dict(path=file2, document_type='file', last_modification_date=None)]
+        metadatas = [
+            dict(path=file1, document_type='file', last_modification_date=None),
+            dict(path=file2, document_type='file', last_modification_date=None),
+        ]
         self.diff_documents(paths, texts, metadatas, show=show)
 
     ##############################################
 
     def _absolute_path(self, path):
-
         return os.path.join(self._workdir, path)
 
     ##############################################
 
     def _read_file(self, path):
-
         with open(self._absolute_path(path)) as f:
             text = f.read()
         return text
@@ -324,7 +323,6 @@ class DiffViewerMainWindow(MainWindowBase):
     ##############################################
 
     def _is_directory(self, path):
-
         if path is None:
             return False
         else:
@@ -333,10 +331,8 @@ class DiffViewerMainWindow(MainWindowBase):
     ##############################################
 
     def _get_lexer(self, path, text):
-
         if path is None:
             return None
-
         return self._lexer_cache.guess(path, text)
 
     ##############################################
@@ -394,8 +390,10 @@ class DiffViewerMainWindow(MainWindowBase):
 
         self._highlighted_documents = []
         if not show:
-            file_diff = TwoWayFileDiffFactory().process(* raw_text_documents,
-                                                        number_of_lines_of_context=number_of_lines_of_context)
+            file_diff = TwoWayFileDiffFactory().process(
+                * raw_text_documents,
+                number_of_lines_of_context=number_of_lines_of_context,
+            )
             document_models = TextDocumentDiffModelFactory().process(file_diff)
             for raw_text_document, document_model, lexer in zip(raw_text_documents, document_models, lexers):
                 if lexer is not None and highlight:
@@ -436,7 +434,6 @@ class DiffViewerMainWindow(MainWindowBase):
     ##############################################
 
     def _on_font_size_change(self, index=None, refresh=True):
-
         self._diff_view.set_font(self._font_size_combobox.currentData())
         if refresh:
             self._refresh() # Fixme: block position are not updated
@@ -444,9 +441,7 @@ class DiffViewerMainWindow(MainWindowBase):
     ##############################################
 
     def _on_file_system_changed(self, path):
-
         # only used for main window
-
         self._logger.info(path)
         self._refresh()
 

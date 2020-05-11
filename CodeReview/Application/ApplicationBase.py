@@ -69,7 +69,6 @@ class ApplicationBase:
     ##############################################
 
     def execute_given_user_script(self):
-
         if self._args.user_script is not None:
             self.execute_user_script(self._args.user_script)
 
@@ -91,11 +90,9 @@ class ApplicationBase:
     ##############################################
 
     def exit(self):
-
         sys.exit(0)
 
     ##############################################
 
     def show_message(self, message=None, **kwargs):
-
         self._logger.info(message)

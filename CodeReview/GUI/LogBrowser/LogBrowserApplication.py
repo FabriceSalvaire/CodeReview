@@ -56,7 +56,6 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
     ##############################################
 
     def _init_actions(self):
-
         super(LogBrowserApplication, self)._init_actions()
 
     ##############################################
@@ -185,7 +184,6 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
     ##############################################
 
     def watch(self, path):
-
         absolut_path = self._repository.join_repository_path(path)
         self._logger.info(absolut_path)
         self._file_system_watcher.addPath(absolut_path)
@@ -193,7 +191,6 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
     ##############################################
 
     def unwatch(self, path):
-
         absolut_path = self._repository.join_repository_path(path)
         self._logger.info(absolut_path)
         self._file_system_watcher.removePath(absolut_path)
@@ -201,7 +198,6 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
     ##############################################
 
     def _unwatch_paths(self, paths):
-
         # Fixme: code ???
         if paths:
             self._file_system_watcher.removePaths(paths)
@@ -209,11 +205,9 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
     ##############################################
 
     def unwatch_directories(self):
-
         self._unwatch_paths(self._file_system_watcher.directories())
 
     ##############################################
 
     def unwatch_files(self):
-
         self._unwatch_paths(self._file_system_watcher.files())

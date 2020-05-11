@@ -95,14 +95,12 @@ class CommitTableModel(QtCore.QAbstractTableModel):
     ##############################################
 
     def __iter__(self):
-
         for row in self._rows:
             yield row[-1]
 
     ##############################################
 
     def __getitem__(self, i):
-
         return self._rows[i][-1]
 
     ##############################################
@@ -150,19 +148,16 @@ class CommitTableModel(QtCore.QAbstractTableModel):
     ##############################################
 
     def columnCount(self, index=QtCore.QModelIndex()):
-
         return len(self.__titles__)
 
     ##############################################
 
     def rowCount(self, index=QtCore.QModelIndex()):
-
         return self._number_of_rows
 
     ##############################################
 
     def sort(self, column, order):
-
        reverse = order == Qt.DescendingOrder
        self._rows.sort(key=lambda x:x[column], reverse=reverse)
        self.modelReset.emit()

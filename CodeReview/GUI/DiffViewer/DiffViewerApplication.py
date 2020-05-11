@@ -52,13 +52,11 @@ class DiffViewerApplication(GuiApplicationBase, ApplicationBase):
     ##############################################
 
     def _init_actions(self):
-
         super(DiffViewerApplication, self)._init_actions()
 
     ##############################################
 
     def post_init(self):
-
         super(DiffViewerApplication, self).post_init()
         self._main_window.open_files(self._args.file1, self._args.file2, self._args.show)
         self._init_file_system_watcher()
@@ -81,9 +79,7 @@ class DiffViewerApplication(GuiApplicationBase, ApplicationBase):
     ##############################################
 
     def _init_file_system_watcher(self):
-
         # Fixme: catch all events
-
         self._file_system_watcher = QtCore.QFileSystemWatcher()
         self._file_system_watcher.directoryChanged.connect(self.directory_changed)
         self._file_system_watcher.fileChanged.connect(self.file_changed)

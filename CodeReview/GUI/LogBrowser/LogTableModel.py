@@ -65,7 +65,6 @@ class LogTableModel(QtCore.QAbstractTableModel):
     ##############################################
 
     def _commit_data(self, i, commit):
-
         return (
             self._number_of_rows - i -1,
             commit.message,
@@ -78,7 +77,6 @@ class LogTableModel(QtCore.QAbstractTableModel):
     ##############################################
 
     def __getitem__(self, i):
-
         return self._rows[i][-1]
 
     ##############################################
@@ -116,11 +114,9 @@ class LogTableModel(QtCore.QAbstractTableModel):
     ##############################################
 
     def columnCount(self, index=QtCore.QModelIndex()):
-
         return len(self.__titles__)
 
     ##############################################
 
     def rowCount(self, index=QtCore.QModelIndex()):
-
         return self._number_of_rows

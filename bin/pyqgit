@@ -1,5 +1,4 @@
 #! /usr/bin/env python3
-# -*- python -*-
 
 ####################################################################################################
 #
@@ -46,19 +45,25 @@ from CodeReview.Tools.ProgramOptions import PathAction
 
 argument_parser = argparse.ArgumentParser(description='Log Browser')
 
-argument_parser.add_argument('path', metavar='PATH',
-                             action=PathAction,
-                             nargs='?', default='.',
-                             help='path')
+argument_parser.add_argument(
+    'path', metavar='PATH',
+    action=PathAction,
+    nargs='?', default='.',
+    help='path',
+)
 
-argument_parser.add_argument('--user-script',
-                             action=PathAction,
-                             default=None,
-                             help='user script to execute')
+argument_parser.add_argument(
+    '--user-script',
+    action=PathAction,
+    default=None,
+    help='user script to execute',
+)
 
-argument_parser.add_argument('--user-script-args',
-                             default='',
-                             help="user script args (don't forget to quote)")
+argument_parser.add_argument(
+    '--user-script-args',
+    default='',
+    help="user script args (don't forget to quote)",
+)
 
 args = argument_parser.parse_args()
 

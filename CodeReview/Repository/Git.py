@@ -127,7 +127,7 @@ class GitRepository:
 
     ##############################################
 
-    __STATUS_TEXT__ = {
+    _STATUS_TEXT = {
         git.GIT_STATUS_CONFLICTED: 'conflicted',
         git.GIT_STATUS_CURRENT: 'current',
         git.GIT_STATUS_IGNORED: 'ignored',
@@ -143,8 +143,8 @@ class GitRepository:
 
         try:
             status = self.repository_status[path]
-            status_text = ' | '.join([self.__STATUS_TEXT__[bit]
-                                      for bit in self.__STATUS_TEXT__
+            status_text = ' | '.join([self._STATUS_TEXT[bit]
+                                      for bit in self._STATUS_TEXT
                                       if status & bit])
             self._logger.info("File {} has status {} / {}".format(path, status, status_text))
             return status
@@ -168,13 +168,11 @@ class GitRepository:
     ##############################################
 
     def is_modified(self, path):
-
         return self.status(path) == git.GIT_STATUS_WT_MODIFIED
 
     ##############################################
 
     def stage(self, path):
-
         index = self.index
         index.add(path)
         index.write()
@@ -202,7 +200,6 @@ class Diff:
     ##############################################
 
     def __init__(self, diff, patches):
-
         self.diff = diff
         self._patches = patches
 
@@ -224,5 +221,4 @@ class Diff:
     ##############################################
 
     def new_paths(self):
-
         return [patch.delta.new_file.path for patch in self._patches]

@@ -172,7 +172,6 @@ class LogBrowserMainWindow(MainWindowBase):
     ##############################################
 
     def init_menu(self):
-
         super(LogBrowserMainWindow, self).init_menu()
 
     ##############################################
@@ -258,7 +257,6 @@ class LogBrowserMainWindow(MainWindowBase):
     ##############################################
 
     def _update_working_tree_diff(self):
-
         # Check log table is on working tree
         if self._log_table.currentIndex().row() == 0:
             self._update_commit_table()
@@ -303,7 +301,6 @@ class LogBrowserMainWindow(MainWindowBase):
     ##############################################
 
     def _on_clicked_table(self, index):
-
         # called when a commit row is clicked
         self._logger.info('')
         self._current_patch_index = index.row()
@@ -337,7 +334,6 @@ class LogBrowserMainWindow(MainWindowBase):
     ##############################################
 
     def _on_diff_window_closed(self):
-
         self._application.unwatch_files() # Fixme: only current patch !
         self._diff_window = None
         self._logger.info("Diff Viewer closed")
@@ -346,7 +342,7 @@ class LogBrowserMainWindow(MainWindowBase):
 
     def _show_patch(self, patch):
 
-        self._logger.info("")
+        self._logger.info('')
 
         self._application.unwatch_files()
 
@@ -368,23 +364,26 @@ class LogBrowserMainWindow(MainWindowBase):
             elif delta.status == git.GIT_DELTA_DELETED:
                 paths = (old_path, None)
             repository = self._application.repository
-            texts = [repository.file_content(blob_id)
-                     for blob_id in (delta.old_file.id, delta.new_file.id)]
-            metadatas = [dict(path=old_path, document_type='file', last_modification_date=None),
-                         dict(path=new_path, document_type='file', last_modification_date=None)]
+            texts = [
+                repository.file_content(blob_id)
+                for blob_id in (delta.old_file.id, delta.new_file.id)
+            ]
+            metadatas = [
+                dict(path=old_path, document_type='file', last_modification_date=None),
+                dict(path=new_path, document_type='file', last_modification_date=None),
+            ]
             self._diff_window.diff_documents(paths, texts, metadatas, workdir=repository.workdir)
             self._application.watch(new_path)
         else:
             self._logger.info('revision {} Binary '.format(self._current_revision) + new_path)
-        # Fixme: show image pdf ...
 
+        # Fixme: show image pdf ...
         # Monitor file change
 
     ##############################################
 
     @property
     def _last_path_index(self):
-
         return len(self._diff) -1
 
     ##############################################
@@ -419,7 +418,6 @@ class LogBrowserMainWindow(MainWindowBase):
     ##############################################
 
     def reload_current_patch(self):
-
         if self._current_patch_index is not None:
             patch = self._diff[self._current_patch_index]
             self._show_patch(patch)
