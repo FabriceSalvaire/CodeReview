@@ -107,6 +107,8 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
         self._log_table_model = LogTableModel(self._repository)
         self._log_table_filter = LogTableFilterProxyModel()
         self._log_table_filter.setSourceModel(self._log_table_model)
+        # self._log_table_filter.???.connect(self._main_window._on_log_table_filter_changed)
+        self._main_window._on_log_table_filter_changed()
         log_table = self._main_window._log_table
         # log_table.setModel(self._log_table_model)
         log_table.setModel(self._log_table_filter)

@@ -106,6 +106,9 @@ class LogBrowserMainWindow(MainWindowBase):
             layout.addWidget(widget, row, i)
         row += 1
 
+        self._row_count = QtWidgets.QLabel('')
+        self._vertical_layout.addWidget(self._row_count)
+
         splitter = QtWidgets.QSplitter()
         self._vertical_layout.addWidget(splitter)
         splitter.setOrientation(Qt.Vertical)
@@ -465,6 +468,7 @@ class LogBrowserMainWindow(MainWindowBase):
         log_table_filter = self._application.log_table_filter
         log_table_filter.setFilterRegExp(QRegExp(text, Qt.CaseInsensitive, QRegExp.FixedString))
         log_table_filter.setFilterKeyColumn(LogTableModel.COLUMN_ENUM.committer)
+        self._on_log_table_filter_changed() # seems to just work, no need to connect signal
 
     ##############################################
 
@@ -472,6 +476,7 @@ class LogBrowserMainWindow(MainWindowBase):
         log_table_filter = self._application.log_table_filter
         log_table_filter.setFilterRegExp(QRegExp(text, Qt.CaseInsensitive, QRegExp.FixedString))
         log_table_filter.setFilterKeyColumn(LogTableModel.COLUMN_ENUM.message)
+        self._on_log_table_filter_changed()
 
     ##############################################
 
@@ -485,3 +490,12 @@ class LogBrowserMainWindow(MainWindowBase):
             regexp = ''
         log_table_filter.setFilterRegExp(QRegExp(regexp, Qt.CaseInsensitive, QRegExp.FixedString))
         log_table_filter.setFilterKeyColumn(LogTableModel.COLUMN_ENUM.sha)
+        self._on_log_table_filter_changed()
+
+    ##############################################
+
+    def _on_log_table_filter_changed(self):
+        log_table_filter = self._application.log_table_filter
+        self._row_count.setText('{} commits'.format(log_table_filter.rowCount()))
+
+
