@@ -46,14 +46,14 @@ class CommitTableModel(QtCore.QAbstractTableModel):
         'similarity',
         ))
 
-    __titles__ = (
+    _TITLES = (
         'Modification',
         'Old Path',
         'New Path',
         'Similarity',
     )
 
-    __status_to_letter__ = {
+    _STATUS_TO_LETTER = {
         git.GIT_DELTA_DELETED: 'D',
         git.GIT_DELTA_MODIFIED: 'M',
         git.GIT_DELTA_ADDED: 'A',
@@ -84,7 +84,7 @@ class CommitTableModel(QtCore.QAbstractTableModel):
             else:
                 new_file_path = ''
                 similarity = ''
-            status = self.__status_to_letter__[delta.status]
+            status = self._STATUS_TO_LETTER[delta.status]
             row = (status, delta.old_file.path, new_file_path, similarity, patch)
             self._rows.append(row)
 
@@ -141,14 +141,14 @@ class CommitTableModel(QtCore.QAbstractTableModel):
 
         if role == Qt.DisplayRole:
             if orientation == Qt.Horizontal:
-                return QtCore.QVariant(self.__titles__[section])
+                return QtCore.QVariant(self._TITLES[section])
 
         return QtCore.QVariant()
 
     ##############################################
 
     def columnCount(self, index=QtCore.QModelIndex()):
-        return len(self.__titles__)
+        return len(self._TITLES)
 
     ##############################################
 

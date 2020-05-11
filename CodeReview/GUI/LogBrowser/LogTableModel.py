@@ -42,7 +42,7 @@ class LogTableModel(QtCore.QAbstractTableModel):
         'comitter',
         ))
 
-    __titles__ = (
+    _TITLES = (
         'Revision',
         'Message',
         'Id SH1',
@@ -105,7 +105,7 @@ class LogTableModel(QtCore.QAbstractTableModel):
 
         if role == Qt.DisplayRole:
             if orientation == Qt.Horizontal:
-                return QtCore.QVariant(self.__titles__[section])
+                return QtCore.QVariant(self._TITLES[section])
             else:
                 return QtCore.QVariant(self._number_of_rows - section)
 
@@ -114,7 +114,7 @@ class LogTableModel(QtCore.QAbstractTableModel):
     ##############################################
 
     def columnCount(self, index=QtCore.QModelIndex()):
-        return len(self.__titles__)
+        return len(self._TITLES)
 
     ##############################################
 
