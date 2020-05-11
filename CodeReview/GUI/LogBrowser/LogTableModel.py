@@ -131,6 +131,14 @@ class LogTableModel(QtCore.QAbstractTableModel):
 
     ##############################################
 
+    def find_commit(self, sha):
+        for i, row in enumerate(self._rows):
+            if row[2] == sha:
+                return self.createIndex(i, 0)
+        return None
+
+    ##############################################
+
     def data(self, index, role=Qt.DisplayRole):
 
         if not index.isValid(): # or not(0 <= index.row() < self._number_of_rows):

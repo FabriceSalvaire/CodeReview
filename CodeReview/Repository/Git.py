@@ -117,6 +117,16 @@ class GitRepository:
 
     def diff(self, a=None, b=None, cached=False, path_filter=None):
 
+        if isinstance(a, git.Commit):
+            a_str = a.hex
+        else:
+            a_str = str(a)
+        if isinstance(b, git.Commit):
+            b_str = b.hex
+        else:
+            b_str = str(b)
+        self._logger.info('{} {} {} {}'.format(a_str, b_str, cached, path_filter))
+
         if path_filter is None:
             path_filter = self._path_filter
 

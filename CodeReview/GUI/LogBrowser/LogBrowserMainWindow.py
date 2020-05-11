@@ -44,6 +44,8 @@ class LogBrowserMainWindow(MainWindowBase):
 
     _logger = _module_logger.getChild('LogBrowserMainWindow')
 
+    SHA_SHORTCUT_LENGTH = 8
+
     ##############################################
 
     def __init__(self, parent=None):
@@ -140,9 +142,14 @@ class LogBrowserMainWindow(MainWindowBase):
         vertical_layout.addWidget(self._commit_sha)
         self._parent_labels = []
         for i in range(2):
+            horizontal_layout = QtWidgets.QHBoxLayout()
+            vertical_layout.addLayout(horizontal_layout)
+            button = QtWidgets.QPushButton('Go')
+            button.clicked.connect(lambda state, index=i: self._on_go_clicked(index))
+            horizontal_layout.addWidget(button)
             parent = QtWidgets.QLineEdit()
             parent.setReadOnly(True)
-            vertical_layout.addWidget(parent)
+            horizontal_layout.addWidget(parent)
             self._parent_labels.append(parent)
         self._commit_table = QtWidgets.QTableView()
         vertical_layout.addWidget(self._commit_table)
@@ -336,6 +343,7 @@ class LogBrowserMainWindow(MainWindowBase):
     ##############################################
 
     def _reset_parent(self):
+        self._current_commit = None
         for parent in self._parent_labels:
             parent.clear()
 
@@ -361,25 +369,26 @@ class LogBrowserMainWindow(MainWindowBase):
             self._current_revision = index
             # log_table_model = self._log_table.model()
             log_table_model = self._application.log_table_model
-            commit1 = log_table_model[index]
+            self._current_commit = log_table_model[index]
 
-            sha = commit1.hex
-            self._commit_sha.setText('Commit   {}   /   {}'.format(sha[:8], sha))
-            if len(commit1.parents) > len(self._parent_labels):
+            sha = self._current_commit.hex
+            self._commit_sha.setText('Commit: {}   /   {}'.format(sha[:self.SHA_SHORTCUT_LENGTH], sha))
+            if len(self._current_commit.parents) > len(self._parent_labels):
                 self.show_message('Fixme: More than 2 parents')
-            for commit, parent_label in zip(commit1.parents, self._parent_labels):
-                parent_label.setText('Parent {}   {}'.format(commit.hex, commit.message))
+            for commit, parent_label in zip(self._current_commit.parents, self._parent_labels):
+                parent_label.setText('Parent: {}   ({})'.format(commit.hex[:self.SHA_SHORTCUT_LENGTH], commit.message))
+                parent_label.setCursorPosition(0)
 
             self._review_note = self._application.review[sha]
             if self._review_note is not None:
                 self._review_comment.setText(self._review_note.text)
             else:
                 self._review_note = ReviewNote(sha)
-            try:
-                commit2 = log_table_model[index +1]
-                kwargs = dict(a=commit2, b=commit1) # Fixme:
-            except IndexError:
-                kwargs = dict(a=commit1)
+            # try:
+            commit_a = self._current_commit.parents[0]
+            kwargs = dict(a=commit_a, b=self._current_commit) # Fixme:
+            # except IndexError:
+            #     kwargs = dict(a=self._current_commit)
 
         else: # working directory
             self._current_revision = None
@@ -394,10 +403,7 @@ class LogBrowserMainWindow(MainWindowBase):
                 kwargs = dict(a='HEAD')
 
         self._diff_kwargs = kwargs
-        self._logger.info('index {} kwargs {}'.format(index, kwargs))
-        # Fixme:
-        if kwargs.get('a', None) is not None:
-            self._diff = self._application.repository.diff(**kwargs)
+        self._diff = self._application.repository.diff(**kwargs)
 
         commit_table_model = self._commit_table.model()
         commit_table_model.update(self._diff)
@@ -569,3 +575,16 @@ class LogBrowserMainWindow(MainWindowBase):
         self._review_note.text = self._review_comment.toPlainText()
         self._application.review.add(self._review_note)
         self._application.review.save()
+
+    ##############################################
+
+    def _on_go_clicked(self, parent_index):
+        if self._current_commit is not None:
+            try:
+                parent_commit_sha = str(self._current_commit.parent_ids[parent_index])
+                index = self._application.log_table_model.find_commit(parent_commit_sha)
+                if index is not None:
+                    self._logger.info('Found parent commit {} {}'.format(parent_index, parent_commit_sha))
+                    self._log_table.selectRow(index.row())
+            except IndexError:
+                pass
