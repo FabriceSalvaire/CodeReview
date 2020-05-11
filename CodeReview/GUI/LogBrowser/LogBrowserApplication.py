@@ -117,7 +117,7 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
             column_enum.revision,
             # column_enum.message,
             column_enum.date,
-            column_enum.comitter,
+            column_enum.committer,
         ):
             log_table.resizeColumnToContents(int(column))
             width += log_table.columnWidth(int(column))

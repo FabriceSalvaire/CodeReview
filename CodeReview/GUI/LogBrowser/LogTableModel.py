@@ -64,7 +64,7 @@ class LogTableModel(QtCore.QAbstractTableModel):
         'message',
         'sha',
         'date',
-        'comitter',
+        'committer',
         ))
 
     _TITLES = (
@@ -72,7 +72,7 @@ class LogTableModel(QtCore.QAbstractTableModel):
         'Message',
         'Id SH1',
         'Date',
-        'Comitter',
+        'Committer',
     )
 
     ##############################################

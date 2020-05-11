@@ -441,4 +441,4 @@ class LogBrowserMainWindow(MainWindowBase):
     def _on_filter_changed(self, text):
         log_table_filter = self._application.log_table_filter
         log_table_filter.setFilterRegExp(QRegExp(text, Qt.CaseInsensitive, QRegExp.FixedString))
-        log_table_filter.setFilterKeyColumn(LogTableModel.COLUMN_ENUM.comitter)
+        log_table_filter.setFilterKeyColumn(LogTableModel.COLUMN_ENUM.committer)
