@@ -76,24 +76,47 @@ class LogBrowserMainWindow(MainWindowBase):
         self._vertical_layout = QtWidgets.QVBoxLayout(self._central_widget)
 
         self._message_box = MessageBox(self)
+        self._vertical_layout.addWidget(self._message_box)
+
+        row = 0
+        layout = QtWidgets.QGridLayout()
+        self._vertical_layout.addLayout(layout)
+        label = QtWidgets.QLabel('Committer Filter')
+        committer_filter = QtWidgets.QLineEdit()
+        committer_filter.textChanged.connect(self._on_committer_filter_changed)
+        for i, widget in enumerate((label, committer_filter)):
+            layout.addWidget(widget, row, i)
+        row += 1
 
         horizontal_layout = QtWidgets.QHBoxLayout()
-        label = QtWidgets.QLabel('Filter')
-        self._commit_filter = QtWidgets.QLineEdit()
-        self._commit_filter.textChanged.connect(self._on_filter_changed)
-        for widget in (label, self._commit_filter):
-            horizontal_layout.addWidget(widget)
+        self._vertical_layout.addLayout(horizontal_layout)
+        label = QtWidgets.QLabel('Message Filter')
+        message_filter = QtWidgets.QLineEdit()
+        message_filter.textChanged.connect(self._on_message_filter_changed)
+        for i, widget in enumerate((label, message_filter)):
+            layout.addWidget(widget, row, i)
+        row += 1
+
+        horizontal_layout = QtWidgets.QHBoxLayout()
+        self._vertical_layout.addLayout(horizontal_layout)
+        label = QtWidgets.QLabel('SHA Filter')
+        sha_filter = QtWidgets.QLineEdit()
+        sha_filter.textChanged.connect(self._on_sha_filter_changed)
+        for i, widget in enumerate((label, sha_filter)):
+            layout.addWidget(widget, row, i)
+        row += 1
 
         splitter = QtWidgets.QSplitter()
+        self._vertical_layout.addWidget(splitter)
         splitter.setOrientation(Qt.Vertical)
         self._log_table = QtWidgets.QTableView()
         self._commit_table = QtWidgets.QTableView()
         for widget in (self._log_table, self._commit_table):
             splitter.addWidget(widget)
 
-        self._vertical_layout.addLayout(horizontal_layout)
-        for widget in (self._message_box, splitter):
-            self._vertical_layout.addWidget(widget)
+        # self._vertical_layout.addLayout(horizontal_layout)
+        # for widget in (self._message_box, splitter):
+        #     self._vertical_layout.addWidget(widget)
 
         table = self._log_table
         table.setSelectionMode(QtWidgets.QTableView.SingleSelection)
@@ -438,7 +461,27 @@ class LogBrowserMainWindow(MainWindowBase):
 
     ##############################################
 
-    def _on_filter_changed(self, text):
+    def _on_committer_filter_changed(self, text):
         log_table_filter = self._application.log_table_filter
         log_table_filter.setFilterRegExp(QRegExp(text, Qt.CaseInsensitive, QRegExp.FixedString))
         log_table_filter.setFilterKeyColumn(LogTableModel.COLUMN_ENUM.committer)
+
+    ##############################################
+
+    def _on_message_filter_changed(self, text):
+        log_table_filter = self._application.log_table_filter
+        log_table_filter.setFilterRegExp(QRegExp(text, Qt.CaseInsensitive, QRegExp.FixedString))
+        log_table_filter.setFilterKeyColumn(LogTableModel.COLUMN_ENUM.message)
+
+    ##############################################
+
+    def _on_sha_filter_changed(self, text):
+        log_table_filter = self._application.log_table_filter
+        if text:
+            # Fixme: ???
+            # regexp = '^' + text
+            regexp = text
+        else:
+            regexp = ''
+        log_table_filter.setFilterRegExp(QRegExp(regexp, Qt.CaseInsensitive, QRegExp.FixedString))
+        log_table_filter.setFilterKeyColumn(LogTableModel.COLUMN_ENUM.sha)
