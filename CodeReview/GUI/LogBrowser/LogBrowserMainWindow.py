@@ -362,24 +362,24 @@ class LogBrowserMainWindow(MainWindowBase):
             # log_table_model = self._log_table.model()
             log_table_model = self._application.log_table_model
             commit1 = log_table_model[index]
+
             sha = commit1.hex
             self._commit_sha.setText('Commit   {}   /   {}'.format(sha[:8], sha))
-            self._logger.info('Commit {}'.format(sha))
-            self._logger.info('Parents: {}'.format(commit1.parent_ids))
             if len(commit1.parents) > len(self._parent_labels):
                 self.show_message('Fixme: More than 2 parents')
             for commit, parent_label in zip(commit1.parents, self._parent_labels):
                 parent_label.setText('Parent {}   {}'.format(commit.hex, commit.message))
-            try:
-                commit2 = log_table_model[index +1]
-                kwargs = dict(a=commit2, b=commit1) # Fixme:
-            except IndexError:
-                kwargs = dict(a=commit1)
+
             self._review_note = self._application.review[sha]
             if self._review_note is not None:
                 self._review_comment.setText(self._review_note.text)
             else:
                 self._review_note = ReviewNote(sha)
+            try:
+                commit2 = log_table_model[index +1]
+                kwargs = dict(a=commit2, b=commit1) # Fixme:
+            except IndexError:
+                kwargs = dict(a=commit1)
 
         else: # working directory
             self._current_revision = None
