@@ -81,13 +81,21 @@ class LogBrowserMainWindow(MainWindowBase):
         self._message_box = MessageBox(self)
         top_vertical_layout.addWidget(self._message_box)
 
+        horizontal_layout = QtWidgets.QHBoxLayout()
+        top_vertical_layout.addLayout(horizontal_layout)
+
+        vertical_layout = QtWidgets.QVBoxLayout()
+        horizontal_layout.addLayout(vertical_layout)
         self._branch_name = QtWidgets.QLineEdit(self)
         self._branch_name.setReadOnly(True)
-        top_vertical_layout.addWidget(self._branch_name)
+        vertical_layout.addWidget(self._branch_name)
+
+        self._row_count = QtWidgets.QLabel('')
+        vertical_layout.addWidget(self._row_count)
 
         row = 0
         grid_layout = QtWidgets.QGridLayout()
-        top_vertical_layout.addLayout(grid_layout)
+        horizontal_layout.addLayout(grid_layout)
         label = QtWidgets.QLabel('Committer Filter')
         committer_filter = QtWidgets.QLineEdit()
         committer_filter.textChanged.connect(self._on_committer_filter_changed)
@@ -113,9 +121,6 @@ class LogBrowserMainWindow(MainWindowBase):
             grid_layout.addWidget(widget, row, i)
         row += 1
 
-        self._row_count = QtWidgets.QLabel('')
-        top_vertical_layout.addWidget(self._row_count)
-
         splitter = QtWidgets.QSplitter()
         top_vertical_layout.addWidget(splitter)
         splitter.setOrientation(Qt.Vertical)
@@ -133,6 +138,12 @@ class LogBrowserMainWindow(MainWindowBase):
         self._commit_sha = QtWidgets.QLineEdit()
         self._commit_sha.setReadOnly(True)
         vertical_layout.addWidget(self._commit_sha)
+        self._parent_labels = []
+        for i in range(2):
+            parent = QtWidgets.QLineEdit()
+            parent.setReadOnly(True)
+            vertical_layout.addWidget(parent)
+            self._parent_labels.append(parent)
         self._commit_table = QtWidgets.QTableView()
         vertical_layout.addWidget(self._commit_table)
 
@@ -324,7 +335,16 @@ class LogBrowserMainWindow(MainWindowBase):
 
     ##############################################
 
+    def _reset_parent(self):
+        for parent in self._parent_labels:
+            parent.clear()
+
+    ##############################################
+
     def _update_commit_table(self, index=None):
+
+        self._commit_sha.clear()
+        self._reset_parent()
 
         if self._review_note is not None:
             self._on_save_review()
@@ -343,7 +363,13 @@ class LogBrowserMainWindow(MainWindowBase):
             log_table_model = self._application.log_table_model
             commit1 = log_table_model[index]
             sha = commit1.hex
-            self._commit_sha.setText('SHA   {}   /   {}'.format(sha[:8], sha))
+            self._commit_sha.setText('Commit   {}   /   {}'.format(sha[:8], sha))
+            self._logger.info('Commit {}'.format(sha))
+            self._logger.info('Parents: {}'.format(commit1.parent_ids))
+            if len(commit1.parents) > len(self._parent_labels):
+                self.show_message('Fixme: More than 2 parents')
+            for commit, parent_label in zip(commit1.parents, self._parent_labels):
+                parent_label.setText('Parent {}   {}'.format(commit.hex, commit.message))
             try:
                 commit2 = log_table_model[index +1]
                 kwargs = dict(a=commit2, b=commit1) # Fixme:
@@ -356,7 +382,6 @@ class LogBrowserMainWindow(MainWindowBase):
                 self._review_note = ReviewNote(sha)
 
         else: # working directory
-            self._commit_sha.clear()
             self._current_revision = None
             if self._stagged_mode_action.isChecked():
                 # Changes between the index and your last commit
