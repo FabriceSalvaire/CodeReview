@@ -22,7 +22,7 @@ import logging
 import os
 
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QRegExp
 
 import pygit2 as git
 
@@ -31,6 +31,7 @@ import pygit2 as git
 from CodeReview.GUI.Base.MainWindowBase import MainWindowBase
 from CodeReview.GUI.Widgets.IconLoader import IconLoader
 from CodeReview.GUI.Widgets.MessageBox import MessageBox
+from .LogTableModel import LogTableModel
 
 ####################################################################################################
 
@@ -73,16 +74,26 @@ class LogBrowserMainWindow(MainWindowBase):
         self.setCentralWidget(self._central_widget)
 
         self._vertical_layout = QtWidgets.QVBoxLayout(self._central_widget)
+
         self._message_box = MessageBox(self)
+
+        horizontal_layout = QtWidgets.QHBoxLayout()
+        label = QtWidgets.QLabel('Filter')
+        self._commit_filter = QtWidgets.QLineEdit()
+        self._commit_filter.textChanged.connect(self._on_filter_changed)
+        for widget in (label, self._commit_filter):
+            horizontal_layout.addWidget(widget)
+
         splitter = QtWidgets.QSplitter()
         splitter.setOrientation(Qt.Vertical)
         self._log_table = QtWidgets.QTableView()
         self._commit_table = QtWidgets.QTableView()
-
-        for widget in (self._message_box, splitter):
-            self._vertical_layout.addWidget(widget)
         for widget in (self._log_table, self._commit_table):
             splitter.addWidget(widget)
+
+        self._vertical_layout.addLayout(horizontal_layout)
+        for widget in (self._message_box, splitter):
+            self._vertical_layout.addWidget(widget)
 
         table = self._log_table
         table.setSelectionMode(QtWidgets.QTableView.SingleSelection)
@@ -106,7 +117,6 @@ class LogBrowserMainWindow(MainWindowBase):
     ##############################################
 
     def finish_table_connections(self):
-
         self._log_table.selectionModel().currentRowChanged.connect(self._update_commit_table)
         #!# Fixme: reopen diff viewer window when repository change
         #!# self._commit_table.selectionModel().currentRowChanged.connect(self._on_clicked_table)
@@ -162,7 +172,6 @@ class LogBrowserMainWindow(MainWindowBase):
     ##############################################
 
     def _create_toolbar(self):
-
         self._tool_bar = self.addToolBar('Diff on Working Tree')
         for item in self._action_group.actions():
             self._tool_bar.addAction(item)
@@ -266,13 +275,15 @@ class LogBrowserMainWindow(MainWindowBase):
     def _update_commit_table(self, index=None):
 
         if index is not None:
+            index = self._application.log_table_filter.mapToSource(index)
             index = index.row()
         else:
             index = 0
 
         if index:
             self._current_revision = index
-            log_table_model = self._log_table.model()
+            # log_table_model = self._log_table.model()
+            log_table_model = self._application.log_table_model
             commit1 = log_table_model[index]
             try:
                 commit2 = log_table_model[index +1]
@@ -292,7 +303,10 @@ class LogBrowserMainWindow(MainWindowBase):
                 kwargs = dict(a='HEAD')
 
         self._diff_kwargs = kwargs
-        self._diff = self._application.repository.diff(**kwargs)
+        self._logger.info('index {} kwargs {}'.format(index, kwargs))
+        # Fixme:
+        if kwargs['a'] is not None:
+            self._diff = self._application.repository.diff(**kwargs)
 
         commit_table_model = self._commit_table.model()
         commit_table_model.update(self._diff)
@@ -421,3 +435,10 @@ class LogBrowserMainWindow(MainWindowBase):
         if self._current_patch_index is not None:
             patch = self._diff[self._current_patch_index]
             self._show_patch(patch)
+
+    ##############################################
+
+    def _on_filter_changed(self, text):
+        log_table_filter = self._application.log_table_filter
+        log_table_filter.setFilterRegExp(QRegExp(text, Qt.CaseInsensitive, QRegExp.FixedString))
+        log_table_filter.setFilterKeyColumn(LogTableModel.COLUMN_ENUM.comitter)

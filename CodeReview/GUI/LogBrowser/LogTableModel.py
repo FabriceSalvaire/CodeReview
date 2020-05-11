@@ -16,6 +16,8 @@
 #
 ####################################################################################################
 
+__all__ = ['LogTableFilterProxyModel', 'LogTableModel']
+
 ####################################################################################################
 
 import datetime
@@ -32,9 +34,32 @@ from CodeReview.Tools.EnumFactory import EnumFactory
 
 ####################################################################################################
 
+class LogTableFilterProxyModel(QtCore.QSortFilterProxyModel):
+
+    ##############################################
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+    ##############################################
+
+    def __getitem__(self, row):
+        # Fixme: don't work ???
+        model = self.sourceModel()
+        index = model.createIndex(row, 0)
+        index = self.mapToSource(index)
+        row = index.row()
+        return model[row]
+
+    ##############################################
+
+    # def filterAcceptsRow(source_row, source_parent):
+
+####################################################################################################
+
 class LogTableModel(QtCore.QAbstractTableModel):
 
-    column_enum = EnumFactory('LogColumnEnum', (
+    COLUMN_ENUM = EnumFactory('LogColumnEnum', (
         'revision',
         'message',
         'sha',
@@ -54,23 +79,48 @@ class LogTableModel(QtCore.QAbstractTableModel):
 
     def __init__(self, repository):
 
-        super(LogTableModel, self).__init__()
+        super().__init__()
 
-        commits = repository.commits()
+        self._tags = repository.tags
+        commits = repository.commits
         self._number_of_rows = len(commits)
         self._rows = [('', 'Working directory changes', '', '', None)]
-        self._rows.extend([self._commit_data(i, commit)
-                           for i, commit in enumerate(commits)])
+        for i, commit in enumerate(commits):
+            row = self._commit_data(i, commit)
+            self._rows.append(row)
+
+    ##############################################
+
+    def _match_tag(self, commit):
+
+        for ref in self._tags:
+            ref_commit = ref.peel()
+            if commit.id == ref_commit.id:
+                return ref
+        return None
 
     ##############################################
 
     def _commit_data(self, i, commit):
+
+        ref = self._match_tag(commit)
+        if ref is not None:
+            tag_name = ref.name
+            tag_name = tag_name.replace('refs/tags/', '')
+            tag_name = '[{}] '.format(tag_name)
+        else:
+            tag_name = ''
+
+        author = commit.author
+        committer = commit.committer
+
         return (
             self._number_of_rows - i -1,
-            commit.message,
+            tag_name + commit.message,
             commit.hex,
             fromtimestamp(commit.commit_time).strftime('%Y-%m-%d %H:%M:%S'),
-            commit.committer.name, # author
+            '{} <{}>'.format(committer.name, committer.email),
+
             commit,
         )
 

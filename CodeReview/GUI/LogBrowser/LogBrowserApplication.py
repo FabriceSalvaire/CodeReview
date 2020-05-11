@@ -16,6 +16,9 @@
 #
 ####################################################################################################
 
+# Fixme: move to a QML application
+#   QmlRepository < QmlLog < QmlCommit < QmlPatch
+
 ###################################################################################################
 
 import logging
@@ -29,7 +32,7 @@ from CodeReview.Application.ApplicationBase import ApplicationBase
 from CodeReview.GUI.Base.GuiApplicationBase import GuiApplicationBase
 from CodeReview.Repository.Git import RepositoryNotFound, GitRepository
 from .CommitTableModel import CommitTableModel
-from .LogTableModel import LogTableModel
+from .LogTableModel import LogTableModel, LogTableFilterProxyModel
 
 ####################################################################################################
 
@@ -86,6 +89,8 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
 
     def _init_repository(self):
 
+        # Fixme: code place
+
         self._logger.info('Init Repository')
 
         if self._args.path is None:
@@ -100,10 +105,13 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
             return
 
         self._log_table_model = LogTableModel(self._repository)
+        self._log_table_filter = LogTableFilterProxyModel()
+        self._log_table_filter.setSourceModel(self._log_table_model)
         log_table = self._main_window._log_table
-        log_table.setModel(self._log_table_model)
+        # log_table.setModel(self._log_table_model)
+        log_table.setModel(self._log_table_filter)
         # Set the column widths
-        column_enum = self._log_table_model.column_enum
+        column_enum = self._log_table_model.COLUMN_ENUM
         width = 0
         for column in (
             column_enum.revision,
@@ -133,6 +141,14 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
     @property
     def repository(self):
         return self._repository
+
+    @property
+    def log_table_model(self):
+        return self._log_table_model
+
+    @property
+    def log_table_filter(self):
+        return self._log_table_filter
 
     ##############################################
 
@@ -178,7 +194,7 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
         for root, _, _ in os.walk(self._repository.workdir):
             if not root.startswith(git_path):
                 paths.append(root)
-        self._logger.info('watch {}'.format(paths))
+        # self._logger.info('watch {}'.format(paths))
         self._file_system_watcher.addPaths(paths)
 
     ##############################################

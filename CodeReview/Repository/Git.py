@@ -20,6 +20,7 @@
 
 import logging
 import os
+import re
 
 import pygit2 as git
 
@@ -84,6 +85,17 @@ class GitRepository:
 
     ##############################################
 
+    @property
+    def tags(self):
+        regex = re.compile('^refs/tags')
+        return [
+            self._repository.references[name]
+            for name in self._repository.references if regex.match(name)
+        ]
+
+    ##############################################
+
+    @property
     def commits(self):
 
         head = self._repository.head
