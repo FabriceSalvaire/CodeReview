@@ -52,9 +52,9 @@ class GitRepository:
             repository_path = git.discover_repository(str(path))
             self._repository = git.Repository(repository_path)
             self._workdir = Path(self._repository.workdir)
-            # if path.is_dir() and not path_str.endswith(os.sep):
-            #     path_str += os.sep
-            self._path_filter = path.relative_to(self._workdir)
+            self._path_filter = str(path.relative_to(self._workdir))
+            if self._path_filter == '.':
+                self._path_filter = ''
             template = '\nPath {}\nWork Dir: {}\nPath Filter: {}'
             self._logger.info(template.format(path, self._workdir, self._path_filter))
         except KeyError:
@@ -118,7 +118,7 @@ class GitRepository:
     def diff(self, a=None, b=None, cached=False, path_filter=None):
 
         if path_filter is None:
-            path_filter = str(self._path_filter)
+            path_filter = self._path_filter
 
         patches = []
 
