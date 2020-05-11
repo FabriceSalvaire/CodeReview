@@ -1,4 +1,4 @@
-source /opt/python-virtual-env/py36/bin/activate
+source /opt/python-virtual-env/py38/bin/activate
 
 # append_to_ld_library_path_if_not /usr/local/lib
 append_to_ld_library_path_if_not /usr/local/stow/libgit2-27/lib
