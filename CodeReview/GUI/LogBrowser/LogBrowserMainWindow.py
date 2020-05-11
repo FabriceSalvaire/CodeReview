@@ -19,19 +19,20 @@
 ####################################################################################################
 
 import logging
-import os
 
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt, QRegExp
+from PyQt5.QtWidgets import QSizePolicy
 
 import pygit2 as git
 
 ####################################################################################################
 
+from .LogTableModel import LogTableModel
 from CodeReview.GUI.Base.MainWindowBase import MainWindowBase
 from CodeReview.GUI.Widgets.IconLoader import IconLoader
 from CodeReview.GUI.Widgets.MessageBox import MessageBox
-from .LogTableModel import LogTableModel
+from CodeReview.Review import ReviewNote
 
 ####################################################################################################
 
@@ -57,6 +58,8 @@ class LogBrowserMainWindow(MainWindowBase):
         self._current_patch_index = None
         self._diff_window = None
 
+        self._review_note = None
+
         self._init_ui()
         self._create_actions()
         self._create_toolbar()
@@ -70,69 +73,79 @@ class LogBrowserMainWindow(MainWindowBase):
 
         # Table models are set in application
 
-        self._central_widget = QtWidgets.QWidget(self)
-        self.setCentralWidget(self._central_widget)
+        central_widget = QtWidgets.QWidget(self)
+        self.setCentralWidget(central_widget)
 
-        self._vertical_layout = QtWidgets.QVBoxLayout(self._central_widget)
+        top_vertical_layout = QtWidgets.QVBoxLayout(central_widget)
 
         self._message_box = MessageBox(self)
-        self._vertical_layout.addWidget(self._message_box)
+        top_vertical_layout.addWidget(self._message_box)
 
         self._branch_name = QtWidgets.QLineEdit(self)
         self._branch_name.setReadOnly(True)
-        self._vertical_layout.addWidget(self._branch_name)
+        top_vertical_layout.addWidget(self._branch_name)
 
         row = 0
-        layout = QtWidgets.QGridLayout()
-        self._vertical_layout.addLayout(layout)
+        grid_layout = QtWidgets.QGridLayout()
+        top_vertical_layout.addLayout(grid_layout)
         label = QtWidgets.QLabel('Committer Filter')
         committer_filter = QtWidgets.QLineEdit()
         committer_filter.textChanged.connect(self._on_committer_filter_changed)
         for i, widget in enumerate((label, committer_filter)):
-            layout.addWidget(widget, row, i)
+            grid_layout.addWidget(widget, row, i)
         row += 1
 
         horizontal_layout = QtWidgets.QHBoxLayout()
-        self._vertical_layout.addLayout(horizontal_layout)
+        top_vertical_layout.addLayout(horizontal_layout)
         label = QtWidgets.QLabel('Message Filter')
         message_filter = QtWidgets.QLineEdit()
         message_filter.textChanged.connect(self._on_message_filter_changed)
         for i, widget in enumerate((label, message_filter)):
-            layout.addWidget(widget, row, i)
+            grid_layout.addWidget(widget, row, i)
         row += 1
 
         horizontal_layout = QtWidgets.QHBoxLayout()
-        self._vertical_layout.addLayout(horizontal_layout)
+        top_vertical_layout.addLayout(horizontal_layout)
         label = QtWidgets.QLabel('SHA Filter')
         sha_filter = QtWidgets.QLineEdit()
         sha_filter.textChanged.connect(self._on_sha_filter_changed)
         for i, widget in enumerate((label, sha_filter)):
-            layout.addWidget(widget, row, i)
+            grid_layout.addWidget(widget, row, i)
         row += 1
 
         self._row_count = QtWidgets.QLabel('')
-        self._vertical_layout.addWidget(self._row_count)
+        top_vertical_layout.addWidget(self._row_count)
 
         splitter = QtWidgets.QSplitter()
-        self._vertical_layout.addWidget(splitter)
+        top_vertical_layout.addWidget(splitter)
         splitter.setOrientation(Qt.Vertical)
 
         self._log_table = QtWidgets.QTableView()
         splitter.addWidget(self._log_table)
 
-        widget = QtWidgets.QWidget()
+        bottom_widget = QtWidgets.QWidget()
+        splitter.addWidget(bottom_widget)
+        bottom_horizontal_layout = QtWidgets.QHBoxLayout()
+        bottom_widget.setLayout(bottom_horizontal_layout)
+
         vertical_layout = QtWidgets.QVBoxLayout()
-        widget.setLayout(vertical_layout)
-        splitter.addWidget(widget)
+        bottom_horizontal_layout.addLayout(vertical_layout)
         self._commit_sha = QtWidgets.QLineEdit()
         self._commit_sha.setReadOnly(True)
         vertical_layout.addWidget(self._commit_sha)
         self._commit_table = QtWidgets.QTableView()
         vertical_layout.addWidget(self._commit_table)
 
-        # self._vertical_layout.addLayout(horizontal_layout)
-        # for widget in (self._message_box, splitter):
-        #     self._vertical_layout.addWidget(widget)
+        vertical_layout = QtWidgets.QVBoxLayout()
+        bottom_horizontal_layout.addLayout(vertical_layout)
+        self._review_comment = QtWidgets.QTextEdit()
+        vertical_layout.addWidget(self._review_comment)
+        horizontal_layout = QtWidgets.QHBoxLayout()
+        vertical_layout.addLayout(horizontal_layout)
+        save_button = QtWidgets.QPushButton('Save')
+        save_button.clicked.connect(self._on_save_review)
+        horizontal_layout.addItem(QtWidgets.QSpacerItem(0, 10, QSizePolicy.Expanding))
+        horizontal_layout.addWidget(save_button)
 
         table = self._log_table
         table.setSelectionMode(QtWidgets.QTableView.SingleSelection)
@@ -313,6 +326,11 @@ class LogBrowserMainWindow(MainWindowBase):
 
     def _update_commit_table(self, index=None):
 
+        if self._review_note is not None:
+            self._on_save_review()
+            self._review_note = None
+        self._review_comment.clear()
+
         if index is not None:
             index = self._application.log_table_filter.mapToSource(index)
             index = index.row()
@@ -331,9 +349,14 @@ class LogBrowserMainWindow(MainWindowBase):
                 kwargs = dict(a=commit2, b=commit1) # Fixme:
             except IndexError:
                 kwargs = dict(a=commit1)
+            self._review_note = self._application.review[sha]
+            if self._review_note is not None:
+                self._review_comment.setText(self._review_note.text)
+            else:
+                self._review_note = ReviewNote(sha)
 
         else: # working directory
-            self._commit_sha.setText('')
+            self._commit_sha.clear()
             self._current_revision = None
             if self._stagged_mode_action.isChecked():
                 # Changes between the index and your last commit
@@ -515,4 +538,9 @@ class LogBrowserMainWindow(MainWindowBase):
         log_table_filter = self._application.log_table_filter
         self._row_count.setText('{} commits'.format(log_table_filter.rowCount()))
 
+    ##############################################
 
+    def _on_save_review(self):
+        self._review_note.text = self._review_comment.toPlainText()
+        self._application.review.add(self._review_note)
+        self._application.review.save()

@@ -21,6 +21,7 @@
 
 ###################################################################################################
 
+from pathlib import Path
 import logging
 import os
 
@@ -28,11 +29,12 @@ from PyQt5 import QtCore, QtWidgets
 
 ####################################################################################################
 
+from .CommitTableModel import CommitTableModel
+from .LogTableModel import LogTableModel, LogTableFilterProxyModel
 from CodeReview.Application.ApplicationBase import ApplicationBase
 from CodeReview.GUI.Base.GuiApplicationBase import GuiApplicationBase
 from CodeReview.Repository.Git import RepositoryNotFound, GitRepository
-from .CommitTableModel import CommitTableModel
-from .LogTableModel import LogTableModel, LogTableFilterProxyModel
+from CodeReview.Review import Review
 
 ####################################################################################################
 
@@ -104,6 +106,9 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
             self._repository = None
             return
 
+        review_path = self._repository.workdir.joinpath('review.json')
+        self._review = Review(review_path)
+
         branch_name = self._repository.branch_name
         branch_name = branch_name.replace('refs/heads/', ' refs/heads/   ')
         self._main_window._branch_name.setText('Branch:   {}'.format(branch_name))
@@ -156,6 +161,10 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
     def log_table_filter(self):
         return self._log_table_filter
 
+    @property
+    def review(self):
+        return self._review
+
     ##############################################
 
     def _init_file_system_watcher(self):
@@ -196,7 +205,7 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
     def watch_directories(self):
 
         paths = []
-        git_path = self._repository.join_repository_path('.git')
+        git_path = str(self._repository.join_repository_path('.git'))
         for root, _, _ in os.walk(self._repository.workdir):
             if not root.startswith(git_path):
                 paths.append(root)
@@ -206,14 +215,14 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
     ##############################################
 
     def watch(self, path):
-        absolut_path = self._repository.join_repository_path(path)
+        absolut_path = str(self._repository.join_repository_path(path))
         self._logger.info(absolut_path)
         self._file_system_watcher.addPath(absolut_path)
 
     ##############################################
 
     def unwatch(self, path):
-        absolut_path = self._repository.join_repository_path(path)
+        absolut_path = str(self._repository.join_repository_path(path))
         self._logger.info(absolut_path)
         self._file_system_watcher.removePath(absolut_path)
 

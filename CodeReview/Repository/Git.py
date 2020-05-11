@@ -18,8 +18,8 @@
 
 ####################################################################################################
 
+from pathlib import Path
 import logging
-import os
 import re
 
 import pygit2 as git
@@ -39,24 +39,24 @@ class GitRepository:
 
     _logger = _module_logger.getChild('GitRepository')
 
-    INDEX_PATH = os.path.join('.git', 'index')
-    REFS_PATH = os.path.join('.git', 'refs', 'heads')
+    INDEX_PATH = Path('.git').joinpath('index')
+    REFS_PATH = Path('.git').joinpath('refs', 'heads')
 
     ##############################################
 
     def __init__(self, path):
 
-        path = os.path.realpath(path)
+        path = Path(path).absolute().resolve()
 
         try:
-            repository_path = git.discover_repository(path)
+            repository_path = git.discover_repository(str(path))
             self._repository = git.Repository(repository_path)
-            workdir = self._repository.workdir
-            if os.path.isdir(path) and not path.endswith(os.sep):
-                path += os.sep
-            self._path_filter = path.replace(workdir, '')
-            self._logger.info('\nPath %s\nWork Dir: %s\nPath Filter: %s',
-                              path, workdir, self._path_filter)
+            self._workdir = Path(self._repository.workdir)
+            # if path.is_dir() and not path_str.endswith(os.sep):
+            #     path_str += os.sep
+            self._path_filter = path.relative_to(self._workdir)
+            template = '\nPath {}\nWork Dir: {}\nPath Filter: {}'
+            self._logger.info(template.format(path, self._workdir, self._path_filter))
         except KeyError:
             raise RepositoryNotFound
 
@@ -64,7 +64,7 @@ class GitRepository:
 
     @property
     def workdir(self):
-        return self._repository.workdir
+        return self._workdir
 
     @property
     def index(self):
@@ -87,7 +87,7 @@ class GitRepository:
     ##############################################
 
     def join_repository_path(self, path):
-        return os.path.join(self._repository.workdir, path)
+        return self._workdir.joinpath(path)
 
     ##############################################
 
@@ -118,7 +118,7 @@ class GitRepository:
     def diff(self, a=None, b=None, cached=False, path_filter=None):
 
         if path_filter is None:
-            path_filter = self._path_filter
+            path_filter = str(self._path_filter)
 
         patches = []
 
