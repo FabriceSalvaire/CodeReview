@@ -1,0 +1,80 @@
+#! /usr/bin/env python3
+
+####################################################################################################
+#
+# CodeReview - A Code Review GUI
+# Copyright (C) 2019 Fabrice Salvaire
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+####################################################################################################
+
+####################################################################################################
+
+from pathlib import Path
+import argparse
+import subprocess
+
+####################################################################################################
+
+parser = argparse.ArgumentParser(description='Generate PNG files from a SVG.')
+parser.add_argument(
+    'svg_path', metavar='file.svg',
+    help='SVG PATH',
+)
+args = parser.parse_args()
+
+####################################################################################################
+
+theme = 'material'
+DP = (36, 48)
+SCALE = (1, 2)
+
+svg_path = Path(args.svg_path).resolve()
+theme_path = svg_path.parents[1].joinpath(theme)
+print('Theme path:', theme_path)
+
+####################################################################################################
+
+inkscape_options = [
+    '--export-area-page',
+    '--export-background=white',
+    '--export-background-opacity=0',
+]
+
+####################################################################################################
+
+def run_inkscape(svg_path, dp, scale):
+    filename = svg_path.name.replace('.svg', '.png')
+    if scale > 1:
+        size_directory = '{dp}x{dp}@{scale}'.format(dp=dp, scale=scale)
+    else:
+        size_directory = '{dp}x{dp}'.format(dp=dp)
+    png_path = theme_path.joinpath(size_directory, filename)
+    command = (
+        'inkscape',
+        *inkscape_options,
+        '--export-png={}'.format(png_path),
+        # --export-width=
+        '--export-height={}'.format(dp*scale),
+        str(svg_path),
+    )
+    print('>', ' '.join(command))
+    subprocess.check_call(command)
+
+####################################################################################################
+
+for dp in DP:
+    for scale in SCALE:
+        run_inkscape(svg_path, dp, scale)
