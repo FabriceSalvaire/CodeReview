@@ -52,8 +52,8 @@ class LogBrowserMainWindow(MainWindowBase):
 
         super(LogBrowserMainWindow, self).__init__(title='CodeReview Log Browser', parent=parent)
 
-        icon_loader = IconLoader()
-        self.setWindowIcon(icon_loader['code-review@svg'])
+        self._icon_loader = IconLoader()
+        self.setWindowIcon(self._icon_loader['code-review@svg'])
 
         self._current_revision = None
         self._diff = None
@@ -88,6 +88,31 @@ class LogBrowserMainWindow(MainWindowBase):
 
         vertical_layout = QtWidgets.QVBoxLayout()
         horizontal_layout.addLayout(vertical_layout)
+
+        horizontal_layout2 = QtWidgets.QHBoxLayout()
+        vertical_layout.addLayout(horizontal_layout2)
+        button = QtWidgets.QPushButton('Diff')
+        button.clicked.connect(self._on_diff_ab)
+        horizontal_layout2.addWidget(button)
+        button = QtWidgets.QPushButton()
+        button.setIcon(self._icon_loader['edit-delete@svg'])
+        horizontal_layout2.addWidget(button)
+        self._diff_a = QtWidgets.QLineEdit(self)
+        button.clicked.connect(lambda: self._diff_a.clear())
+        horizontal_layout2.addWidget(self._diff_a)
+        button = QtWidgets.QPushButton()
+        button.setIcon(self._icon_loader['media-playlist-repeat@svg'])
+        button.clicked.connect(self._on_diff_exchange)
+        horizontal_layout2.addWidget(button)
+        self._diff_b = QtWidgets.QLineEdit(self)
+        horizontal_layout2.addWidget(self._diff_b)
+        button = QtWidgets.QPushButton()
+        button.setIcon(self._icon_loader['edit-delete@svg'])
+        button.clicked.connect(lambda: self._diff_b.clear())
+        horizontal_layout2.addWidget(button)
+        # for widget in (self._diff_a, self._diff_b):
+        #     widget.editingFinished.connect(self._on_diff_ab)
+
         self._branch_name = QtWidgets.QLineEdit(self)
         self._branch_name.setReadOnly(True)
         vertical_layout.addWidget(self._branch_name)
@@ -195,8 +220,6 @@ class LogBrowserMainWindow(MainWindowBase):
 
     def _create_actions(self):
 
-        icon_loader = IconLoader()
-
         self._stagged_mode_action = \
             QtWidgets.QAction('Stagged',
                               self,
@@ -231,7 +254,7 @@ class LogBrowserMainWindow(MainWindowBase):
         self._all_change_mode_action.setChecked(True)
 
         self._reload_action = \
-            QtWidgets.QAction(icon_loader['view-refresh@svg'],
+            QtWidgets.QAction(self._icon_loader['view-refresh@svg'],
                               'Refresh',
                               self,
                               toolTip='Refresh',
@@ -588,3 +611,31 @@ class LogBrowserMainWindow(MainWindowBase):
                     self._log_table.selectRow(index.row())
             except IndexError:
                 pass
+
+    ##############################################
+
+    def _on_diff_exchange(self):
+        diff_a = self._diff_a.text()
+        diff_b = self._diff_b.text()
+        self._diff_a.setText(diff_b)
+        self._diff_b.setText(diff_a)
+        self._on_diff_ab()
+
+    ##############################################
+
+    def _on_diff_ab(self):
+
+        diff_a = self._diff_a.text()
+        diff_b = self._diff_b.text()
+
+        if diff_a and diff_b:
+            try:
+                kwargs = dict(a=diff_a, b=diff_b)
+                self._diff = self._application.repository.diff(**kwargs)
+
+                commit_table_model = self._commit_table.model()
+                commit_table_model.update(self._diff)
+                self._commit_table.resizeColumnsToContents()
+            except ValueError as e:
+                self._logger.warning(e)
+                self.show_message(str(e))
