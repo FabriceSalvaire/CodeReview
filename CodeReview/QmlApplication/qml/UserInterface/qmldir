@@ -1,0 +1,6 @@
+module Widgets
+Actions 1.0 Actions.qml
+FooterToolBar 1.0 FooterToolBar.qml
+HeaderToolBar 1.0 HeaderToolBar.qml
+MenuBar 1.0 MenuBar.qml
+OptionsDialog 1.0 OptionsDialog.qml

@@ -1,0 +1,6 @@
+module Widgets
+AboutDialog 1.0 AboutDialog.qml
+CentredDialog 1.0 CentredDialog.qml
+ErrorMessageDialog 1.0 ErrorMessageDialog.qml
+MarkdownViewer 1.0 MarkdownViewer.qml
+ShortcutRow 1.0 ShortcutRow.qml

@@ -1,0 +1,17 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/">
+        <file>qtquickcontrols2.conf</file>
+    </qresource>
+
+    <!-- <qresource prefix="/"> -->
+    <!-- 	<file>icons/logo/logo.svg</file> -->
+    <!-- 	<file>icons/logo/logo-256.png</file> -->
+    <!-- </qresource> -->
+
+    <qresource prefix="/">
+	<!-- <file>icons/material/index.theme</file> -->
+
+        <!-- <file>icons/material/36x36/.png</file> -->
+    </qresource>
+</RCC>
