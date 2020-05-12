@@ -137,6 +137,11 @@ class LogBrowserMainWindow(MainWindowBase):
 
         vertical_layout = QtWidgets.QVBoxLayout()
         bottom_horizontal_layout.addLayout(vertical_layout)
+        self._commit_table = QtWidgets.QTableView()
+        vertical_layout.addWidget(self._commit_table)
+
+        vertical_layout = QtWidgets.QVBoxLayout()
+        bottom_horizontal_layout.addLayout(vertical_layout)
         self._commit_sha = QtWidgets.QLineEdit()
         self._commit_sha.setReadOnly(True)
         vertical_layout.addWidget(self._commit_sha)
@@ -151,11 +156,6 @@ class LogBrowserMainWindow(MainWindowBase):
             parent.setReadOnly(True)
             horizontal_layout.addWidget(parent)
             self._parent_labels.append(parent)
-        self._commit_table = QtWidgets.QTableView()
-        vertical_layout.addWidget(self._commit_table)
-
-        vertical_layout = QtWidgets.QVBoxLayout()
-        bottom_horizontal_layout.addLayout(vertical_layout)
         self._review_comment = QtWidgets.QTextEdit()
         vertical_layout.addWidget(self._review_comment)
         horizontal_layout = QtWidgets.QHBoxLayout()
