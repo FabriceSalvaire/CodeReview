@@ -56,8 +56,8 @@ import bisect
 
 ####################################################################################################
 
-from CodeReview.Tools.Slice import FlatSlice, LineSlice
-from CodeReview.Tools.IteratorTools import pairwise
+from CodeReview.Common.Slice import FlatSlice, LineSlice
+from CodeReview.Common.IteratorTools import pairwise
 
 ####################################################################################################
 

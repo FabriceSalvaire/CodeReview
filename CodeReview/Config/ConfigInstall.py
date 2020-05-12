@@ -5,7 +5,7 @@ import sys
 
 ####################################################################################################
 
-import CodeReview.Tools.Path as PathTools # due to Path class
+import CodeReview.Common.Path as PathTools # due to Path class
 
 ####################################################################################################
 

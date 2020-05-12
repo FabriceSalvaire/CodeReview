@@ -26,8 +26,8 @@ from PyQt5 import QtWidgets, QtCore
 
 ####################################################################################################
 
-from CodeReview.Logging.ExceptionHook import format_exception
-import CodeReview.Tools.BackTrace as BackTrace
+from CodeReview.Common.Logging.ExceptionHook import format_exception
+import CodeReview.Common.BackTrace as BackTrace
 
 ####################################################################################################
 

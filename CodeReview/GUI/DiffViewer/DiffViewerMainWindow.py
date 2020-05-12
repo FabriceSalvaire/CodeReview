@@ -409,7 +409,7 @@ class DiffViewerMainWindow(MainWindowBase):
             # cursor.begin_block(side, text_block.frame_type)
             # File "/home/gv/fabrice/unison-osiris/git-python/CodeReview/DiffWidget.py", line 99, in begin_block
             # if ((side == LEFT and frame_type == chunk_type.insert) or
-            # File "/home/gv/fabrice/unison-osiris/git-python/CodeReview/Tools/EnumFactory.py", line 107, in __eq__
+            # File "/home/gv/fabrice/unison-osiris/git-python/CodeReview/Common/EnumFactory.py", line 107, in __eq__
             # return self._value == int(other)
             # TypeError: int() argument must be a string or a number, not 'NoneType'
             for raw_text_document, lexer in zip(raw_text_documents, self._lexers):

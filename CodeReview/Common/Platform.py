@@ -26,8 +26,8 @@ from PyQt5 import QtCore, QtWidgets
 
 ####################################################################################################
 
-from CodeReview.Tools.EnumFactory import EnumFactory
-from CodeReview.Math.Functions import rint
+from CodeReview.Common.EnumFactory import EnumFactory
+from CodeReview.Common.Math.Functions import rint
 
 ####################################################################################################
 

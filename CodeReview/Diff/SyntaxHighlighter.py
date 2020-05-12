@@ -33,7 +33,7 @@ import pygments
 
 ####################################################################################################
 
-from CodeReview.Tools.Slice import FlatSlice
+from CodeReview.Common.Slice import FlatSlice
 from CodeReview.Diff.TextDocumentModel import TextDocumentModel, TextBlock, TextFragment
 
 ####################################################################################################

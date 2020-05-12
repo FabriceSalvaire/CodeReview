@@ -30,7 +30,7 @@ difference.
 
 from .RawTextDocumentDiff import chunk_type
 from .TextDocumentModel import TextDocumentModel, TextBlock, TextFragment
-from CodeReview.Tools.Slice import LineSlice
+from CodeReview.Common.Slice import LineSlice
 
 ####################################################################################################
 

@@ -22,7 +22,7 @@ import argparse
 
 ####################################################################################################
 
-from CodeReview.Tools.Path import to_absolute_path
+from CodeReview.Common.Path import to_absolute_path
 
 ####################################################################################################
 

@@ -25,8 +25,8 @@ import traceback
 
 ####################################################################################################
 
-from CodeReview.Tools.Platform import Platform
-from CodeReview.Tools.Singleton import singleton
+from CodeReview.Common.Platform import Platform
+from CodeReview.Common.Singleton import singleton
 
 ####################################################################################################
 

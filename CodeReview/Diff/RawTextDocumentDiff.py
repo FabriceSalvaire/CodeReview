@@ -63,8 +63,8 @@ if PatienceSequenceMatcher is None:
 
 ####################################################################################################
 
-from CodeReview.Tools.EnumFactory import EnumFactory
-from CodeReview.Tools.Slice import FlatSlice, LineSlice
+from CodeReview.Common.EnumFactory import EnumFactory
+from CodeReview.Common.Slice import FlatSlice, LineSlice
 
 ####################################################################################################
 

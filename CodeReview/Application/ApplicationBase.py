@@ -26,8 +26,8 @@ import traceback
 
 ####################################################################################################
 
-from CodeReview.Tools.Path import to_absolute_path
-from CodeReview.Tools.Platform import Platform
+from CodeReview.Common.Path import to_absolute_path
+from CodeReview.Common.Platform import Platform
 
 ####################################################################################################
 

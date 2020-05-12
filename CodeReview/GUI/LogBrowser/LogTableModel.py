@@ -30,7 +30,7 @@ from PyQt5.QtCore import Qt
 
 ####################################################################################################
 
-from CodeReview.Tools.EnumFactory import EnumFactory
+from CodeReview.Common.EnumFactory import EnumFactory
 
 ####################################################################################################
 

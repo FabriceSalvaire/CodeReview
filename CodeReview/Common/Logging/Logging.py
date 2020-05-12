@@ -24,8 +24,8 @@ import logging.config
 
 ####################################################################################################
 
-from CodeReview.Logging.ExceptionHook import DispatcherExceptionHook, StderrExceptionHook
-from CodeReview.Tools.Singleton import singleton
+from .ExceptionHook import DispatcherExceptionHook, StderrExceptionHook
+from CodeReview.Common.Singleton import singleton
 import CodeReview.Config.ConfigInstall as ConfigInstall
 
 ####################################################################################################

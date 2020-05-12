@@ -25,7 +25,7 @@
 # Logging
 #
 
-import CodeReview.Logging.Logging as Logging
+import CodeReview.Common.Logging.Logging as Logging
 
 logger = Logging.setup_logging('pyqgit')
 
@@ -36,7 +36,7 @@ import argparse
 ####################################################################################################
 
 from CodeReview.GUI.DiffViewer.DiffViewerApplication import DiffViewerApplication
-from CodeReview.Tools.ProgramOptions import PathAction
+from CodeReview.Common.ProgramOptions import PathAction
 
 ####################################################################################################
 #

@@ -25,7 +25,7 @@ from PyQt5 import QtGui
 
 ####################################################################################################
 
-from CodeReview.Tools.Singleton import SingletonMetaClass
+from CodeReview.Common.Singleton import SingletonMetaClass
 import CodeReview.Config.ConfigInstall as ConfigInstall
 
 ####################################################################################################

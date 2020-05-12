@@ -18,7 +18,7 @@
 
 ####################################################################################################
 
-from CodeReview.Tools.RevisionVersion import RevisionVersion
+from CodeReview.Common.RevisionVersion import RevisionVersion
 
 ####################################################################################################
 
