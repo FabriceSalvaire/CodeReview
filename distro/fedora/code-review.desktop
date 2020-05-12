@@ -1,0 +1,11 @@
+[Desktop Entry]
+
+Encoding=UTF-8
+Name=code-review
+Comment=...
+Icon=code-review
+Exec=code-review
+Terminal=false
+Type=Application
+Categories=...;
+Comment[fr]=...
