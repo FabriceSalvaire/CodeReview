@@ -388,6 +388,8 @@ class LogBrowserMainWindow(MainWindowBase):
         else:
             index = 0
 
+        # Diff a=old b=new commit
+
         if index:
             self._current_revision = index
             # log_table_model = self._log_table.model()
@@ -407,11 +409,8 @@ class LogBrowserMainWindow(MainWindowBase):
                 self._review_comment.setText(self._review_note.text)
             else:
                 self._review_note = ReviewNote(sha)
-            # try:
-            commit_a = self._current_commit.parents[0]
-            kwargs = dict(a=commit_a, b=self._current_commit) # Fixme:
-            # except IndexError:
-            #     kwargs = dict(a=self._current_commit)
+            commit_a = self._current_commit.parents[0] # take first parent
+            kwargs = dict(a=commit_a, b=self._current_commit)
 
         else: # working directory
             self._current_revision = None
