@@ -72,6 +72,10 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
         self._init_file_system_watcher()
         self._main_window.show_working_tree_diff()
 
+        self._main_window._diff_a.setText(self._args.diff_a)
+        self._main_window._diff_b.setText(self._args.diff_b)
+        self._main_window._on_diff_ab()
+
     ##############################################
 
     def show_message(self, message=None, timeout=0, warn=False):

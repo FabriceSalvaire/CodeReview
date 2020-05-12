@@ -53,6 +53,18 @@ argument_parser.add_argument(
 )
 
 argument_parser.add_argument(
+    '--diff-a',
+    default=None,
+    help='set a/old reference for diff a/b',
+)
+
+argument_parser.add_argument(
+    '--diff-b',
+    default=None,
+    help='set b/new reference for diff a/b',
+)
+
+argument_parser.add_argument(
     '--user-script',
     action=PathAction,
     default=None,
