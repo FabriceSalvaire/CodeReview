@@ -1,4 +1,4 @@
-####################################################################################################
+###################################################################################################
 #
 # CodeReview - A Code Review GUI
 # Copyright (C) 2019 Fabrice Salvaire
@@ -18,19 +18,12 @@
 #
 ####################################################################################################
 
-"""Module to implement a Qt Application.
+####################################################################################################
 
-"""
+__all__ = ['QmlApplication', 'Application']
 
 ####################################################################################################
 
-__all__ = [
-    'QmlApplication',
-]
-
-####################################################################################################
-
-# import datetime
 from pathlib import Path
 import argparse
 import logging
@@ -115,6 +108,8 @@ class Application(QObject):
 
     instance = None
 
+    QmlApplication_CLS = QmlApplication
+
     _logger = _module_logger.getChild('Application')
 
     ##############################################
@@ -150,26 +145,28 @@ class Application(QObject):
         self._init_application()
 
         self._engine = QQmlApplicationEngine()
-        self._qml_application = QmlApplication(self)
+        self._qml_application = self.QmlApplication_CLS(self)
         self._application.qml_main = self._qml_application
 
         self._platform = QtPlatform()
         # self._logger.info('\n' + str(self._platform))
 
         #! self._load_translation()
-        self._register_qml_types()
+        self.register_qml_types()
         self._set_context_properties()
         self._load_qml_main()
 
         # self._run_before_event_loop()
 
-        QTimer.singleShot(0, self._post_init)
+        self._application.aboutToQuit.connect(self.aboutToQuit)
 
-        # self._view = QQuickView()
-        # self._view.setResizeMode(QQuickView.SizeRootObjectToView)
-        # self._view.setSource(qml_url)
+        QTimer.singleShot(0, self.post_init)
 
     ##############################################
+
+    @property
+    def parser(self):
+        return self._parser
 
     @property
     def args(self):
@@ -253,50 +250,50 @@ class Application(QObject):
     @classmethod
     def setup_gui_application(self):
 
-        # https://bugreports.qt.io/browse/QTBUG-55167
-        # for path in (
-        #         'qt.qpa.xcb.xcberror',
-        # ):
-        #     QtCore.QCommon.LoggingCategory.setFilterRules('{} = false'.format(path))
         QGuiApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
-
         # QQuickStyle.setStyle('Material')
 
     ##############################################
 
     def _parse_arguments(self):
 
-        parser = argparse.ArgumentParser(
+        self._parser = argparse.ArgumentParser(
             description='CodeReview',
         )
 
-        # parser.add_argument(
+        self.parse_arguments()
+
+        self._args = self._parser.parse_args()
+
+    ##############################################
+
+    def parse_arguments(self):
+
+        # self.parser.add_argument(
         #     '--version',
         #     action='store_true', default=False,
         #     help="show version and exit",
         # )
 
-        parser.add_argument(
+        self.parser.add_argument(
             '--dont-translate',
             action='store_true',
             default=False,
             help="Don't translate application",
         )
 
-        parser.add_argument(
+        self.parser.add_argument(
             '--user-script',
             action=PathAction,
             default=None,
             help='user script to execute',
         )
 
-        parser.add_argument(
+        self.parser.add_argument(
             '--user-script-args',
             default='',
             help="user script args (don't forget to quote)",
         )
-
-        self._args = parser.parse_args()
 
     ##############################################
 
@@ -318,13 +315,13 @@ class Application(QObject):
 
     ##############################################
 
-    def _register_qml_types(self):
+    def register_qml_types(self):
 
         qmlRegisterType(KeySequenceEditor, 'CodeReview', 1, 0, 'KeySequenceEditor')
 
         qmlRegisterUncreatableType(Shortcut, 'CodeReview', 1, 0, 'Shortcut', 'Cannot create Shortcut')
         qmlRegisterUncreatableType(ApplicationSettings, 'CodeReview', 1, 0, 'ApplicationSettings', 'Cannot create ApplicationSettings')
-        qmlRegisterUncreatableType(QmlApplication, 'CodeReview', 1, 0, 'QmlApplication', 'Cannot create QmlApplication')
+        qmlRegisterUncreatableType(self.QmlApplication_CLS, 'CodeReview', 1, 0, 'QmlApplication', 'Cannot create QmlApplication')
 
     ##############################################
 
@@ -361,13 +358,20 @@ class Application(QObject):
     ##############################################
 
     def exec_(self):
-        # self._view.show()
         self._logger.info('Start event loop')
-        sys.exit(self._application.exec_())
+        rc = self._application.exec_()
+        self._logger.info('Event loop done {}'.format(rc))
+        del self._engine # solve quit issue ?
+        sys.exit(rc)
 
     ##############################################
 
-    def _post_init(self):
+    def aboutToQuit(self):
+        self._logger.info('')
+
+    ##############################################
+
+    def post_init(self):
 
         # Fixme: ui refresh ???
 

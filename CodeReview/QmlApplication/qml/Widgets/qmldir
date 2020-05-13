@@ -1,6 +1,9 @@
 module Widgets
 AboutDialog 1.0 AboutDialog.qml
+BranchList 1.0 BranchList.qml
 CentredDialog 1.0 CentredDialog.qml
+CommitLog 1.0 CommitLog.qml
 ErrorMessageDialog 1.0 ErrorMessageDialog.qml
 MarkdownViewer 1.0 MarkdownViewer.qml
 ShortcutRow 1.0 ShortcutRow.qml
+TagList 1.0 TagList.qml

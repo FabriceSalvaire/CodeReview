@@ -82,7 +82,7 @@ class LogTableModel(QtCore.QAbstractTableModel):
         super().__init__()
 
         self._tags = repository.tags
-        commits = repository.commits
+        commits = repository.commits_for_head
         self._number_of_rows = len(commits)
         self._rows = [('', 'Working directory changes', '', '', None)]
         for i, commit in enumerate(commits):

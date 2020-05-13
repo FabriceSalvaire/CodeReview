@@ -70,6 +70,8 @@ ApplicationWindow {
         application.show_error.connect(on_error)
         application_window.showMaximized()
 
+        application.repository_changed.connect(on_repository_loaded)
+
         // Fixme: prevent crash when opening option dialog
         //   RuntimeError: wrapped C/C++ object of type Shortcut has been deleted
         let _shortcuts = application_settings.shortcuts
@@ -90,6 +92,14 @@ ApplicationWindow {
     function on_error(message, backtrace) {
         var text = message + '\n' + backtrace
         error_message_dialog.open_with_message(text)
+    }
+
+    function on_repository_loaded() {
+        console.info('on_repository_loaded')
+        var repository = application.repository
+        branch_listview.model = repository.branches
+        tag_listview.model = repository.tags
+        commit_log.model = repository.commits
     }
 
     /*******************************************************
@@ -160,6 +170,49 @@ ApplicationWindow {
      * Items
      *
      */
+
+    // ColumnLayout {
+    Column {
+        id: central_widget
+        anchors.fill: parent
+        spacing: 2
+
+        Item {
+            // Layout.fillHeight: true
+            height: parent.height / 4
+            width: parent.width
+
+            Widgets.BranchList {
+                id: branch_listview
+                enabled: application.repository
+                anchors.fill: parent
+            }
+        }
+
+        Item {
+            // Layout.fillHeight: true
+            height: parent.height / 4
+            width: parent.width
+
+            Widgets.TagList {
+                id: tag_listview
+                enabled: application.repository
+                anchors.fill: parent
+            }
+        }
+
+        Item {
+            // Layout.fillHeight: true
+            height: parent.height / 2
+            width: parent.width
+
+            Widgets.CommitLog {
+                id: commit_log
+                enabled: application.repository
+                anchors.fill: parent
+            }
+        }
+    }
 
     /*******************************************************
      *

@@ -27,7 +27,7 @@ logger = Logging.setup_logging('pyqgit')
 
 ####################################################################################################
 
-from CodeReview.QmlApplication.QmlApplication import Application
+from CodeReview.QmlApplication.QmlMainApplication import Application
 
 ####################################################################################################
 
