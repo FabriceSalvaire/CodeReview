@@ -309,9 +309,11 @@ class LogBrowserMainWindow(MainWindowBase):
 
         if self._diff_window is not None:
             if self.number_of_patches:
-                self._current_patch_index = 0
-                self._diff_window.update_patch_index()
-                self.reload_current_patch()
+                # Fixme: issue with _flycheck
+                # self._current_patch_index = 0
+                # self._diff_window.update_patch_index()
+                # self.reload_current_patch()
+                pass
             else:
                 self._diff_window.close()
 
