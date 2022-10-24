@@ -23,6 +23,7 @@
 
 from pathlib import Path
 import logging
+import math
 import os
 
 from PyQt5 import QtCore, QtWidgets
@@ -137,7 +138,7 @@ class LogBrowserApplication(GuiApplicationBase, ApplicationBase):
             log_table.resizeColumnToContents(int(column))
             width += log_table.columnWidth(int(column))
         width = log_table.width() - width
-        width *= .9 # Fixme: subtract spaces ...
+        width = int(math.ceil(width * .9)) # Fixme: subtract spaces ...
         log_table.setColumnWidth(int(column_enum.message), width)
 
         self._commit_table_model = CommitTableModel()

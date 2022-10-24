@@ -27,7 +27,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 ####################################################################################################
 
 from CodeReview.Diff.RawTextDocumentDiff import chunk_type
-from CodeReview.Common.Math.Functions import number_of_digits
+from CodeReview.Common.Math.Functions import number_of_digits, rint
 from CodeReview.Common.IteratorTools import pairwise, iter_with_last_flag
 from CodeReview.Common.StringTools import remove_trailing_newline
 import CodeReview.GUI.DiffViewer.DiffWidgetConfig as DiffWidgetConfig
@@ -173,8 +173,9 @@ class TextBrowser(QtWidgets.QTextBrowser):
             if text_block.frame_type is None or text_block.frame_type == chunk_type.equal:
                 continue
             # Shift text block in the viewport
-            y_top = text_block.y_top - y
-            y_bottom = text_block.y_bottom - y
+            # ensure type is int for painter.func
+            y_top = rint(text_block.y_top - y)
+            y_bottom = rint(text_block.y_bottom - y)
             if y_bottom < y_min:
                 continue
             if y_top > y_max:
@@ -245,10 +246,11 @@ class SplitterHandle(QtWidgets.QSplitterHandle):
                 or text_block_left.frame_type in (chunk_type.equal, chunk_type.header)):
                 continue
 
-            y_top_left = text_block_left.y_top - y_left -1
-            y_bottom_left = text_block_left.y_bottom - y_left +1
-            y_top_right = text_block_right.y_top - y_right -1
-            y_bottom_right = text_block_right.y_bottom - y_right +1
+            # ensure type is int for painter.func
+            y_top_left = rint(text_block_left.y_top - y_left -1)
+            y_bottom_left = rint(text_block_left.y_bottom - y_left +1)
+            y_top_right = rint(text_block_right.y_top - y_right -1)
+            y_bottom_right = rint(text_block_right.y_bottom - y_right +1)
 
             if y_top_left < 0 and y_bottom_right < 0:
                 continue
@@ -349,7 +351,7 @@ class DiffView(QtWidgets.QSplitter):
 
         maximum1 = scroll_bar1.maximum()
         if maximum1:
-            value = scroll_bar2.minimum() + scroll_bar2.maximum() * (value - scroll_bar1.minimum()) / maximum1
+            value = rint(scroll_bar2.minimum() + scroll_bar2.maximum() * (value - scroll_bar1.minimum()) / maximum1)
             # cannot use blockSignals
             self._ignore_scroll_bar_update_signal = True
             scroll_bar2.setValue(value)
