@@ -22,11 +22,9 @@
 
 ####################################################################################################
 
-import glob
 import sys
 
-from setuptools import setup, find_packages, Extension
-setuptools_available = True
+from setuptools import setup, Extension
 
 ####################################################################################################
 
@@ -34,52 +32,22 @@ if sys.version_info < (3,):
     print('CodeReview requires Python 3', file=sys.stderr)
     sys.exit(1)
 
-exec(compile(open('setup_data.py').read(), 'setup_data.py', 'exec'))
-
 ####################################################################################################
 
-setup_dict.update(dict(
-    # include_package_data=True, # Look in MANIFEST.in
-    scripts=['bin/pyqgit', 'bin/diff-viewer'],
-    console_scripts=['bin/pyqgit', 'bin/diff-viewer'],
-    packages=find_packages(exclude=['unit-test']),
+from setup_data import setup_dict
+setup(
+    **setup_dict,
+    # https://setuptools.pypa.io/en/latest/userguide/ext_modules.html
+    # Add support for ext_modules in static setup.cfg
+    #   https://github.com/pypa/setuptools/issues/2220
     ext_modules=[
-        Extension('CodeReview.PatienceDiff._patiencediff_c',
-                  ['CodeReview/PatienceDiff/_patiencediff_c.c']),
-        Extension('CodeReview.TextDistance.levenshtein_distance_c',
-                  ['CodeReview/TextDistance/levenshtein_distance.c'])
+        Extension(
+            name='CodeReview.PatienceDiff._patiencediff_c',
+            sources=['CodeReview/PatienceDiff/_patiencediff_c.c'],
+        ),
+        Extension(
+            name='CodeReview.TextDistance.levenshtein_distance_c',
+            sources=['CodeReview/TextDistance/levenshtein_distance.c'],
+        )
     ],
-    package_data={
-        'CodeReview.Config': ['logging.yml'],
-    },
-    data_files=[
-        ('share/CodeReview/icons', glob.glob('share/icons/*.png')),
-        ('share/CodeReview/icons/32x32', glob.glob('share/icons/32x32/*.png')),
-        ('share/CodeReview/icons/48x48', glob.glob('share/icons/48x48/*.png')),
-        ('share/CodeReview/icons/svg', glob.glob('share/icons/svg/*.svg')),
-    ],
-
-    platforms='any',
-    zip_safe=False, # due to data files
-
-    # cf. http://pypi.python.org/pypi?%3Aaction=list_classifiers
-    classifiers=[
-        "Topic :: Software Development :: Version Control",
-        "Intended Audience :: Developers",
-        "Development Status :: 5 - Production/Stable",
-        "License :: OSI Approved :: GNU General Public License (GPL)",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3.4",
-    ],
-
-    install_requires=[
-        'PyQt5',
-        'PyYAML',
-        'Pygments',
-        'pygit2',
-    ],
-))
-
-####################################################################################################
-
-setup(**setup_dict)
+)

@@ -1,32 +1,23 @@
-include	.bzrignore
 include .gitignore
 include .pyflymakerc
 include .travis.yml
-include CHANGES.txt
 include GPL-V3.0.txt
-include LICENSE.txt
 include MANIFEST.in
 include README.html
 include README.rst
 include README.txt
-include make-release.sh
-include pylintrc.ini
 include requirements.txt
-include setenv.sh start.sh
 include setup_data.py
-include test-repository/git-repo/*.sh
-recursive-include CodeReview *.py *.yml *.c *.h *.ui Makefile.pyqt .in
-recursive-include bin pyqgit diff-viewer
+recursive-include CodeReview *.py *.yml *.c *.h *.ui Makefile.pyqt *.png *.svg
 recursive-include doc *
 recursive-include doc/sphinx/source/_static *
 recursive-include gh-pages *
-recursive-include share *.png *.svg
 recursive-include spec *.spec *.desktop
-recursive-include tools *
 recursive-include unit-test *.py
 recursive-include unit-test/data *.txt
-prune *~ *.pyc
+prune *~
+prune *.pyc
 prune build
 prune doc/sphinx/build
-prune test-repository/bzr-repo/
-prune test-repository/git-repo/
+prune tasks
+prune QtShim

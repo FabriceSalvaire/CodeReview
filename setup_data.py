@@ -18,6 +18,8 @@
 #
 ####################################################################################################
 
+# Note: Still required for long_description
+
 ####################################################################################################
 
 import os
@@ -71,13 +73,5 @@ else:
 ####################################################################################################
 
 setup_dict = dict(
-    name='CodeReview',
-    version='1.0.0',
-    author='Fabrice Salvaire',
-    author_email='fabrice.salvaire@orange.fr',
-    description='CodeReview is a Python 3 / Qt5 GUI to perform code review on files and Git repositories.',
-    license='GPLv3',
-    keywords="code review diff viewer git",
-    url='https://github.com/FabriceSalvaire/CodeReview',
     long_description=long_description,
 )
