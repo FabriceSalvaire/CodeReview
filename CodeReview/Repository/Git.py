@@ -80,9 +80,7 @@ class GitRepository:
     ##############################################
 
     def __init__(self, path):
-
         path = Path(path).absolute().resolve()
-
         try:
             repository_path = pygit.discover_repository(str(path))
             self._repository = pygit.Repository(repository_path)
@@ -174,20 +172,17 @@ class GitRepository:
 
     @property
     def commits_for_head(self): # -> iter on pygit.Commit
-
         # https://www.pygit2.org/references.html#the-head
         # Current head reference of the repository
         # head = repo.references['HEAD'].resolve()
         head = self._repository.head # -> pygit.Reference
         head_commit = self._repository[head.target] # -> pygit.Commit
         oid = head_commit.id
-
         return self.commits(oid)
 
     ##############################################
 
     def diff(self, a=None, b=None, cached=False, path_filter=None) -> Diff:
-
         if isinstance(a, pygit.Commit):
             a_str = a.hex
         else:
@@ -239,7 +234,6 @@ class GitRepository:
     }
 
     def status(self, path):
-
         try:
             status = self.repository_status[path]
             status_text = ' | '.join([self._STATUS_TEXT[bit]
@@ -253,7 +247,6 @@ class GitRepository:
     ##############################################
 
     def is_staged(self, path) -> bool:
-
         # index = self._repository.index
         # head_tree = self._repository.revparse_single('HEAD').tree
         # try:
@@ -279,7 +272,6 @@ class GitRepository:
     ##############################################
 
     def unstage(self, path):
-
         self._logger.info("Unstage {}".format(path))
         index = self.index
         index.remove(path)
