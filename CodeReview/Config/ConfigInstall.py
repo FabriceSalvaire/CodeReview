@@ -1,32 +1,27 @@
 ####################################################################################################
 
+from pathlib import Path
 import os
 import sys
 
 ####################################################################################################
 
-import CodeReview.Common.Path as PathTools # due to Path class
+import CodeReview.Common.Path as PathTools   # due to Path class
 
 ####################################################################################################
 
-_this_file = PathTools.to_absolute_path(__file__)
+_this_file = Path(__file__).absolute()
 
 class Path:
 
-    CodeReview_module_directory = PathTools.parent_directory_of(_this_file, step=2)
-    config_directory = os.path.dirname(_this_file)
+    CodeReview_module_directory = _this_file.parents[1]
+    config_directory = _this_file.parent
 
     ##############################################
 
     @staticmethod
     def share_directory():
-
-        # Fixme: use absolut
-        path = os.path.dirname(Path.CodeReview_module_directory)
-        # if path.startswith(sys.exec_prefix):
-        #     return os.path.join(sys.exec_prefix, 'share', 'CodeReview')
-        # else:
-        return os.path.join(path, 'share', 'CodeReview')
+        return Path.CodeReview_module_directory.joinpath('share')
 
 ####################################################################################################
 
@@ -45,17 +40,15 @@ class Logging:
 
 class Icon:
 
-    icon_directory = os.path.join(Path.share_directory(), 'icons')
+    icon_directory = Path.share_directory().joinpath('icons')
 
     ##############################################
 
     @staticmethod
     def find(file_name, icon_size):
-
         if icon_size == 'svg':
             size_directory = icon_size
         else:
-            size_directory = '{0}x{0}'.format(icon_size)
-
-        icon_directory = os.path.join(Icon.icon_directory, size_directory)
+            size_directory = f'{icon_size}x{icon_size}'
+        icon_directory = Icon.icon_directory.joinpath(size_directory)
         return PathTools.find(file_name, (icon_directory,))
