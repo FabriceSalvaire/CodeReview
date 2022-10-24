@@ -23,6 +23,7 @@ __all__ = ['GitRepository', 'RepositoryNotFound', 'Diff', 'pygit']
 from pathlib import Path
 import logging
 import re
+import sys
 
 import pygit2 as pygit
 
@@ -81,17 +82,17 @@ class GitRepository:
 
     def __init__(self, path):
         path = Path(path).absolute().resolve()
-        try:
-            repository_path = pygit.discover_repository(str(path))
-            self._repository = pygit.Repository(repository_path)
-            self._workdir = Path(self._repository.workdir)
-            self._path_filter = str(path.relative_to(self._workdir))
-            if self._path_filter == '.':
-                self._path_filter = ''
-            template = '\nPath {}\nWork Dir: {}\nPath Filter: {}'
-            self._logger.info(template.format(path, self._workdir, self._path_filter))
-        except KeyError:
-            raise RepositoryNotFound
+        repository_path = pygit.discover_repository(str(path))
+        if repository_path is None:
+            print(f'Error: Directory {path} is not a Git repository')
+            sys.exit(1)
+        self._repository = pygit.Repository(repository_path)
+        self._workdir = Path(self._repository.workdir)
+        self._path_filter = str(path.relative_to(self._workdir))
+        if self._path_filter == '.':
+            self._path_filter = ''
+        template = '\nPath {}\nWork Dir: {}\nPath Filter: {}'
+        self._logger.info(template.format(path, self._workdir, self._path_filter))
 
     ##############################################
 
