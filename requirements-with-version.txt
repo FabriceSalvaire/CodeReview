@@ -1,0 +1,8 @@
+cffi==1.15.1
+pycparser==2.21
+pygit2==1.10.1
+Pygments==2.13.0
+PyQt5==5.15.7
+PyQt5-Qt5==5.15.2
+PyQt5-sip==12.11.0
+PyYAML==6.0
