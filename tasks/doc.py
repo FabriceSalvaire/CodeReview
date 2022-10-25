@@ -66,7 +66,7 @@ def run_sphinx(ctx):
     with ctx.cd(str(working_path)):
         ctx.run('make-html')
 
-@task
+@task(run_sphinx)
 def publish(ctx):
     with ctx.cd(str(CODEREVIEW_SOURCE_PATH.joinpath('gh-pages'))):
         ctx.run('update-gh-pages')
