@@ -1,18 +1,22 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>5.1.1.3.1. RawTextDocument &mdash; CodeReview 0.1.0 documentation</title>
   
 
   
+  <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+
   
+  
+
   
   
 
@@ -21,39 +25,28 @@
   
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="CodeReview 0.1.0 documentation" href="../../../index.html"/>
-        <link rel="up" title="5.1.1.3. Diff" href="../Diff.html"/>
-        <link rel="next" title="5.1.1.3.2. RawTextDocumentDiff" href="RawTextDocumentDiff.html"/>
-        <link rel="prev" title="5.1.1.3. Diff" href="../Diff.html"/> 
-
-  
-  <script src="../../../static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="5.1.1.3.2. RawTextDocumentDiff" href="RawTextDocumentDiff.html" />
+    <link rel="prev" title="5.1.1.3. Diff" href="../Diff.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -84,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -122,13 +116,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">CodeReview</a>
@@ -136,10 +131,13 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
 
 
 
@@ -159,20 +157,20 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../../reference-manual.html">5. API Documentation</a> &raquo;</li>
+          <li><a href="../../../reference-manual.html"><span class="section-number">5. </span>API Documentation</a> &raquo;</li>
         
-          <li><a href="../../CodeReview.html">5.1.1. CodeReview</a> &raquo;</li>
+          <li><a href="../../CodeReview.html"><span class="section-number">5.1.1. </span>CodeReview</a> &raquo;</li>
         
-          <li><a href="../Diff.html">5.1.1.3. Diff</a> &raquo;</li>
+          <li><a href="../Diff.html"><span class="section-number">5.1.1.3. </span>Diff</a> &raquo;</li>
         
-      <li>5.1.1.3.1. RawTextDocument</li>
+      <li><span class="section-number">5.1.1.3.1. </span>RawTextDocument</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../../_sources/api/CodeReview/Diff/RawTextDocument.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -187,260 +185,231 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-CodeReview.Diff.RawTextDocument">
-<span id="rawtextdocument"></span><h1>5.1.1.3.1. RawTextDocument<a class="headerlink" href="#module-CodeReview.Diff.RawTextDocument" title="Permalink to this headline">¶</a></h1>
+<span id="rawtextdocument"></span><h1><span class="section-number">5.1.1.3.1. </span>RawTextDocument<a class="headerlink" href="#module-CodeReview.Diff.RawTextDocument" title="Permalink to this headline">¶</a></h1>
 <p>This module provides an enhancement over a standard array of characters, so called Text Buffer in
 this documentation.  It features an API to manipulate the text buffer using line indexing and
 slicing.</p>
 <p>Definition of therms used in this document:</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>Text Buffer</dt>
-<dd>A text buffer is an object that provides the characters and implements the method <strong>__getitem__</strong>
-to index or slice its content and the method <strong>__len__</strong> to get the number of characters.</dd>
-<dt>Text Document</dt>
-<dd>A text document is a text buffer adapted by a <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocument" title="CodeReview.Diff.RawTextDocument.RawTextDocument"><code class="xref py py-class docutils literal"><span class="pre">RawTextDocument</span></code></a> class featuring the line
-indexing and slicing.</dd>
-<dt>Flat Slice</dt>
-<dd>A flat slice represents an interval of character indexes.  Only the sliced object know how to
-interpret the slice.</dd>
-<dt>Line Slice</dt>
-<dd>A line slice represents an interval of line indexes.  The only difference with a flat slice is
-semantic.</dd>
-<dt>Text Chunk or View</dt>
-<dd>A text chunk represents a sliced text buffer.</dd>
-<dt>Line</dt>
-<dd>A line represents either a slice, a view or the corresponding string of characters.</dd>
+<div><dl class="simple">
+<dt>Text Buffer</dt><dd><p>A text buffer is an object that provides the characters and implements the method <strong>__getitem__</strong>
+to index or slice its content and the method <strong>__len__</strong> to get the number of characters.</p>
+</dd>
+<dt>Text Document</dt><dd><p>A text document is a text buffer adapted by a <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocument" title="CodeReview.Diff.RawTextDocument.RawTextDocument"><code class="xref py py-class docutils literal notranslate"><span class="pre">RawTextDocument</span></code></a> class featuring the line
+indexing and slicing.</p>
+</dd>
+<dt>Flat Slice</dt><dd><p>A flat slice represents an interval of character indexes.  Only the sliced object know how to
+interpret the slice.</p>
+</dd>
+<dt>Line Slice</dt><dd><p>A line slice represents an interval of line indexes.  The only difference with a flat slice is
+semantic.</p>
+</dd>
+<dt>Text Chunk or View</dt><dd><p>A text chunk represents a sliced text buffer.</p>
+</dd>
+<dt>Line</dt><dd><p>A line represents either a slice, a view or the corresponding string of characters.</p>
+</dd>
 </dl>
 </div></blockquote>
-<dl class="class">
+<dl class="py class">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocument">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocument.</code><code class="descname">RawTextDocument</code><span class="sig-paren">(</span><em>text_buffer</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocument" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc" title="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Diff.RawTextDocument.RawTextDocumentAbc</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">CodeReview.Diff.RawTextDocument.</code><code class="sig-name descname">RawTextDocument</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text_buffer</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc" title="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc"><code class="xref py py-class docutils literal notranslate"><span class="pre">CodeReview.Diff.RawTextDocument.RawTextDocumentAbc</span></code></a></p>
 <p>This class implements a Text Document.</p>
-<p>The parameter <em>text_buffer</em> specifies the text buffer, cf. <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc" title="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc"><code class="xref py py-class docutils literal"><span class="pre">RawTextDocumentAbc</span></code></a> for
+<p>The parameter <em>text_buffer</em> specifies the text buffer, cf. <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc" title="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc"><code class="xref py py-class docutils literal notranslate"><span class="pre">RawTextDocumentAbc</span></code></a> for
 explanations.</p>
-<dl class="method">
-<dt id="CodeReview.Diff.RawTextDocument.RawTextDocument._append_sentinel">
-<code class="descname">_append_sentinel</code><span class="sig-paren">(</span><em>line_start_locations</em>, <em>line_separators</em>, <em>stop_location</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocument._append_sentinel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocument._append_sentinel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Append a sentinel to the lists: <em>line_start_locations</em> and <em>line_separators</em>.</p>
-<p>The parameter <em>stop_location</em> corresponds to the stop index of the text chunk.</p>
-<p>This method ensures the list <em>line_separators</em> end by <em>stop_location</em> and it appends an
-empty string to <em>line_separators</em> if it is not true.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Diff.RawTextDocument.RawTextDocument._split_lines">
-<code class="descname">_split_lines</code><span class="sig-paren">(</span><em>text_buffer</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocument._split_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocument._split_lines" title="Permalink to this definition">¶</a></dt>
-<dd><p>Split the lines and return the 2-tuple (<em>line_start_locations</em>, <em>line_separators</em>),
-cf. <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc" title="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc"><code class="xref py py-class docutils literal"><span class="pre">RawTextDocumentAbc</span></code></a> for their definitions.</p>
-</dd></dl>
-
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocument.light_view">
-<code class="descname">light_view</code><span class="sig-paren">(</span><em>slice_</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocument.light_view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocument.light_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView" title="CodeReview.Diff.RawTextDocument.RawTextDocumentLightView"><code class="xref py py-class docutils literal"><span class="pre">RawTextDocumentLightView</span></code></a> instance for the corresponding slice.</p>
+<code class="sig-name descname">light_view</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">slice_</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocument.light_view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocument.light_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView" title="CodeReview.Diff.RawTextDocument.RawTextDocumentLightView"><code class="xref py py-class docutils literal notranslate"><span class="pre">RawTextDocumentLightView</span></code></a> instance for the corresponding slice.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocument.view">
-<code class="descname">view</code><span class="sig-paren">(</span><em>slice_</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocument.view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocument.view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView" title="CodeReview.Diff.RawTextDocument.RawTextDocumentView"><code class="xref py py-class docutils literal"><span class="pre">RawTextDocumentView</span></code></a> instance for the corresponding slice.</p>
+<code class="sig-name descname">view</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">slice_</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocument.view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocument.view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView" title="CodeReview.Diff.RawTextDocument.RawTextDocumentView"><code class="xref py py-class docutils literal notranslate"><span class="pre">RawTextDocumentView</span></code></a> instance for the corresponding slice.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocument.</code><code class="descname">RawTextDocumentAbc</code><span class="sig-paren">(</span><em>text_buffer</em>, <em>flat_slice</em>, <em>line_start_locations</em>, <em>line_separators</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">CodeReview.Diff.RawTextDocument.</code><code class="sig-name descname">RawTextDocumentAbc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text_buffer</span></em>, <em class="sig-param"><span class="n">flat_slice</span></em>, <em class="sig-param"><span class="n">line_start_locations</span></em>, <em class="sig-param"><span class="n">line_separators</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class implements the basic function for a Text Chunk.</p>
-<p>To get the number of characters of the chunk use the function <a class="reference external" href="https://docs.python.org/2/library/functions.html#len" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">len()</span></code></a> and to test if the
+<p>To get the number of characters of the chunk use the function <a class="reference external" href="https://docs.python.org/3/library/functions.html#len" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">len()</span></code></a> and to test if the
 slice is empty use a Boolean evaluation of the instance.</p>
-<p>To get the text buffer use the function <code class="xref py py-func docutils literal"><span class="pre">str()</span></code>.</p>
+<p>To get the text buffer use the function <code class="xref py py-func docutils literal notranslate"><span class="pre">str()</span></code>.</p>
 <p>To get a view or light view if the light view mode is set, we can use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">text_document</span><span class="p">[</span><span class="nb">slice</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">text_document</span><span class="p">[</span><span class="nb">slice</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>The light view mode is set using the boolean attribute <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.light_view_mode" title="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.light_view_mode"><code class="xref py py-attr docutils literal"><span class="pre">light_view_mode</span></code></a>.</p>
+<p>The light view mode is set using the boolean attribute <code class="xref py py-attr docutils literal notranslate"><span class="pre">light_view_mode</span></code>.</p>
 <p>The parameter <em>text_buffer</em> specifies the text buffer.  It must implement the method
 <strong>__getitem__</strong> to index and slice the characters.</p>
 <p>The parameter <em>flat_slice</em> specifies the flat slice corresponding to the text chunk.</p>
 <p>The list <em>line_start_locations</em> contains the position of the new lines in the text chunk and
 the list <em>line_separators</em> contains the corresponding new line separators.  The standard
-separators (<code class="docutils literal"><span class="pre">\r\n</span></code>, <code class="docutils literal"><span class="pre">\r</span></code>, <code class="docutils literal"><span class="pre">\n</span></code>) are supported.  The list <em>line_start_locations</em> ends
+separators (<code class="docutils literal notranslate"><span class="pre">\r\n</span></code>, <code class="docutils literal notranslate"><span class="pre">\r</span></code>, <code class="docutils literal notranslate"><span class="pre">\n</span></code>) are supported.  The list <em>line_start_locations</em> ends
 by a sentinel that corresponds to the number of characters in the text chunk and the list
 <em>line_separators</em> by an empty string.  This sentinel corresponds to a virtual line at the
 end of the text buffer.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.flat_slice">
-<code class="descname">flat_slice</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.flat_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.flat_slice" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">flat_slice</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.flat_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.flat_slice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a copy of the flat slice corresponding to the text chunk.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.flat_to_line_slice">
-<code class="descname">flat_to_line_slice</code><span class="sig-paren">(</span><em>flat_slice</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.flat_to_line_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.flat_to_line_slice" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">flat_to_line_slice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flat_slice</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.flat_to_line_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.flat_to_line_slice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a flat slice to a line slice and return it.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.light_view">
-<code class="descname">light_view</code><span class="sig-paren">(</span><em>slice_</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.light_view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.light_view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView" title="CodeReview.Diff.RawTextDocument.RawTextDocumentLightView"><code class="xref py py-class docutils literal"><span class="pre">RawTextDocumentLightView</span></code></a> instance for the corresponding slice.</p>
+<code class="sig-name descname">light_view</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">slice_</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.light_view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.light_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView" title="CodeReview.Diff.RawTextDocument.RawTextDocumentLightView"><code class="xref py py-class docutils literal notranslate"><span class="pre">RawTextDocumentLightView</span></code></a> instance for the corresponding slice.</p>
 <p>Not implemented.</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.light_view_mode">
-<code class="descname">light_view_mode</code><em class="property"> = False</em><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.light_view_mode" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_iterator">
-<code class="descname">line_iterator</code><span class="sig-paren">(</span><em>new_line_separator=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.line_iterator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_iterator" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">line_iterator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_line_separator</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.line_iterator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_iterator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an iterator on the string lines.  If <em>new_line_separator</em> is set then the line separator
 is included.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_of">
-<code class="descname">line_of</code><span class="sig-paren">(</span><em>location</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.line_of"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_of" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">line_of</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">location</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.line_of"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_of" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the line number for the location.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_slice_iterator">
-<code class="descname">line_slice_iterator</code><span class="sig-paren">(</span><em>new_line_separator=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.line_slice_iterator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_slice_iterator" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">line_slice_iterator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_line_separator</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.line_slice_iterator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_slice_iterator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an iterator on the line’s flat slices.  If <em>new_line_separator</em> is set then the line
 separator is included.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_to_flat_slice">
-<code class="descname">line_to_flat_slice</code><span class="sig-paren">(</span><em>line_slice</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.line_to_flat_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_to_flat_slice" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">line_to_flat_slice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line_slice</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.line_to_flat_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.line_to_flat_slice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a line slice to a flat slice and return it.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.lines">
-<code class="descname">lines</code><span class="sig-paren">(</span><em>new_line_separator=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.lines" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">lines</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_line_separator</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.lines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the list of string lines.  If <em>new_line_separator</em> is set then the line separator is
 included.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.substring">
-<code class="descname">substring</code><span class="sig-paren">(</span><em>slice_</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.substring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.substring" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">substring</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">slice_</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.substring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.substring" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the unicode sub-string corresponding to the slice.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.to_flat_slice">
-<code class="descname">to_flat_slice</code><span class="sig-paren">(</span><em>slice_</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.to_flat_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.to_flat_slice" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">to_flat_slice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">slice_</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.to_flat_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.to_flat_slice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ensure <em>slice_</em> is a flat slice and return it.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.view">
-<code class="descname">view</code><span class="sig-paren">(</span><em>slice_</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView" title="CodeReview.Diff.RawTextDocument.RawTextDocumentView"><code class="xref py py-class docutils literal"><span class="pre">RawTextDocumentView</span></code></a> instance for the corresponding slice.</p>
+<code class="sig-name descname">view</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">slice_</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentAbc.view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc.view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView" title="CodeReview.Diff.RawTextDocument.RawTextDocumentView"><code class="xref py py-class docutils literal notranslate"><span class="pre">RawTextDocumentView</span></code></a> instance for the corresponding slice.</p>
 <p>Not implemented.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentLightView">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocument.</code><code class="descname">RawTextDocumentLightView</code><span class="sig-paren">(</span><em>raw_text_document</em>, <em>flat_slice</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentLightView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">CodeReview.Diff.RawTextDocument.</code><code class="sig-name descname">RawTextDocumentLightView</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">raw_text_document</span></em>, <em class="sig-param"><span class="n">flat_slice</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentLightView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class implements a light view on a Text Document.</p>
 <p>A light view doesn’t feature line indexing and slicing.  The memory footprint is lighter than a
 standard view and thus well suited for many small chunks.</p>
-<p>To get the number of characters of the chunk use the function <a class="reference external" href="https://docs.python.org/2/library/functions.html#len" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">len()</span></code></a> and to test if the
+<p>To get the number of characters of the chunk use the function <a class="reference external" href="https://docs.python.org/3/library/functions.html#len" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">len()</span></code></a> and to test if the
 slice is empty use a Boolean evaluation of the instance.</p>
-<p>To get the text buffer use the function <a class="reference external" href="https://docs.python.org/2/library/functions.html#unicode" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">unicode()</span></code></a>.</p>
+<p>To get the text buffer use the function <code class="xref py py-func docutils literal notranslate"><span class="pre">unicode()</span></code>.</p>
 <p>To get a light view, we can use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">text_document</span><span class="p">[</span><span class="nb">slice</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">text_document</span><span class="p">[</span><span class="nb">slice</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Public attributes:</p>
 <blockquote>
-<div><a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.flat_slice" title="CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.flat_slice"><code class="xref py py-attr docutils literal"><span class="pre">flat_slice</span></code></a></div></blockquote>
+<div><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">flat_slice</span></code></p>
+</div></blockquote>
 <p>The parameter <em>raw_text_document</em> specifies the text document.</p>
 <p>The parameter <em>flat_slice</em> specifies the slice corresponding to the view.</p>
-<dl class="attribute">
-<dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentLightView._raw_text_document">
-<code class="descname">_raw_text_document</code><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView._raw_text_document" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.flat_slice">
-<code class="descname">flat_slice</code><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.flat_slice" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.substring">
-<code class="descname">substring</code><span class="sig-paren">(</span><em>flat_slice</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentLightView.substring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.substring" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">substring</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flat_slice</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentLightView.substring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.substring" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the sub-string corresponding to the local slice in the view.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.to_document_flat_slice">
-<code class="descname">to_document_flat_slice</code><span class="sig-paren">(</span><em>flat_slice</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentLightView.to_document_flat_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.to_document_flat_slice" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">to_document_flat_slice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flat_slice</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentLightView.to_document_flat_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.to_document_flat_slice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a flat slice into the view to a flat slice in the document space and return it.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.view">
-<code class="descname">view</code><span class="sig-paren">(</span><em>flat_slice</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentLightView.view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.view" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">view</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flat_slice</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentLightView.view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentLightView.view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the view corresponding to the local slice in the view.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentView">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocument.</code><code class="descname">RawTextDocumentView</code><span class="sig-paren">(</span><em>raw_text_document</em>, <em>slice_</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc" title="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Diff.RawTextDocument.RawTextDocumentAbc</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">CodeReview.Diff.RawTextDocument.</code><code class="sig-name descname">RawTextDocumentView</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">raw_text_document</span></em>, <em class="sig-param"><span class="n">slice_</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentAbc" title="CodeReview.Diff.RawTextDocument.RawTextDocumentAbc"><code class="xref py py-class docutils literal notranslate"><span class="pre">CodeReview.Diff.RawTextDocument.RawTextDocumentAbc</span></code></a></p>
 <p>This class implements a view on a Text Document.</p>
 <p>The parameter <em>raw_text_document</em> specifies the text document.</p>
 <p>The parameter <em>slice_</em> specifies the slice corresponding to the view, it can be either a
 flat ro a line slice.</p>
-<p>The remaining parameters are those of the <code class="xref py py-meth docutils literal"><span class="pre">RawTextDocumentAbc.__init__()</span></code> method.</p>
+<p>The remaining parameters are those of the <code class="xref py py-meth docutils literal notranslate"><span class="pre">RawTextDocumentAbc.__init__()</span></code> method.</p>
 <p>Public attributes:</p>
 <blockquote>
-<div><p><code class="xref py py-attr docutils literal"><span class="pre">slice</span></code></p>
+<div><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">slice</span></code></p>
 <blockquote>
-<div>is a copy of the slice passed as argument.</div></blockquote>
+<div><p>is a copy of the slice passed as argument.</p>
 </div></blockquote>
-<dl class="method">
+</div></blockquote>
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentView.is_line_view">
-<code class="descname">is_line_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentView.is_line_view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView.is_line_view" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">is_line_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentView.is_line_view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView.is_line_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test if it is a line slice.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentView.substring">
-<code class="descname">substring</code><span class="sig-paren">(</span><em>slice_</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentView.substring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView.substring" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">substring</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">slice_</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentView.substring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView.substring" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the sub-string corresponding to the local slice in the view.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentView.to_document_flat_slice">
-<code class="descname">to_document_flat_slice</code><span class="sig-paren">(</span><em>slice_</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentView.to_document_flat_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView.to_document_flat_slice" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">to_document_flat_slice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">slice_</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentView.to_document_flat_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView.to_document_flat_slice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a slice into the view to a flat slice in the document space and return it.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentView.to_document_slice">
-<code class="descname">to_document_slice</code><span class="sig-paren">(</span><em>slice_</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentView.to_document_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView.to_document_slice" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">to_document_slice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">slice_</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentView.to_document_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView.to_document_slice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a slice into the view to a slice in the document space and return it.  This method tries
 to keep the type of slice.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.Diff.RawTextDocument.RawTextDocumentView.view">
-<code class="descname">view</code><span class="sig-paren">(</span><em>slice_</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentView.view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView.view" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">view</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">slice_</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocument.html#RawTextDocumentView.view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocument.RawTextDocumentView.view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the view corresponding to the local slice in the view.</p>
 </dd></dl>
 
@@ -450,34 +419,32 @@ to keep the type of slice.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="RawTextDocumentDiff.html" class="btn btn-neutral float-right" title="5.1.1.3.2. RawTextDocumentDiff" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../Diff.html" class="btn btn-neutral" title="5.1.1.3. Diff" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="RawTextDocumentDiff.html" class="btn btn-neutral float-right" title="5.1.1.3.2. RawTextDocumentDiff" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Diff.html" class="btn btn-neutral float-left" title="5.1.1.3. Diff" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2014, Fabrice Salvaire.
+        &#169; Copyright 2014, Fabrice Salvaire.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -486,37 +453,15 @@ to keep the type of slice.</p>
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'0.1.0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../static/jquery.js"></script>
-      <script type="text/javascript" src="../../../static/underscore.js"></script>
-      <script type="text/javascript" src="../../../static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

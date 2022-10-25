@@ -1,18 +1,22 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>CodeReview.GUI.LogBrowser.LogBrowserMainWindow &mdash; CodeReview 0.1.0 documentation</title>
   
 
   
+  <link rel="stylesheet" href="../../../../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../static/pygments.css" type="text/css" />
+
   
+  
+
   
   
 
@@ -21,37 +25,26 @@
   
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../static/documentation_options.js"></script>
+        <script src="../../../../static/jquery.js"></script>
+        <script src="../../../../static/underscore.js"></script>
+        <script src="../../../../static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../../../../static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../../search.html"/>
-    <link rel="top" title="CodeReview 0.1.0 documentation" href="../../../../index.html"/>
-        <link rel="up" title="Module code" href="../../../index.html"/> 
-
-  
-  <script src="../../../../static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -82,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -100,13 +94,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../index.html">CodeReview</a>
@@ -114,10 +109,13 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
 
 
 
@@ -137,7 +135,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
         
@@ -145,8 +143,6 @@
     
     
       <li class="wy-breadcrumbs-aside">
-        
-            
         
       </li>
     
@@ -180,18 +176,20 @@
 <span class="c1">####################################################################################################</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">os</span>
 
-<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="k">import</span> <span class="n">QtWidgets</span>
-<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="k">import</span> <span class="n">Qt</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtWidgets</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QRegExp</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QSizePolicy</span>
 
 <span class="kn">import</span> <span class="nn">pygit2</span> <span class="k">as</span> <span class="nn">git</span>
 
 <span class="c1">####################################################################################################</span>
 
-<span class="kn">from</span> <span class="nn">CodeReview.GUI.Base.MainWindowBase</span> <span class="k">import</span> <span class="n">MainWindowBase</span>
-<span class="kn">from</span> <span class="nn">CodeReview.GUI.Widgets.IconLoader</span> <span class="k">import</span> <span class="n">IconLoader</span>
-<span class="kn">from</span> <span class="nn">CodeReview.GUI.Widgets.MessageBox</span> <span class="k">import</span> <span class="n">MessageBox</span>
+<span class="kn">from</span> <span class="nn">.LogTableModel</span> <span class="kn">import</span> <span class="n">LogTableModel</span>
+<span class="kn">from</span> <span class="nn">CodeReview.GUI.Base.MainWindowBase</span> <span class="kn">import</span> <span class="n">MainWindowBase</span>
+<span class="kn">from</span> <span class="nn">CodeReview.GUI.Widgets.IconLoader</span> <span class="kn">import</span> <span class="n">IconLoader</span>
+<span class="kn">from</span> <span class="nn">CodeReview.GUI.Widgets.MessageBox</span> <span class="kn">import</span> <span class="n">MessageBox</span>
+<span class="kn">from</span> <span class="nn">CodeReview.Review</span> <span class="kn">import</span> <span class="n">ReviewNote</span>
 
 <span class="c1">####################################################################################################</span>
 
@@ -203,19 +201,23 @@
 
     <span class="n">_logger</span> <span class="o">=</span> <span class="n">_module_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;LogBrowserMainWindow&#39;</span><span class="p">)</span>
 
+    <span class="n">SHA_SHORTCUT_LENGTH</span> <span class="o">=</span> <span class="mi">8</span>
+
     <span class="c1">##############################################</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">LogBrowserMainWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;CodeReview Log Browser&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">)</span>
 
-        <span class="n">icon_loader</span> <span class="o">=</span> <span class="n">IconLoader</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">icon_loader</span><span class="p">[</span><span class="s1">&#39;code-review@svg&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_icon_loader</span> <span class="o">=</span> <span class="n">IconLoader</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_icon_loader</span><span class="p">[</span><span class="s1">&#39;code-review@svg&#39;</span><span class="p">])</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_revision</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_diff</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_patch_index</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_diff_window</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_review_note</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_init_ui</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_create_actions</span><span class="p">()</span>
@@ -226,24 +228,124 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow._init_ui"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow._init_ui">[docs]</a>    <span class="k">def</span> <span class="nf">_init_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_init_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="c1"># Table models are set in application</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_central_widget</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_central_widget</span><span class="p">)</span>
+        <span class="n">central_widget</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="n">central_widget</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_vertical_layout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_central_widget</span><span class="p">)</span>
+        <span class="n">top_vertical_layout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">(</span><span class="n">central_widget</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_message_box</span> <span class="o">=</span> <span class="n">MessageBox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">splitter</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QSplitter</span><span class="p">()</span>
-        <span class="n">splitter</span><span class="o">.</span><span class="n">setOrientation</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Vertical</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_log_table</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableView</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_commit_table</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableView</span><span class="p">()</span>
+        <span class="n">top_vertical_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_message_box</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">widget</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_message_box</span><span class="p">,</span> <span class="n">splitter</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_vertical_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">widget</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_log_table</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_commit_table</span><span class="p">):</span>
-            <span class="n">splitter</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+        <span class="n">horizontal_layout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">top_vertical_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">horizontal_layout</span><span class="p">)</span>
+
+        <span class="n">vertical_layout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">horizontal_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">vertical_layout</span><span class="p">)</span>
+
+        <span class="n">horizontal_layout2</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">vertical_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">horizontal_layout2</span><span class="p">)</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Diff&#39;</span><span class="p">)</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_diff_ab</span><span class="p">)</span>
+        <span class="n">horizontal_layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">()</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_icon_loader</span><span class="p">[</span><span class="s1">&#39;edit-delete@svg&#39;</span><span class="p">])</span>
+        <span class="n">horizontal_layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_diff_a</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_diff_a</span><span class="o">.</span><span class="n">clear</span><span class="p">())</span>
+        <span class="n">horizontal_layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_diff_a</span><span class="p">)</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">()</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_icon_loader</span><span class="p">[</span><span class="s1">&#39;media-playlist-repeat@svg&#39;</span><span class="p">])</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_diff_exchange</span><span class="p">)</span>
+        <span class="n">horizontal_layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_diff_b</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">horizontal_layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_diff_b</span><span class="p">)</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">()</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_icon_loader</span><span class="p">[</span><span class="s1">&#39;edit-delete@svg&#39;</span><span class="p">])</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_diff_b</span><span class="o">.</span><span class="n">clear</span><span class="p">())</span>
+        <span class="n">horizontal_layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
+        <span class="c1"># for widget in (self._diff_a, self._diff_b):</span>
+        <span class="c1">#     widget.editingFinished.connect(self._on_diff_ab)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_branch_name</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_branch_name</span><span class="o">.</span><span class="n">setReadOnly</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">vertical_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_branch_name</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_row_count</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">vertical_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_row_count</span><span class="p">)</span>
+
+        <span class="n">row</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">grid_layout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QGridLayout</span><span class="p">()</span>
+        <span class="n">horizontal_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">grid_layout</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Committer Filter&#39;</span><span class="p">)</span>
+        <span class="n">committer_filter</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">()</span>
+        <span class="n">committer_filter</span><span class="o">.</span><span class="n">textChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_committer_filter_changed</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">widget</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span><span class="n">label</span><span class="p">,</span> <span class="n">committer_filter</span><span class="p">)):</span>
+            <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="n">row</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">horizontal_layout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">top_vertical_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">horizontal_layout</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Message Filter&#39;</span><span class="p">)</span>
+        <span class="n">message_filter</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">()</span>
+        <span class="n">message_filter</span><span class="o">.</span><span class="n">textChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_message_filter_changed</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">widget</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span><span class="n">label</span><span class="p">,</span> <span class="n">message_filter</span><span class="p">)):</span>
+            <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="n">row</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">horizontal_layout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">top_vertical_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">horizontal_layout</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;SHA Filter&#39;</span><span class="p">)</span>
+        <span class="n">sha_filter</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">()</span>
+        <span class="n">sha_filter</span><span class="o">.</span><span class="n">textChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_sha_filter_changed</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">widget</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span><span class="n">label</span><span class="p">,</span> <span class="n">sha_filter</span><span class="p">)):</span>
+            <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="n">row</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">splitter</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QSplitter</span><span class="p">()</span>
+        <span class="n">top_vertical_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">splitter</span><span class="p">)</span>
+        <span class="n">splitter</span><span class="o">.</span><span class="n">setOrientation</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Vertical</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log_table</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableView</span><span class="p">()</span>
+        <span class="n">splitter</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_log_table</span><span class="p">)</span>
+
+        <span class="n">bottom_widget</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span><span class="p">()</span>
+        <span class="n">splitter</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">bottom_widget</span><span class="p">)</span>
+        <span class="n">bottom_horizontal_layout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">bottom_widget</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">bottom_horizontal_layout</span><span class="p">)</span>
+
+        <span class="n">vertical_layout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">bottom_horizontal_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">vertical_layout</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_commit_table</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableView</span><span class="p">()</span>
+        <span class="n">vertical_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_commit_table</span><span class="p">)</span>
+
+        <span class="n">vertical_layout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">bottom_horizontal_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">vertical_layout</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_commit_sha</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_commit_sha</span><span class="o">.</span><span class="n">setReadOnly</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">vertical_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_commit_sha</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent_labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">horizontal_layout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+            <span class="n">vertical_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">horizontal_layout</span><span class="p">)</span>
+            <span class="n">button</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Go&#39;</span><span class="p">)</span>
+            <span class="n">button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">state</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">i</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_go_clicked</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+            <span class="n">horizontal_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
+            <span class="n">parent</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">()</span>
+            <span class="n">parent</span><span class="o">.</span><span class="n">setReadOnly</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">horizontal_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_review_comment</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTextEdit</span><span class="p">()</span>
+        <span class="n">vertical_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_review_comment</span><span class="p">)</span>
+        <span class="n">horizontal_layout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">vertical_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">horizontal_layout</span><span class="p">)</span>
+        <span class="n">save_button</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Save&#39;</span><span class="p">)</span>
+        <span class="n">save_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_save_review</span><span class="p">)</span>
+        <span class="n">horizontal_layout</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QSpacerItem</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">))</span>
+        <span class="n">horizontal_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">save_button</span><span class="p">)</span>
 
         <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_table</span>
         <span class="n">table</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableView</span><span class="o">.</span><span class="n">SingleSelection</span><span class="p">)</span>
@@ -259,24 +361,21 @@
         <span class="n">table</span><span class="o">.</span><span class="n">verticalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">table</span><span class="o">.</span><span class="n">setShowGrid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">table</span><span class="o">.</span><span class="n">setSortingEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">table</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_clicked_table</span><span class="p">)</span></div>
+        <span class="n">table</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_clicked_table</span><span class="p">)</span>
 
         <span class="c1"># horizontal_header = table_view.horizontalHeader()</span>
         <span class="c1"># horizontal_header.setMovable(True)</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow.finish_table_connections"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow.finish_table_connections">[docs]</a>    <span class="k">def</span> <span class="nf">finish_table_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_log_table</span><span class="o">.</span><span class="n">selectionModel</span><span class="p">()</span><span class="o">.</span><span class="n">currentRowChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_commit_table</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">finish_table_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log_table</span><span class="o">.</span><span class="n">selectionModel</span><span class="p">()</span><span class="o">.</span><span class="n">currentRowChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_commit_table</span><span class="p">)</span>
         <span class="c1">#!# Fixme: reopen diff viewer window when repository change</span>
         <span class="c1">#!# self._commit_table.selectionModel().currentRowChanged.connect(self._on_clicked_table)</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow._create_actions"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow._create_actions">[docs]</a>    <span class="k">def</span> <span class="nf">_create_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="n">icon_loader</span> <span class="o">=</span> <span class="n">IconLoader</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_create_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_stagged_mode_action</span> <span class="o">=</span> \
             <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QAction</span><span class="p">(</span><span class="s1">&#39;Stagged&#39;</span><span class="p">,</span>
@@ -312,29 +411,27 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_all_change_mode_action</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_reload_action</span> <span class="o">=</span> \
-            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QAction</span><span class="p">(</span><span class="n">icon_loader</span><span class="p">[</span><span class="s1">&#39;view-refresh@svg&#39;</span><span class="p">],</span>
+            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_icon_loader</span><span class="p">[</span><span class="s1">&#39;view-refresh@svg&#39;</span><span class="p">],</span>
                               <span class="s1">&#39;Refresh&#39;</span><span class="p">,</span>
                               <span class="bp">self</span><span class="p">,</span>
                               <span class="n">toolTip</span><span class="o">=</span><span class="s1">&#39;Refresh&#39;</span><span class="p">,</span>
                               <span class="n">shortcut</span><span class="o">=</span><span class="s1">&#39;Ctrl+R&#39;</span><span class="p">,</span>
                               <span class="n">triggered</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_reload_repository</span><span class="p">,</span>
-            <span class="p">)</span></div>
+            <span class="p">)</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow._create_toolbar"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow._create_toolbar">[docs]</a>    <span class="k">def</span> <span class="nf">_create_toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
+    <span class="k">def</span> <span class="nf">_create_toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tool_bar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">addToolBar</span><span class="p">(</span><span class="s1">&#39;Diff on Working Tree&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_action_group</span><span class="o">.</span><span class="n">actions</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_tool_bar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_reload_action</span><span class="p">,):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_tool_bar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tool_bar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow.init_menu"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow.init_menu">[docs]</a>    <span class="k">def</span> <span class="nf">init_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="nb">super</span><span class="p">(</span><span class="n">LogBrowserMainWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">init_menu</span><span class="p">()</span></div>
+    <span class="k">def</span> <span class="nf">init_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LogBrowserMainWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">init_menu</span><span class="p">()</span>
 
     <span class="c1">##############################################</span>
 
@@ -360,7 +457,7 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow._on_directory_changed"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow._on_directory_changed">[docs]</a>    <span class="k">def</span> <span class="nf">_on_directory_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_on_directory_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
@@ -369,15 +466,17 @@
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_diff_window</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_patches</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_current_patch_index</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_diff_window</span><span class="o">.</span><span class="n">update_patch_index</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">reload_current_patch</span><span class="p">()</span>
+                <span class="c1"># Fixme: issue with _flycheck</span>
+                <span class="c1"># self._current_patch_index = 0</span>
+                <span class="c1"># self._diff_window.update_patch_index()</span>
+                <span class="c1"># self.reload_current_patch()</span>
+                <span class="k">pass</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_diff_window</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_diff_window</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow._on_file_changed"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow._on_file_changed">[docs]</a>    <span class="k">def</span> <span class="nf">_on_file_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_on_file_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
@@ -387,11 +486,11 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;File </span><span class="si">{}</span><span class="s1"> changed&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">show_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">reload_current_patch</span><span class="p">()</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reload_current_patch</span><span class="p">()</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow._reload_repository"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow._reload_repository">[docs]</a>    <span class="k">def</span> <span class="nf">_reload_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_reload_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Reload signal&#39;</span><span class="p">)</span>
         <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_table</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
@@ -403,45 +502,75 @@
             <span class="c1"># self._update_working_tree_diff()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">show_working_tree_diff</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">show_working_tree_diff</span><span class="p">()</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_working_tree_diff</span><span class="p">()</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow.show_working_tree_diff"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow.show_working_tree_diff">[docs]</a>    <span class="k">def</span> <span class="nf">show_working_tree_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">show_working_tree_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Show WT&#39;</span><span class="p">)</span>
         <span class="n">log_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_table</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">log_model</span><span class="o">.</span><span class="n">rowCount</span><span class="p">():</span>
             <span class="n">top_index</span> <span class="o">=</span> <span class="n">log_model</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_log_table</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">top_index</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_working_tree_diff</span><span class="p">()</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_working_tree_diff</span><span class="p">()</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow._update_working_tree_diff"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow._update_working_tree_diff">[docs]</a>    <span class="k">def</span> <span class="nf">_update_working_tree_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
+    <span class="k">def</span> <span class="nf">_update_working_tree_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Check log table is on working tree</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_table</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span><span class="o">.</span><span class="n">row</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_commit_table</span><span class="p">()</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_commit_table</span><span class="p">()</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow._update_commit_table"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow._update_commit_table">[docs]</a>    <span class="k">def</span> <span class="nf">_update_commit_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_reset_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_commit</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_labels</span><span class="p">:</span>
+            <span class="n">parent</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">_update_commit_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_commit_sha</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_parent</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_review_note</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_on_save_review</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_review_note</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_review_comment</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">log_table_filter</span><span class="o">.</span><span class="n">mapToSource</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
             <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
 
+        <span class="c1"># Diff a=old b=new commit</span>
+
         <span class="k">if</span> <span class="n">index</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_current_revision</span> <span class="o">=</span> <span class="n">index</span>
-            <span class="n">log_table_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_table</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>
-            <span class="n">commit1</span> <span class="o">=</span> <span class="n">log_table_model</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">commit2</span> <span class="o">=</span> <span class="n">log_table_model</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">commit2</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">commit1</span><span class="p">)</span> <span class="c1"># Fixme:</span>
-            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-                <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">commit1</span><span class="p">)</span>
+            <span class="c1"># log_table_model = self._log_table.model()</span>
+            <span class="n">log_table_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">log_table_model</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_commit</span> <span class="o">=</span> <span class="n">log_table_model</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+            <span class="n">sha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_commit</span><span class="o">.</span><span class="n">hex</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_commit_sha</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Commit: </span><span class="si">{}</span><span class="s1">   /   </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sha</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">SHA_SHORTCUT_LENGTH</span><span class="p">],</span> <span class="n">sha</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_commit</span><span class="o">.</span><span class="n">parents</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent_labels</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show_message</span><span class="p">(</span><span class="s1">&#39;Fixme: More than 2 parents&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">commit</span><span class="p">,</span> <span class="n">parent_label</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_commit</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_labels</span><span class="p">):</span>
+                <span class="n">parent_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Parent: </span><span class="si">{}</span><span class="s1">   (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">commit</span><span class="o">.</span><span class="n">hex</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">SHA_SHORTCUT_LENGTH</span><span class="p">],</span> <span class="n">commit</span><span class="o">.</span><span class="n">message</span><span class="p">))</span>
+                <span class="n">parent_label</span><span class="o">.</span><span class="n">setCursorPosition</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_review_note</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">review</span><span class="p">[</span><span class="n">sha</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_review_note</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_review_comment</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_review_note</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_review_note</span> <span class="o">=</span> <span class="n">ReviewNote</span><span class="p">(</span><span class="n">sha</span><span class="p">)</span>
+            <span class="n">commit_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_commit</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># take first parent</span>
+            <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">commit_a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_commit</span><span class="p">)</span>
+
         <span class="k">else</span><span class="p">:</span> <span class="c1"># working directory</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_current_revision</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stagged_mode_action</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
@@ -459,16 +588,15 @@
 
         <span class="n">commit_table_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_commit_table</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>
         <span class="n">commit_table_model</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_diff</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_commit_table</span><span class="o">.</span><span class="n">resizeColumnsToContents</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_commit_table</span><span class="o">.</span><span class="n">resizeColumnsToContents</span><span class="p">()</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow._on_clicked_table"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow._on_clicked_table">[docs]</a>    <span class="k">def</span> <span class="nf">_on_clicked_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
-
+    <span class="k">def</span> <span class="nf">_on_clicked_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="c1"># called when a commit row is clicked</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_patch_index</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">reload_current_patch</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reload_current_patch</span><span class="p">()</span>
 
     <span class="c1">##############################################</span>
 
@@ -484,30 +612,29 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow._create_diff_viewer_window"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow._create_diff_viewer_window">[docs]</a>    <span class="k">def</span> <span class="nf">_create_diff_viewer_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_create_diff_viewer_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Open Diff Viewer&quot;</span><span class="p">)</span>
 
-        <span class="kn">from</span> <span class="nn">CodeReview.GUI.DiffViewer.DiffViewerMainWindow</span> <span class="k">import</span> <span class="n">DiffViewerMainWindow</span>
+        <span class="kn">from</span> <span class="nn">CodeReview.GUI.DiffViewer.DiffViewerMainWindow</span> <span class="kn">import</span> <span class="n">DiffViewerMainWindow</span>
 
         <span class="n">repository</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">repository</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_diff_window</span> <span class="o">=</span> <span class="n">DiffViewerMainWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="o">=</span><span class="n">repository</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_diff_window</span><span class="o">.</span><span class="n">closed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_diff_window_closed</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_diff_window</span><span class="o">.</span><span class="n">showMaximized</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_diff_window</span><span class="o">.</span><span class="n">showMaximized</span><span class="p">()</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow._on_diff_window_closed"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow._on_diff_window_closed">[docs]</a>    <span class="k">def</span> <span class="nf">_on_diff_window_closed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
+    <span class="k">def</span> <span class="nf">_on_diff_window_closed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">unwatch_files</span><span class="p">()</span> <span class="c1"># Fixme: only current patch !</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_diff_window</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Diff Viewer closed&quot;</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Diff Viewer closed&quot;</span><span class="p">)</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow._show_patch"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow._show_patch">[docs]</a>    <span class="k">def</span> <span class="nf">_show_patch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patch</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_show_patch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patch</span><span class="p">):</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">unwatch_files</span><span class="p">()</span>
 
@@ -529,28 +656,31 @@
             <span class="k">elif</span> <span class="n">delta</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">git</span><span class="o">.</span><span class="n">GIT_DELTA_DELETED</span><span class="p">:</span>
                 <span class="n">paths</span> <span class="o">=</span> <span class="p">(</span><span class="n">old_path</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="n">repository</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">repository</span>
-            <span class="n">texts</span> <span class="o">=</span> <span class="p">[</span><span class="n">repository</span><span class="o">.</span><span class="n">file_content</span><span class="p">(</span><span class="n">blob_id</span><span class="p">)</span>
-                     <span class="k">for</span> <span class="n">blob_id</span> <span class="ow">in</span> <span class="p">(</span><span class="n">delta</span><span class="o">.</span><span class="n">old_file</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">delta</span><span class="o">.</span><span class="n">new_file</span><span class="o">.</span><span class="n">id</span><span class="p">)]</span>
-            <span class="n">metadatas</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">old_path</span><span class="p">,</span> <span class="n">document_type</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">last_modification_date</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
-                         <span class="nb">dict</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">new_path</span><span class="p">,</span> <span class="n">document_type</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">last_modification_date</span><span class="o">=</span><span class="kc">None</span><span class="p">)]</span>
+            <span class="n">texts</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">repository</span><span class="o">.</span><span class="n">file_content</span><span class="p">(</span><span class="n">blob_id</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">blob_id</span> <span class="ow">in</span> <span class="p">(</span><span class="n">delta</span><span class="o">.</span><span class="n">old_file</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">delta</span><span class="o">.</span><span class="n">new_file</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="n">metadatas</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="nb">dict</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">old_path</span><span class="p">,</span> <span class="n">document_type</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">last_modification_date</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
+                <span class="nb">dict</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">new_path</span><span class="p">,</span> <span class="n">document_type</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">last_modification_date</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
+            <span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_diff_window</span><span class="o">.</span><span class="n">diff_documents</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">texts</span><span class="p">,</span> <span class="n">metadatas</span><span class="p">,</span> <span class="n">workdir</span><span class="o">=</span><span class="n">repository</span><span class="o">.</span><span class="n">workdir</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">new_path</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;revision </span><span class="si">{}</span><span class="s1"> Binary &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_revision</span><span class="p">)</span> <span class="o">+</span> <span class="n">new_path</span><span class="p">)</span></div>
-        <span class="c1"># Fixme: show image pdf ...</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;revision </span><span class="si">{}</span><span class="s1"> Binary &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_revision</span><span class="p">)</span> <span class="o">+</span> <span class="n">new_path</span><span class="p">)</span>
 
+        <span class="c1"># Fixme: show image pdf ...</span>
         <span class="c1"># Monitor file change</span>
 
     <span class="c1">##############################################</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_last_path_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_diff</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow._next_previous_patch"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow._next_previous_patch">[docs]</a>    <span class="k">def</span> <span class="nf">_next_previous_patch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forward</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_next_previous_patch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forward</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="n">forward</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_patch_index</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_path_index</span><span class="p">:</span>
@@ -565,47 +695,133 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_patch_index</span> <span class="o">=</span> <span class="n">patch_index</span>
         <span class="n">patch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_diff</span><span class="p">[</span><span class="n">patch_index</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_show_patch</span><span class="p">(</span><span class="n">patch</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_show_patch</span><span class="p">(</span><span class="n">patch</span><span class="p">)</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow.previous_patch"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow.previous_patch">[docs]</a>    <span class="k">def</span> <span class="nf">previous_patch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_next_previous_patch</span><span class="p">(</span><span class="n">forward</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">previous_patch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_next_previous_patch</span><span class="p">(</span><span class="n">forward</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow.next_patch"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow.next_patch">[docs]</a>    <span class="k">def</span> <span class="nf">next_patch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_next_previous_patch</span><span class="p">(</span><span class="n">forward</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">next_patch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_next_previous_patch</span><span class="p">(</span><span class="n">forward</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserMainWindow.reload_current_patch"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserMainWindow.html#CodeReview.GUI.LogBrowser.LogBrowserMainWindow.LogBrowserMainWindow.reload_current_patch">[docs]</a>    <span class="k">def</span> <span class="nf">reload_current_patch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
+    <span class="k">def</span> <span class="nf">reload_current_patch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_patch_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">patch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_diff</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_patch_index</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_show_patch</span><span class="p">(</span><span class="n">patch</span><span class="p">)</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_show_patch</span><span class="p">(</span><span class="n">patch</span><span class="p">)</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">_on_committer_filter_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="n">log_table_filter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">log_table_filter</span>
+        <span class="n">log_table_filter</span><span class="o">.</span><span class="n">setFilterRegExp</span><span class="p">(</span><span class="n">QRegExp</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">CaseInsensitive</span><span class="p">,</span> <span class="n">QRegExp</span><span class="o">.</span><span class="n">FixedString</span><span class="p">))</span>
+        <span class="n">log_table_filter</span><span class="o">.</span><span class="n">setFilterKeyColumn</span><span class="p">(</span><span class="n">LogTableModel</span><span class="o">.</span><span class="n">COLUMN_ENUM</span><span class="o">.</span><span class="n">committer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_log_table_filter_changed</span><span class="p">()</span> <span class="c1"># seems to just work, no need to connect signal</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">_on_message_filter_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="n">log_table_filter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">log_table_filter</span>
+        <span class="n">log_table_filter</span><span class="o">.</span><span class="n">setFilterRegExp</span><span class="p">(</span><span class="n">QRegExp</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">CaseInsensitive</span><span class="p">,</span> <span class="n">QRegExp</span><span class="o">.</span><span class="n">FixedString</span><span class="p">))</span>
+        <span class="n">log_table_filter</span><span class="o">.</span><span class="n">setFilterKeyColumn</span><span class="p">(</span><span class="n">LogTableModel</span><span class="o">.</span><span class="n">COLUMN_ENUM</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_log_table_filter_changed</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">_on_sha_filter_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="n">log_table_filter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">log_table_filter</span>
+        <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
+            <span class="c1"># Fixme: ???</span>
+            <span class="c1"># regexp = &#39;^&#39; + text</span>
+            <span class="n">regexp</span> <span class="o">=</span> <span class="n">text</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">regexp</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">log_table_filter</span><span class="o">.</span><span class="n">setFilterRegExp</span><span class="p">(</span><span class="n">QRegExp</span><span class="p">(</span><span class="n">regexp</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">CaseInsensitive</span><span class="p">,</span> <span class="n">QRegExp</span><span class="o">.</span><span class="n">FixedString</span><span class="p">))</span>
+        <span class="n">log_table_filter</span><span class="o">.</span><span class="n">setFilterKeyColumn</span><span class="p">(</span><span class="n">LogTableModel</span><span class="o">.</span><span class="n">COLUMN_ENUM</span><span class="o">.</span><span class="n">sha</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_log_table_filter_changed</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">_on_log_table_filter_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">log_table_filter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">log_table_filter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_row_count</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> commits&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">log_table_filter</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()))</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">_on_save_review</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_review_note</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_review_comment</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">review</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_review_note</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">review</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">_on_go_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_commit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">parent_commit_sha</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_commit</span><span class="o">.</span><span class="n">parent_ids</span><span class="p">[</span><span class="n">parent_index</span><span class="p">])</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">log_table_model</span><span class="o">.</span><span class="n">find_commit</span><span class="p">(</span><span class="n">parent_commit_sha</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Found parent commit </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">parent_index</span><span class="p">,</span> <span class="n">parent_commit_sha</span><span class="p">))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_log_table</span><span class="o">.</span><span class="n">selectRow</span><span class="p">(</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">())</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">_on_diff_exchange</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">diff_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_diff_a</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="n">diff_b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_diff_b</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_diff_a</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">diff_b</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_diff_b</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">diff_a</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_diff_ab</span><span class="p">()</span>
+
+    <span class="c1">##############################################</span>
+
+    <span class="k">def</span> <span class="nf">_on_diff_ab</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">diff_a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_diff_a</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="n">diff_b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_diff_b</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">diff_a</span> <span class="ow">and</span> <span class="n">diff_b</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">diff_a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">diff_b</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_diff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_application</span><span class="o">.</span><span class="n">repository</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+                <span class="n">commit_table_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_commit_table</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>
+                <span class="n">commit_table_model</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_diff</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_commit_table</span><span class="o">.</span><span class="n">resizeColumnsToContents</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show_message</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></div>
 </pre></div>
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2014, Fabrice Salvaire.
+        &#169; Copyright 2014, Fabrice Salvaire.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -614,37 +830,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../../',
-            VERSION:'0.1.0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../../static/jquery.js"></script>
-      <script type="text/javascript" src="../../../../static/underscore.js"></script>
-      <script type="text/javascript" src="../../../../static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../../static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

@@ -1,18 +1,22 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>5.1.1.4.4.4. LogTableModel &mdash; CodeReview 0.1.0 documentation</title>
   
 
   
+  <link rel="stylesheet" href="../../../../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../static/pygments.css" type="text/css" />
+
   
+  
+
   
   
 
@@ -21,39 +25,28 @@
   
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../static/documentation_options.js"></script>
+        <script src="../../../../static/jquery.js"></script>
+        <script src="../../../../static/underscore.js"></script>
+        <script src="../../../../static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../../../../static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../../search.html"/>
-    <link rel="top" title="CodeReview 0.1.0 documentation" href="../../../../index.html"/>
-        <link rel="up" title="5.1.1.4.4. LogBrowser" href="../LogBrowser.html"/>
-        <link rel="next" title="5.1.1.4.5. Widgets" href="../Widgets.html"/>
-        <link rel="prev" title="5.1.1.4.4.3. LogBrowserMainWindow" href="LogBrowserMainWindow.html"/> 
-
-  
-  <script src="../../../../static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="5.1.1.4.5. Widgets" href="../Widgets.html" />
+    <link rel="prev" title="5.1.1.4.4.3. LogBrowserMainWindow" href="LogBrowserMainWindow.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -84,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -122,13 +116,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../index.html">CodeReview</a>
@@ -136,10 +131,13 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
 
 
 
@@ -159,22 +157,22 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../../../reference-manual.html">5. API Documentation</a> &raquo;</li>
+          <li><a href="../../../../reference-manual.html"><span class="section-number">5. </span>API Documentation</a> &raquo;</li>
         
-          <li><a href="../../../CodeReview.html">5.1.1. CodeReview</a> &raquo;</li>
+          <li><a href="../../../CodeReview.html"><span class="section-number">5.1.1. </span>CodeReview</a> &raquo;</li>
         
-          <li><a href="../../GUI.html">5.1.1.4. GUI</a> &raquo;</li>
+          <li><a href="../../GUI.html"><span class="section-number">5.1.1.4. </span>GUI</a> &raquo;</li>
         
-          <li><a href="../LogBrowser.html">5.1.1.4.4. LogBrowser</a> &raquo;</li>
+          <li><a href="../LogBrowser.html"><span class="section-number">5.1.1.4.4. </span>LogBrowser</a> &raquo;</li>
         
-      <li>5.1.1.4.4.4. LogTableModel</li>
+      <li><span class="section-number">5.1.1.4.4.4. </span>LogTableModel</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../../../_sources/api/CodeReview/GUI/LogBrowser/LogTableModel.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -189,82 +187,69 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-CodeReview.GUI.LogBrowser.LogTableModel">
-<span id="logtablemodel"></span><h1>5.1.1.4.4.4. LogTableModel<a class="headerlink" href="#module-CodeReview.GUI.LogBrowser.LogTableModel" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<span id="logtablemodel"></span><h1><span class="section-number">5.1.1.4.4.4. </span>LogTableModel<a class="headerlink" href="#module-CodeReview.GUI.LogBrowser.LogTableModel" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="CodeReview.GUI.LogBrowser.LogTableModel.LogTableFilterProxyModel">
+<em class="property">class </em><code class="sig-prename descclassname">CodeReview.GUI.LogBrowser.LogTableModel.</code><code class="sig-name descname">LogTableFilterProxyModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/LogBrowser/LogTableModel.html#LogTableFilterProxyModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.LogBrowser.LogTableModel.LogTableFilterProxyModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtCore.QSortFilterProxyModel</span></code></p>
+</dd></dl>
+
+<dl class="py class">
 <dt id="CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel">
-<em class="property">class </em><code class="descclassname">CodeReview.GUI.LogBrowser.LogTableModel.</code><code class="descname">LogTableModel</code><span class="sig-paren">(</span><em>repository</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/LogBrowser/LogTableModel.html#LogTableModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtCore.QAbstractTableModel</span></code></p>
-<dl class="method">
-<dt id="CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel._commit_data">
-<code class="descname">_commit_data</code><span class="sig-paren">(</span><em>i</em>, <em>commit</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/LogBrowser/LogTableModel.html#LogTableModel._commit_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel._commit_data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
+<em class="property">class </em><code class="sig-prename descclassname">CodeReview.GUI.LogBrowser.LogTableModel.</code><code class="sig-name descname">LogTableModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">repository</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/LogBrowser/LogTableModel.html#LogTableModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtCore.QAbstractTableModel</span></code></p>
+<dl class="py method">
 <dt id="CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel.columnCount">
-<code class="descname">columnCount</code><span class="sig-paren">(</span><em>index=&lt;PyQt5.QtCore.QModelIndex object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/LogBrowser/LogTableModel.html#LogTableModel.columnCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel.columnCount" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">columnCount</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">parent</span><span class="p">:</span> <span class="n">QModelIndex</span> <span class="o">=</span> <span class="default_value">QModelIndex()</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a><a class="reference internal" href="../../../../_modules/CodeReview/GUI/LogBrowser/LogTableModel.html#LogTableModel.columnCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel.columnCount" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel.column_enum">
-<code class="descname">column_enum</code><a class="headerlink" href="#CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel.column_enum" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">LogColumnEnum</span></code></p>
-</dd></dl>
-
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel.data">
-<code class="descname">data</code><span class="sig-paren">(</span><em>index</em>, <em>role=0</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/LogBrowser/LogTableModel.html#LogTableModel.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel.data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QModelIndex</span></em>, <em class="sig-param"><span class="n">role</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></span> <span class="o">=</span> <span class="default_value">Qt.ItemDataRole.DisplayRole</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../../../../_modules/CodeReview/GUI/LogBrowser/LogTableModel.html#LogTableModel.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel.data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel.headerData">
-<code class="descname">headerData</code><span class="sig-paren">(</span><em>section</em>, <em>orientation</em>, <em>role=0</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/LogBrowser/LogTableModel.html#LogTableModel.headerData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel.headerData" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">headerData</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">int</em>, <em class="sig-param">Qt.Orientation</em>, <em class="sig-param">role: int = Qt.ItemDataRole.DisplayRole</em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../../../../_modules/CodeReview/GUI/LogBrowser/LogTableModel.html#LogTableModel.headerData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel.headerData" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel.rowCount">
-<code class="descname">rowCount</code><span class="sig-paren">(</span><em>index=&lt;PyQt5.QtCore.QModelIndex object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/LogBrowser/LogTableModel.html#LogTableModel.rowCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel.rowCount" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">rowCount</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">parent</span><span class="p">:</span> <span class="n">QModelIndex</span> <span class="o">=</span> <span class="default_value">QModelIndex()</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a><a class="reference internal" href="../../../../_modules/CodeReview/GUI/LogBrowser/LogTableModel.html#LogTableModel.rowCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.LogBrowser.LogTableModel.LogTableModel.rowCount" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
-
-<dl class="function">
-<dt id="CodeReview.GUI.LogBrowser.LogTableModel.fromtimestamp">
-<code class="descclassname">CodeReview.GUI.LogBrowser.LogTableModel.</code><code class="descname">fromtimestamp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeReview.GUI.LogBrowser.LogTableModel.fromtimestamp" title="Permalink to this definition">¶</a></dt>
-<dd><p>timestamp[, tz] -&gt; tz’s local time from POSIX timestamp.</p>
 </dd></dl>
 
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../Widgets.html" class="btn btn-neutral float-right" title="5.1.1.4.5. Widgets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="LogBrowserMainWindow.html" class="btn btn-neutral" title="5.1.1.4.4.3. LogBrowserMainWindow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="../Widgets.html" class="btn btn-neutral float-right" title="5.1.1.4.5. Widgets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="LogBrowserMainWindow.html" class="btn btn-neutral float-left" title="5.1.1.4.4.3. LogBrowserMainWindow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2014, Fabrice Salvaire.
+        &#169; Copyright 2014, Fabrice Salvaire.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -273,37 +258,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../../',
-            VERSION:'0.1.0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../../static/jquery.js"></script>
-      <script type="text/javascript" src="../../../../static/underscore.js"></script>
-      <script type="text/javascript" src="../../../../static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../../static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

@@ -1,18 +1,22 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>CodeReview.GUI.LogBrowser.LogBrowserApplication &mdash; CodeReview 0.1.0 documentation</title>
   
 
   
+  <link rel="stylesheet" href="../../../../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../static/pygments.css" type="text/css" />
+
   
+  
+
   
   
 
@@ -21,37 +25,26 @@
   
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../static/documentation_options.js"></script>
+        <script src="../../../../static/jquery.js"></script>
+        <script src="../../../../static/underscore.js"></script>
+        <script src="../../../../static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../../../../static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../../search.html"/>
-    <link rel="top" title="CodeReview 0.1.0 documentation" href="../../../../index.html"/>
-        <link rel="up" title="Module code" href="../../../index.html"/> 
-
-  
-  <script src="../../../../static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -82,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -100,13 +94,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../index.html">CodeReview</a>
@@ -114,10 +109,13 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
 
 
 
@@ -137,7 +135,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
         
@@ -145,8 +143,6 @@
     
     
       <li class="wy-breadcrumbs-aside">
-        
-            
         
       </li>
     
@@ -177,20 +173,26 @@
 <span class="c1">#</span>
 <span class="c1">####################################################################################################</span>
 
+<span class="c1"># Fixme: move to a QML application</span>
+<span class="c1">#   QmlRepository &lt; QmlLog &lt; QmlCommit &lt; QmlPatch</span>
+
 <span class="c1">###################################################################################################</span>
 
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span>
 
 <span class="c1">####################################################################################################</span>
 
-<span class="kn">from</span> <span class="nn">CodeReview.Application.ApplicationBase</span> <span class="k">import</span> <span class="n">ApplicationBase</span>
-<span class="kn">from</span> <span class="nn">CodeReview.GUI.Base.GuiApplicationBase</span> <span class="k">import</span> <span class="n">GuiApplicationBase</span>
-<span class="kn">from</span> <span class="nn">CodeReview.Repository.Git</span> <span class="k">import</span> <span class="n">RepositoryNotFound</span><span class="p">,</span> <span class="n">GitRepository</span>
-<span class="kn">from</span> <span class="nn">.CommitTableModel</span> <span class="k">import</span> <span class="n">CommitTableModel</span>
-<span class="kn">from</span> <span class="nn">.LogTableModel</span> <span class="k">import</span> <span class="n">LogTableModel</span>
+<span class="kn">from</span> <span class="nn">.CommitTableModel</span> <span class="kn">import</span> <span class="n">CommitTableModel</span>
+<span class="kn">from</span> <span class="nn">.LogTableModel</span> <span class="kn">import</span> <span class="n">LogTableModel</span><span class="p">,</span> <span class="n">LogTableFilterProxyModel</span>
+<span class="kn">from</span> <span class="nn">CodeReview.Application.ApplicationBase</span> <span class="kn">import</span> <span class="n">ApplicationBase</span>
+<span class="kn">from</span> <span class="nn">CodeReview.GUI.Base.GuiApplicationBase</span> <span class="kn">import</span> <span class="n">GuiApplicationBase</span>
+<span class="kn">from</span> <span class="nn">CodeReview.Repository.Git</span> <span class="kn">import</span> <span class="n">RepositoryNotFound</span><span class="p">,</span> <span class="n">GitRepository</span>
+<span class="kn">from</span> <span class="nn">CodeReview.Review</span> <span class="kn">import</span> <span class="n">Review</span>
 
 <span class="c1">####################################################################################################</span>
 
@@ -203,12 +205,12 @@
 
     <span class="c1">###############################################</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">LogBrowserApplication</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
 
-        <span class="kn">from</span> <span class="nn">.LogBrowserMainWindow</span> <span class="k">import</span> <span class="n">LogBrowserMainWindow</span>
+        <span class="kn">from</span> <span class="nn">.LogBrowserMainWindow</span> <span class="kn">import</span> <span class="n">LogBrowserMainWindow</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span> <span class="o">=</span> <span class="n">LogBrowserMainWindow</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span><span class="o">.</span><span class="n">showMaximized</span><span class="p">()</span>
 
@@ -216,18 +218,21 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserApplication._init_actions"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication._init_actions">[docs]</a>    <span class="k">def</span> <span class="nf">_init_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="nb">super</span><span class="p">(</span><span class="n">LogBrowserApplication</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_init_actions</span><span class="p">()</span></div>
+    <span class="k">def</span> <span class="nf">_init_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LogBrowserApplication</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_init_actions</span><span class="p">()</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserApplication.post_init"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.post_init">[docs]</a>    <span class="k">def</span> <span class="nf">post_init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">post_init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">LogBrowserApplication</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">post_init</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_init_repository</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_init_file_system_watcher</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span><span class="o">.</span><span class="n">show_working_tree_diff</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span><span class="o">.</span><span class="n">show_working_tree_diff</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span><span class="o">.</span><span class="n">_diff_a</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="o">.</span><span class="n">diff_a</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span><span class="o">.</span><span class="n">_diff_b</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="o">.</span><span class="n">diff_b</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span><span class="o">.</span><span class="n">_on_diff_ab</span><span class="p">()</span>
 
     <span class="c1">##############################################</span>
 
@@ -246,7 +251,9 @@
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserApplication._init_repository"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication._init_repository">[docs]</a>    <span class="k">def</span> <span class="nf">_init_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_init_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># Fixme: code place</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Init Repository&#39;</span><span class="p">)</span>
 
@@ -261,34 +268,46 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">return</span>
 
+        <span class="n">review_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">workdir</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;review.json&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_review</span> <span class="o">=</span> <span class="n">Review</span><span class="p">(</span><span class="n">review_path</span><span class="p">)</span>
+
+        <span class="n">branch_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">branch_name</span>
+        <span class="n">branch_name</span> <span class="o">=</span> <span class="n">branch_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;refs/heads/&#39;</span><span class="p">,</span> <span class="s1">&#39; refs/heads/   &#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span><span class="o">.</span><span class="n">_branch_name</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Branch:   </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">branch_name</span><span class="p">))</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_log_table_model</span> <span class="o">=</span> <span class="n">LogTableModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log_table_filter</span> <span class="o">=</span> <span class="n">LogTableFilterProxyModel</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log_table_filter</span><span class="o">.</span><span class="n">setSourceModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_log_table_model</span><span class="p">)</span>
+        <span class="c1"># self._log_table_filter.???.connect(self._main_window._on_log_table_filter_changed)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span><span class="o">.</span><span class="n">_on_log_table_filter_changed</span><span class="p">()</span>
         <span class="n">log_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span><span class="o">.</span><span class="n">_log_table</span>
-        <span class="n">log_table</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_log_table_model</span><span class="p">)</span>
+        <span class="c1"># log_table.setModel(self._log_table_model)</span>
+        <span class="n">log_table</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_log_table_filter</span><span class="p">)</span>
         <span class="c1"># Set the column widths</span>
-        <span class="n">column_enum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_table_model</span><span class="o">.</span><span class="n">column_enum</span>
+        <span class="n">column_enum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_table_model</span><span class="o">.</span><span class="n">COLUMN_ENUM</span>
         <span class="n">width</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="p">(</span>
             <span class="n">column_enum</span><span class="o">.</span><span class="n">revision</span><span class="p">,</span>
             <span class="c1"># column_enum.message,</span>
             <span class="n">column_enum</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
-            <span class="n">column_enum</span><span class="o">.</span><span class="n">comitter</span><span class="p">,</span>
+            <span class="n">column_enum</span><span class="o">.</span><span class="n">committer</span><span class="p">,</span>
         <span class="p">):</span>
             <span class="n">log_table</span><span class="o">.</span><span class="n">resizeColumnToContents</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">column</span><span class="p">))</span>
             <span class="n">width</span> <span class="o">+=</span> <span class="n">log_table</span><span class="o">.</span><span class="n">columnWidth</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">column</span><span class="p">))</span>
         <span class="n">width</span> <span class="o">=</span> <span class="n">log_table</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">-</span> <span class="n">width</span>
-        <span class="n">width</span> <span class="o">*=</span> <span class="o">.</span><span class="mi">9</span> <span class="c1"># Fixme: subtract spaces ...</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="o">.</span><span class="mi">9</span><span class="p">))</span> <span class="c1"># Fixme: subtract spaces ...</span>
         <span class="n">log_table</span><span class="o">.</span><span class="n">setColumnWidth</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">column_enum</span><span class="o">.</span><span class="n">message</span><span class="p">),</span> <span class="n">width</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_commit_table_model</span> <span class="o">=</span> <span class="n">CommitTableModel</span><span class="p">()</span>
         <span class="n">commit_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span><span class="o">.</span><span class="n">_commit_table</span>
         <span class="n">commit_table</span><span class="o">.</span><span class="n">setModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_commit_table_model</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span><span class="o">.</span><span class="n">finish_table_connections</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_window</span><span class="o">.</span><span class="n">finish_table_connections</span><span class="p">()</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserApplication.reload_repository"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.reload_repository">[docs]</a>    <span class="k">def</span> <span class="nf">reload_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_init_repository</span><span class="p">()</span></div>
+    <span class="k">def</span> <span class="nf">reload_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_repository</span><span class="p">()</span>
 
     <span class="c1">##############################################</span>
 
@@ -296,9 +315,21 @@
     <span class="k">def</span> <span class="nf">repository</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">log_table_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_table_model</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">log_table_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_table_filter</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">review</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_review</span>
+
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserApplication._init_file_system_watcher"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication._init_file_system_watcher">[docs]</a>    <span class="k">def</span> <span class="nf">_init_file_system_watcher</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_init_file_system_watcher</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Monitor </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">workdir</span><span class="p">))</span>
 
@@ -310,11 +341,11 @@
 
         <span class="c1"># Attention: a git command generate many successive events</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">directoryChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory_changed</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">fileChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_changed</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">fileChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_changed</span><span class="p">)</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserApplication._setup_file_system_watcher"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication._setup_file_system_watcher">[docs]</a>    <span class="k">def</span> <span class="nf">_setup_file_system_watcher</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_setup_file_system_watcher</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
@@ -329,77 +360,75 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">watch_directories</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">REFS_PATH</span><span class="p">)</span> <span class="c1"># monitor commit (directory)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">INDEX_PATH</span><span class="p">)</span> <span class="c1"># monitor stage (file)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">INDEX_PATH</span><span class="p">)</span> <span class="c1"># monitor stage (file)</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserApplication.watch_directories"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.watch_directories">[docs]</a>    <span class="k">def</span> <span class="nf">watch_directories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">watch_directories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">paths</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">git_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">join_repository_path</span><span class="p">(</span><span class="s1">&#39;.git&#39;</span><span class="p">)</span>
+        <span class="n">git_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">join_repository_path</span><span class="p">(</span><span class="s1">&#39;.git&#39;</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">workdir</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">root</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">git_path</span><span class="p">):</span>
                 <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;watch </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">paths</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">addPaths</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span></div>
+        <span class="c1"># self._logger.info(&#39;watch {}&#39;.format(paths))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">addPaths</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserApplication.watch"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.watch">[docs]</a>    <span class="k">def</span> <span class="nf">watch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-
-        <span class="n">absolut_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">join_repository_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">watch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">absolut_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">join_repository_path</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">absolut_path</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">addPath</span><span class="p">(</span><span class="n">absolut_path</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">addPath</span><span class="p">(</span><span class="n">absolut_path</span><span class="p">)</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserApplication.unwatch"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.unwatch">[docs]</a>    <span class="k">def</span> <span class="nf">unwatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-
-        <span class="n">absolut_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">join_repository_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">unwatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">absolut_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_repository</span><span class="o">.</span><span class="n">join_repository_path</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">absolut_path</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">removePath</span><span class="p">(</span><span class="n">absolut_path</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">removePath</span><span class="p">(</span><span class="n">absolut_path</span><span class="p">)</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserApplication._unwatch_paths"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication._unwatch_paths">[docs]</a>    <span class="k">def</span> <span class="nf">_unwatch_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paths</span><span class="p">):</span>
-
+    <span class="k">def</span> <span class="nf">_unwatch_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paths</span><span class="p">):</span>
         <span class="c1"># Fixme: code ???</span>
         <span class="k">if</span> <span class="n">paths</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">removePaths</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">removePaths</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserApplication.unwatch_directories"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.unwatch_directories">[docs]</a>    <span class="k">def</span> <span class="nf">unwatch_directories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_unwatch_paths</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">directories</span><span class="p">())</span></div>
+    <span class="k">def</span> <span class="nf">unwatch_directories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_unwatch_paths</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">directories</span><span class="p">())</span>
 
     <span class="c1">##############################################</span>
 
-<div class="viewcode-block" id="LogBrowserApplication.unwatch_files"><a class="viewcode-back" href="../../../../api/CodeReview/GUI/LogBrowser/LogBrowserApplication.html#CodeReview.GUI.LogBrowser.LogBrowserApplication.LogBrowserApplication.unwatch_files">[docs]</a>    <span class="k">def</span> <span class="nf">unwatch_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_unwatch_paths</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">files</span><span class="p">())</span></div></div>
+    <span class="k">def</span> <span class="nf">unwatch_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_unwatch_paths</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_system_watcher</span><span class="o">.</span><span class="n">files</span><span class="p">())</span></div>
 </pre></div>
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2014, Fabrice Salvaire.
+        &#169; Copyright 2014, Fabrice Salvaire.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -408,37 +437,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../../',
-            VERSION:'0.1.0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../../static/jquery.js"></script>
-      <script type="text/javascript" src="../../../../static/underscore.js"></script>
-      <script type="text/javascript" src="../../../../static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../../static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

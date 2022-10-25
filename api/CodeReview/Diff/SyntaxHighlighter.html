@@ -1,18 +1,22 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>5.1.1.3.3. SyntaxHighlighter &mdash; CodeReview 0.1.0 documentation</title>
   
 
   
+  <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+
   
+  
+
   
   
 
@@ -21,39 +25,28 @@
   
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="CodeReview 0.1.0 documentation" href="../../../index.html"/>
-        <link rel="up" title="5.1.1.3. Diff" href="../Diff.html"/>
-        <link rel="next" title="5.1.1.3.4. TextDocumentDiffModel" href="TextDocumentDiffModel.html"/>
-        <link rel="prev" title="5.1.1.3.2. RawTextDocumentDiff" href="RawTextDocumentDiff.html"/> 
-
-  
-  <script src="../../../static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="5.1.1.3.4. TextDocumentDiffModel" href="TextDocumentDiffModel.html" />
+    <link rel="prev" title="5.1.1.3.2. RawTextDocumentDiff" href="RawTextDocumentDiff.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -84,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -122,13 +116,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">CodeReview</a>
@@ -136,10 +131,13 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
 
 
 
@@ -159,20 +157,20 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../../reference-manual.html">5. API Documentation</a> &raquo;</li>
+          <li><a href="../../../reference-manual.html"><span class="section-number">5. </span>API Documentation</a> &raquo;</li>
         
-          <li><a href="../../CodeReview.html">5.1.1. CodeReview</a> &raquo;</li>
+          <li><a href="../../CodeReview.html"><span class="section-number">5.1.1. </span>CodeReview</a> &raquo;</li>
         
-          <li><a href="../Diff.html">5.1.1.3. Diff</a> &raquo;</li>
+          <li><a href="../Diff.html"><span class="section-number">5.1.1.3. </span>Diff</a> &raquo;</li>
         
-      <li>5.1.1.3.3. SyntaxHighlighter</li>
+      <li><span class="section-number">5.1.1.3.3. </span>SyntaxHighlighter</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../../_sources/api/CodeReview/Diff/SyntaxHighlighter.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -187,43 +185,37 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-CodeReview.Diff.SyntaxHighlighter">
-<span id="syntaxhighlighter"></span><h1>5.1.1.3.3. SyntaxHighlighter<a class="headerlink" href="#module-CodeReview.Diff.SyntaxHighlighter" title="Permalink to this headline">¶</a></h1>
+<span id="syntaxhighlighter"></span><h1><span class="section-number">5.1.1.3.3. </span>SyntaxHighlighter<a class="headerlink" href="#module-CodeReview.Diff.SyntaxHighlighter" title="Permalink to this headline">¶</a></h1>
 <p>This modules provides a facility to syntax highlight a text document.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="CodeReview.Diff.SyntaxHighlighter.HighlightedText">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.SyntaxHighlighter.</code><code class="descname">HighlightedText</code><span class="sig-paren">(</span><em>raw_text_document</em>, <em>lexer</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/SyntaxHighlighter.html#HighlightedText"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.SyntaxHighlighter.HighlightedText" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">list</span></code></p>
+<em class="property">class </em><code class="sig-prename descclassname">CodeReview.Diff.SyntaxHighlighter.</code><code class="sig-name descname">HighlightedText</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">raw_text_document</span></em>, <em class="sig-param"><span class="n">lexer</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/SyntaxHighlighter.html#HighlightedText"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.SyntaxHighlighter.HighlightedText" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
 <p>This class implements an highlighted text.</p>
-<p>The parameter <em>raw_text_document</em> is a <code class="xref py py-class docutils literal"><span class="pre">DiffViewer.RawTextDocument</span></code> instance and
+<p>The parameter <em>raw_text_document</em> is a <code class="xref py py-class docutils literal notranslate"><span class="pre">DiffViewer.RawTextDocument</span></code> instance and
 the parameter <em>lexer</em> is a Pygments lexer instance.</p>
-<dl class="method">
-<dt id="CodeReview.Diff.SyntaxHighlighter.HighlightedText._lex">
-<code class="descname">_lex</code><span class="sig-paren">(</span><em>lexer</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/SyntaxHighlighter.html#HighlightedText._lex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.SyntaxHighlighter.HighlightedText._lex" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lex the document.</p>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="class">
+<dl class="py class">
 <dt id="CodeReview.Diff.SyntaxHighlighter.HighlightedTextFragment">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.SyntaxHighlighter.</code><code class="descname">HighlightedTextFragment</code><span class="sig-paren">(</span><em>flat_slice</em>, <em>token</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/SyntaxHighlighter.html#HighlightedTextFragment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.SyntaxHighlighter.HighlightedTextFragment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">CodeReview.Diff.SyntaxHighlighter.</code><code class="sig-name descname">HighlightedTextFragment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flat_slice</span></em>, <em class="sig-param"><span class="n">token</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/SyntaxHighlighter.html#HighlightedTextFragment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.SyntaxHighlighter.HighlightedTextFragment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class implements an highlighted text fragment.</p>
 <p>The parameter <em>token</em> specifies the Pygments token type.</p>
 <p>Public Attributes:</p>
 <blockquote>
-<div><p><code class="xref py py-attr docutils literal"><span class="pre">slice</span></code></p>
-<p><code class="xref py py-attr docutils literal"><span class="pre">token</span></code></p>
+<div><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">slice</span></code></p>
+<p><code class="xref py py-attr docutils literal notranslate"><span class="pre">token</span></code></p>
 </div></blockquote>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="CodeReview.Diff.SyntaxHighlighter.highlight_text">
-<code class="descclassname">CodeReview.Diff.SyntaxHighlighter.</code><code class="descname">highlight_text</code><span class="sig-paren">(</span><em>raw_text_document</em>, <em>lexer</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/SyntaxHighlighter.html#highlight_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.SyntaxHighlighter.highlight_text" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">CodeReview.Diff.SyntaxHighlighter.</code><code class="sig-name descname">highlight_text</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">raw_text_document</span></em>, <em class="sig-param"><span class="n">lexer</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/SyntaxHighlighter.html#highlight_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.SyntaxHighlighter.highlight_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Highlight a text.</p>
-<p>The parameter <em>raw_text_document</em> is a <code class="xref py py-class docutils literal"><span class="pre">DiffViewer.RawTextDocument</span></code> instance and the
+<p>The parameter <em>raw_text_document</em> is a <code class="xref py py-class docutils literal notranslate"><span class="pre">DiffViewer.RawTextDocument</span></code> instance and the
 parameter <em>lexer</em> is a Pygments lexer instance.</p>
-<p>Return an <code class="xref py py-class docutils literal"><span class="pre">DiffViewer.TextDocumentModel</span></code> instance.  The document has one text block that
+<p>Return an <code class="xref py py-class docutils literal notranslate"><span class="pre">DiffViewer.TextDocumentModel</span></code> instance.  The document has one text block that
 contains all the fragments.  Text fragments use light views.</p>
 </dd></dl>
 
@@ -231,34 +223,32 @@ contains all the fragments.  Text fragments use light views.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="TextDocumentDiffModel.html" class="btn btn-neutral float-right" title="5.1.1.3.4. TextDocumentDiffModel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="RawTextDocumentDiff.html" class="btn btn-neutral" title="5.1.1.3.2. RawTextDocumentDiff" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="TextDocumentDiffModel.html" class="btn btn-neutral float-right" title="5.1.1.3.4. TextDocumentDiffModel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="RawTextDocumentDiff.html" class="btn btn-neutral float-left" title="5.1.1.3.2. RawTextDocumentDiff" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2014, Fabrice Salvaire.
+        &#169; Copyright 2014, Fabrice Salvaire.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -267,37 +257,15 @@ contains all the fragments.  Text fragments use light views.</p>
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'0.1.0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../static/jquery.js"></script>
-      <script type="text/javascript" src="../../../static/underscore.js"></script>
-      <script type="text/javascript" src="../../../static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

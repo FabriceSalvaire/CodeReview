@@ -1,18 +1,22 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>1. Installation &mdash; CodeReview 0.1.0 documentation</title>
   
 
   
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+
   
+  
+
   
   
 
@@ -21,38 +25,28 @@
   
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+        <script src="static/jquery.js"></script>
+        <script src="static/underscore.js"></script>
+        <script src="static/doctools.js"></script>
+    
+    <script type="text/javascript" src="static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="CodeReview 0.1.0 documentation" href="index.html"/>
-        <link rel="next" title="2. Ideas for Additional Features" href="new-features.html"/>
-        <link rel="prev" title="Introduction" href="index.html"/> 
-
-  
-  <script src="static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. News" href="news.html" />
+    <link rel="prev" title="Introduction" href="index.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -83,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -92,27 +87,29 @@
             
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">1. Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#on-fedora">1.1. On Fedora</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#from-pypi-repository">1.2. From PyPi Repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#from-source">1.3. From source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#on-linux">1.1. On Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#on-windows">1.2. On Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#on-osx">1.3. On OSX</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dependencies">1.4. Dependencies</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="new-features.html">2. Ideas for Additional Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="colophon.html">3. Colophon</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference-manual.html">4. API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">2. News</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.html">3. Ideas for Additional Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colophon.html">4. Colophon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference-manual.html">5. API Documentation</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">CodeReview</a>
@@ -120,10 +117,13 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
 
 
 
@@ -143,14 +143,14 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>1. Installation</li>
+      <li><span class="section-number">1. </span>Installation</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -165,82 +165,103 @@
            <div itemprop="articleBody">
             
   <div class="section" id="installation">
-<span id="installation-page"></span><h1>1. Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="on-fedora">
-<h2>1.1. On Fedora<a class="headerlink" href="#on-fedora" title="Permalink to this headline">¶</a></h2>
-<p>RPM packages are available for the Fedora distribution on <a class="reference external" href="https://copr.fedorainfracloud.org/coprs/fabricesalvaire/code-review">https://copr.fedorainfracloud.org/coprs/fabricesalvaire/code-review</a></p>
-<p>Run these commands to enable the copr repository and install the last release:</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>dnf copr <span class="nb">enable</span> fabricesalvaire/code-review
-dnf install CodeReview
+<span id="installation-page"></span><h1><span class="section-number">1. </span>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>CodeReview is written in Python and uses the GUI framework <a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt">PyQt5</a> and the Git library <a class="reference external" href="http://www.pygit2.org">pygit2</a>.
+Thus, CodeReview is operating system agnostic and should work on Linux, Windows and OSX.</p>
+<p>To install CodeReview from <a class="reference external" href="https://github.com/FabriceSalvaire/CodeReview">source code</a>, you need a working Python environment and a C compiler.</p>
+<div class="section" id="on-linux">
+<h2><span class="section-number">1.1. </span>On Linux<a class="headerlink" href="#on-linux" title="Permalink to this headline">¶</a></h2>
+<p>To summarise, you can easily install CodeReview on Linux with just <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">CodeReview</span></code> but read the followings.</p>
+<p>First you need to verify that Python is installed on your distribution.</p>
+<p>If you install CodeReview from source, you will also need the GCC C compiler.</p>
+<p>You can create a <a class="reference external" href="https://docs.python.org/3/library/venv.html">Python virtual environment</a> to install CodeReview in its own container:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the venv</span>
+python3.10 -m venv <span class="nv">$HOME</span>/codereview
+<span class="c1"># enter in the venv</span>
+<span class="nb">source</span> <span class="nv">$HOME</span>/codereview/bin/activate
 </pre></div>
 </div>
-</div>
-<div class="section" id="from-pypi-repository">
-<h2>1.2. From PyPi Repository<a class="headerlink" href="#from-pypi-repository" title="Permalink to this headline">¶</a></h2>
-<p>CodeReview is available on <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a> repository: <a class="reference external" href="https://pypi.python.org/pypi/CodeReview">https://pypi.python.org/pypi/CodeReview</a></p>
-<p>Run this command to install the last release:</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>pip install CodeReview
+<p>This is not mandatory, but it is a good practice if you don’t know exactly what you are doing.
+Especially, if you don’t want to spoil your distribution.</p>
+<p>Notice, you can later create a shell script to wrap the venv activation and the pyqgit command.</p>
+<p>Then install CodeReview either from <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a> (official Python package repository) or from source:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># wheel/binary from PyPI</span>
+pip install CodeReview
+
+<span class="c1"># from Git repository (require GCC C compiler)</span>
+pip install git+https://github.com/FabriceSalvaire/CodeReview
 </pre></div>
 </div>
-<p>Notice, it requires Python 3 and a C compiler.</p>
-</div>
-<div class="section" id="from-source">
-<h2>1.3. From source<a class="headerlink" href="#from-source" title="Permalink to this headline">¶</a></h2>
-<p>CodeReview source code is hosted at <a class="reference external" href="https://github.com/FabriceSalvaire/CodeReview">https://github.com/FabriceSalvaire/CodeReview</a></p>
-<p>Clone the Git repository using this command:</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>git clone git@github.com:FabriceSalvaire/CodeReview.git
+<p>If the <cite>pip</cite> command is not available, you must install the corresponding package of your distribution.</p>
+<p>Finally, run CodeReview to verify that the installation was successful:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pyqgit --help
+diff-viewer --help
+
+pyqgit git_repository_path
+diff-viewer a.txt b.txt
+
+<span class="nb">cd</span> git_repository_path
+pyqgit
 </pre></div>
 </div>
-<p>Then build and install CodeReview using these commands:</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>python setup.py build
+<p>Example of shell wrapper:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#! /usr/bin/bash</span>
+<span class="nv">PY_ENV</span><span class="o">=</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/codereview
+<span class="nb">source</span> <span class="si">${</span><span class="nv">PY_ENV</span><span class="si">}</span>/bin/activate
+<span class="nv">CodeReviewLogLevel</span><span class="o">=</span><span class="s1">&#39;WARNING&#39;</span> <span class="si">${</span><span class="nv">PY_ENV</span><span class="si">}</span>/bin/pyqgit <span class="nv">$1</span> <span class="p">&amp;</span>
+</pre></div>
+</div>
+<p>You can also clone the repository and install it using theses commands:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:FabriceSalvaire/CodeReview.git
+python setup.py build
 python setup.py install
 </pre></div>
 </div>
 </div>
+<div class="section" id="on-windows">
+<h2><span class="section-number">1.2. </span>On Windows<a class="headerlink" href="#on-windows" title="Permalink to this headline">¶</a></h2>
+<p><strong>Actually there is no installer available, but it is welcome.</strong></p>
+<p>You must follow the same procedure than for Linux.  However it is a bit more difficult to achieve.</p>
+<p>A suggestion is to install the <a class="reference external" href="https://www.anaconda.com/products/distribution">Anaconda Python Distribution</a> and got a working compiler.</p>
+</div>
+<div class="section" id="on-osx">
+<h2><span class="section-number">1.3. </span>On OSX<a class="headerlink" href="#on-osx" title="Permalink to this headline">¶</a></h2>
+<p><strong>An up to date installation procedure is welcome.</strong></p>
+</div>
 <div class="section" id="dependencies">
-<h2>1.4. Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
-<p>CodeReview requires the following dependencies:</p>
-<ul class="simple">
-<li><a class="reference external" href="http://python.org">Python</a> 3 (at least v3.4)</li>
-<li><a class="reference external" href="http://www.pygit2.org/install.html">pygit2</a> and libgit2 see <a class="reference external" href="http://www.pygit2.org/install.html#quick-install">link</a>  for installation instruction</li>
-<li>Pygments</li>
-<li><a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a></li>
-<li>PyYAML</li>
-<li>A C compiler to compile a module</li>
-</ul>
+<h2><span class="section-number">1.4. </span>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>CodeReview requires the dependencies listed in <a class="reference external" href="https://github.com/FabriceSalvaire/CodeReview/blob/master/requirements.txt">requirements.txt</a></p>
 </div>
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="new-features.html" class="btn btn-neutral float-right" title="2. Ideas for Additional Features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="index.html" class="btn btn-neutral" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="news.html" class="btn btn-neutral float-right" title="2. News" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2014, Fabrice Salvaire.
+        &#169; Copyright 2014, Fabrice Salvaire.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -249,37 +270,15 @@ python setup.py install
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.1.0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="static/jquery.js"></script>
-      <script type="text/javascript" src="static/underscore.js"></script>
-      <script type="text/javascript" src="static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

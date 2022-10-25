@@ -1,18 +1,22 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>5.1.1.4.1.1. GuiApplicationBase &mdash; CodeReview 0.1.0 documentation</title>
   
 
   
+  <link rel="stylesheet" href="../../../../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../static/pygments.css" type="text/css" />
+
   
+  
+
   
   
 
@@ -21,39 +25,28 @@
   
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../static/documentation_options.js"></script>
+        <script src="../../../../static/jquery.js"></script>
+        <script src="../../../../static/underscore.js"></script>
+        <script src="../../../../static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../../../../static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../../search.html"/>
-    <link rel="top" title="CodeReview 0.1.0 documentation" href="../../../../index.html"/>
-        <link rel="up" title="5.1.1.4.1. Base" href="../Base.html"/>
-        <link rel="next" title="5.1.1.4.1.2. MainWindowBase" href="MainWindowBase.html"/>
-        <link rel="prev" title="5.1.1.4.1. Base" href="../Base.html"/> 
-
-  
-  <script src="../../../../static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="5.1.1.4.1.2. MainWindowBase" href="MainWindowBase.html" />
+    <link rel="prev" title="5.1.1.4.1. Base" href="../Base.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -84,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -122,13 +116,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../index.html">CodeReview</a>
@@ -136,10 +131,13 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
 
 
 
@@ -159,22 +157,22 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../../../reference-manual.html">5. API Documentation</a> &raquo;</li>
+          <li><a href="../../../../reference-manual.html"><span class="section-number">5. </span>API Documentation</a> &raquo;</li>
         
-          <li><a href="../../../CodeReview.html">5.1.1. CodeReview</a> &raquo;</li>
+          <li><a href="../../../CodeReview.html"><span class="section-number">5.1.1. </span>CodeReview</a> &raquo;</li>
         
-          <li><a href="../../GUI.html">5.1.1.4. GUI</a> &raquo;</li>
+          <li><a href="../../GUI.html"><span class="section-number">5.1.1.4. </span>GUI</a> &raquo;</li>
         
-          <li><a href="../Base.html">5.1.1.4.1. Base</a> &raquo;</li>
+          <li><a href="../Base.html"><span class="section-number">5.1.1.4.1. </span>Base</a> &raquo;</li>
         
-      <li>5.1.1.4.1.1. GuiApplicationBase</li>
+      <li><span class="section-number">5.1.1.4.1.1. </span>GuiApplicationBase</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../../../_sources/api/CodeReview/GUI/Base/GuiApplicationBase.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -189,105 +187,43 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-CodeReview.GUI.Base.GuiApplicationBase">
-<span id="guiapplicationbase"></span><h1>5.1.1.4.1.1. GuiApplicationBase<a class="headerlink" href="#module-CodeReview.GUI.Base.GuiApplicationBase" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<span id="guiapplicationbase"></span><h1><span class="section-number">5.1.1.4.1.1. </span>GuiApplicationBase<a class="headerlink" href="#module-CodeReview.GUI.Base.GuiApplicationBase" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
 <dt id="CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase">
-<em class="property">class </em><code class="descclassname">CodeReview.GUI.Base.GuiApplicationBase.</code><code class="descname">GuiApplicationBase</code><span class="sig-paren">(</span><em>args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Base/GuiApplicationBase.html#GuiApplicationBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../Application/ApplicationBase.html#CodeReview.Application.ApplicationBase.ApplicationBase" title="CodeReview.Application.ApplicationBase.ApplicationBase"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Application.ApplicationBase.ApplicationBase</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QApplication</span></code></p>
-<dl class="method">
-<dt id="CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase._display_splash_screen">
-<code class="descname">_display_splash_screen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Base/GuiApplicationBase.html#GuiApplicationBase._display_splash_screen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase._display_splash_screen" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase._exception_hook">
-<code class="descname">_exception_hook</code><span class="sig-paren">(</span><em>exception_type</em>, <em>exception_value</em>, <em>exception_traceback</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Base/GuiApplicationBase.html#GuiApplicationBase._exception_hook"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase._exception_hook" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase._init_actions">
-<code class="descname">_init_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Base/GuiApplicationBase.html#GuiApplicationBase._init_actions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase._init_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase._logger">
-<code class="descname">_logger</code><em class="property"> = &lt;Logger CodeReview.GUI.Base.GuiApplicationBase (NOTSET)&gt;</em><a class="headerlink" href="#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase._logger" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.about">
-<code class="descname">about</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Base/GuiApplicationBase.html#GuiApplicationBase.about"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.about" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.critical_error">
-<code class="descname">critical_error</code><span class="sig-paren">(</span><em>title='CodeReview Critical Error'</em>, <em>message=''</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Base/GuiApplicationBase.html#GuiApplicationBase.critical_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.critical_error" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.has_gui">
-<code class="descname">has_gui</code><em class="property"> = True</em><a class="headerlink" href="#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.has_gui" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.main_window">
-<code class="descname">main_window</code><a class="headerlink" href="#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.main_window" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.open_help">
-<code class="descname">open_help</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Base/GuiApplicationBase.html#GuiApplicationBase.open_help"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.open_help" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.post_init">
-<code class="descname">post_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Base/GuiApplicationBase.html#GuiApplicationBase.post_init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.post_init" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.show_message">
-<code class="descname">show_message</code><span class="sig-paren">(</span><em>message=None</em>, <em>echo=False</em>, <em>timeout=0</em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Base/GuiApplicationBase.html#GuiApplicationBase.show_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.show_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.show_system_information">
-<code class="descname">show_system_information</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Base/GuiApplicationBase.html#GuiApplicationBase.show_system_information"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase.show_system_information" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<em class="property">class </em><code class="sig-prename descclassname">CodeReview.GUI.Base.GuiApplicationBase.</code><code class="sig-name descname">GuiApplicationBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/CodeReview/GUI/Base/GuiApplicationBase.html#GuiApplicationBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.GUI.Base.GuiApplicationBase.GuiApplicationBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">CodeReview.Application.ApplicationBase.ApplicationBase</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QApplication</span></code></p>
 </dd></dl>
 
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="MainWindowBase.html" class="btn btn-neutral float-right" title="5.1.1.4.1.2. MainWindowBase" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../Base.html" class="btn btn-neutral" title="5.1.1.4.1. Base" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="MainWindowBase.html" class="btn btn-neutral float-right" title="5.1.1.4.1.2. MainWindowBase" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Base.html" class="btn btn-neutral float-left" title="5.1.1.4.1. Base" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2014, Fabrice Salvaire.
+        &#169; Copyright 2014, Fabrice Salvaire.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -296,37 +232,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../../',
-            VERSION:'0.1.0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../../static/jquery.js"></script>
-      <script type="text/javascript" src="../../../../static/underscore.js"></script>
-      <script type="text/javascript" src="../../../../static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../../static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

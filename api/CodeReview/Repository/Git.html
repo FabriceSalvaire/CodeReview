@@ -1,18 +1,22 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>5.1.1.8.1. Git &mdash; CodeReview 0.1.0 documentation</title>
   
 
   
+  <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+
   
+  
+
   
   
 
@@ -21,39 +25,28 @@
   
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="CodeReview 0.1.0 documentation" href="../../../index.html"/>
-        <link rel="up" title="5.1.1.8. Repository" href="../Repository.html"/>
-        <link rel="next" title="5.1.1.9. TextDistance" href="../TextDistance.html"/>
-        <link rel="prev" title="5.1.1.8. Repository" href="../Repository.html"/> 
-
-  
-  <script src="../../../static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="5.1.1.9. TextDistance" href="../TextDistance.html" />
+    <link rel="prev" title="5.1.1.8. Repository" href="../Repository.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -84,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -122,13 +116,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">CodeReview</a>
@@ -136,10 +131,13 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
 
 
 
@@ -159,20 +157,20 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../../reference-manual.html">5. API Documentation</a> &raquo;</li>
+          <li><a href="../../../reference-manual.html"><span class="section-number">5. </span>API Documentation</a> &raquo;</li>
         
-          <li><a href="../../CodeReview.html">5.1.1. CodeReview</a> &raquo;</li>
+          <li><a href="../../CodeReview.html"><span class="section-number">5.1.1. </span>CodeReview</a> &raquo;</li>
         
-          <li><a href="../Repository.html">5.1.1.8. Repository</a> &raquo;</li>
+          <li><a href="../Repository.html"><span class="section-number">5.1.1.8. </span>Repository</a> &raquo;</li>
         
-      <li>5.1.1.8.1. Git</li>
+      <li><span class="section-number">5.1.1.8.1. </span>Git</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../../_sources/api/CodeReview/Repository/Git.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -187,142 +185,50 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-CodeReview.Repository.Git">
-<span id="git"></span><h1>5.1.1.8.1. Git<a class="headerlink" href="#module-CodeReview.Repository.Git" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="CodeReview.Repository.Git.Diff">
-<em class="property">class </em><code class="descclassname">CodeReview.Repository.Git.</code><code class="descname">Diff</code><span class="sig-paren">(</span><em>diff</em>, <em>patches</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Repository/Git.html#Diff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Repository.Git.Diff" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<dl class="method">
-<dt id="CodeReview.Repository.Git.Diff.new_paths">
-<code class="descname">new_paths</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Repository/Git.html#Diff.new_paths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Repository.Git.Diff.new_paths" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
+<span id="git"></span><h1><span class="section-number">5.1.1.8.1. </span>Git<a class="headerlink" href="#module-CodeReview.Repository.Git" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
 <dt id="CodeReview.Repository.Git.GitRepository">
-<em class="property">class </em><code class="descclassname">CodeReview.Repository.Git.</code><code class="descname">GitRepository</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Repository/Git.html#GitRepository"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<dl class="attribute">
-<dt id="CodeReview.Repository.Git.GitRepository.INDEX_PATH">
-<code class="descname">INDEX_PATH</code><em class="property"> = '.git/index'</em><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository.INDEX_PATH" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="CodeReview.Repository.Git.GitRepository.REFS_PATH">
-<code class="descname">REFS_PATH</code><em class="property"> = '.git/refs/heads'</em><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository.REFS_PATH" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="CodeReview.Repository.Git.GitRepository._logger">
-<code class="descname">_logger</code><em class="property"> = &lt;Logger CodeReview.Repository.Git.GitRepository (NOTSET)&gt;</em><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository._logger" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Repository.Git.GitRepository.commits">
-<code class="descname">commits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Repository/Git.html#GitRepository.commits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository.commits" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Repository.Git.GitRepository.diff">
-<code class="descname">diff</code><span class="sig-paren">(</span><em>a=None</em>, <em>b=None</em>, <em>cached=False</em>, <em>path_filter=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Repository/Git.html#GitRepository.diff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository.diff" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Repository.Git.GitRepository.file_content">
-<code class="descname">file_content</code><span class="sig-paren">(</span><em>oid</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Repository/Git.html#GitRepository.file_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository.file_content" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="CodeReview.Repository.Git.GitRepository.head">
-<code class="descname">head</code><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository.head" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="CodeReview.Repository.Git.GitRepository.index">
-<code class="descname">index</code><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository.index" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Repository.Git.GitRepository.is_modified">
-<code class="descname">is_modified</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Repository/Git.html#GitRepository.is_modified"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository.is_modified" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Repository.Git.GitRepository.is_staged">
-<code class="descname">is_staged</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Repository/Git.html#GitRepository.is_staged"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository.is_staged" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Repository.Git.GitRepository.join_repository_path">
-<code class="descname">join_repository_path</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Repository/Git.html#GitRepository.join_repository_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository.join_repository_path" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="CodeReview.Repository.Git.GitRepository.repository_status">
-<code class="descname">repository_status</code><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository.repository_status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Repository.Git.GitRepository.stage">
-<code class="descname">stage</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Repository/Git.html#GitRepository.stage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository.stage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Repository.Git.GitRepository.status">
-<code class="descname">status</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Repository/Git.html#GitRepository.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository.status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Repository.Git.GitRepository.unstage">
-<code class="descname">unstage</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Repository/Git.html#GitRepository.unstage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository.unstage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="CodeReview.Repository.Git.GitRepository.workdir">
-<code class="descname">workdir</code><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository.workdir" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<em class="property">class </em><code class="sig-prename descclassname">CodeReview.Repository.Git.</code><code class="sig-name descname">GitRepository</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Repository/Git.html#GitRepository"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Repository.Git.GitRepository" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class to implement a wrapper on top pygit2.</p>
 </dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
 <dt id="CodeReview.Repository.Git.RepositoryNotFound">
-<em class="property">exception </em><code class="descclassname">CodeReview.Repository.Git.</code><code class="descname">RepositoryNotFound</code><a class="reference internal" href="../../../_modules/CodeReview/Repository/Git.html#RepositoryNotFound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Repository.Git.RepositoryNotFound" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<em class="property">exception </em><code class="sig-prename descclassname">CodeReview.Repository.Git.</code><code class="sig-name descname">RepositoryNotFound</code><a class="reference internal" href="../../../_modules/CodeReview/Repository/Git.html#RepositoryNotFound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Repository.Git.RepositoryNotFound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
 </dd></dl>
 
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../TextDistance.html" class="btn btn-neutral float-right" title="5.1.1.9. TextDistance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../Repository.html" class="btn btn-neutral" title="5.1.1.8. Repository" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="../TextDistance.html" class="btn btn-neutral float-right" title="5.1.1.9. TextDistance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Repository.html" class="btn btn-neutral float-left" title="5.1.1.8. Repository" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2014, Fabrice Salvaire.
+        &#169; Copyright 2014, Fabrice Salvaire.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -331,37 +237,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'0.1.0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../static/jquery.js"></script>
-      <script type="text/javascript" src="../../../static/underscore.js"></script>
-      <script type="text/javascript" src="../../../static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

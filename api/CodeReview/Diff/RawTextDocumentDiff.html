@@ -1,18 +1,22 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>5.1.1.3.2. RawTextDocumentDiff &mdash; CodeReview 0.1.0 documentation</title>
   
 
   
+  <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../static/pygments.css" type="text/css" />
+
   
+  
+
   
   
 
@@ -21,39 +25,28 @@
   
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../static/documentation_options.js"></script>
+        <script src="../../../static/jquery.js"></script>
+        <script src="../../../static/underscore.js"></script>
+        <script src="../../../static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../../../static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="CodeReview 0.1.0 documentation" href="../../../index.html"/>
-        <link rel="up" title="5.1.1.3. Diff" href="../Diff.html"/>
-        <link rel="next" title="5.1.1.3.3. SyntaxHighlighter" href="SyntaxHighlighter.html"/>
-        <link rel="prev" title="5.1.1.3.1. RawTextDocument" href="RawTextDocument.html"/> 
-
-  
-  <script src="../../../static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="5.1.1.3.3. SyntaxHighlighter" href="SyntaxHighlighter.html" />
+    <link rel="prev" title="5.1.1.3.1. RawTextDocument" href="RawTextDocument.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -84,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -122,13 +116,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">CodeReview</a>
@@ -136,10 +131,13 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
+
+
 
 
 
@@ -159,20 +157,20 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../../reference-manual.html">5. API Documentation</a> &raquo;</li>
+          <li><a href="../../../reference-manual.html"><span class="section-number">5. </span>API Documentation</a> &raquo;</li>
         
-          <li><a href="../../CodeReview.html">5.1.1. CodeReview</a> &raquo;</li>
+          <li><a href="../../CodeReview.html"><span class="section-number">5.1.1. </span>CodeReview</a> &raquo;</li>
         
-          <li><a href="../Diff.html">5.1.1.3. Diff</a> &raquo;</li>
+          <li><a href="../Diff.html"><span class="section-number">5.1.1.3. </span>Diff</a> &raquo;</li>
         
-      <li>5.1.1.3.2. RawTextDocumentDiff</li>
+      <li><span class="section-number">5.1.1.3.2. </span>RawTextDocumentDiff</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../../_sources/api/CodeReview/Diff/RawTextDocumentDiff.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -186,270 +184,38 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-CodeReview.Diff.RawTextDocumentDiff">
-<span id="rawtextdocumentdiff"></span><h1>5.1.1.3.2. RawTextDocumentDiff<a class="headerlink" href="#module-CodeReview.Diff.RawTextDocumentDiff" title="Permalink to this headline">¶</a></h1>
-<p>This module provides an API to compute and store the difference between two text documents.</p>
-<p>The difference between two documents is computed in therms of line difference, thus documents are
-split to a set of contiguous lines called <em>chunks</em>.  Chunks are implemented as document views.</p>
-<p>There is three types of differences, some lines was removed, some lines was inserted and some lines
-was replaced by something else.  A difference is located in the document using a number of context
-lines, these lines are the same in both documents.  These context lines are useful to make patch.</p>
-<p>The differences are grouped as ordered set of contiguous line differences (any combination of
-removed, inserted and replaced chunk) and are delimited by two equal chunks to define the context.</p>
-<p>Thus we have five types of chunks: <em>removed</em>, <em>inserted</em>, <em>replaced</em>, <em>equal</em> for the context lines
-and <em>equal_block</em> for the equal contents that are out of the context lines.  This separation for
-equal contents permits to keep at this level the structure computed by the difference algorithm.</p>
-<p>For replaced contents, we can apply a similar logic and compute a difference in therms of flat
-slices instead of line slices.</p>
-<p>To sumarize, a document difference is an ordered list of group differences.  Each group is made of
-any combination of <em>removed</em>, <em>inserted</em> and <em>replaced</em> chunk type and delimited by two <em>equal</em>
-chunks.  And <em>replaced</em> chunks are made of any combination of <em>removed</em>, <em>inserted</em>, <em>replaced</em> and
-<em>equal</em> sub-chunks.  Moreover we can complete the structure with <em>equal_block</em> chunks.</p>
-<dl class="class">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocumentDiff.</code><code class="descname">TwoWayChunk</code><span class="sig-paren">(</span><em>chunk1</em>, <em>chunk2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayChunk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<p>This class implements a two way chunk.</p>
-<p>Public attributes:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt><code class="xref py py-attr docutils literal"><span class="pre">chunk1</span></code></dt>
-<dd>view for document1</dd>
-<dt><code class="xref py py-attr docutils literal"><span class="pre">chunk2</span></code></dt>
-<dd>view for document2</dd>
-</dl>
-</div></blockquote>
-<p>The parameters <em>chunk1</em> and <em>chunk2</em> are the corresponding document views for the chunk.</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkDelete">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocumentDiff.</code><code class="descname">TwoWayChunkDelete</code><span class="sig-paren">(</span><em>chunk1</em>, <em>chunk2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayChunkDelete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkDelete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk" title="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk</span></code></a></p>
-<p>This class implements a two way delete flat chunk.</p>
-<p>The parameters <em>chunk1</em> and <em>chunk2</em> are the corresponding document views for the chunk.</p>
-<dl class="attribute">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkDelete.chunk_type">
-<code class="descname">chunk_type</code><em class="property"> = delete</em><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkDelete.chunk_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkEqual">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocumentDiff.</code><code class="descname">TwoWayChunkEqual</code><span class="sig-paren">(</span><em>chunk1</em>, <em>chunk2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayChunkEqual"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkEqual" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk" title="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk</span></code></a></p>
-<p>This class implements a two way equal flat chunk.</p>
-<p>The parameters <em>chunk1</em> and <em>chunk2</em> are the corresponding document views for the chunk.</p>
-<dl class="attribute">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkEqual.chunk_type">
-<code class="descname">chunk_type</code><em class="property"> = equal</em><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkEqual.chunk_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkInsert">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocumentDiff.</code><code class="descname">TwoWayChunkInsert</code><span class="sig-paren">(</span><em>chunk1</em>, <em>chunk2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayChunkInsert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkInsert" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk" title="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk</span></code></a></p>
-<p>This class implements a two way insert flat chunk.</p>
-<p>The parameters <em>chunk1</em> and <em>chunk2</em> are the corresponding document views for the chunk.</p>
-<dl class="attribute">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkInsert.chunk_type">
-<code class="descname">chunk_type</code><em class="property"> = insert</em><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkInsert.chunk_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkReplace">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocumentDiff.</code><code class="descname">TwoWayChunkReplace</code><span class="sig-paren">(</span><em>chunk1</em>, <em>chunk2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayChunkReplace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkReplace" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk" title="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk</span></code></a></p>
-<p>This class implements a two way replace flat chunk.</p>
-<p>The parameters <em>chunk1</em> and <em>chunk2</em> are the corresponding document views for the chunk.</p>
-<dl class="attribute">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkReplace.chunk_type">
-<code class="descname">chunk_type</code><em class="property"> = replace</em><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunkReplace.chunk_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiff">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocumentDiff.</code><code class="descname">TwoWayFileDiff</code><span class="sig-paren">(</span><em>document1</em>, <em>document2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayFileDiff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiff" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<p>This class stores the difference between two files.</p>
-<p>The parameters <em>document1</em> and <em>document2</em> are two <code class="xref py py-class docutils literal"><span class="pre">DiffViewer.RawTextDocument</span></code>
-documents.</p>
-<p>The class implements the <em>iter</em> and <em>getitem</em> protocol to access the groups.</p>
-<p>Public attributes:</p>
-<blockquote>
-<div><p><code class="xref py py-attr docutils literal"><span class="pre">document1</span></code></p>
-<p><code class="xref py py-attr docutils literal"><span class="pre">document2</span></code></p>
-</div></blockquote>
-<dl class="method">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiff.append">
-<code class="descname">append</code><span class="sig-paren">(</span><em>group</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayFileDiff.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiff.append" title="Permalink to this definition">¶</a></dt>
-<dd><p>Append a group.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiff.pretty_print">
-<code class="descname">pretty_print</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayFileDiff.pretty_print"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiff.pretty_print" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pretty-print the file differences.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiff.print_unidiff">
-<code class="descname">print_unidiff</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayFileDiff.print_unidiff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiff.print_unidiff" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pretty-print the file differences using unidiff format.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiffFactory">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocumentDiff.</code><code class="descname">TwoWayFileDiffFactory</code><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayFileDiffFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiffFactory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<p>This class implements a factory to compute file differences.</p>
-<dl class="method">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiffFactory._process_group">
-<code class="descname">_process_group</code><span class="sig-paren">(</span><em>file_diff</em>, <em>opcodes</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayFileDiffFactory._process_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiffFactory._process_group" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process a group of contiguous line changes and append the group to the file diff.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiffFactory._process_replace_chunk">
-<code class="descname">_process_replace_chunk</code><span class="sig-paren">(</span><em>chunk1</em>, <em>chunk2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayFileDiffFactory._process_replace_chunk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiffFactory._process_replace_chunk" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process a replace chunk type and return the sub-chunks.</p>
-<p>The text is encoded in UTF-32 before to be passed to the Patience algorithm in order to have
-fixed character boundaries.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiffFactory.process">
-<code class="descname">process</code><span class="sig-paren">(</span><em>document1</em>, <em>document2</em>, <em>number_of_lines_of_context=3</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayFileDiffFactory.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiffFactory.process" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the difference between two <code class="xref py py-class docutils literal"><span class="pre">RawTextDocument</span></code> documents using the Patience
-algorithm and return a <a class="reference internal" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiff" title="CodeReview.Diff.RawTextDocumentDiff.TwoWayFileDiff"><code class="xref py py-class docutils literal"><span class="pre">TwoWayFileDiff</span></code></a> instance.  The parameter
-<em>number_of_lines_of_context</em> provides the number of lines of context for the diff algorithm.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayGroup">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocumentDiff.</code><code class="descname">TwoWayGroup</code><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayGroup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<p>This class implements a group of contiguous line changes between two files.</p>
-<p>The class implements the <em>iter</em> and <em>getitem</em> protocol to access the groups.</p>
-<p>Public attributes:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt><code class="xref py py-attr docutils literal"><span class="pre">slice1</span></code></dt>
-<dd>Line slice for document1</dd>
-<dt><code class="xref py py-attr docutils literal"><span class="pre">slice2</span></code></dt>
-<dd>Line slice for document2</dd>
-</dl>
-</div></blockquote>
-<dl class="method">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayGroup.append">
-<code class="descname">append</code><span class="sig-paren">(</span><em>chunk</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayGroup.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayGroup.append" title="Permalink to this definition">¶</a></dt>
-<dd><p>Append a chunk.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkDelete">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocumentDiff.</code><code class="descname">TwoWayLineChunkDelete</code><span class="sig-paren">(</span><em>chunk1</em>, <em>chunk2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayLineChunkDelete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkDelete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk" title="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk</span></code></a></p>
-<p>This class implements a two way delete line chunk.</p>
-<p>The parameters <em>chunk1</em> and <em>chunk2</em> are the corresponding document views for the chunk.</p>
-<dl class="attribute">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkDelete.chunk_type">
-<code class="descname">chunk_type</code><em class="property"> = delete</em><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkDelete.chunk_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkEqual">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocumentDiff.</code><code class="descname">TwoWayLineChunkEqual</code><span class="sig-paren">(</span><em>chunk1</em>, <em>chunk2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayLineChunkEqual"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkEqual" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk" title="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk</span></code></a></p>
-<p>This class implements a two way equal line chunk.</p>
-<p>The parameters <em>chunk1</em> and <em>chunk2</em> are the corresponding document views for the chunk.</p>
-<dl class="attribute">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkEqual.chunk_type">
-<code class="descname">chunk_type</code><em class="property"> = equal</em><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkEqual.chunk_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkInsert">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocumentDiff.</code><code class="descname">TwoWayLineChunkInsert</code><span class="sig-paren">(</span><em>chunk1</em>, <em>chunk2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayLineChunkInsert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkInsert" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk" title="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk</span></code></a></p>
-<p>This class implements a two way insert line chunk.</p>
-<p>The parameters <em>chunk1</em> and <em>chunk2</em> are the corresponding document views for the chunk.</p>
-<dl class="attribute">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkInsert.chunk_type">
-<code class="descname">chunk_type</code><em class="property"> = insert</em><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkInsert.chunk_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkReplace">
-<em class="property">class </em><code class="descclassname">CodeReview.Diff.RawTextDocumentDiff.</code><code class="descname">TwoWayLineChunkReplace</code><span class="sig-paren">(</span><em>chunk1</em>, <em>chunk2</em>, <em>chunks</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/CodeReview/Diff/RawTextDocumentDiff.html#TwoWayLineChunkReplace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkReplace" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk" title="CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk"><code class="xref py py-class docutils literal"><span class="pre">CodeReview.Diff.RawTextDocumentDiff.TwoWayChunk</span></code></a></p>
-<p>This class implements the specific case of replace line chunk type.</p>
-<p>The class implements the <em>iter</em> and <em>getitem</em> protocol to access the sub-chunks.</p>
-<dl class="attribute">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkReplace.chunk_type">
-<code class="descname">chunk_type</code><em class="property"> = replace</em><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.TwoWayLineChunkReplace.chunk_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="attribute">
-<dt id="CodeReview.Diff.RawTextDocumentDiff.chunk_type">
-<code class="descclassname">CodeReview.Diff.RawTextDocumentDiff.</code><code class="descname">chunk_type</code><a class="headerlink" href="#CodeReview.Diff.RawTextDocumentDiff.chunk_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines the type of chunks</p>
-<p>alias of <code class="xref py py-class docutils literal"><span class="pre">TwoWayChunkTypes</span></code></p>
-</dd></dl>
-
+  <div class="section" id="rawtextdocumentdiff">
+<h1><span class="section-number">5.1.1.3.2. </span>RawTextDocumentDiff<a class="headerlink" href="#rawtextdocumentdiff" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="SyntaxHighlighter.html" class="btn btn-neutral float-right" title="5.1.1.3.3. SyntaxHighlighter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="RawTextDocument.html" class="btn btn-neutral" title="5.1.1.3.1. RawTextDocument" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="SyntaxHighlighter.html" class="btn btn-neutral float-right" title="5.1.1.3.3. SyntaxHighlighter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="RawTextDocument.html" class="btn btn-neutral float-left" title="5.1.1.3.1. RawTextDocument" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2014, Fabrice Salvaire.
+        &#169; Copyright 2014, Fabrice Salvaire.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -458,37 +224,15 @@ algorithm and return a <a class="reference internal" href="#CodeReview.Diff.RawT
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'0.1.0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../static/jquery.js"></script>
-      <script type="text/javascript" src="../../../static/underscore.js"></script>
-      <script type="text/javascript" src="../../../static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>
