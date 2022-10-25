@@ -4,8 +4,14 @@
  Introduction
 ==============
 
-The goal of CodeReview is to provide a tool for code review tasks on local Git repositories.  Unlike
-software like `Gerrit <https://www.gerritcodereview.com>`_, CodeReview is not designed to do
-team-level code review, but to check the stage before a commit and show the difference between two
-versions.  In particular, CodeReview fills the gap with IDEs that don't efficiently provide these
-features.
+I code using the venerable `Emacs <https://www.gnu.org/software/emacs>`_ editor and the extension
+`Magit <https://magit.vc>`_ which is a powerfull text-based user interface to Git.  Despite, I am
+happy with Magit for most tasks, I dislike the diff view rendering in Emacs.
+
+Thus the goal of CodeReview is to provide a more convenient tool for code review tasks on local Git
+repositories.  Unlike software like `Gerrit <https://www.gerritcodereview.com>`_, CodeReview is not
+designed to do team-level code review, but to check the stage before a commit and show the
+difference between two versions.  In particular, CodeReview fills the gap with IDEs that don't
+provide a nice side-by-side diff view.
+
+Historically, I wrote this tool as a replacement of **qbzr** for Git.

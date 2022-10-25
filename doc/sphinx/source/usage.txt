@@ -6,6 +6,9 @@ CodeReview provides two applications *pyqgit* and *diff-viewer*.
 Disclaimer
 ----------
 
-I am using this tool for my own needs, Thus it works as is.
+This tool was written 10 years ago (late 2011) and I am using it for my own needs, thus it works as is.
 
 I tried to implement a file watching feature but it is a nightmare to debug.
+
+The Qt code is now a bit out dated, but the actual diff viewer implementation would require some
+works to be ported to QML.

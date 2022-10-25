@@ -15,11 +15,11 @@ To install CodeReview from `source code <https://github.com/FabriceSalvaire/Code
 On Linux
 --------
 
-To summarise, you can easily install CodeReview on Linux with just :code:`pip install CodeReview`
+To summarise, you can easily install CodeReview on Linux with just :code:`pip install CodeReview` but read the followings.
 
 First you need to verify that Python is installed on your distribution.
 
-If you install CodeReview from source, you will also need the GCC compiler.
+If you install CodeReview from source, you will also need the GCC C compiler.
 
 You can create a `Python virtual environment <https://docs.python.org/3/library/venv.html>`_ to install CodeReview in its own container:
 
@@ -30,9 +30,12 @@ You can create a `Python virtual environment <https://docs.python.org/3/library/
     # enter in the venv
     source $HOME/codereview/bin/activate
 
-This is not mandatory, but a good practice if you don't know exactly what you are doing.
+This is not mandatory, but it is a good practice if you don't know exactly what you are doing.
+Especially, if you don't want to spoil your distribution.
 
-Then install CodeReview either from |Pypi|_ or from source:
+Notice, you can later create a shell script to wrap the venv activation and the pyqgit command.
+
+Then install CodeReview either from |Pypi|_ (official Python package repository) or from source:
 
 .. code-block:: sh
 
@@ -56,6 +59,15 @@ Finally, run CodeReview to verify that the installation was successful:
 
     cd git_repository_path
     pyqgit
+
+Example of shell wrapper:
+
+.. code-block:: sh
+
+    #! /usr/bin/bash
+    PY_ENV=${HOME}/codereview
+    source ${PY_ENV}/bin/activate
+    CodeReviewLogLevel='WARNING' ${PY_ENV}/bin/pyqgit $1 &
 
 You can also clone the repository and install it using theses commands:
 

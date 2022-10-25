@@ -125,11 +125,17 @@ V1 2017-12-20
  Introduction
 ==============
 
-The goal of CodeReview is to provide a tool for code review tasks on local Git repositories.  Unlike
-software like `Gerrit <https://www.gerritcodereview.com>`_, CodeReview is not designed to do
-team-level code review, but to check the stage before a commit and show the difference between two
-versions.  In particular, CodeReview fills the gap with IDEs that don't efficiently provide these
-features.
+I code using the venerable `Emacs <https://www.gnu.org/software/emacs>`_ editor and the extension
+`Magit <https://magit.vc>`_ which is a powerfull text-based user interface to Git.  Despite, I am
+happy with Magit for most tasks, I dislike the diff view rendering in Emacs.
+
+Thus the goal of CodeReview is to provide a more convenient tool for code review tasks on local Git
+repositories.  Unlike software like `Gerrit <https://www.gerritcodereview.com>`_, CodeReview is not
+designed to do team-level code review, but to check the stage before a commit and show the
+difference between two versions.  In particular, CodeReview fills the gap with IDEs that don't
+provide a nice side-by-side diff view.
+
+Historically, I wrote this tool as a replacement of **qbzr** for Git.
 
 How to use CodeReview ?
 -----------------------
@@ -139,9 +145,12 @@ CodeReview provides two applications *pyqgit* and *diff-viewer*.
 Disclaimer
 ----------
 
-I am using this tool for my own needs, Thus it works as is.
+This tool was written 10 years ago (late 2011) and I am using it for my own needs, thus it works as is.
 
 I tried to implement a file watching feature but it is a nightmare to debug.
+
+The Qt code is now a bit out dated, but the actual diff viewer implementation would require some
+works to be ported to QML.
 
 .. -*- Mode: rst -*-
 
@@ -180,11 +189,11 @@ To install CodeReview from `source code <https://github.com/FabriceSalvaire/Code
 On Linux
 --------
 
-To summarise, you can easily install CodeReview on Linux with just :code:`pip install CodeReview`
+To summarise, you can easily install CodeReview on Linux with just :code:`pip install CodeReview` but read the followings.
 
 First you need to verify that Python is installed on your distribution.
 
-If you install CodeReview from source, you will also need the GCC compiler.
+If you install CodeReview from source, you will also need the GCC C compiler.
 
 You can create a `Python virtual environment <https://docs.python.org/3/library/venv.html>`_ to install CodeReview in its own container:
 
@@ -195,9 +204,12 @@ You can create a `Python virtual environment <https://docs.python.org/3/library/
     # enter in the venv
     source $HOME/codereview/bin/activate
 
-This is not mandatory, but a good practice if you don't know exactly what you are doing.
+This is not mandatory, but it is a good practice if you don't know exactly what you are doing.
+Especially, if you don't want to spoil your distribution.
 
-Then install CodeReview either from |Pypi|_ or from source:
+Notice, you can later create a shell script to wrap the venv activation and the pyqgit command.
+
+Then install CodeReview either from |Pypi|_ (official Python package repository) or from source:
 
 .. code-block:: sh
 
@@ -221,6 +233,15 @@ Finally, run CodeReview to verify that the installation was successful:
 
     cd git_repository_path
     pyqgit
+
+Example of shell wrapper:
+
+.. code-block:: sh
+
+    #! /usr/bin/bash
+    PY_ENV=${HOME}/codereview
+    source ${PY_ENV}/bin/activate
+    CodeReviewLogLevel='WARNING' ${PY_ENV}/bin/pyqgit $1 &
 
 You can also clone the repository and install it using theses commands:
 

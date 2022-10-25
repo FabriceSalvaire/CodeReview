@@ -414,19 +414,25 @@ http://www.riverbankcomputing.com/software/pyqt/download5 -->
 </div>
 <div class="section" id="introduction">
 <h1>Introduction</h1>
-<p>The goal of CodeReview is to provide a tool for code review tasks on local Git repositories.  Unlike
-software like <a class="reference external" href="https://www.gerritcodereview.com">Gerrit</a>, CodeReview is not designed to do
-team-level code review, but to check the stage before a commit and show the difference between two
-versions.  In particular, CodeReview fills the gap with IDEs that don't efficiently provide these
-features.</p>
+<p>I code using the venerable <a class="reference external" href="https://www.gnu.org/software/emacs">Emacs</a> editor and the extension
+<a class="reference external" href="https://magit.vc">Magit</a> which is a powerfull text-based user interface to Git.  Despite, I am
+happy with Magit for most tasks, I dislike the diff view rendering in Emacs.</p>
+<p>Thus the goal of CodeReview is to provide a more convenient tool for code review tasks on local Git
+repositories.  Unlike software like <a class="reference external" href="https://www.gerritcodereview.com">Gerrit</a>, CodeReview is not
+designed to do team-level code review, but to check the stage before a commit and show the
+difference between two versions.  In particular, CodeReview fills the gap with IDEs that don't
+provide a nice side-by-side diff view.</p>
+<p>Historically, I wrote this tool as a replacement of <strong>qbzr</strong> for Git.</p>
 <div class="section" id="how-to-use-codereview">
 <h2>How to use CodeReview ?</h2>
 <p>CodeReview provides two applications <em>pyqgit</em> and <em>diff-viewer</em>.</p>
 </div>
 <div class="section" id="disclaimer">
 <h2>Disclaimer</h2>
-<p>I am using this tool for my own needs, Thus it works as is.</p>
+<p>This tool was written 10 years ago (late 2011) and I am using it for my own needs, thus it works as is.</p>
 <p>I tried to implement a file watching feature but it is a nightmare to debug.</p>
+<p>The Qt code is now a bit out dated, but the actual diff viewer implementation would require some
+works to be ported to QML.</p>
 <!-- -*- Mode: rst -*- -->
 </div>
 </div>
@@ -460,9 +466,9 @@ Thus, CodeReview is operating system agnostic and should work on Linux, Windows 
 <p>To install CodeReview from <a class="reference external" href="https://github.com/FabriceSalvaire/CodeReview">source code</a>, you need a working Python environment and a C compiler.</p>
 <div class="section" id="on-linux">
 <h2>On Linux</h2>
-<p>To summarise, you can easily install CodeReview on Linux with just <code>pip install CodeReview</code></p>
+<p>To summarise, you can easily install CodeReview on Linux with just <code>pip install CodeReview</code> but read the followings.</p>
 <p>First you need to verify that Python is installed on your distribution.</p>
-<p>If you install CodeReview from source, you will also need the GCC compiler.</p>
+<p>If you install CodeReview from source, you will also need the GCC C compiler.</p>
 <p>You can create a <a class="reference external" href="https://docs.python.org/3/library/venv.html">Python virtual environment</a> to install CodeReview in its own container:</p>
 <pre class="code sh literal-block">
 <span class="comment single"># create the venv
@@ -470,8 +476,10 @@ Thus, CodeReview is operating system agnostic and should work on Linux, Windows 
 <span class="comment single"># enter in the venv
 </span><span class="name builtin">source</span> <span class="name variable">$HOME</span>/codereview/bin/activate
 </pre>
-<p>This is not mandatory, but a good practice if you don't know exactly what you are doing.</p>
-<p>Then install CodeReview either from <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a> or from source:</p>
+<p>This is not mandatory, but it is a good practice if you don't know exactly what you are doing.
+Especially, if you don't want to spoil your distribution.</p>
+<p>Notice, you can later create a shell script to wrap the venv activation and the pyqgit command.</p>
+<p>Then install CodeReview either from <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a> (official Python package repository) or from source:</p>
 <pre class="code sh literal-block">
 <span class="comment single"># wheel/binary from PyPI
 </span>pip install CodeReview
@@ -490,6 +498,13 @@ diff-viewer a.txt b.txt
 
 <span class="name builtin">cd</span> git_repository_path
 pyqgit
+</pre>
+<p>Example of shell wrapper:</p>
+<pre class="code sh literal-block">
+<span class="comment hashbang">#! /usr/bin/bash
+</span><span class="name variable">PY_ENV</span><span class="operator">=</span><span class="literal string interpol">${</span><span class="name variable">HOME</span><span class="literal string interpol">}</span>/codereview
+<span class="name builtin">source</span> <span class="literal string interpol">${</span><span class="name variable">PY_ENV</span><span class="literal string interpol">}</span>/bin/activate
+<span class="name variable">CodeReviewLogLevel</span><span class="operator">=</span><span class="literal string single">'WARNING'</span> <span class="literal string interpol">${</span><span class="name variable">PY_ENV</span><span class="literal string interpol">}</span>/bin/pyqgit <span class="name variable">$1</span> <span class="punctuation">&amp;</span>
 </pre>
 <p>You can also clone the repository and install it using theses commands:</p>
 <pre class="code sh literal-block">
