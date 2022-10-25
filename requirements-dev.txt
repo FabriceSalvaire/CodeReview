@@ -1,3 +1,5 @@
 pip
 wheel
 setuptools
+sphinx
+twine

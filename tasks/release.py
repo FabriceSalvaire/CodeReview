@@ -151,7 +151,10 @@ def upload(ctx):
     #   registered on key servers: hkps://hkps.pool.sks-keyservers.net hkp://pgp.mit.edu
     ctx.run('gpg --detach-sign --armor dist/*tar.gz')
     ctx.run('gpg --detach-sign --armor dist/*whl')
-    ctx.run('twine upload dist/*')
+    # Binary wheel 'CodeReview-1.1.0-cp310-cp310-linux_x86_64.whl' has an unsupported platform tag 'linux_x86_64'.
+    # see https://github.com/pypa/manylinux
+    # see https://github.com/pypa/auditwheel
+    ctx.run('twine upload dist/*tar.gz')
 
 def _get_pipy_json():
     import requests
