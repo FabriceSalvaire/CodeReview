@@ -125,11 +125,11 @@ V1 2017-12-20
  Introduction
 ==============
 
-The aim of CodeReview is to provide tools for code review tasks on local Git repositories.  As
-opposite to software like `Gerrit <https://www.gerritcodereview.com>`_ for example, CodeReview is
-not designed to perform code review at a team level, but to check the stage before a commit and show
-the difference between two versions.  In particular, CodeReview fills the gap with IDEs that don't
-provide efficiently these features.
+The goal of CodeReview is to provide tools for code review tasks on local Git repositories.  Unlike
+software like `Gerrit <https://www.gerritcodereview.com>`_, CodeReview is not designed to do
+team-level code review, but to check the stage before a commit and show the difference between two
+versions.  In particular, CodeReview fills the gap with IDEs that don't efficiently provide these
+features.
 
 How to use CodeReview ?
 -----------------------
@@ -172,6 +172,8 @@ To install CodeReview from `source code <https://github.com/FabriceSalvaire/Code
    
 On Linux
 --------
+
+To summarise, you can easily install CodeReview on Linux with just :code:`pip install CodeReview`
 
 First you need to verify that Python is installed on your distribution.
 

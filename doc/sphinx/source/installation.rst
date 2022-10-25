@@ -15,6 +15,8 @@ To install CodeReview from `source code <https://github.com/FabriceSalvaire/Code
 On Linux
 --------
 
+To summarise, you can easily install CodeReview on Linux with just :code:`pip install CodeReview`
+
 First you need to verify that Python is installed on your distribution.
 
 If you install CodeReview from source, you will also need the GCC compiler.
