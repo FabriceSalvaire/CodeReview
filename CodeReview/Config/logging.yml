@@ -21,17 +21,19 @@ handlers:
 
   console:
     class: logging.StreamHandler
-    level: DEBUG
+    # level: DEBUG
+    # level: INFO
+    # level: WARNING
     formatter: ansi
     stream: ext://sys.stdout
 
 ####################################################################################################
 
 root:
-  level: DEBUG
-  #level: INFO
-  #level: WARNING
-  #handlers: [console]
+  # level: DEBUG
+  # level: INFO
+  level: WARNING
+  # handlers: [console]
 
 ####################################################################################################
 
@@ -43,14 +45,16 @@ loggers:
 #
 
   pyqgit:
-    level: DEBUG
-    #level: INFO
+    # level: DEBUG
+    # level: INFO
+    level: WARNING
     handlers: [console]
     propagate: no
 
   diff-viewer:
-    level: DEBUG
-    #level: INFO
+    # level: DEBUG
+    # level: INFO
+    level: WARNING
     handlers: [console]
     propagate: no
 
@@ -60,13 +64,7 @@ loggers:
 #
 
   CodeReview:
-    level: DEBUG
-    #level: INFO
-    #level: WARNING
+    # level: DEBUG
+    # level: INFO
+    # level: WARNING
     handlers: [console]
-
-####################################################################################################
-#
-# End
-#
-####################################################################################################

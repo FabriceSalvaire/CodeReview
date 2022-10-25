@@ -1,7 +1,6 @@
 ####################################################################################################
 
-from pathlib import Path
-import os
+from pathlib import Path as plPath
 import sys
 
 ####################################################################################################
@@ -10,7 +9,41 @@ import CodeReview.Common.Path as PathTools   # due to Path class
 
 ####################################################################################################
 
-_this_file = Path(__file__).absolute()
+class OsFactory:
+
+    ##############################################
+
+    def __init__(self) -> None:
+        if sys.platform.startswith('linux'):
+            self._name = 'linux'
+        elif sys.platform.startswith('win'):
+            self._name = 'windows'
+        elif sys.platform.startswith('darwin'):
+            self._name = 'osx'
+
+    ##############################################
+
+    @property
+    def name(self) -> str:
+        return self._name
+
+    @property
+    def on_linux(self) -> bool:
+        return self._name == 'linux'
+
+    @property
+    def on_windows(self) -> bool:
+        return self._name == 'windows'
+
+    @property
+    def on_osx(self) -> bool:
+        return self._name == 'osx'
+
+OS = OsFactory()
+
+####################################################################################################
+
+_this_file = plPath(__file__).absolute()
 
 class Path:
 
@@ -20,7 +53,7 @@ class Path:
     ##############################################
 
     @staticmethod
-    def share_directory():
+    def share_directory() -> plPath:
         return Path.CodeReview_module_directory.joinpath('share')
 
 ####################################################################################################
@@ -33,7 +66,7 @@ class Logging:
     ##############################################
 
     @staticmethod
-    def find(config_file):
+    def find(config_file: str) -> plPath:
         return PathTools.find(config_file, Logging.directories)
 
 ####################################################################################################
@@ -45,7 +78,7 @@ class Icon:
     ##############################################
 
     @staticmethod
-    def find(file_name, icon_size):
+    def find(file_name: str, icon_size: int) -> plPath:
         if icon_size == 'svg':
             size_directory = icon_size
         else:
