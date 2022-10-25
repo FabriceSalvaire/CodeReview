@@ -69,10 +69,14 @@
 .. _Sphinx: http://sphinx-doc.org
 
 .. |pygit2| replace:: pygit2
-.. _pygit2: http://www.pygit2.org/install.html
+.. _pygit2: http://www.pygit2.org
 
 .. |PyQt5| replace:: PyQt5
-.. _PyQt5: http://www.riverbankcomputing.com/software/pyqt/download5
+.. _PyQt5: https://www.riverbankcomputing.com/software/pyqt
+
+..
+  http://www.pygit2.org/install.html
+  http://www.riverbankcomputing.com/software/pyqt/download5
 
 ============
  CodeReview
@@ -105,6 +109,11 @@ News
 
 .. no title here
 
+V1.1 2022-25-10
+---------------
+
+- Updated install process
+   
 V1 2017-12-20
 -------------
 
@@ -156,60 +165,86 @@ Diff viewer features:
  Installation
 ==============
 
-On Fedora
----------
+CodeReview is written in Python and uses the GUI framework |PyQt5|_ and the Git library |pygit2|_.
+Thus, CodeReview is operating system agnostic and should work on Linux, Windows and OSX.
 
-RPM packages are available for the Fedora distribution on https://copr.fedorainfracloud.org/coprs/fabricesalvaire/code-review
+To install CodeReview from `source code <https://github.com/FabriceSalvaire/CodeReview>`_, you need a working Python environment and a C compiler.
+   
+On Linux
+--------
 
-Run these commands to enable the copr repository and install the last release:
+First you need to verify that Python is installed on your distribution.
 
-.. code-block:: sh
+If you install CodeReview from source, you will also need the GCC compiler.
 
-  dnf copr enable fabricesalvaire/code-review
-  dnf install CodeReview
-
-From PyPi Repository
---------------------
-
-CodeReview is available on |Pypi|_ repository: |CodeReview@pypi|
-
-Run this command to install the last release:
+You can create a `Python virtual environment <https://docs.python.org/3/library/venv.html>`_ to install CodeReview in its own container:
 
 .. code-block:: sh
 
-  pip install CodeReview
+    # create the venv
+    python3.10 -m venv $HOME/codereview
+    # enter in the venv
+    source $HOME/codereview/bin/activate
 
-Notice, it requires Python 3 and a C compiler.
+This is not mandatory, but a good practice if you don't know exactly what you are doing.
 
-From source
-------------
-
-CodeReview source code is hosted at |CodeReview@github|
-
-Clone the Git repository using this command:
+Then install CodeReview either from |Pypi|_ or from source:
 
 .. code-block:: sh
 
-  git clone git@github.com:FabriceSalvaire/CodeReview.git
+    # wheel/binary from PyPI
+    pip install CodeReview
 
-Then build and install CodeReview using these commands:
+    # from Git repository (require GCC C compiler)
+    pip install git+https://github.com/FabriceSalvaire/CodeReview
+
+If the `pip` command is not available, you must install the corresponding package of your distribution.
+
+Finally, run CodeReview to verify that the installation was successful:
 
 .. code-block:: sh
 
-  python setup.py build
-  python setup.py install
+    cd a-git-repository
+    pyqgit
+
+You can also clone the repository and install it using theses commands:
+
+.. code-block:: sh
+
+     git clone git@github.com:FabriceSalvaire/CodeReview.git
+     python setup.py build
+     python setup.py install
+
+On Windows
+----------
+
+**Actually there is no installer available, but it is welcome.**
+
+You must follow the same procedure than for Linux.  However it is a bit more difficult to achieve.
+
+A suggestion is to install the `Anaconda Python Distribution <https://www.anaconda.com/products/distribution>`_ and got a working compiler.
+
+On OSX
+------
+
+**An up to date installation procedure is welcome.**
+
+..  On Fedora
+..  ---------
+..  
+..  RPM packages are available for the Fedora distribution on https://copr.fedorainfracloud.org/coprs/fabricesalvaire/code-review
+..  
+..  Run these commands to enable the copr repository and install the last release:
+..  
+..  .. code-block:: sh
+..  
+..    dnf copr enable fabricesalvaire/code-review
+..    dnf install CodeReview
 
 Dependencies
 ------------
 
-CodeReview requires the following dependencies:
-
-* |Python|_ 3 (at least v3.4)
-* |pygit2|_ and libgit2 see `link <http://www.pygit2.org/install.html#quick-install>`_  for installation instruction
-* Pygments
-* |PyQt5|_
-* PyYAML
-* A C compiler to compile a module
+CodeReview requires the dependencies listed in `requirements.txt <https://github.com/FabriceSalvaire/CodeReview/blob/master/requirements.txt>`_
 
 =============
  How to help

@@ -3,8 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.13.1: http://docutils.sourceforge.net/" />
-<title></title>
+<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
+<title>README.rst</title>
 <style type="text/css">
 
 /*
@@ -377,6 +377,8 @@ ul.auto-toc {
 <!-- .. _CodeReview@pypi: https://pypi.python.org/pypi/CodeReview -->
 <!-- End -->
 <!-- -*- Mode: rst -*- -->
+<!-- http://www.pygit2.org/install.html
+http://www.riverbankcomputing.com/software/pyqt/download5 -->
 <div class="section" id="codereview">
 <h1>CodeReview</h1>
 <p><a class="reference external" href="https://pypi.python.org/pypi/CodeReview"><object data="https://img.shields.io/pypi/l/CodeReview.svg" type="image/svg+xml">CodeReview license</object></a>
@@ -395,6 +397,12 @@ ul.auto-toc {
 <h2>News</h2>
 <!-- -*- Mode: rst -*- -->
 <!-- no title here -->
+</div>
+<div class="section" id="v1-1-2022-25-10">
+<h2>V1.1 2022-25-10</h2>
+<ul class="simple">
+<li>Updated install process</li>
+</ul>
 </div>
 <div class="section" id="v1-2017-12-20">
 <h2>V1 2017-12-20</h2>
@@ -442,48 +450,66 @@ provide efficiently these features.</p>
 </div>
 <div class="section" id="installation">
 <span id="installation-page"></span><h1>Installation</h1>
-<div class="section" id="on-fedora">
-<h2>On Fedora</h2>
-<p>RPM packages are available for the Fedora distribution on <a class="reference external" href="https://copr.fedorainfracloud.org/coprs/fabricesalvaire/code-review">https://copr.fedorainfracloud.org/coprs/fabricesalvaire/code-review</a></p>
-<p>Run these commands to enable the copr repository and install the last release:</p>
+<p>CodeReview is written in Python and uses the GUI framework <a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt">PyQt5</a> and the Git library <a class="reference external" href="http://www.pygit2.org">pygit2</a>.
+Thus, CodeReview is operating system agnostic and should work on Linux, Windows and OSX.</p>
+<p>To install CodeReview from <a class="reference external" href="https://github.com/FabriceSalvaire/CodeReview">source code</a>, you need a working Python environment and a C compiler.</p>
+<div class="section" id="on-linux">
+<h2>On Linux</h2>
+<p>First you need to verify that Python is installed on your distribution.</p>
+<p>If you install CodeReview from source, you will also need the GCC compiler.</p>
+<p>You can create a <a class="reference external" href="https://docs.python.org/3/library/venv.html">Python virtual environment</a> to install CodeReview in its own container:</p>
 <pre class="code sh literal-block">
-dnf copr <span class="name builtin">enable</span> fabricesalvaire/code-review
-dnf install CodeReview
+<span class="comment single"># create the venv
+</span>python3.10 -m venv <span class="name variable">$HOME</span>/codereview
+<span class="comment single"># enter in the venv
+</span><span class="name builtin">source</span> <span class="name variable">$HOME</span>/codereview/bin/activate
 </pre>
-</div>
-<div class="section" id="from-pypi-repository">
-<h2>From PyPi Repository</h2>
-<p>CodeReview is available on <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a> repository: <a class="reference external" href="https://pypi.python.org/pypi/CodeReview">https://pypi.python.org/pypi/CodeReview</a></p>
-<p>Run this command to install the last release:</p>
+<p>This is not mandatory, but a good practice if you don't know exactly what you are doing.</p>
+<p>Then install CodeReview either from <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a> or from source:</p>
 <pre class="code sh literal-block">
-pip install CodeReview
+<span class="comment single"># wheel/binary from PyPI
+</span>pip install CodeReview
+
+<span class="comment single"># from Git repository (require GCC C compiler)
+</span>pip install git+https://github.com/FabriceSalvaire/CodeReview
 </pre>
-<p>Notice, it requires Python 3 and a C compiler.</p>
-</div>
-<div class="section" id="from-source">
-<h2>From source</h2>
-<p>CodeReview source code is hosted at <a class="reference external" href="https://github.com/FabriceSalvaire/CodeReview">https://github.com/FabriceSalvaire/CodeReview</a></p>
-<p>Clone the Git repository using this command:</p>
+<p>If the <cite>pip</cite> command is not available, you must install the corresponding package of your distribution.</p>
+<p>Finally, run CodeReview to verify that the installation was successful:</p>
+<pre class="code sh literal-block">
+<span class="name builtin">cd</span> a-git-repository
+pyqgit
+</pre>
+<p>You can also clone the repository and install it using theses commands:</p>
 <pre class="code sh literal-block">
 git clone git&#64;github.com:FabriceSalvaire/CodeReview.git
-</pre>
-<p>Then build and install CodeReview using these commands:</p>
-<pre class="code sh literal-block">
 python setup.py build
 python setup.py install
 </pre>
 </div>
+<div class="section" id="on-windows">
+<h2>On Windows</h2>
+<p><strong>Actually there is no installer available, but it is welcome.</strong></p>
+<p>You must follow the same procedure than for Linux.  However it is a bit more difficult to achieve.</p>
+<p>A suggestion is to install the <a class="reference external" href="https://www.anaconda.com/products/distribution">Anaconda Python Distribution</a> and got a working compiler.</p>
+</div>
+<div class="section" id="on-osx">
+<h2>On OSX</h2>
+<p><strong>An up to date installation procedure is welcome.</strong></p>
+<!-- On Fedora -->
+<!-- - - - - - - - - - -->
+<!--  -->
+<!-- RPM packages are available for the Fedora distribution on https://copr.fedorainfracloud.org/coprs/fabricesalvaire/code-review -->
+<!--  -->
+<!-- Run these commands to enable the copr repository and install the last release: -->
+<!--  -->
+<!-- .. code-block:: sh -->
+<!--  -->
+<!-- dnf copr enable fabricesalvaire/code-review -->
+<!-- dnf install CodeReview -->
+</div>
 <div class="section" id="dependencies">
 <h2>Dependencies</h2>
-<p>CodeReview requires the following dependencies:</p>
-<ul class="simple">
-<li><a class="reference external" href="http://python.org">Python</a> 3 (at least v3.4)</li>
-<li><a class="reference external" href="http://www.pygit2.org/install.html">pygit2</a> and libgit2 see <a class="reference external" href="http://www.pygit2.org/install.html#quick-install">link</a>  for installation instruction</li>
-<li>Pygments</li>
-<li><a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a></li>
-<li>PyYAML</li>
-<li>A C compiler to compile a module</li>
-</ul>
+<p>CodeReview requires the dependencies listed in <a class="reference external" href="https://github.com/FabriceSalvaire/CodeReview/blob/master/requirements.txt">requirements.txt</a></p>
 </div>
 </div>
 <div class="section" id="how-to-help">

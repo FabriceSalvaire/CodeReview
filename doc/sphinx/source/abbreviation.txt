@@ -13,7 +13,11 @@
 .. _Sphinx: http://sphinx-doc.org
 
 .. |pygit2| replace:: pygit2
-.. _pygit2: http://www.pygit2.org/install.html
+.. _pygit2: http://www.pygit2.org
 
 .. |PyQt5| replace:: PyQt5
-.. _PyQt5: http://www.riverbankcomputing.com/software/pyqt/download5
+.. _PyQt5: https://www.riverbankcomputing.com/software/pyqt
+
+..
+  http://www.pygit2.org/install.html
+  http://www.riverbankcomputing.com/software/pyqt/download5

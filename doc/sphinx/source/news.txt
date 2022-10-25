@@ -5,6 +5,11 @@
 
 .. no title here
 
+V1.1 2022-25-10
+---------------
+
+- Updated install process
+   
 V1 2017-12-20
 -------------
 
