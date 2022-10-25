@@ -136,8 +136,8 @@ How to use CodeReview ?
 
 CodeReview provides two applications *pyqgit* and *diff-viewer*.
 
-Dislaimer
----------
+Disclaimer
+----------
 
 I am using this tool for my own needs, Thus it works as is.
 
