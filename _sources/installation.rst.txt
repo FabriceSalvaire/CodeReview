@@ -39,10 +39,10 @@ Then install CodeReview either from |Pypi|_ (official Python package repository)
 
 .. code-block:: sh
 
-    # wheel/binary from PyPI
+    # source .tar.gz or wheel/binary from PyPI (can require a GCC C compiler)
     pip install CodeReview
 
-    # from Git repository (require GCC C compiler)
+    # from Git repository (require a GCC C compiler)
     pip install git+https://github.com/FabriceSalvaire/CodeReview
 
 If the `pip` command is not available, you must install the corresponding package of your distribution.
@@ -82,7 +82,7 @@ On Windows
 
 **Actually there is no installer available, but it is welcome.**
 
-You must follow the same procedure than for Linux.  However it is a bit more difficult to achieve.
+You must follow the same procedure that for Linux.  However it is a bit more difficult to achieve.
 
 A suggestion is to install the `Anaconda Python Distribution <https://www.anaconda.com/products/distribution>`_ and got a working compiler.
 
