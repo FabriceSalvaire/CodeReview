@@ -125,7 +125,7 @@ V1 2017-12-20
  Introduction
 ==============
 
-The goal of CodeReview is to provide tools for code review tasks on local Git repositories.  Unlike
+The goal of CodeReview is to provide a tool for code review tasks on local Git repositories.  Unlike
 software like `Gerrit <https://www.gerritcodereview.com>`_, CodeReview is not designed to do
 team-level code review, but to check the stage before a commit and show the difference between two
 versions.  In particular, CodeReview fills the gap with IDEs that don't efficiently provide these
@@ -206,7 +206,13 @@ Finally, run CodeReview to verify that the installation was successful:
 
 .. code-block:: sh
 
-    cd a-git-repository
+    pyqgit --help
+    diff-viewer --help
+
+    pyqgit git_repository_path
+    diff-viewer a.txt b.txt
+
+    cd git_repository_path
     pyqgit
 
 You can also clone the repository and install it using theses commands:

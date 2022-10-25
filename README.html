@@ -414,7 +414,7 @@ http://www.riverbankcomputing.com/software/pyqt/download5 -->
 </div>
 <div class="section" id="introduction">
 <h1>Introduction</h1>
-<p>The goal of CodeReview is to provide tools for code review tasks on local Git repositories.  Unlike
+<p>The goal of CodeReview is to provide a tool for code review tasks on local Git repositories.  Unlike
 software like <a class="reference external" href="https://www.gerritcodereview.com">Gerrit</a>, CodeReview is not designed to do
 team-level code review, but to check the stage before a commit and show the difference between two
 versions.  In particular, CodeReview fills the gap with IDEs that don't efficiently provide these
@@ -477,7 +477,13 @@ Thus, CodeReview is operating system agnostic and should work on Linux, Windows 
 <p>If the <cite>pip</cite> command is not available, you must install the corresponding package of your distribution.</p>
 <p>Finally, run CodeReview to verify that the installation was successful:</p>
 <pre class="code sh literal-block">
-<span class="name builtin">cd</span> a-git-repository
+pyqgit --help
+diff-viewer --help
+
+pyqgit git_repository_path
+diff-viewer a.txt b.txt
+
+<span class="name builtin">cd</span> git_repository_path
 pyqgit
 </pre>
 <p>You can also clone the repository and install it using theses commands:</p>

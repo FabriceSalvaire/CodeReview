@@ -48,7 +48,13 @@ Finally, run CodeReview to verify that the installation was successful:
 
 .. code-block:: sh
 
-    cd a-git-repository
+    pyqgit --help
+    diff-viewer --help
+
+    pyqgit git_repository_path
+    diff-viewer a.txt b.txt
+
+    cd git_repository_path
     pyqgit
 
 You can also clone the repository and install it using theses commands:
