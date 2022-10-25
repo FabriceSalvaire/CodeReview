@@ -20,12 +20,23 @@
 
 ####################################################################################################
 
+from pathlib import Path
+
 from invoke import task
- # import sys
 
 ####################################################################################################
 
 from .clean import clean_flycheck as clean_flycheck
+
+####################################################################################################
+
+CODEREVIEW_SOURCE_PATH = Path(__file__).resolve().parents[1]
+
+SPHINX_PATH = CODEREVIEW_SOURCE_PATH.joinpath('doc', 'sphinx')
+BUILD_PATH = SPHINX_PATH.joinpath('build')
+RST_SOURCE_PATH = SPHINX_PATH.joinpath('source')
+RST_API_PATH = RST_SOURCE_PATH.joinpath('api')
+RST_EXAMPLES_PATH = RST_SOURCE_PATH.joinpath('examples')
 
 ####################################################################################################
 
@@ -42,6 +53,23 @@ def make_api(ctx):
     print('\nRun Sphinx')
     with ctx.cd('doc/sphinx/'):
         ctx.run('./make-html') #--clean
+
+####################################################################################################
+
+@task
+def run_sphinx(ctx):
+    print()
+    print('Run Sphinx')
+    working_path = SPHINX_PATH
+    # subprocess.run(('make-html'), cwd=working_path)
+    # --clean
+    with ctx.cd(str(working_path)):
+        ctx.run('make-html')
+
+@task
+def publish(ctx):
+    with ctx.cd(str(CODEREVIEW_SOURCE_PATH.joinpath('gh-pages'))):
+        ctx.run('update-gh-pages')
 
 ####################################################################################################
 
