@@ -481,10 +481,10 @@ Especially, if you don't want to spoil your distribution.</p>
 <p>Notice, you can later create a shell script to wrap the venv activation and the pyqgit command.</p>
 <p>Then install CodeReview either from <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a> (official Python package repository) or from source:</p>
 <pre class="code sh literal-block">
-<span class="comment single"># wheel/binary from PyPI
+<span class="comment single"># source .tar.gz or wheel/binary from PyPI (can require a GCC C compiler)
 </span>pip install CodeReview
 
-<span class="comment single"># from Git repository (require GCC C compiler)
+<span class="comment single"># from Git repository (require a GCC C compiler)
 </span>pip install git+https://github.com/FabriceSalvaire/CodeReview
 </pre>
 <p>If the <cite>pip</cite> command is not available, you must install the corresponding package of your distribution.</p>
@@ -516,7 +516,7 @@ python setup.py install
 <div class="section" id="on-windows">
 <h2>On Windows</h2>
 <p><strong>Actually there is no installer available, but it is welcome.</strong></p>
-<p>You must follow the same procedure than for Linux.  However it is a bit more difficult to achieve.</p>
+<p>You must follow the same procedure that for Linux.  However it is a bit more difficult to achieve.</p>
 <p>A suggestion is to install the <a class="reference external" href="https://www.anaconda.com/products/distribution">Anaconda Python Distribution</a> and got a working compiler.</p>
 </div>
 <div class="section" id="on-osx">
